@@ -1,0 +1,112 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>Create Lead Profile</ion-title>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+  <div class="contaier">
+  <table>
+    <tr style="height: 41px;font-size:15px;">
+      <th>Action</th>
+      <th>Action</th>
+    </tr>
+    <tr style="height: 41px;">
+      <td style="padding: 10px;">First Name</td>
+      <td style="padding: 10px;">Last Name</td>
+    </tr>
+    <tr style="height: 41px;">
+      <td style="padding: 10px;">Telephone</td>
+      <td style="padding: 10px;">Email</td>
+    </tr>
+    <tr *ngFor="let bill of bills">
+      <td> <ion-input placeholder="Enter Your Fields"  [(ngModel)]="array[bill.id]" type="text" style="height: 23px;"></ion-input> </td>
+      <td><ion-input placeholder="Enter Your Fields"  [(ngModel)]="array[bill.idd]" type="text"></ion-input></td>
+    </tr>  
+ </table>
+
+<br>
+  <!-- <div class="contaier">
+  <ion-list>
+  <div class="row header">
+    <div class="col">Action</div>
+    <div class="col">Unique</div>
+  </div>
+
+  <div class="row" >
+    <div class="col">
+      <ion-input placeholder="First Name"></ion-input>
+    </div>
+    <div class="col" >
+      <input type="checkbox" class="checkmark" >
+    </div>
+  </div>
+
+  <div class="row" >
+    <div class="col">
+      <ion-input placeholder="Last Name"></ion-input>
+    </div>
+    <div class="col" >
+      <input type="checkbox" class="checkmark">
+    </div>
+  </div>
+
+  <div class="row" >
+    <div class="col">
+      <ion-input placeholder="Telephone"></ion-input>
+    </div>
+    <div class="col" >
+      <input type="checkbox" class="checkmark" checked="checked">
+    </div>
+  </div>
+
+  <div class="row" >
+    <div class="col">
+      <ion-input placeholder="Email"></ion-input>
+    </div>
+    <div class="col" >
+      <input type="checkbox" class="checkmark" >
+    </div>
+  </div>
+   
+</ion-list>
+
+<div >
+   <button ion-button full color="success"  (click)="hide()"> Add </button> 
+   <div *ngIf="hideMe"> 
+    <form [formGroup]="form" (ngSubmit)="manage(form.value)">
+      <ion-list >
+       <div formArrayName="technologies">
+        <section [formGroupName]="i" *ngFor="let tech of form.controls.technologies.controls; let i = index">
+         
+            <ion-item>
+              <ion-label floating> Your Field </ion-label>   
+                <ion-input type="text" formControlName="myVal" [(ngModel)]="myVal"></ion-input>
+            </ion-item>  
+      
+            <span float-right ion-button icon-left clear  *ngIf="form.controls.technologies.length > 1" (click)="removeInputField(i)">
+             <ion-icon name="close"></ion-icon>
+                Remove
+            </span>  
+            {{myVal1}}
+        </section>
+        
+      </div>
+    
+      <span  ion-button float-left icon-left clear (click)="addNewInputField()">
+        <ion-icon name="add"></ion-icon>
+          Add new Action
+     </span>
+  </ion-list>
+  </form>
+  </div>
+</div>
+   </div>-->
+   <button ion-button full color="success" (click)="save()"> Save & Next </button> 
+    <br>
+</div>
+</ion-content>

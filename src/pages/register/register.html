@@ -1,0 +1,55 @@
+<ion-content class="content">
+    
+  <div class="contaier-login">
+      <ion-grid>
+          <ion-row justify-content-center>
+              <ion-col align-self-center size-md="6" size-lg="5" size-xs="12">
+                  <h1 >Sign Up</h1>
+              </ion-col>
+          </ion-row>
+          <img src="assets/imgs/avtar.png" width="70px" id="avtar">
+        
+          <ion-row>
+              <ion-col>
+                  <ion-list>
+                    <!-- <ion-item>
+                        <ion-icon  name="person" item-left></ion-icon>
+                       <ion-input type="text" required [(ngModel)]="user.name" placeholder="Name"></ion-input>
+                   </ion-item> -->
+                   <br />
+                      <ion-item>
+                        <ion-icon  name="contact" item-left></ion-icon>
+                          <ion-input type="text" required  [(ngModel)]="user.email" placeholder="Email"></ion-input>
+                      </ion-item>
+                      <br />
+                       <ion-item>
+                            <ion-icon  name="lock" item-left></ion-icon>
+                            <ion-input placeholder="Password" [(ngModel)]="user.password" [type]="showPassword ? 'text' : 'password'" clearOnEdit="false"></ion-input>
+                            <button (click)="onPasswordToggle()" ion-button clear small item-end icon-only>
+                              <ion-icon [name]="showPassword ? 'eye-off' : 'eye'"></ion-icon>
+                            </button>
+                          </ion-item>
+                      <br />
+                  </ion-list>
+              </ion-col>
+          </ion-row>
+ 
+          <ion-row>
+              <ion-col>
+                  <button ion-button full  color="success" (click)="signup(user)">
+                      Register 
+                  </button>
+              </ion-col>
+          </ion-row>
+          <br />
+         
+          <ul>
+            <li>
+                <span style="width: 38%;font-size: initial;margin-left: 17%;">Already have an account  ?</span>
+                <span (click)="login()" style="font-size: initial;font-weight: bold;">Try to Log in</span>
+            </li>
+          </ul>
+      </ion-grid>
+  </div>
+
+</ion-content>
