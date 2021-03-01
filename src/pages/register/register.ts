@@ -24,16 +24,17 @@ export class RegisterPage {
   }
  
 signup(user:User){
-  firebase.auth().createUserWithEmailAndPassword(user.email, user.password) 
+  firebase.auth().createUserWithEmailAndPassword(user.email,user.password) 
+
   .then((user) => {
-    
-      if(user && user.emailVerified === false)
+     let currentuser=firebase.auth().currentUser;
+     console.log(currentuser);
+      if(currentuser && user.emailVerified === false)
       {
-          user.sendEmailVerification().then
+        currentuser.sendEmailVerification().then
           {
-         // window.localStorage.setItem('emailForSignIn', user.email);
-          console.log("Verification link sent to your Email");
-          let alert = this.alertCtrl.create({
+           window.localStorage.setItem('emailForSignIn', currentuser.email);
+           let alert = this.alertCtrl.create({
             title: 'Sucess',
             subTitle: 'Verification link sent to you, Please check your mail',
             //scope: id,
@@ -44,15 +45,15 @@ signup(user:User){
                     }]
                   });
           alert.present();
-          }
-        
-      }     
+          }    
+      } 
+
     }).catch((err) => {
       console.log(err);
      
       let alert = this.alertCtrl.create({
         title: 'Error',
-        subTitle: 'Error in Creating Account',
+        subTitle: 'Error in Creating Account ' + err ,
         //scope: id,
         buttons: [{text: 'OK',
                   handler: data => {
@@ -64,7 +65,6 @@ signup(user:User){
     });
   }
 
-  
     public onPasswordToggle(): void {
       this.showPassword = !this.showPassword;
     }

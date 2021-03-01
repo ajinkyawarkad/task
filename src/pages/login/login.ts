@@ -27,46 +27,95 @@ export class LoginPage {
     console.log('ionViewDidLoad LoginPage');
   }
 
-  async login(user: User){
-    try{
-    const result = this.auth.auth.signInWithEmailAndPassword(user.email,user.password);
-     firebase.auth().onAuthStateChanged((data)=>{
-          console.log(data.emailVerified);
-              if (data.emailVerified == true) {
-                console.log('Email is verified');
-                 this.navCtrl.push(HomePage);
-              }
-              else {
-                console.log('Email is not verified');
-               // this.navCtrl.setRoot(LoginPage);
-               let alert = this.alertCtrl.create({
-                title: 'Error',
-                subTitle: 'Email not verified please check your inbox',
-                buttons: [{text: 'OK',
-                          handler: data => {
-                           this.navCtrl.push(LoginPage);
-                          } 
-                        }]
-                      });
-              alert.present();
-              }
-            });
+  // async login(user: User){
+  //   try{
+  //   const result = this.auth.auth.signInWithEmailAndPassword(user.email,user.password);
+  //   let currentuser=firebase.auth().currentUser;
+  //    console.log(currentuser);
+  //    firebase.auth().onAuthStateChanged((data)=>{
+         
+  //             if (currentuser && data.emailVerified === true) {
+  //              console.log(currentuser);
+  //               console.log('Email is verified');
+  //                this.navCtrl.push(HomePage);
+  //             }
+  //             else {
+  //               console.log('Email is not verified ');
+  //              // this.navCtrl.setRoot(LoginPage);
+  //              let alert = this.alertCtrl.create({
+  //               title: 'Error',
+  //               subTitle: 'Email not verified please check your inbox',
+  //               buttons: [{text: 'OK',
+  //                         handler: data => {
+  //                          this.navCtrl.push(LoginPage);
+  //                         } 
+  //                       }]
+  //                     });
+  //             alert.present();
+  //             }
+  //           });
+  //         }
+  //   catch(e)
+  //   {
+  //    // console.error(e);
+  //     let alert = this.alertCtrl.create({
+  //       title: 'Error',
+  //       subTitle: 'Please check your login credentials' + e + 'Pls try again',
+  //       buttons: [{text: 'OK',
+  //                 handler: data => {
+  //                  this.navCtrl.push(LoginPage);
+  //                 } 
+  //               }]
+  //             });
+  //     alert.present();
+  //   }
+  //   }
+
+    login(user:User){
+      firebase.auth().signInWithEmailAndPassword(user.email,user.password)
+    
+      .then((user) => {
+        let currentuser=firebase.auth().currentUser;
+        //    console.log(currentuser);
+        firebase.auth().onAuthStateChanged((data)=>{
+         
+          if (currentuser && data.emailVerified === true) {
+           console.log(currentuser);
+            console.log('Email is verified');
+             this.navCtrl.push(HomePage);
           }
-    catch(e)
-    {
-      console.error(e);
-      let alert = this.alertCtrl.create({
-        title: 'Error',
-        subTitle: 'Please check your login credentials' + e + 'Pls try again',
-        buttons: [{text: 'OK',
-                  handler: data => {
-                   this.navCtrl.push(LoginPage);
-                  } 
-                }]
-              });
-      alert.present();
-    }
-    }
+          else {
+            console.log('Email is not verified ');
+           // this.navCtrl.setRoot(LoginPage);
+           let alert = this.alertCtrl.create({
+            title: 'Error',
+            subTitle: 'Email not verified please check your inbox',
+            buttons: [{text: 'OK',
+                      handler: data => {
+                       this.navCtrl.push(LoginPage);
+                      } 
+                    }]
+                  });
+          alert.present();
+          }
+       
+        });
+        }).catch((err) => {
+          console.log(err);
+         
+          let alert = this.alertCtrl.create({
+            //title: 'Error',
+            subTitle:  err ,
+            //scope: id,
+            buttons: [{text: 'OK',
+                      handler: data => {
+                       //this.navCtrl.push(LoginPage);
+                      } 
+                    }]
+                  });
+          alert.present();
+        });
+      }
 
     ResetPassword()
     {
