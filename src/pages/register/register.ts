@@ -4,6 +4,7 @@ import { User } from '../../models/user';
 import { LoginPage } from '../login/login';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
+import { AuthserviceProvider } from '../../providers/authservice/authservice';
 
 
 @IonicPage()
@@ -16,16 +17,23 @@ export class RegisterPage {
 
   user = {} as User;
   constructor(private auth:AngularFireAuth,public navCtrl: NavController, public navParams: NavParams,
-    public alertCtrl: AlertController) {
+    public alertCtrl: AlertController, public AuthProvider:AuthserviceProvider) {
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
   }
  
+// signup(user:User){
+//   this.AuthProvider.signup(user.name,user.email,user.password)
+//   .then(() =>
+//   {
+//     this.navCtrl.push(LoginPage);
+//   })
+// }
+  
 signup(user:User){
   firebase.auth().createUserWithEmailAndPassword(user.email,user.password) 
-
   .then((user) => {
      let currentuser=firebase.auth().currentUser;
      console.log(currentuser);
@@ -36,7 +44,7 @@ signup(user:User){
            window.localStorage.setItem('emailForSignIn', currentuser.email);
            let alert = this.alertCtrl.create({
             title: 'Sucess',
-            subTitle: 'Verification link sent to you, Please check your mail',
+            subTitle: 'Verification link sent to you, Please check your Inbox',
             //scope: id,
             buttons: [{text: 'OK',
                       handler: data => {
@@ -47,10 +55,8 @@ signup(user:User){
           alert.present();
           }    
       } 
-
     }).catch((err) => {
-      console.log(err);
-     
+      console.log(err); 
       let alert = this.alertCtrl.create({
         title: 'Error',
         subTitle: 'Error in Creating Account ' + err ,
@@ -63,15 +69,14 @@ signup(user:User){
               });
       alert.present();
     });
-  }
+ }
 
-    public onPasswordToggle(): void {
+public onPasswordToggle(): void {
       this.showPassword = !this.showPassword;
-    }
+ }
+
 login()
 {
   this.navCtrl.push(LoginPage);
 }
-
-
 }

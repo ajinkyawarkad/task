@@ -33,6 +33,8 @@ import { EditTeamDetailsPage } from '../pages/edit-team-details/edit-team-detail
  import { AngularFireModule } from 'angularfire2';
  import { AngularFireAuth } from 'angularfire2/auth';
  import { firebaseConfig } from '../config';
+import { AuthserviceProvider } from '../providers/authservice/authservice';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,7 @@ import { EditTeamDetailsPage } from '../pages/edit-team-details/edit-team-detail
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig.fire)
   ],
@@ -94,7 +97,8 @@ import { EditTeamDetailsPage } from '../pages/edit-team-details/edit-team-detail
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    AngularFireAuth
+    AngularFireAuth,
+    AuthserviceProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })
