@@ -34,7 +34,8 @@ signup(user:User){
       {
         currentuser.sendEmailVerification().then
           {
-            firebase.firestore().collection('Comapny').doc('Admin')
+            
+            firebase.firestore().collection('Comapny').doc('Admin' ,)
             .set(Object.assign({
               name: user.name,
               email: user.email,
