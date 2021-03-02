@@ -10,19 +10,5 @@ export class AuthserviceProvider {
     
     console.log('Hello AuthserviceProvider Provider');
   }
-
-  // signup(name:string,email:string,password:string)
-  // {
-
-  //   return new Promise((resolve, reject) =>{
-  //   firebase.auth().createUserWithEmailAndPassword(email,password).then(newUser => {
-  //     this.userProfileRef.child(newUser.uid).update({
-  //       name:name,
-  //       email: email,
-  //       password: password
-  //     });
-  //   });
-  //   });
-  // }
-
 }
+  

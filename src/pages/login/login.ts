@@ -38,6 +38,7 @@ export class LoginPage {
           if (currentuser && data.emailVerified === true) {
            console.log(currentuser);
             console.log('Email is verified');
+            currentuser.updateProfile(currentuser);
              this.navCtrl.push(HomePage);
           }
           else {

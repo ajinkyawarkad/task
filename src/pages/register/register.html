@@ -12,11 +12,11 @@
           <ion-row>
               <ion-col>
                   <ion-list>
-                    <!-- <ion-item>
+                    <ion-item>
                         <ion-icon  name="person" item-left></ion-icon>
                        <ion-input type="text" required [(ngModel)]="user.name" placeholder="Name"></ion-input>
                    </ion-item>
-                   <br /> -->
+                   <br />
                       <ion-item>
                         <ion-icon  name="contact" item-left></ion-icon>
                           <ion-input type="text" required  [(ngModel)]="user.email" placeholder="Email"></ion-input>
@@ -30,6 +30,11 @@
                             </button>
                           </ion-item>
                       <br />
+                      <ion-item>
+                        <ion-icon  name="person" item-left></ion-icon>
+                       <ion-input type="text" required [(ngModel)]="user.company_name" placeholder="Company Name"></ion-input>
+                   </ion-item>
+
                   </ion-list>
               </ion-col>
           </ion-row>

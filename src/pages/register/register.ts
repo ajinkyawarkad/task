@@ -5,7 +5,7 @@ import { LoginPage } from '../login/login';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
 import { AuthserviceProvider } from '../../providers/authservice/authservice';
-
+import 'firebase/firestore';
 
 @IonicPage()
 @Component({
@@ -16,6 +16,7 @@ export class RegisterPage {
   public showPassword: boolean = false;
 
   user = {} as User;
+  
   constructor(private auth:AngularFireAuth,public navCtrl: NavController, public navParams: NavParams,
     public alertCtrl: AlertController, public AuthProvider:AuthserviceProvider) {
   }
@@ -23,24 +24,25 @@ export class RegisterPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad RegisterPage');
   }
- 
-// signup(user:User){
-//   this.AuthProvider.signup(user.name,user.email,user.password)
-//   .then(() =>
-//   {
-//     this.navCtrl.push(LoginPage);
-//   })
-// }
-  
+   
 signup(user:User){
   firebase.auth().createUserWithEmailAndPassword(user.email,user.password) 
-  .then((user) => {
+  .then((data) => {
      let currentuser=firebase.auth().currentUser;
      console.log(currentuser);
-      if(currentuser && user.emailVerified === false)
+      if(currentuser && data.emailVerified === false)
       {
         currentuser.sendEmailVerification().then
           {
+            firebase.firestore().collection('Comapny').doc('Admin')
+            .set(Object.assign({
+              name: user.name,
+              email: user.email,
+              uid: currentuser.uid,
+              company_name:user.company_name
+            } 
+            ))
+         
            window.localStorage.setItem('emailForSignIn', currentuser.email);
            let alert = this.alertCtrl.create({
             title: 'Sucess',
@@ -55,6 +57,8 @@ signup(user:User){
           alert.present();
           }    
       } 
+      
+      
     }).catch((err) => {
       console.log(err); 
       let alert = this.alertCtrl.create({
