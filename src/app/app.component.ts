@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { HomePage } from '../pages/home/home';
 import { ReportPage } from '../pages/report/report';
-import { UserPage } from '../pages/user/user';
+
 import { CreateCampaignPage } from '../pages/create-campaign/create-campaign';
 import { TrackCampaignPage } from '../pages/track-campaign/track-campaign';
 import { AccountPage } from '../pages/account/account';
