@@ -35,13 +35,21 @@ signup(user:User){
         currentuser.sendEmailVerification().then
           {
             
-            firebase.firestore().collection('Comapny').doc('Admin')
+            firebase.firestore().collection('Company').doc("COM#"+currentuser.uid )
+            .set(Object.assign({
+              
+              company_name:user.company_name
+              } 
+            ))
+
+            firebase.firestore().collection('Company').doc("COM#"+currentuser.uid ).collection('Users').doc(currentuser.uid)
             .set(Object.assign({
               name: user.name,
               email: user.email,
               uid: currentuser.uid,
-              company_name:user.company_name
-            } 
+              company_name:user.company_name,
+              role:'Admin'
+              } 
             ))
          
            window.localStorage.setItem('emailForSignIn', currentuser.email);

@@ -35,6 +35,11 @@ import { EditTeamDetailsPage } from '../pages/edit-team-details/edit-team-detail
  import { firebaseConfig } from '../config';
 import { AuthserviceProvider } from '../providers/authservice/authservice';
 import { HttpClientModule } from '@angular/common/http';
+import { IonicStorageModule } from '@ionic/storage';
+import { StorageProvider } from '../providers/storage/storage';
+
+
+
 
 @NgModule({
   declarations: [
@@ -64,8 +69,11 @@ import { HttpClientModule } from '@angular/common/http';
   imports: [
     BrowserModule,
     HttpClientModule,
+    
     IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(firebaseConfig.fire)
+    IonicStorageModule.forRoot(),
+    AngularFireModule.initializeApp(firebaseConfig.fire),
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -98,7 +106,10 @@ import { HttpClientModule } from '@angular/common/http';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AngularFireAuth,
-    AuthserviceProvider
+    AuthserviceProvider,
+    StorageProvider,
+    
+   
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
 })

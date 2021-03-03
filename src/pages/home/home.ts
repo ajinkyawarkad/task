@@ -6,16 +6,27 @@ import { TrackCampaignPage } from '../track-campaign/track-campaign';
 import { UserDetailsPage } from '../user-details/user-details';
 import { UserPage } from '../user/user';
 import { AngularFireAuth } from 'angularfire2/auth';
+
+
+import { AuthserviceProvider } from '../../providers/authservice/authservice';
+import 'firebase/firestore';
+
+
 import firebase from 'firebase/app';
+import { Storage } from '@ionic/storage';
+
+
+
 @Component({
   selector: 'page-home',
   templateUrl: 'home.html'
 })
 export class HomePage {
 
-  constructor(private auth:AngularFireAuth,private toast: ToastController,public navCtrl: NavController, public menuCtrl:MenuController) {
+  constructor(private auth:AngularFireAuth, private storage: Storage,private toast: ToastController,public navCtrl: NavController, public menuCtrl:MenuController) {
     this.menuCtrl.enable(true, 'menu');
   }
+
 
   ionViewWillLoad() 
     {
@@ -58,5 +69,18 @@ export class HomePage {
     this.navCtrl.push(TrackCampaignPage);
   }
 
+  
+  // loadData(){
+  //   firebase.firestore().collection('Company').doc("COM#"+currentuser.uid)
+  //   .get().then((querySnapshot) => {
+  //     let obj : any = [];
 
+  //     querySnapshot
+  //     .forEach((doc: any) => {
+  //       obj.push({
+  //        id             : doc.id,
+  //        city           : doc.data().city,
+  //        population     : doc.data().population,
+  //        established    : doc.data().established
+  //       });
 }
