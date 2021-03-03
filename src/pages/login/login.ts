@@ -6,6 +6,8 @@ import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
+import { Storage } from '@ionic/storage';
+
 
 
 @IonicPage()
@@ -18,8 +20,13 @@ export class LoginPage {
 
   user = {} as User;
 
-  constructor(public auth: AngularFireAuth,public navCtrl: NavController, public navParams: NavParams , 
-    public menuCtrl : MenuController,private alertCtrl: AlertController) {
+  constructor(public auth: AngularFireAuth,
+    public navCtrl: NavController, 
+    
+    private storage: Storage,
+    public navParams: NavParams , 
+    public menuCtrl : MenuController,
+    private alertCtrl: AlertController) {
     this.menuCtrl.enable(false, 'menu');
   }
 
@@ -28,10 +35,19 @@ export class LoginPage {
   }
 
     login(user:User){
+
+      
       firebase.auth().signInWithEmailAndPassword(user.email,user.password)
     
       .then((user) => {
         let currentuser=firebase.auth().currentUser;
+
+        //this.storage.set('name', currentuser.displayName , );
+        this.storage.set('uid', currentuser.uid , );
+        this.storage.set('cid', 'COM#'+currentuser.uid , );
+
+        
+     
         //    console.log(currentuser);
         firebase.auth().onAuthStateChanged((data)=>{
          
@@ -39,7 +55,7 @@ export class LoginPage {
            console.log(currentuser);
             console.log('Email is verified');
             currentuser.updateProfile(currentuser);
-             this.navCtrl.push(HomePage);
+             this.navCtrl.push(HomePage,currentuser);
           }
           else {
             console.log('Email is not verified ');
