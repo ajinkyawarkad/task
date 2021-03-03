@@ -2,8 +2,9 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { EditTeamDetailsPage } from '../edit-team-details/edit-team-details';
 import { UserLicensesPage } from '../user-licenses/user-licenses';
-import { UserPage } from '../user/user';
+
 import { UserlistPage } from '../userlist/userlist';
+import { AngularFireAuth } from 'angularfire2/auth';
 
 @IonicPage()
 @Component({
@@ -12,18 +13,20 @@ import { UserlistPage } from '../userlist/userlist';
 })
 export class UserDetailsPage {
   Segments:string;
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private auth:AngularFireAuth) {
     this.Segments="2";
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad UserDetailsPage');
-  }
-  newuser()
-  {
-    this.navCtrl.push(UserPage);
+  ionViewWillLoad() 
+    { 
+      this.auth.authState.subscribe(data => {
+        if(data.email && data.uid){
+          console.log("userpage",data.email);         
+      }
+      });
 
-  }
+    }
+  
   displayuser(){
     this.navCtrl.push(UserlistPage);
   }

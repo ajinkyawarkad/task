@@ -9,7 +9,6 @@ import { HomePage } from '../pages/home/home';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ReportPage } from '../pages/report/report';
-import { UserPage } from '../pages/user/user';
 import { CreateCampaignPage } from '../pages/create-campaign/create-campaign';
 import { TrackCampaignPage } from '../pages/track-campaign/track-campaign';
 import { AccountPage } from '../pages/account/account';
@@ -36,9 +35,6 @@ import { EditTeamDetailsPage } from '../pages/edit-team-details/edit-team-detail
 import { AuthserviceProvider } from '../providers/authservice/authservice';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
-import { StorageProvider } from '../providers/storage/storage';
-
-
 
 
 @NgModule({
@@ -48,7 +44,6 @@ import { StorageProvider } from '../providers/storage/storage';
     RegisterPage,
     HomePage,
     ReportPage,
-    UserPage,
     CreateCampaignPage,
     TrackCampaignPage,
     AccountPage,
@@ -82,7 +77,6 @@ import { StorageProvider } from '../providers/storage/storage';
     RegisterPage,
     HomePage,
     ReportPage,
-    UserPage,
     CreateCampaignPage,
     TrackCampaignPage,
     AccountPage,
@@ -107,8 +101,6 @@ import { StorageProvider } from '../providers/storage/storage';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AngularFireAuth,
     AuthserviceProvider,
-    StorageProvider,
-    
    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
