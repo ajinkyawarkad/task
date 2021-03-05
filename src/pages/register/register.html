@@ -7,14 +7,13 @@
                   <h1 >Sign Up</h1>
               </ion-col>
           </ion-row>
-          <img src="assets/imgs/avtar.png" width="70px" id="avtar">
-        
+         
           <ion-row>
               <ion-col>
                   <ion-list>
                     <ion-item>
                         <ion-icon  name="person" item-left></ion-icon>
-                       <ion-input type="text" required [(ngModel)]="user.name" placeholder="Name"></ion-input>
+                       <ion-input type="text" required [(ngModel)]="user.name" placeholder="Full Name"></ion-input>
                    </ion-item>
                    <br />
                       <ion-item>
@@ -30,10 +29,10 @@
                             </button>
                           </ion-item>
                       <br />
-                      <ion-item>
+                      <!-- <ion-item>
                         <ion-icon  name="person" item-left></ion-icon>
                        <ion-input type="text" required [(ngModel)]="user.company_name" placeholder="Company Name"></ion-input>
-                   </ion-item>
+                   </ion-item> -->
 
                   </ion-list>
               </ion-col>
@@ -46,14 +45,20 @@
                   </button>
               </ion-col>
           </ion-row>
-          <br />
          
-          <ul>
-            <li>
-                <span style="width: 38%;font-size: initial;margin-left: 17%;">Already have an account  ?</span>
-                <span (click)="login()" style="font-size: initial;font-weight: bold;">Try to Log in</span>
-            </li>
-          </ul>
+         
+          <ion-row>
+            <ion-col style="text-align: center;font-size: medium;">
+                Already have an account  ?
+             </ion-col>
+          </ion-row>
+
+          <ion-row (click)="login()">
+            <ion-col style="text-align: center;font-weight: bold;font-size: large;">
+                Try to Log in
+             </ion-col>
+          </ion-row>
+        
       </ion-grid>
   </div>
 

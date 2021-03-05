@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { ProfilePage } from '../profile/profile';
 import { SettingsPage } from '../settings/settings';
 import { UserLicensesPage } from '../user-licenses/user-licenses';
 
@@ -15,6 +16,9 @@ export class AccountPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad AccountPage');
+  }
+  profile(){
+    this.navCtrl.push(ProfilePage);
   }
   settings()
   {

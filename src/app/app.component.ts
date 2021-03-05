@@ -15,6 +15,8 @@ import { TaskDetailsPage } from '../pages/task-details/task-details';
 
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase/app';
+import { Storage } from '@ionic/storage';
+import { ProfilePage } from '../pages/profile/profile';
 
 @Component({
   templateUrl: 'app.html'
@@ -23,10 +25,12 @@ export class MyApp {
  @ViewChild(Nav) nav: Nav;
 
   rootPage: any = LoginPage ;
+  public name: any;
 
   pages: Array<{title: string, component: any, icon: string}>;
  
-  constructor(private auth:AngularFireAuth,public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+  constructor(private auth:AngularFireAuth,private storage: Storage,
+    public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -37,11 +41,13 @@ export class MyApp {
       { title: 'Create Campaigns', component: CreateCampaignPage, icon:'person-add' },
       { title: 'Track Campaigns', component: TrackCampaignPage , icon:'copy'},
       { title: 'Account', component: AccountPage, icon:'settings' },
-      { title: 'Sign Out', component: LoginPage, icon:'log-out' },
-      
+     // { title: 'Sign Out', component: LoginPage, icon:'log-out'},   
     ];
 
-   
+    this.storage.get('name').then((name) => {
+      console.log('name', name);
+      this.name=name;
+   });
 
     }
 
@@ -57,8 +63,12 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);
+    this.nav.setRoot(page.component);  
+
+      
+    
   }
+
 
   
 }

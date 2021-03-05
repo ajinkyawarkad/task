@@ -4,7 +4,7 @@ import { CreateCampaignPage } from '../create-campaign/create-campaign';
 import { ReportPage } from '../report/report';
 import { TrackCampaignPage } from '../track-campaign/track-campaign';
 import { UserDetailsPage } from '../user-details/user-details';
-import { UserPage } from '../user/user';
+
 import { AngularFireAuth } from 'angularfire2/auth';
 
 
@@ -23,10 +23,25 @@ import { Storage } from '@ionic/storage';
 })
 export class HomePage {
 
+  isLoggedIn: Boolean;
+  public name:any;
+  public email:any;
+
   constructor(private auth:AngularFireAuth, private storage: Storage,private toast: ToastController,public navCtrl: NavController, public menuCtrl:MenuController) {
     this.menuCtrl.enable(true, 'menu');
-  }
 
+//     this.storage.get('name').then((data) => {
+//       console.log('name', data);
+//       this.name=data.name;
+//       //this.isLoggedIn = true;
+//    });
+//    this.storage.get('email').then((data) => {
+//     console.log('email', data);
+//     this.email=data.email;
+//     //this.isLoggedIn = true;
+//  });
+  }
+  
 
   ionViewWillLoad() 
     {
@@ -69,18 +84,5 @@ export class HomePage {
     this.navCtrl.push(TrackCampaignPage);
   }
 
-  
-  // loadData(){
-  //   firebase.firestore().collection('Company').doc("COM#"+currentuser.uid)
-  //   .get().then((querySnapshot) => {
-  //     let obj : any = [];
 
-  //     querySnapshot
-  //     .forEach((doc: any) => {
-  //       obj.push({
-  //        id             : doc.id,
-  //        city           : doc.data().city,
-  //        population     : doc.data().population,
-  //        established    : doc.data().established
-  //       });
 }

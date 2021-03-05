@@ -6,8 +6,8 @@ import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
-import { Storage } from '@ionic/storage';
 
+import { Storage } from '@ionic/storage';
 
 
 @IonicPage()
@@ -21,8 +21,7 @@ export class LoginPage {
   user = {} as User;
 
   constructor(public auth: AngularFireAuth,
-    public navCtrl: NavController, 
-    
+    public navCtrl: NavController,   
     private storage: Storage,
     public navParams: NavParams , 
     public menuCtrl : MenuController,
@@ -31,31 +30,25 @@ export class LoginPage {
   }
 
   ionViewDidLoad() {
+    
     console.log('ionViewDidLoad LoginPage');
   }
 
     login(user:User){
-
-      
+     
       firebase.auth().signInWithEmailAndPassword(user.email,user.password)
     
       .then((user) => {
         let currentuser=firebase.auth().currentUser;
-
-        //this.storage.set('name', currentuser.displayName , );
-        this.storage.set('uid', currentuser.uid , );
-        this.storage.set('cid', 'COM#'+currentuser.uid , );
-
-        
+        console.log(currentuser.displayName);
+        console.log(currentuser.photoURL);
+      //  this.storage.set('email', currentuser.email) ;
      
-        //    console.log(currentuser);
         firebase.auth().onAuthStateChanged((data)=>{
          
-          if (currentuser && data.emailVerified === true) {
-           console.log(currentuser);
+          if (currentuser.photoURL && currentuser && data.emailVerified === true) {
             console.log('Email is verified');
-            currentuser.updateProfile(currentuser);
-             this.navCtrl.push(HomePage,currentuser);
+             this.navCtrl.setRoot(HomePage,currentuser);
           }
           else {
             console.log('Email is not verified ');
@@ -65,7 +58,7 @@ export class LoginPage {
             subTitle: 'Email not verified please check your inbox',
             buttons: [{text: 'OK',
                       handler: data => {
-                       this.navCtrl.push(LoginPage);
+                       this.navCtrl.setRoot(LoginPage);
                       } 
                     }]
                   });
@@ -114,7 +107,7 @@ export class LoginPage {
                     subTitle: 'Check Your Email For Reset Link to Change Password',
                     buttons: [{text: 'OK',
                               handler: data => {
-                               this.navCtrl.push(LoginPage);
+                               this.navCtrl.setRoot(LoginPage);
                               } 
                             }]
                           });
@@ -127,7 +120,7 @@ export class LoginPage {
                     subTitle: 'Failed to send reset Link ,please check your Email',
                     buttons: [{text: 'OK',
                               handler: data => {
-                               this.navCtrl.push(LoginPage);
+                               this.navCtrl.setRoot(LoginPage);
                               } 
                             }]
                           });

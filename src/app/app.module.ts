@@ -29,12 +29,14 @@ import { CreateNewCampleadPage } from '../pages/create-new-camplead/create-new-c
 import { EditLeadDetailsPage } from '../pages/edit-lead-details/edit-lead-details';
 import { EditTeamDetailsPage } from '../pages/edit-team-details/edit-team-details';
 
- import { AngularFireModule } from 'angularfire2';
+import { AngularFireModule } from 'angularfire2';
  import { AngularFireAuth } from 'angularfire2/auth';
  import { firebaseConfig } from '../config';
 import { AuthserviceProvider } from '../providers/authservice/authservice';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { ProfilePage } from '../pages/profile/profile';
+
 
 
 @NgModule({
@@ -59,12 +61,12 @@ import { IonicStorageModule } from '@ionic/storage';
     UserlistPage,
     CreateNewCampleadPage,
     EditLeadDetailsPage,
-    EditTeamDetailsPage
+    EditTeamDetailsPage,
+    ProfilePage
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
-    
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig.fire),
@@ -92,7 +94,8 @@ import { IonicStorageModule } from '@ionic/storage';
     UserlistPage,
     CreateNewCampleadPage,
     EditLeadDetailsPage,
-    EditTeamDetailsPage
+    EditTeamDetailsPage,
+    ProfilePage
     
   ],
   providers: [
@@ -101,6 +104,7 @@ import { IonicStorageModule } from '@ionic/storage';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AngularFireAuth,
     AuthserviceProvider,
+   AngularFireModule 
    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

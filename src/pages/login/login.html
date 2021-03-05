@@ -17,7 +17,6 @@
                               <ion-icon  name="contact" item-left></ion-icon>
                           </ion-item>
 
-                         
                           <br />
 
                           <ion-item >
@@ -40,20 +39,23 @@
                       </button>
                   </ion-col>
               </ion-row>
-            </ion-grid>
 
-              <ul>
-                <li>
-                    <span style="width: 38%;font-size: initial;margin-left: 17%;">Don't have an account yet ?</span>
-                    <span (click)="register()" style="font-size: initial;font-weight: bold;">Sign up here</span>
-                </li>
-                <br>
-                <li>
-                    <span (click)="ResetPassword()" style="width: 38%;font-size: initial;margin-left: 30%;">Forget Password?</span>
-                    
-                </li>
-            </ul>
-         
+              <ion-row>
+                <ion-col style="text-align: center;font-size: medium;"> 
+                    Don't have an account yet ?  
+                 </ion-col>
+              </ion-row>
+            <ion-row (click)="register()">
+                <ion-col style="text-align: center;font-weight: bold;font-size: large;"> 
+                            Sign up here
+                </ion-col>
+            </ion-row>
+            <ion-row (click)="ResetPassword()">
+                <ion-col style="text-align: center;font-size:medium;"> 
+                    Forget Password?
+                </ion-col>
+            </ion-row>
+            </ion-grid>
          
       </div>
     

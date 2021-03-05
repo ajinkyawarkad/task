@@ -6,6 +6,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
 import { AuthserviceProvider } from '../../providers/authservice/authservice';
 import 'firebase/firestore';
+import { Storage } from '@ionic/storage';
 
 @IonicPage()
 @Component({
@@ -18,7 +19,7 @@ export class RegisterPage {
   user = {} as User;
   
   constructor(private auth:AngularFireAuth,public navCtrl: NavController, public navParams: NavParams,
-    public alertCtrl: AlertController, public AuthProvider:AuthserviceProvider) {
+    public alertCtrl: AlertController, public AuthProvider:AuthserviceProvider,private storage: Storage) {
   }
 
   ionViewDidLoad() {
@@ -34,24 +35,28 @@ signup(user:User){
       {
         currentuser.sendEmailVerification().then
           {
-            
-            firebase.firestore().collection('Company').doc("COM#"+currentuser.uid )
-            .set(Object.assign({
-              
-              company_name:user.company_name
-              } 
-            ))
+            currentuser.updateProfile({
+              displayName: user.name,
+              photoURL: 'COM#'+currentuser.uid 
+            })
 
-            firebase.firestore().collection('Company').doc("COM#"+currentuser.uid ).collection('Users').doc(currentuser.uid)
-            .set(Object.assign({
-              name: user.name,
-              email: user.email,
-              uid: currentuser.uid,
-              company_name:user.company_name,
-              role:'Admin'
-              } 
-            ))
-         
+            // firebase.firestore().collection('Company').doc("COM#"+currentuser.uid )
+            // .set(Object.assign({
+            //   company_name:user.company_name
+            //   })
+            //)
+
+            // firebase.firestore().collection('Company').doc("COM#"+currentuser.uid ).collection('Users').doc(currentuser.uid)
+            // .set(Object.assign({
+            //   name: user.name,
+            //   email: user.email,
+            //   uid: currentuser.uid,
+            //   //company_name:user.company_name,
+            //   role:'Admin'
+            //   } 
+            // ))
+            // this.storage.set('data', data );
+            //   console.log("dmcj",data);
            window.localStorage.setItem('emailForSignIn', currentuser.email);
            let alert = this.alertCtrl.create({
             title: 'Sucess',
