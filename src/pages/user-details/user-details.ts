@@ -10,6 +10,17 @@ import { Employee, User } from '../../models/user';
 import firebase, { database } from 'firebase/app';
 import { Storage } from '@ionic/storage';
 
+import { AngularFirestore} from 'angularfire2/firestore';
+
+
+import { Observable } from 'rxjs';
+
+interface Users {
+   first_name: string,  
+   last_name:string;
+   email:string;
+   role:string;
+}
 
 @IonicPage()
 @Component({
@@ -17,47 +28,76 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'user-details.html',
 })
 export class UserDetailsPage {
-
-  employee = {} as Employee;
-  user = {} as User;
- 
+  userInfo:any;
+  products: Observable<Users[]>;
   Segments:string;
-  constructor(public navCtrl: NavController,private storage: Storage, public navParams: NavParams,private auth:AngularFireAuth,public alertCtrl: AlertController,) {
+  
+  constructor(public navCtrl: NavController,public afs: AngularFirestore,
+    private storage: Storage, public navParams: NavParams,private auth:AngularFireAuth,public alertCtrl: AlertController,) {
     this.Segments="2";
+
   }
 
- 
-
-  ionViewWillLoad(employee) 
+  ionViewWillLoad() 
     { 
-      this.auth.authState.subscribe(data => {
-        if(data.email && data.uid){
-          // console.log("userpage",data.email);
-          // console.log("userpage",data.uid);
-          // //employee.set.adminid=data.uid;
-          // console.log("userpage",'COM#'+data.uid);
+      let currentuser=firebase.auth().currentUser;
+      this.userInfo = this.afs.collection('Company').doc("COM#"+currentuser.uid).collection('Users'); 
+      this.products = this.userInfo.valueChanges();
+    }
 
-         
-        }
-      });
+
+    deleteItem1(product)
+    {
+      let currentuser=firebase.auth().currentUser;
+      this.afs.collection('Company').doc("COM#"+currentuser.uid).collection('Users').doc('uid')
+      .delete()  ; 
+      console.log(product);
+      currentuser.delete();
 
     }
+
+    showPopup(uid) {
+      let alert = this.alertCtrl.create({
+        title: 'Confirm Delete',
+        subTitle: 'Do you really want to delete?',
+        //scope: id,
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+            // this.navCtrl.push(StudentListPage);
+            }
+          },
+          {
+            text: 'OK',
+            
+            handler: data => {
+              console.log(uid);
+             // this.deleteItem1(uid);
+               this.navCtrl.push(UserDetailsPage);
+             
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
   
-  displayuser(){
-    this.navCtrl.push(UserlistPage);
-  }
   userlicense()
   {
     this.navCtrl.push(UserLicensesPage);
   }
-  edit()
+  edit(product)
   {
-    this.navCtrl.push(EditTeamDetailsPage);
+    this.navCtrl.push(EditTeamDetailsPage, {
+      product:product
+    });
+      
   }
 
   insertUser(employee:Employee){
 
-   
     firebase.auth().createUserWithEmailAndPassword(employee.email, "password") 
     .then((data) => {
       let currentuser2=firebase.auth().currentUser;
@@ -82,14 +122,8 @@ export class UserDetailsPage {
       if(result)
       {
         console.log("Check Your Email For Reset Link");
-
-       
-      
       }
       else{console.log("Failed");}
-      
-
-      
     });
   })
   
@@ -97,12 +131,4 @@ export class UserDetailsPage {
 
 }
 
-// firebase.firestore().collection('Company').doc('COM#kRyAQrxdsGSIKpeW1N6ctFrN8kw2').collection('Users').doc('new users ')
-//     .set(Object.assign({
-//       name: employee.name,
-//       last: employee.last,
-//       email: employee.email,
-//       role: employee.role
-//       } 
-//     ))    
 

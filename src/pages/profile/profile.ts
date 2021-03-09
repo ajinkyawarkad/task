@@ -8,6 +8,7 @@ import { LoginPage } from '../login/login';
 import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase';
 
+
 @IonicPage()
 @Component({
   selector: 'page-profile',
@@ -16,47 +17,132 @@ import firebase from 'firebase';
 export class ProfilePage {
 
   public name:any;
-  public value:any;
-public email:any;
-mainuser:any;
-user = {} as User;
+  public email:any;
+  public phoneno:any;
+  company_name :any;
+  cuid:any;
+
+  //public recaptchaVerifier:firebase.auth.RecaptchaVerifier;
+   user = {} as User;
 
   constructor(public auth: AngularFireAuth,public navCtrl: NavController, private storage: Storage,public navParams: NavParams,
     private alertCtrl:AlertController) {
-  //   this.storage.get('name').then((data) => {
-  //     console.log('name', data);
-  //     this.name=data.name;
-  //  });
 
-//    this.storage.get('email').then((email) => {  
-//     this.email=email;
-//  });
-//     this.mainuser=firebase.auth().currentUser.uid;
-//     console.log(this.mainuser)
+      this.storage.get('name').then((name) => {
+        console.log('name', name);
+        this.name=name;
+     });
+     this.storage.get('email').then((email) => {
+      console.log('email', email);
+      this.email=email;
+   });
+   this.storage.get('cuid').then((cuid) => {
+    console.log('cuid', cuid);
+    this.cuid=cuid;
+ });
+  }
+
+  
+  ionViewDidEnter() {
+    
+    console.log('ionViewDidLoad LoginPage');
+   // this.recaptchaVerifier = new firebase.auth.RecaptchaVerifier('recaptcha-container');
   }
 
   updateprofile(user:User)
   {
-    // if(this.mainuser)
-    // {
-    //   firebase.firestore().collection('Company').doc("COM#"+this.mainuser.uid ).collection('Users').doc(this.mainuser.uid)
-    //   .update(Object.assign({
-    //     name: user.name,
-    //     email: user.email,
-    //     phone: user.phone,
-    //     company_name:user.company_name,
-        
-    //     } 
-    //   ))
-    // }
+    firebase.auth().onAuthStateChanged((data)=>{
+    let currentuser=firebase.auth().currentUser;
+    
+    currentuser.updateProfile({
+      displayName: this.name,
+      photoURL: 'COM#'+currentuser.uid 
+    }).then(() => {
+      console.log("updated..");
+      let alert = this.alertCtrl.create({
+        title: 'Sucess',
+        subTitle: 'Updated Sucessfully',
+        buttons: [{text: 'OK',
+                  handler: data => {
+                 // this.navCtrl.setRoot(ProfilePage);
+                  } 
+                }]
+              });
+      alert.present();
+    }).catch((err) => {
+      console.log(err);
+      let alert = this.alertCtrl.create({
+        title: 'Error',
+        subTitle: err,
+        buttons: [{text: 'OK',
+                  handler: data => {
+                  // this.navCtrl.setRoot(ProfilePage);
+                  } 
+                }]
+              });
+    });
+    currentuser.updateEmail(this.email);
+
+     firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Admin').doc(currentuser.uid)
+            .update(Object.assign({
+              name: this.name,
+              email: this.email,
+              uid: currentuser.uid,
+              company_id: "COM#"+currentuser.uid,
+              phoneno:this.phoneno,
+              company_name:this.company_name,
+              role:'Admin'
+              } 
+            ))
+  }); 
   }
+
+  // updatephone(phoneNumber:number)
+  // {
+  //   let currentuser=firebase.auth().currentUser;
+  //   const appVerifier = this.recaptchaVerifier;
+  //   const phoneNumberString = "+" + phoneNumber;
+  //   const provider = new firebase.auth.PhoneAuthProvider();
+  //   provider.verifyPhoneNumber(phoneNumberString, appVerifier)
+  //   .then( confirmationResult => {
+     
+  //     let prompt = this.alertCtrl.create({
+  //     title: 'Enter the Confirmation code',
+  //     inputs: [{ name: 'confirmationCode', placeholder: 'Confirmation Code' }],
+  //     buttons: [
+  //       { text: 'Cancel',
+  //         handler: data => { console.log('Cancel clicked'); }
+  //       },
+  //       { text: 'Send',
+  //         handler: data => {
+  //           currentuser.updatePhoneNumber(this.phoneNumber)
+  //           console.log(phoneNumber);
+  //         //  confirmationResult.confirm(data.confirmationCode)
+  //         //   .then((result) => {
+  //         //     console.log(result);
+  //         //   //  return this.currentuser.updatePhoneNumber(this.phone);
+  //         //   })
+  //         //   .catch((e) => {
+  //         //     console.log(e);
+  //         //   });
+  //         }
+  //       }
+  //     ]
+  //   });
+  //   prompt.present();
+  // })
+  // .catch(function (error) {
+  //   console.error("SMS not sent", error);
+  // });
+
+  // }
 
   logout()
   {
-  //   this.storage.remove('name').then((name) =>{
-  //     this.name = null;
+    this.storage.remove('name').then((name) =>{
+      this.name = null;
      this.navCtrl.setRoot(LoginPage);
-  //   })
+    })
    }
    ResetPassword()
    {

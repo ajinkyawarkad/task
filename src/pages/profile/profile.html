@@ -11,26 +11,29 @@
 <ion-content padding>
 
   <div class="contaier-login" >
+    <!-- <div id="recaptcha-container"></div> -->
   <ion-grid>
    <ion-row>
       <ion-col>
+
+        <ion-item>
+          <ion-input type="text" readonly placeholder="Email" [(ngModel)]="email"></ion-input>
+      </ion-item> 
+      <br />
+
         <ion-item>
           <ion-input type="text" required placeholder="Full Name" [(ngModel)]="name"> </ion-input>
       </ion-item>
       <br />
    
-       <ion-item>
-           <ion-input type="text" required placeholder="Email" [(ngModel)]="email"></ion-input>
-       </ion-item> 
-       <br />
 
-       <ion-item>
-        <ion-input type="number" required placeholder="Phone No"></ion-input>
+       <ion-item >
+        <ion-input type="number" [(ngModel)]="phoneno" placeholder="Phone No"></ion-input>
       </ion-item>
        <br />
    
        <ion-item>
-        <ion-input type="text" required placeholder="Company Name"></ion-input>
+        <ion-input type="text"  [(ngModel)]="company_name"  placeholder="Company Name"></ion-input>
        </ion-item>        
       </ion-col>
     </ion-row>

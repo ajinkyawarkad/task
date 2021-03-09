@@ -24,17 +24,17 @@ import { Storage } from '@ionic/storage';
 export class HomePage {
 
   isLoggedIn: Boolean;
-  public name:any;
+  public name:string;
   public email:any;
 
   constructor(private auth:AngularFireAuth, private storage: Storage,private toast: ToastController,public navCtrl: NavController, public menuCtrl:MenuController) {
     this.menuCtrl.enable(true, 'menu');
 
-//     this.storage.get('name').then((data) => {
-//       console.log('name', data);
-//       this.name=data.name;
-//       //this.isLoggedIn = true;
-//    });
+    this.storage.get('name').then((name) => {
+      console.log('name', name);
+      this.name=name;
+      //this.isLoggedIn = true;
+   });
 //    this.storage.get('email').then((data) => {
 //     console.log('email', data);
 //     this.email=data.email;

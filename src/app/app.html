@@ -32,6 +32,11 @@
         <ion-icon [name]="p.icon" item-start ></ion-icon>
         {{p.title}}
       </button>
+
+      <ion-item class="square-app"  (click)="logout()">
+        <ion-icon name="log-out" item-left ></ion-icon>
+        <div class="divtext">Logout</div>
+      </ion-item>
     </ion-list>
   </ion-content>
 

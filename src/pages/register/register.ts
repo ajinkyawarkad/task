@@ -15,7 +15,7 @@ import { Storage } from '@ionic/storage';
 })
 export class RegisterPage {
   public showPassword: boolean = false;
-
+  
   user = {} as User;
   
   constructor(private auth:AngularFireAuth,public navCtrl: NavController, public navParams: NavParams,
@@ -28,35 +28,39 @@ export class RegisterPage {
    
 signup(user:User){
   firebase.auth().createUserWithEmailAndPassword(user.email,user.password) 
+  
   .then((data) => {
      let currentuser=firebase.auth().currentUser;
-     console.log(currentuser);
+    // console.log(data);
       if(currentuser && data.emailVerified === false)
       {
         currentuser.sendEmailVerification().then
           {
             currentuser.updateProfile({
               displayName: user.name,
-              photoURL: 'COM#'+currentuser.uid 
+              photoURL: 'COM#'+currentuser.uid ,
+              
             })
+            
 
-            // firebase.firestore().collection('Company').doc("COM#"+currentuser.uid )
-            // .set(Object.assign({
-            //   company_name:user.company_name
-            //   })
-            //)
+         //   this.storage.set('name', currentuser.displayName);
+            
+            firebase.firestore().collection('Company').doc("COM#"+currentuser.uid )
+            .set(Object.assign({
+             // company_name:user.company_name,
+              company_id: "COM#"+currentuser.uid 
+              })
+            )
 
-            // firebase.firestore().collection('Company').doc("COM#"+currentuser.uid ).collection('Users').doc(currentuser.uid)
-            // .set(Object.assign({
-            //   name: user.name,
-            //   email: user.email,
-            //   uid: currentuser.uid,
-            //   //company_name:user.company_name,
-            //   role:'Admin'
-            //   } 
-            // ))
+            firebase.firestore().collection('Company').doc("COM#"+currentuser.uid ).collection('Admin').doc(currentuser.uid)
+            .set(Object.assign({
+              name: user.name,
+               company_id: "COM#"+currentuser.uid ,
+              } 
+            ))
             // this.storage.set('data', data );
             //   console.log("dmcj",data);
+
            window.localStorage.setItem('emailForSignIn', currentuser.email);
            let alert = this.alertCtrl.create({
             title: 'Sucess',

@@ -59,7 +59,7 @@
 
     <ion-row>
       <ion-col>
-        <button ion-button round full color="primary"  (click)="insertUser(employee)" >
+        <button ion-button round full color="primary" >
           Invite
       </button>
       </ion-col>
@@ -71,11 +71,10 @@
 
 
       <div *ngSwitchCase="2"  > 
-       
         <table>
-          <thead >
+          <thead>
           <tr>
-            <th >First Name</th>
+            <th>First Name</th>
             <th>Last Name</th>
             <th>Role</th>
             <th>Email</th>
@@ -83,29 +82,13 @@
           </tr>
           </thead>
           <tbody>
-          <tr>
-            <td style="text-decoration: underline;color: blue;" (click)="edit()">James</td>
-            <td>Matman</td>
-            <td>Chief</td>
-            <td>Lettuce Green</td>
-            <td> <ion-icon name="trash" class="deleteicon"></ion-icon></td>
+          <tr  *ngFor="let product of products  | async">
+            <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.first_name}}</td>
+            <td>{{product.last_name}}</td>
+            <td>{{product.role}}</td>
+            <td>{{product.email}}</td>
+            <td> <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.uid); deleteItem1(product.uid)"></ion-icon></td>
           </tr>
-          <tr>
-            <td style="text-decoration: underline;color: blue;">The</td>
-            <td>Tick</td>
-            <td>Crimef</td>
-            <td>Blue@gmail.com</td>
-            <td> <ion-icon name="trash" class="deleteicon"></ion-icon></td>
-          </tr>
-          <tr>
-            <td style="text-decoration: underline;color: blue;">Jokey</td>
-            <td>Smurf</td>
-            <td>Giving</td>
-            <td>Whitekjuh@gmail.com</td>
-            <td> <ion-icon name="trash" class="deleteicon"></ion-icon></td>
-          </tr>
-        
-        
           </tbody>
         </table> 
       </div>

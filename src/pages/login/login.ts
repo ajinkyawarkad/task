@@ -19,7 +19,8 @@ export class LoginPage {
   public showPassword: boolean = false;
 
   user = {} as User;
-
+  phone: string;
+  
   constructor(public auth: AngularFireAuth,
     public navCtrl: NavController,   
     private storage: Storage,
@@ -32,23 +33,25 @@ export class LoginPage {
   ionViewDidLoad() {
     
     console.log('ionViewDidLoad LoginPage');
+   
   }
 
     login(user:User){
-     
-      firebase.auth().signInWithEmailAndPassword(user.email,user.password)
+
     
+      firebase.auth().signInWithEmailAndPassword(user.email,user.password)
       .then((user) => {
         let currentuser=firebase.auth().currentUser;
-        console.log(currentuser.displayName);
-        console.log(currentuser.photoURL);
-      //  this.storage.set('email', currentuser.email) ;
-     
-        firebase.auth().onAuthStateChanged((data)=>{
-         
+        firebase.auth().onAuthStateChanged((data)=>{   
           if (currentuser.photoURL && currentuser && data.emailVerified === true) {
+            console.log(currentuser.displayName);
+            console.log(currentuser.photoURL);
+            this.storage.set('name', currentuser.displayName) ;
+            this.storage.set('email', currentuser.email) ;
+            this.storage.set('cuid',currentuser.photoURL)
             console.log('Email is verified');
-             this.navCtrl.setRoot(HomePage,currentuser);
+            console.log(data);
+             this.navCtrl.setRoot(HomePage);
           }
           else {
             console.log('Email is not verified ');
@@ -63,19 +66,15 @@ export class LoginPage {
                     }]
                   });
           alert.present();
-          }
-       
+          } 
         });
         }).catch((err) => {
-          console.log(err);
-         
+          console.log(err); 
           let alert = this.alertCtrl.create({
             //title: 'Error',
             subTitle:  err ,
-            //scope: id,
             buttons: [{text: 'OK',
                       handler: data => {
-                       //this.navCtrl.push(LoginPage);
                       } 
                     }]
                   });

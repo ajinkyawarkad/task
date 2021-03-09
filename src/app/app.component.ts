@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, NavController, Platform,MenuController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
@@ -17,6 +17,7 @@ import { AngularFireAuth } from 'angularfire2/auth';
 import firebase from 'firebase/app';
 import { Storage } from '@ionic/storage';
 import { ProfilePage } from '../pages/profile/profile';
+import {  } from 'ionic-angular';
 
 @Component({
   templateUrl: 'app.html'
@@ -30,7 +31,8 @@ export class MyApp {
   pages: Array<{title: string, component: any, icon: string}>;
  
   constructor(private auth:AngularFireAuth,private storage: Storage,
-    public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen) {
+    public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
+    private menuctrl:MenuController) {
     this.initializeApp();
 
     // used for an example of ngFor and navigation
@@ -44,10 +46,6 @@ export class MyApp {
      // { title: 'Sign Out', component: LoginPage, icon:'log-out'},   
     ];
 
-    this.storage.get('name').then((name) => {
-      console.log('name', name);
-      this.name=name;
-   });
 
     }
 
@@ -63,12 +61,19 @@ export class MyApp {
   openPage(page) {
     // Reset the content nav to have just this page
     // we wouldn't want the back button to show in this scenario
-    this.nav.setRoot(page.component);  
-
-      
-    
+    this.nav.setRoot(page.component);   
   }
 
+  logout(){ 
+    this.storage.remove('email').then((user) =>{
+      console.log(user);
+    })
+    this.storage.remove('name').then((user) =>{
+      console.log(user);
+    })
+    this.menuctrl.close();
+    this.nav.setRoot(LoginPage);
+  }
 
   
 }

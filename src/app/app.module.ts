@@ -32,6 +32,10 @@ import { EditTeamDetailsPage } from '../pages/edit-team-details/edit-team-detail
 import { AngularFireModule } from 'angularfire2';
  import { AngularFireAuth } from 'angularfire2/auth';
  import { firebaseConfig } from '../config';
+
+ import { Observable } from 'rxjs';
+ import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
+
 import { AuthserviceProvider } from '../providers/authservice/authservice';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
@@ -70,7 +74,7 @@ import { ProfilePage } from '../pages/profile/profile';
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig.fire),
-    
+    AngularFirestoreModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -104,7 +108,7 @@ import { ProfilePage } from '../pages/profile/profile';
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     AngularFireAuth,
     AuthserviceProvider,
-   AngularFireModule 
+     AngularFireModule ,
    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]
