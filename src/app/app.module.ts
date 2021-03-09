@@ -5,7 +5,6 @@ import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
 
-
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { ReportPage } from '../pages/report/report';
@@ -40,6 +39,7 @@ import { AuthserviceProvider } from '../providers/authservice/authservice';
 import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { ProfilePage } from '../pages/profile/profile';
+import { HttpModule } from '@angular/http';
 
 
 
@@ -70,11 +70,14 @@ import { ProfilePage } from '../pages/profile/profile';
   ],
   imports: [
     BrowserModule,
+    HttpModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp),
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig.fire),
-    AngularFirestoreModule
+    AngularFirestoreModule,
+  
+    
   ],
   bootstrap: [IonicApp],
   entryComponents: [
@@ -109,6 +112,7 @@ import { ProfilePage } from '../pages/profile/profile';
     AngularFireAuth,
     AuthserviceProvider,
      AngularFireModule ,
+    //FileChooserOriginal,FileOpenerOriginal,FilePathOriginal
    
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA]

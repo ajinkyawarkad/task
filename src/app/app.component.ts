@@ -18,6 +18,7 @@ import firebase from 'firebase/app';
 import { Storage } from '@ionic/storage';
 import { ProfilePage } from '../pages/profile/profile';
 import {  } from 'ionic-angular';
+import { CreateCampaignsLeadPage } from '../pages/create-campaigns-lead/create-campaigns-lead';
 
 @Component({
   templateUrl: 'app.html'
@@ -25,7 +26,7 @@ import {  } from 'ionic-angular';
 export class MyApp {
  @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = LoginPage ;
+  rootPage: any = CreateCampaignsLeadPage ;
   public name: any;
 
   pages: Array<{title: string, component: any, icon: string}>;

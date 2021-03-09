@@ -3,6 +3,11 @@
 
   <ion-navbar>
     <ion-title>Create Campaigns Lead</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="downloadCSV()">
+          <ion-icon name="download"></ion-icon>
+        </button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
@@ -18,8 +23,26 @@
  
 </ion-list>
 
+
+
   <button ion-button full color="success" (click)="create()"> Create New Lead</button> 
  <p>or</p>
- <button ion-button full color="secondary"> Select File </button> 
+ <label for="avatar">Select file</label>
+
+<input id="fileSelect" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, 
+                              application/vnd.ms-excel" /> 
+
+ <!-- <ion-scroll scrollX="true" scrollY="true" class="data-scroll">
+  <table class="data-table">
+    <tr>
+      <td *ngFor="let header of headerRow" text-center><b>{{ header }}</b></td>
+    </tr>
+    <tr *ngFor="let row of csvData; let i = index">
+      <td *ngFor="let data of row; let j = index; trackBy: trackByFn">
+        <ion-input type="text" [(ngModel)]="csvData[i][j]"></ion-input>
+      </td>
+    </tr>
+  </table>
+</ion-scroll> -->
  
 </ion-content>

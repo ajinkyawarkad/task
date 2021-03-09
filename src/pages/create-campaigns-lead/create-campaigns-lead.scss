@@ -16,6 +16,26 @@ page-create-campaigns-lead {
         text-align: center;
     }
 
+	.data-scroll {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+    }
+    .data-table {
+        min-width: 109%;
+        margin-top: 19%;
+    }
+	label {
+		display: block;
+		font: 1rem 'Fira Sans', sans-serif;
+	}
+	
+	input,
+	label {
+		margin: .4rem 0;
+	}
 	
 
 }
