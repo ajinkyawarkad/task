@@ -20,6 +20,8 @@ import { ProfilePage } from '../pages/profile/profile';
 import {  } from 'ionic-angular';
 import { CreateCampaignsLeadPage } from '../pages/create-campaigns-lead/create-campaigns-lead';
 
+
+
 @Component({
   templateUrl: 'app.html'
 })
@@ -28,14 +30,16 @@ export class MyApp {
 
   rootPage: any = CreateCampaignsLeadPage ;
   public name: any;
+ 
 
   pages: Array<{title: string, component: any, icon: string}>;
  
   constructor(private auth:AngularFireAuth,private storage: Storage,
     public platform: Platform, public statusBar: StatusBar, public splashScreen: SplashScreen,
     private menuctrl:MenuController) {
+     
     this.initializeApp();
-
+    
     // used for an example of ngFor and navigation
     this.pages = [
       { title: 'Home',  component: HomePage , icon:'home'},
@@ -58,6 +62,8 @@ export class MyApp {
       this.splashScreen.hide();
     });
   }
+
+
 
   openPage(page) {
     // Reset the content nav to have just this page

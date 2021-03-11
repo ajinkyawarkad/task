@@ -38,8 +38,7 @@ signup(user:User){
           {
             currentuser.updateProfile({
               displayName: user.name,
-              photoURL: 'COM#'+currentuser.uid ,
-              
+              photoURL: 'COM#'+currentuser.uid ,  
             })
             
 

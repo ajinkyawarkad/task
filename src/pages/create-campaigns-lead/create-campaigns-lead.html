@@ -23,26 +23,19 @@
  
 </ion-list>
 
+<!-- 
+<button ion-button (click)=" myfunction()"> click </button> -->
 
 
-  <button ion-button full color="success" (click)="create()"> Create New Lead</button> 
+<button ion-button full color="success" (click)="create()"> Create New Lead</button> 
  <p>or</p>
- <label for="avatar">Select file</label>
 
-<input id="fileSelect" type="file" accept=".csv, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, 
-                              application/vnd.ms-excel" /> 
-
- <!-- <ion-scroll scrollX="true" scrollY="true" class="data-scroll">
-  <table class="data-table">
-    <tr>
-      <td *ngFor="let header of headerRow" text-center><b>{{ header }}</b></td>
-    </tr>
-    <tr *ngFor="let row of csvData; let i = index">
-      <td *ngFor="let data of row; let j = index; trackBy: trackByFn">
-        <ion-input type="text" [(ngModel)]="csvData[i][j]"></ion-input>
-      </td>
-    </tr>
-  </table>
-</ion-scroll> -->
  
+ 
+ <div class="form-group">
+        <input type="file" (change)="onFileSelect($event.target)" name="myfile">
+   </div>
+
+
+
 </ion-content>
