@@ -1,23 +1,56 @@
 page-create-lead-profile {
+	.container1 input[type=text] {
+		padding:5px 0px;
+		margin:5px 5px 5px 0px;
+		}
+		ion-icon {
+			display: inline-block;
+			font-size: 1.4em;
+			margin-top: 10px;
+		}
+		.delete{
+			background-color: #fd1200;
+			border: none;
+			color: white;
+			padding: 5px 15px;
+			text-align: center;
+			text-decoration: none;
+			display: inline-block;
+			font-size: 14px;
+			margin: 4px 2px;
+			cursor: pointer;
+		}
 	ion-content
 	{
 		font-family: 'roboto';
 		font-size: 15px;	
 	}
-
-  td, th {
-		border: 1px solid #dddddd;
-    text-align: left;
-    width:50%;
-    height:41px;;
-	padding: 1px;  
-    }
-    th{
-      font-size:16px;
-      text-align: left;
-      //padding-left:12px;
-	  padding: 10px;
-    }
+	table { 
+		width: 100%; 
+		border-collapse: collapse; 
+	}
+	/* Zebra striping */
+	tr:nth-of-type(odd) { 
+	background: rgb(250, 245, 245); 
+	}
+	th { 
+		background: rgb(70, 69, 69); 
+		color: white; 
+		font-weight: normal;
+		padding: -3px; 
+	}
+	td { 
+		padding: -3px; 
+		 border-bottom: 1px solid #8b8989; 
+		text-align: left; 
+		
+	}
+	input[type="checkbox"], input[type="radio"] {
+		-webkit-box-sizing: border-box;
+		box-sizing: border-box;
+		margin-right: 67px;
+		margin-left: 75px;
+	}
     ion-label {
       margin: 8px 8px;
     }
@@ -110,7 +143,7 @@ page-create-lead-profile {
 		background:#ffffff;
 		border-radius:5px;
 		//border: 1px solid rgb(160, 156, 156);
-		width: 60%;
+		width: 80%;
 		position: absolute;
 		top: 50%;
 		left: 50%;
@@ -126,7 +159,7 @@ page-create-lead-profile {
 		background:#ffffff;
 		border-radius:5px;
 		//border: 1px solid rgb(160, 156, 156);
-		width: 60%;
+		width: 80%;
 		position: absolute;
 		top: 50%;
 		left: 50%;
