@@ -19,6 +19,7 @@ import { Storage } from '@ionic/storage';
 import { ProfilePage } from '../pages/profile/profile';
 import {  } from 'ionic-angular';
 import { CreateCampaignsLeadPage } from '../pages/create-campaigns-lead/create-campaigns-lead';
+import { CreateLeadProfilePage } from '../pages/create-lead-profile/create-lead-profile';
 
 
 
@@ -28,8 +29,9 @@ import { CreateCampaignsLeadPage } from '../pages/create-campaigns-lead/create-c
 export class MyApp {
  @ViewChild(Nav) nav: Nav;
 
+
   rootPage: any = LoginPage ;
-  public name: any;
+
  
 
   pages: Array<{title: string, component: any, icon: string}>;

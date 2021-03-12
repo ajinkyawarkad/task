@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { MenuController } from 'ionic-angular';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { CallDetailsPage } from '../call-details/call-details';
 import { EditLeadDetailsPage } from '../edit-lead-details/edit-lead-details';
 import { TaskDetailsPage } from '../task-details/task-details';
 
@@ -12,8 +12,7 @@ import { TaskDetailsPage } from '../task-details/task-details';
 })
 export class LeadsDetailsPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public menuCtrl:MenuController) {
-   // this.menuCtrl.enable(false, 'menu');
+  constructor(public navCtrl: NavController, public navParams: NavParams) {
   }
 
   ionViewDidLoad() {
@@ -23,8 +22,14 @@ export class LeadsDetailsPage {
   {
     this.navCtrl.push(EditLeadDetailsPage);
   }
+  gotocall()
+    {
+      this.navCtrl.push(TaskDetailsPage);
+    }
   calldetails()
-  {
-   this.navCtrl.push(TaskDetailsPage);
-  }
+    {
+      this.navCtrl.push(CallDetailsPage);
+    }
+  
+
 }

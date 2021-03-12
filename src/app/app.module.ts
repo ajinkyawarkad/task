@@ -40,6 +40,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
 import { ProfilePage } from '../pages/profile/profile';
 import { HttpModule } from '@angular/http';
+import { CallDetailsPage } from '../pages/call-details/call-details';
 
 
 
@@ -66,7 +67,8 @@ import { HttpModule } from '@angular/http';
     CreateNewCampleadPage,
     EditLeadDetailsPage,
     EditTeamDetailsPage,
-    ProfilePage
+    ProfilePage,
+    CallDetailsPage
   ],
   imports: [
     BrowserModule,
@@ -102,7 +104,8 @@ import { HttpModule } from '@angular/http';
     CreateNewCampleadPage,
     EditLeadDetailsPage,
     EditTeamDetailsPage,
-    ProfilePage
+    ProfilePage,
+    CallDetailsPage
     
   ],
   providers: [

@@ -4,109 +4,78 @@
   <ion-navbar>
     <ion-title>Create Lead Profile</ion-title>
   </ion-navbar>
-
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+ 
 </ion-header>
 
 
 <ion-content padding>
-  <div class="contaier">
+ 
+ 
+
   <table>
-    <tr style="height: 41px;font-size:15px;">
-      <th>Action</th>
-      <th>Action</th>
-    </tr>
-    <tr style="height: 41px;">
-      <td style="padding: 10px;">First Name</td>
-      <td style="padding: 10px;">Last Name</td>
-    </tr>
-    <tr style="height: 41px;">
-      <td style="padding: 10px;">Telephone</td>
-      <td style="padding: 10px;">Email</td>
-    </tr>
-    <tr *ngFor="let bill of bills">
-      <td> <ion-input placeholder="Enter Your Fields"  [(ngModel)]="array[bill.id]" type="text" style="height: 23px;"></ion-input> </td>
-      <td><ion-input placeholder="Enter Your Fields"  [(ngModel)]="array[bill.idd]" type="text"></ion-input></td>
-    </tr>  
- </table>
+		<thead>
+		<tr>
+			<th>Field</th>
+			<th>Unique</th>
+			<th>Action</th>
+			
+		</tr>
+		</thead>
+    <tbody>
+     
+      <div class="container1">
+      <tr >
+        <td> <input type="text" placeholder="First Name" name="mytext[]"></td>
+        <td> <input type="checkbox" ></td>
+        <td><input type="checkbox" > </td>
+       </tr> 
 
-<br>
-  <!-- <div class="contaier">
-  <ion-list>
-  <div class="row header">
-    <div class="col">Action</div>
-    <div class="col">Unique</div>
-  </div>
-
-  <div class="row" >
-    <div class="col">
-      <ion-input placeholder="First Name"></ion-input>
-    </div>
-    <div class="col" >
-      <input type="checkbox" class="checkmark" >
-    </div>
-  </div>
-
-  <div class="row" >
-    <div class="col">
-      <ion-input placeholder="Last Name"></ion-input>
-    </div>
-    <div class="col" >
-      <input type="checkbox" class="checkmark">
-    </div>
-  </div>
-
-  <div class="row" >
-    <div class="col">
-      <ion-input placeholder="Telephone"></ion-input>
-    </div>
-    <div class="col" >
-      <input type="checkbox" class="checkmark" checked="checked">
-    </div>
-  </div>
-
-  <div class="row" >
-    <div class="col">
-      <ion-input placeholder="Email"></ion-input>
-    </div>
-    <div class="col" >
-      <input type="checkbox" class="checkmark" >
-    </div>
-  </div>
-   
-</ion-list>
-
-<div >
-   <button ion-button full color="success"  (click)="hide()"> Add </button> 
-   <div *ngIf="hideMe"> 
-    <form [formGroup]="form" (ngSubmit)="manage(form.value)">
-      <ion-list >
-       <div formArrayName="technologies">
-        <section [formGroupName]="i" *ngFor="let tech of form.controls.technologies.controls; let i = index">
-         
-            <ion-item>
-              <ion-label floating> Your Field </ion-label>   
-                <ion-input type="text" formControlName="myVal" [(ngModel)]="myVal"></ion-input>
-            </ion-item>  
+       <tr >
+        <td> <input type="text" placeholder="Last Name" name="mytext[]"></td>
+        <td> <input type="checkbox" ></td>
+        <td><input type="checkbox" > </td>
       
-            <span float-right ion-button icon-left clear  *ngIf="form.controls.technologies.length > 1" (click)="removeInputField(i)">
-             <ion-icon name="close"></ion-icon>
-                Remove
-            </span>  
-            {{myVal1}}
-        </section>
-        
+       </tr> 
+       <tr >
+        <td> <input type="text" placeholder="Telephone" name="mytext[]"></td>
+        <td> <input type="checkbox" ></td>
+        <td><input type="checkbox" > </td>
+       
+       </tr> 
+        <tr >
+        <td> <input type="text" placeholder="Email" name="mytext[]"></td>
+        <td> <input type="checkbox" ></td>
+        <td><input type="checkbox" > </td>
+      
+       </tr> 
       </div>
+      </tbody>
+    </table>
+
+  <br>
+  <button  ion-button  color="success"  class="add_form_field">Add New Field &nbsp; 
+    <span style="font-size:16px; font-weight:bold;">+ </span>
+  </button>
+ 
+   <button ion-button  color="success" (click)="save()"> Save & Next </button> 
     
-      <span  ion-button float-left icon-left clear (click)="addNewInputField()">
-        <ion-icon name="add"></ion-icon>
-          Add new Action
-     </span>
-  </ion-list>
-  </form>
-  </div>
-</div>
-   </div>-->
-   <button ion-button full color="success" (click)="save()"> Save & Next </button> 
-    <br>
-</div>
+   <p>OR</p>
+
+   <h5>Select file to upload data</h5>
+   <div class="form-group">
+          <input type="file" (change)="onFileSelect($event.target)" name="myfile">
+     </div>
+  
+     
+      <!-- <table class="data-table">
+        <tr>
+          <td *ngFor="let header of headerRow" text-center><b>{{ headerRow }}</b></td>
+        </tr>
+        <tr *ngFor="let row of csvContent; let i = index">
+          <td *ngFor="let data of row; let j = index; trackBy: trackByFn">
+            <ion-input type="text" [(ngModel)]="csvContent[i][j]"></ion-input>
+          </td>
+        </tr>
+      </table> -->
 </ion-content>

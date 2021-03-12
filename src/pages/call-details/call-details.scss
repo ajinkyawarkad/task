@@ -1,10 +1,21 @@
-page-leads-details {
-	ion-content
+page-call-details {
+    ion-content
 	{
 		font-family: 'roboto';
 		font-size: 15px;	
 	}
-
+    #contact_ul{
+        list-style: none;
+        -webkit-padding-start: 0px;
+        }
+         
+        #li_phone ion-icon{
+            font-size: 1.4em;
+            vertical-align: middle;
+            margin-right: 19px;
+           // padding-top: -29px;
+            margin-left: 13px;
+        }
 	.button-full-md {
 		margin-left: 23%;
 		margin-right: 0;
@@ -79,28 +90,16 @@ page-leads-details {
 			white-space: nowrap;
 			font-weight: bold;
 		}
+		td:nth-of-type(1):before { content: "Created At:"; }
+		td:nth-of-type(2):before { content: "Action:"; }
+		td:nth-of-type(3):before { content: "Handler:"; }
+		td:nth-of-type(4):before { content: "Follow up:"; }
+		td:nth-of-type(5):before { content: "Remark:"; }
+		td:nth-of-type(6):before { content: "Play:"; }
 		
-		ion-icon 
-		{
-			display: inline-block;
-			margin-right: -22px;
-			line-height: -12px;
-			vertical-align: top;
-			margin-left: 10px;
-		}
-		/*
-		Label the data
-		*/
-		//td:nth-of-type(1) { font-weight:bold;font-size:150%;margin-top:5px; }
-		td:nth-of-type(1):before { content: "First Name:"; }
-		td:nth-of-type(2):before { content: "Last Name:"; }
-		td:nth-of-type(3):before { content: "Status:"; }
-		td:nth-of-type(4):before { content: "Action:"; }
-		td:nth-of-type(5):before { content: "Phone:"; }
-		td:nth-of-type(6):before { content: "Previous Remark:"; }
-		td:nth-of-type(7):before { content: "Action:"; }
+		
+		
 	}
-
 	
 	
 	/* Small devices (portrait tablets and large phones, 600px and up) */
@@ -126,31 +125,25 @@ page-leads-details {
 	
 		}
 		th:nth-child(1){
-			width:11%;
+			width:10%;
 		}
 		th:nth-child(2){
-			width:11%;
+			width:8%;
 		}
 		th:nth-child(3){
-			width:11%;
+			width:7%;
 		}
 		th:nth-child(4){
-			width:13%;
+			width:12%;
 		}
 		th:nth-child(5){
-			width:25%;
+			width:20%;
 		}
-		th:nth-child(7){
-			width:2%;
+		
+		th:nth-child(6){
+			width:4%;
 		}
-		ion-icon 
-		{
-			display: inline-block;
-			margin-right: -6px;
-			line-height: -12px;
-			 vertical-align: top; 
-			margin-left: -19px;
-		}
+		
 	}
 	
 	/* Medium devices (landscape tablets, 768px and up) */
@@ -175,34 +168,24 @@ page-leads-details {
 			margin-left: 15px;
 	
 		}
-		th:nth-child(1){
+        th:nth-child(1){
 			width:9%;
 		}
 		th:nth-child(2){
-			width:9%;
+			width:8%;
 		}
 		th:nth-child(3){
-			width:8%;
+			width:7%;
 		}
 		th:nth-child(4){
-			width:8%;
-		}
-		th:nth-child(5){
 			width:14%;
 		}
+		th:nth-child(5){
+			width:20%;
+		}
+		
 		th:nth-child(6){
-			width:30%;
-		}
-		th:nth-child(7){
-			width:2%;
-		}
-		ion-icon 
-		{
-			display: inline-block;
-			margin-right: -6px;
-			line-height: -12px;
-			 vertical-align: top; 
-			margin-left: -19px;
+			width:4%;
 		}
 	}
 	
@@ -226,40 +209,31 @@ page-leads-details {
 		margin-left: 10px;
 	
 	}
-	th:nth-child(1){
-		width:9%;
-	}
-	th:nth-child(2){
-		width:9%;
-	}
-	th:nth-child(3){
-		width:8%;
-	}
-	th:nth-child(4){
-		width:8%;
-	}
-	th:nth-child(5){
-		width:19%;
-	}
-	th:nth-child(6){
-		width:30%;
-	}
-	th:nth-child(7){
-		width:2%;
-	}
-	ion-icon 
-	{
-		display: inline-block;
-		margin-right: -6px;
-		line-height: -12px;
-		 vertical-align: top; 
-		margin-left: -19px;
-	}
+    th:nth-child(1){
+        width:9%;
+    }
+    th:nth-child(2){
+        width:8%;
+    }
+    th:nth-child(3){
+        width:7%;
+    }
+    th:nth-child(4){
+        width:14%;
+    }
+    th:nth-child(5){
+        width:20%;
+    }
+    
+    th:nth-child(6){
+        width:4%;
+    }
 	}
 	
 	/* Extra large devices (large laptops and desktops, 1200px and up) */
 	@media only screen and (min-width: 1200px) {
-		.contaier-login {
+		.contaier-login 
+		{
 			background:#ffffff;
 			border-radius:5px;
 			border: 1px solid rgb(160, 156, 156);
@@ -281,34 +255,20 @@ page-leads-details {
 			width:9%;
 		}
 		th:nth-child(2){
-			width:9%;
+			width:8%;
 		}
 		th:nth-child(3){
-			width:8%;
+			width:7%;
 		}
 		th:nth-child(4){
-			width:8%;
-		}
-		th:nth-child(5){
 			width:14%;
 		}
+		th:nth-child(5){
+			width:20%;
+		}
+		
 		th:nth-child(6){
-			width:30%;
-		}
-		th:nth-child(7){
-			width:2%;
-		}
-		ion-icon 
-		{
-			display: inline-block;
-			margin-right: -6px;
-			line-height: -12px;
-			 vertical-align: top; 
-			margin-left: -19px;
+			width:4%;
 		}
 	}
-	
-	
-
-
-	}
+}

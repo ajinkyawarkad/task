@@ -1,54 +1,74 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Call Details</ion-title>
+    <ion-title>Task Details</ion-title>
   </ion-navbar>
 
 </ion-header>
 
 
-<ion-content padding>
-  <ion-searchbar showCancelButton="always"></ion-searchbar>
- 
-  <ul id="contact_ul">
-	<li id="li_phone"> <ion-icon name="call"></ion-icon><a>8077750432</a></li>
-  </ul>
-  <!-- <ul id="contact_ul1">
-	<li id="li_phone1"> <ion-icon name="call"></ion-icon><a>8077750432</a></li>
-  </ul>
-	 -->
-  <table>
-		<thead>
-		<tr>
-			<th>Created At</th>
-			<th>Action</th>
-			<th>Handler</th>
-			<th>Follow up</th>
-      		<th>Remark</th>
-      		<th>Play</th>
-		</tr>
-		</thead>
-		<tbody>
-		<tr>
-			<td>Oct 01, 2020 13:01</td>
-			<td>Call back</td>
-			<td>Lettuce Green</td>
-			<td>Callback on Oct 22, 2021 13:00 </td>
-        	<td>project starts monday</td>
-     		<td> <ion-icon name="play" class="deleteicon"></ion-icon></td>
-		</tr>
-		<tr>
-     		<td>Oct 01, 2020 13:01</td>
-			<td>Schedule meet</td>
-			<td>Lettuce Green</td>
-			<td>Callback on Nov 22, 2020 13:00 </td>
-      		<td>project starts tue</td>
-      		<td> <ion-icon name="play" class="deleteicon"></ion-icon></td>
-		</tr>
-		
-	
-		</tbody>
-	</table>
+<ion-content class="content"> 
+  <div class="contaier">
+  <ion-list>
+
+    
+   
+    <ion-item >
+      <ion-label>Action</ion-label>
+      
+      <!-- <ion-datetime [hidden]="!!myDate" pickerFormat="MMM DD, YYYY " (ngModelChange)="change(datePicker)" [(ngModel)]="myDate"></ion-datetime>
+      <ion-datetime [hidden]="!myDate"  #datePicker (ionCancel)="myDate=undefined" pickerFormat="HH:mm" [(ngModel)]="myTime"> </ion-datetime>
+     -->  
+     <ion-select placeholder="Select Action" (ionChange)="hide()"> 
+      <ion-option >Callback</ion-option>
+      <ion-option >Schedule Meet</ion-option>
+    </ion-select>
+    <!-- <ion-icon item-end name="calendar"></ion-icon> -->
+  </ion-item>
+    <!-- <h6 [hidden]="!myTime">Follow Back - {{myDate}} : {{myTime}} </h6> -->
+    <div *ngIf="hideMe"> 
+      <ion-item> 
+        <label style="color: black;">Follow Back</label> 
+        <input type="datetime-local"  name="datetime" style="height: 30px;width: 53%;">
+     </ion-item>
+     </div>
+     
+    <ion-item>
+      <ion-label>Status</ion-label>
+      <ion-select placeholder="Select Status">
+        <ion-option>Interested</ion-option>
+        <ion-option >Not Interested</ion-option>
+      </ion-select>
+    </ion-item>
+
+  <ion-item> 
+    <ion-textarea placeholder="Add Remark"></ion-textarea>
+  </ion-item>
+
+<button ion-button full color="secondary" text-center (click)="hide1()" > Add Reference </button>
+<div *ngIf="hideMe1"> 
+  <ion-item> 
+    <ion-input placeholder="First Name"></ion-input>
+ </ion-item>
+ <ion-item> 
+  <ion-input placeholder="Last Name"></ion-input>
+</ion-item>
+<ion-item> 
+  <ion-input placeholder="Email"></ion-input>
+</ion-item>
+<ion-item> 
+  <ion-input placeholder="Phone"></ion-input>
+</ion-item>
+</div>
+</ion-list>
+
+
+<button  ion-button  full  color="primary" text-center (click)="StartTask()">Save & Next Call</button>
+<button  ion-button full  color="primary" text-center (click)="StartTask()">Save & Stop</button>
+<button  ion-button full  color="primary" text-center (click)="StartTask()">Cancel</button>
+<br>
+</div>
+
 </ion-content>
 
 
