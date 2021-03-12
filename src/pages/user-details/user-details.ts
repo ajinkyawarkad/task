@@ -28,6 +28,8 @@ interface Users {
   templateUrl: 'user-details.html',
 })
 export class UserDetailsPage {
+  employee = {} as Employee;
+
   userInfo:any;
   products: Observable<Users[]>;
   Segments:string;
@@ -97,38 +99,58 @@ export class UserDetailsPage {
   }
 
   insertUser(employee:Employee){
+    if(employee.email && employee.role && employee.name && employee.last != null){
 
-    firebase.auth().createUserWithEmailAndPassword(employee.email, "password") 
-    .then((data) => {
-      let currentuser2=firebase.auth().currentUser;
-
-      this.storage.get('uid').then((val) => {
-        console.log('Your age is', val);
-
+      this.storage.get('cuid').then((val) => {
+        console.log('id is', val);
+  
         
-      firebase.firestore().collection('Company').doc('COM#'+val).collection('Users').doc(currentuser2.uid)
+      firebase.firestore().collection('Company').doc(val).collection('non-active').doc(employee.email)
       .set(Object.assign({
-        name: employee.name,
-        last: employee.last,
+        cid: val,
+        name:employee.name,
+        last:employee.last,
         email: employee.email,
         role: employee.role
         } 
-      ))  
-      });
-
-
-    firebase.auth().sendPasswordResetEmail(data.email)
-    .then((result) => {
-      if(result)
-      {
-        console.log("Check Your Email For Reset Link");
-      }
-      else{console.log("Failed");}
-    });
-  })
+      ))
+      
+      let alert = this.alertCtrl.create({
+        title: 'Success',
+        subTitle: 'Invitation sent to '+ employee.email,
+        //scope: id,
+        buttons: [{text: 'OK',
+                  handler: data => {
+                   this.navCtrl.push(UserDetailsPage);
+                  } 
+                }]
+              });
+      alert.present();
+      
   
+      
+      });
+  
+
+
+    }else{
+
+  let alert = this.alertCtrl.create({
+    title: 'Warning',
+    subTitle: 'Insert Data',
+    //scope: id,
+    buttons: [{text: 'OK',
+              handler: data => {
+               //this.navCtrl.push(LoginPage);
+              } 
+            }]
+          });
+  alert.present();
+
 }
 
 }
+}
+
 
 

@@ -28,7 +28,7 @@ import { CreateCampaignsLeadPage } from '../pages/create-campaigns-lead/create-c
 export class MyApp {
  @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = CreateCampaignsLeadPage ;
+  rootPage: any = LoginPage ;
   public name: any;
  
 

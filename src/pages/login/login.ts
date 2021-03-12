@@ -37,8 +37,9 @@ export class LoginPage {
   }
 
     login(user:User){
+      if(user.email && user.password != null){
 
-    
+        
       firebase.auth().signInWithEmailAndPassword(user.email,user.password)
       .then((user) => {
         let currentuser=firebase.auth().currentUser;
@@ -80,7 +81,20 @@ export class LoginPage {
                   });
           alert.present();
         });
+      }else{
+        let alert = this.alertCtrl.create({
+          title: 'Warning',
+          subTitle: 'Enter your Details',
+          //scope: id,
+          buttons: [{text: 'OK',
+                    handler: data => {
+                     this.navCtrl.push(LoginPage);
+                    } 
+                  }]
+                });
+        alert.present();
       }
+    }//signin ends
 
     ResetPassword()
     {

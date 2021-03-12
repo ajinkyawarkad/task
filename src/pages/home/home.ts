@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
 import { MenuController, NavController, ToastController } from 'ionic-angular';
 import { CreateCampaignPage } from '../create-campaign/create-campaign';
+import { User } from '../../models/user';
+
 import { ReportPage } from '../report/report';
 import { TrackCampaignPage } from '../track-campaign/track-campaign';
 import { UserDetailsPage } from '../user-details/user-details';
@@ -22,6 +24,8 @@ import { Storage } from '@ionic/storage';
   templateUrl: 'home.html'
 })
 export class HomePage {
+  use = {} as User;
+
 
   isLoggedIn: Boolean;
   public name:string;
@@ -45,8 +49,7 @@ export class HomePage {
 
   ionViewWillLoad() 
     {
-    
-      this.auth.authState.subscribe(data => {
+    this.auth.authState.subscribe(data => {
         if(data.email && data.uid){
           console.log(data.email);
             this.toast.create({
@@ -65,6 +68,29 @@ export class HomePage {
       });
 
     }
+
+    async getMarkers(use:User) {
+
+      // const cityRef = db.collection('cities').doc('SF');
+      // const doc = await cityRef.get();
+      // if (!doc.exists) {
+      // console.log('No such document!');
+      //     } else {
+      //   console.log('Document data:', doc.data());
+      //   }
+      let currentUser = firebase.auth().currentUser;
+      let doc = use.email;
+      const events = await firebase.firestore().collection('Company').doc("COM#"+currentUser.uid).collection('non-active').doc(currentUser.email)
+      const dat = await events.get();
+      if(!dat.exists){
+        console.log('No such document!');
+
+      }else{
+        console.log('Document data:', dat.data().role);
+
+      }
+    }
+
   
   report()
   {
