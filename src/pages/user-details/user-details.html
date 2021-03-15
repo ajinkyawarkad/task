@@ -22,6 +22,8 @@
 </ion-segment>
 
 
+
+
 <div [ngSwitch]="Segments">
  <br>
  <div *ngSwitchCase="1" >
@@ -58,7 +60,7 @@
 
     <ion-row>
       <ion-col>
-        <button ion-button round full color="primary" >
+        <button ion-button round full color="primary" (click)= "dummy()" >
           Invite
       </button>
       </ion-col>
@@ -70,7 +72,25 @@
 
 
       <div *ngSwitchCase="2"  > 
-        <table>
+
+        
+        <ion-content padding></ion-content>
+
+          <ion-segment [(ngModel)]="Segments" value="3" mode="ios" >
+          <ion-segment-button (ionSelect)="Segments = 3" value="3">
+            Active
+          </ion-segment-button>
+  
+          <ion-segment-button (ionSelect)="Segments = 4" value="4" >
+            Non-Active
+          </ion-segment-button>
+          </ion-segment>
+
+       
+        
+        
+        <table padding>
+         
           <thead>
           <tr>
             <th>First Name</th>
@@ -78,18 +98,55 @@
             <th>Role</th>
             <th>Email</th>
             <th>Action</th>
+            <th>Status</th>
           </tr>
           </thead>
           <tbody>
           <tr  *ngFor="let product of products  | async">
-            <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.first_name}}</td>
-            <td>{{product.last_name}}</td>
+            <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</td>
+            <td>{{product.last}}</td>
             <td>{{product.role}}</td>
             <td>{{product.email}}</td>
+            
             <td> <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.uid); deleteItem1(product.uid)"></ion-icon></td>
+            <td>Non-Active</td>
           </tr>
           </tbody>
         </table> 
+
+       
+      </div>
+
+      <div *ngSwitchCase="4"  > 
+
+        
+        
+        <table padding>
+         
+          <thead>
+          <tr>
+            <th>First Name</th>
+            <th>Last Name</th>
+            <th>Role</th>
+            <th>Email</th>
+            <th>Action</th>
+            <th>Status</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr  *ngFor="let product of products  | async">
+            <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</td>
+            <td>{{product.last}}</td>
+            <td>{{product.role}}</td>
+            <td>{{product.email}}</td>
+            
+            <td> <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.uid); deleteItem1(product.uid)"></ion-icon></td>
+            <td>Non-Active</td>
+          </tr>
+          </tbody>
+        </table> 
+
+       
       </div>
 
       <div *ngSwitchCase="3" >
@@ -117,6 +174,8 @@
           </tbody>
         </table> 
       </div>
+
+      
 
 </div>
 
