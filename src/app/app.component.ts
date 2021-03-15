@@ -29,7 +29,7 @@ import { CreateLeadProfilePage } from '../pages/create-lead-profile/create-lead-
 export class MyApp {
  @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = CreateLeadProfilePage ;
+  rootPage: any = HomePage ;
   public name: any;
  
 
