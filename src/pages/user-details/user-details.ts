@@ -148,31 +148,22 @@ export class UserDetailsPage {
 
   }
 
-  dummy(){
+  dummy(employee:Employee){
+    //console.log(employee.name);
     this.storage.get('cuid').then((val) => {
       //console.log('id is', val);
       let currentUser = firebase.auth().currentUser;
-    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Admin').doc(currentUser.uid).update({
+    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Admin').doc(currentUser.uid).set({
       users :{
-       xyz3:{
+      "dsfdasf":{
           name:this.employee.name,
           role:this.employee.role,
           last:this.employee.last,
           
         
-        },
-
-
-      }
+        }}
       
-        
-      
-        
-
-      
-        
-      
-    })
+    },{ merge: true })
     
         
       
