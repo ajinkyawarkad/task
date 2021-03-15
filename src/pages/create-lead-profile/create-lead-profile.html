@@ -9,11 +9,18 @@
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding> 
  
- 
+  <h5>Select file to upload data</h5>
+  <div class="form-group">
+         <input type="file" (change)="onFileSelect($event.target)" name="myfile">
+    </div>
 
-  <table>
+   
+    <!-- <p>OR</p> -->
+    <br>
+
+  <table class="data-table">
 		<thead>
 		<tr>
 			<th>Field</th>
@@ -25,29 +32,10 @@
     <tbody>
      
       <div class="container1">
-      <tr >
-        <td> <input type="text" placeholder="First Name" name="mytext[]"></td>
-        <td> <input type="checkbox" ></td>
+      <tr *ngFor="let header of headerRow">
+        <td> <b>{{header}}</b></td>
+        <td><input type="checkbox" ></td>
         <td><input type="checkbox" > </td>
-       </tr> 
-
-       <tr >
-        <td> <input type="text" placeholder="Last Name" name="mytext[]"></td>
-        <td> <input type="checkbox" ></td>
-        <td><input type="checkbox" > </td>
-      
-       </tr> 
-       <tr >
-        <td> <input type="text" placeholder="Telephone" name="mytext[]"></td>
-        <td> <input type="checkbox" ></td>
-        <td><input type="checkbox" > </td>
-       
-       </tr> 
-        <tr >
-        <td> <input type="text" placeholder="Email" name="mytext[]"></td>
-        <td> <input type="checkbox" ></td>
-        <td><input type="checkbox" > </td>
-      
        </tr> 
       </div>
       </tbody>
@@ -60,22 +48,6 @@
  
    <button ion-button  color="success" (click)="save()"> Save & Next </button> 
     
-   <p>OR</p>
-
-   <h5>Select file to upload data</h5>
-   <div class="form-group">
-          <input type="file" (change)="onFileSelect($event.target)" name="myfile">
-     </div>
   
-     
-      <!-- <table class="data-table">
-        <tr>
-          <td *ngFor="let header of headerRow" text-center><b>{{ headerRow }}</b></td>
-        </tr>
-        <tr *ngFor="let row of csvContent; let i = index">
-          <td *ngFor="let data of row; let j = index; trackBy: trackByFn">
-            <ion-input type="text" [(ngModel)]="csvContent[i][j]"></ion-input>
-          </td>
-        </tr>
-      </table> -->
+
 </ion-content>

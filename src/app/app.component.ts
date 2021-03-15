@@ -21,8 +21,6 @@ import {  } from 'ionic-angular';
 import { CreateCampaignsLeadPage } from '../pages/create-campaigns-lead/create-campaigns-lead';
 import { CreateLeadProfilePage } from '../pages/create-lead-profile/create-lead-profile';
 
-
-
 @Component({
   templateUrl: 'app.html'
 })
@@ -30,10 +28,14 @@ export class MyApp {
  @ViewChild(Nav) nav: Nav;
 
 
+
   rootPage: any = LoginPage ;
 
- 
 
+  
+  public name: any;
+
+ 
   pages: Array<{title: string, component: any, icon: string}>;
  
   constructor(private auth:AngularFireAuth,private storage: Storage,

@@ -1,8 +1,15 @@
 page-create-lead-profile {
+
 	.container1 input[type=text] {
 		padding:5px 0px;
+		
 		margin:5px 5px 5px 0px;
 		}
+		.container1 input[type=checkbox] {
+			//padding:5px 0px;
+			padding: 10px; 
+			margin:5px 5px 5px 0px;
+			}
 		ion-icon {
 			display: inline-block;
 			font-size: 1.4em;
@@ -20,11 +27,24 @@ page-create-lead-profile {
 			margin: 4px 2px;
 			cursor: pointer;
 		}
-	ion-content
+		ion-content
 	{
 		font-family: 'roboto';
 		font-size: 15px;	
 	}
+
+	.button-full-md {
+		margin-left: 23%;
+		margin-right: 0;
+		border-radius: 5px;
+		border-right-width: 0;
+		border-left-width: 0;
+		width: 57%;
+	}
+	ion-segment 
+		{
+			width: 50%;
+		}
 	table { 
 		width: 100%; 
 		border-collapse: collapse; 
@@ -33,140 +53,289 @@ page-create-lead-profile {
 	tr:nth-of-type(odd) { 
 	background: rgb(250, 245, 245); 
 	}
+   
+	th:nth-child(5){
+		width:5%;
+	}
 	th { 
 		background: rgb(70, 69, 69); 
 		color: white; 
-		font-weight: normal;
-		padding: -3px; 
+		font-weight: normal; 
 	}
-	td { 
-		padding: -3px; 
+	td, th { 
+		padding: 10px; 
 		 border-bottom: 1px solid #8b8989; 
 		text-align: left; 
 		
 	}
-	input[type="checkbox"], input[type="radio"] {
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-		margin-right: 67px;
-		margin-left: 75px;
-	}
-    ion-label {
-      margin: 8px 8px;
-    }
-   
-	select{
-		width: 100%;
-		border: none;
-		height: 28px;
-		margin-bottom: -9px;
-		font-size: 15px;	
-	}
-	text-input-md {
-		margin: 8px 8px;
-		padding: 0;
-		width: calc(100% - 8px - 8px);
-		font-size:15px;
+  
+	/* Extra small devices (phones, 600px and down) */
+	@media only screen and (max-width: 600px) {
+		table, thead, tbody, th, td, tr {
+			display: block;
 		
-	}
-	table {
-		border-collapse: collapse;
-		width: 100%;
-	  }
+		}
+		ion-segment 
+		{
+			width: 100%;
+		}
+		
+		thead tr {
+			position: absolute;
+			top: -9999px;
+			left: -9999px;
+		}
 	
-	 
-	ion-input, ion-textarea {
-		height: 34px;
-		top: -4px;
+		tr { border: 1px solid #ccc; }
+	
+		td {
+			/* Behave  like a "row" */
+			border: none;
+			border-bottom: 1px solid #eee;
+			position: relative;
+			//padding-left: 50%;
+		}
+	
+		td:before {
+			/* Now like a table header */
+			position: relative;
+			/* Top/left values mimic padding */
+			top: 0px;
+			left: 6px;
+			width: 45%;
+			padding-right: 15px;
+			white-space: nowrap;
+			font-weight: bold;
+		}
+		
+		ion-icon 
+		{
+			display: inline-block;
+			margin-right: -22px;
+			line-height: -12px;
+			vertical-align: top;
+			margin-left: 10px;
+		}
+		/*
+		Label the data
+		*/
+		//td:nth-of-type(1) { font-weight:bold;font-size:150%;margin-top:5px; }
+		td:nth-of-type(1):before { content: "First Name:"; }
+		td:nth-of-type(2):before { content: "Last Name:"; }
+		td:nth-of-type(3):before { content: "Status:"; }
+		td:nth-of-type(4):before { content: "Action:"; }
+		td:nth-of-type(5):before { content: "Phone:"; }
+		td:nth-of-type(6):before { content: "Previous Remark:"; }
+		td:nth-of-type(7):before { content: "Action:"; }
 	}
 
-/* Extra small devices (phones, 600px and down) */
-@media only screen and (max-width: 600px) {
-	.contaier {
-    width: 96%;
-    padding: 10px;
-    margin: -3%;
-		//margin-top: 7%;
-		height: auto;
-		background: #ffffff;
-    position: fixed;	
+	
+	
+	/* Small devices (portrait tablets and large phones, 600px and up) */
+	@media only screen and (min-width: 600px) {
+		table{
+			width:100%;
+		}
+		td, th { 
+			padding: 10px; 
+			 border-bottom: 1px solid #8b8989; 
+			text-align: left; 
+			
+		}
+	
+		.contaier-login {
+			width: 83%;
+			background: #ffffff;
+			position: fixed;
+			margin-left: 30px;
+		}
+		.deleteicon{
+			margin-left: 15px;
+	
+		}
+		th:nth-child(1){
+			width:11%;
+		}
+		th:nth-child(2){
+			width:11%;
+		}
+		th:nth-child(3){
+			width:11%;
+		}
+		th:nth-child(4){
+			width:13%;
+		}
+		th:nth-child(5){
+			width:25%;
+		}
+		th:nth-child(7){
+			width:2%;
+		}
+		ion-icon 
+		{
+			display: inline-block;
+			margin-right: -6px;
+			line-height: -12px;
+			 vertical-align: top; 
+			margin-left: -19px;
+		}
 	}
-}
-
-/* Small devices (portrait tablets and large phones, 600px and up) */
-@media only screen and (min-width: 600px) {
-	.contaier {
+	
+	/* Medium devices (landscape tablets, 768px and up) */
+	@media only screen and (min-width: 768px) {
+		table{
+			width:100%;
+		}
+		td, th { 
+			padding: 10px; 
+			 border-bottom: 1px solid #8b8989; 
+			text-align: left; 
+			
+		}
+	
+		.contaier-login {
+			width: 83%;
+			background: #ffffff;
+			position: fixed;
+			margin-left: 30px;
+		}
+		.deleteicon{
+			margin-left: 15px;
+	
+		}
+		th:nth-child(1){
+			width:9%;
+		}
+		th:nth-child(2){
+			width:9%;
+		}
+		th:nth-child(3){
+			width:8%;
+		}
+		th:nth-child(4){
+			width:8%;
+		}
+		th:nth-child(5){
+			width:14%;
+		}
+		th:nth-child(6){
+			width:30%;
+		}
+		th:nth-child(7){
+			width:2%;
+		}
+		ion-icon 
+		{
+			display: inline-block;
+			margin-right: -6px;
+			line-height: -12px;
+			 vertical-align: top; 
+			margin-left: -19px;
+		}
+	}
+	
+	/* Large devices (laptops/desktops, 992px and up) */
+	@media only screen and (min-width: 992px) {
+		.contaier-login {
 		background:#ffffff;
 		border-radius:5px;
-		//border: 1px solid rgb(160, 156, 156);
-		width: 80%;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		transform: translate(-50%, -50%);
-		height: 95%;
+		border: 1px solid rgb(160, 156, 156);
+	   // box-shadow: 5px 5px 24px 15px rgba(0, 0 ,0 , 0.10);
+	   width: 70%;
+	   margin: 0;
+	   position: absolute;
+	   top: 50%;
+	   left: 50%;
+	   margin-right: 80%;
+	   transform: translate(-50%, -50%);
+	   height:auto;
 	}
-	.list-md {
-		margin: 21px 20px 15px;
+	.deleteicon{
+		margin-left: 10px;
+	
 	}
-	button:hover {
-        opacity: 0.8;
-      }
-      
-      #prevBtn {
-        background-color: #bbbbbb;
-      }
-	 
-}
-
-/* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (min-width: 768px) {
-	.contaier {
-		background:#ffffff;
-		border-radius:5px;
-		//border: 1px solid rgb(160, 156, 156);
-		// box-shadow: 5px 5px 24px 15px rgba(0, 0 ,0 , 0.10);
-		width: 60%;
-		margin: 0;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-right: 80%;
-		transform: translate(-50%, -50%);
-		height:95%;
+	th:nth-child(1){
+		width:9%;
 	}
-}
-
-/* Large devices (laptops/desktops, 992px and up) */
-@media only screen and (min-width: 992px) {
-	.contaier {
-		background:#ffffff;
-		border-radius:5px;
-		//border: 1px solid rgb(160, 156, 156);
-		width: 80%;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		margin-right: 80%;
-		transform: translate(-50%, -50%);
-		height:95%;
+	th:nth-child(2){
+		width:9%;
 	}
-}
-
-/* Extra large devices (large laptops and desktops, 1200px and up) */
-@media only screen and (min-width: 1200px) {
-	.contaier {
-		background:#ffffff;
-		border-radius:5px;
-		//border: 1px solid rgb(160, 156, 156);
-		width: 80%;
-		position: absolute;
-		top: 50%;
-		left: 50%;
-		//margin-right: 80%;
-		transform: translate(-50%, -50%);
-		height:85%;
+	th:nth-child(3){
+		width:8%;
 	}
-}
+	th:nth-child(4){
+		width:8%;
+	}
+	th:nth-child(5){
+		width:19%;
+	}
+	th:nth-child(6){
+		width:30%;
+	}
+	th:nth-child(7){
+		width:2%;
+	}
+	ion-icon 
+	{
+		display: inline-block;
+		margin-right: -6px;
+		line-height: -12px;
+		 vertical-align: top; 
+		margin-left: -19px;
+	}
+	}
+	
+	/* Extra large devices (large laptops and desktops, 1200px and up) */
+	@media only screen and (min-width: 1200px) {
+		.contaier-login {
+			background:#ffffff;
+			border-radius:5px;
+			border: 1px solid rgb(160, 156, 156);
+		   // box-shadow: 5px 5px 24px 15px rgba(0, 0 ,0 , 0.10);
+		   width: 70%;
+		   margin: 0;
+		   position: absolute;
+		   top: 50%;
+		   left: 50%;
+		   margin-right: 80%;
+		   transform: translate(-50%, -50%);
+		   height:auto;
+		}
+		.deleteicon{
+			margin-left: 10px;
+	
+		}
+		th:nth-child(1){
+			width:9%;
+		}
+		th:nth-child(2){
+			width:9%;
+		}
+		th:nth-child(3){
+			width:8%;
+		}
+		th:nth-child(4){
+			width:8%;
+		}
+		th:nth-child(5){
+			width:14%;
+		}
+		th:nth-child(6){
+			width:30%;
+		}
+		th:nth-child(7){
+			width:2%;
+		}
+		ion-icon 
+		{
+			display: inline-block;
+			margin-right: -6px;
+			line-height: -12px;
+			 vertical-align: top; 
+			margin-left: -19px;
+		}
+	}
+	
+	
 	
 }
