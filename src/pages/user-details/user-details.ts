@@ -14,6 +14,7 @@ import { AngularFirestore} from 'angularfire2/firestore';
 
 
 import { Observable } from 'rxjs';
+import { merge } from 'jquery';
 
 interface Users {
    first_name: string,  
@@ -43,20 +44,21 @@ export class UserDetailsPage {
   ionViewWillLoad() 
     { 
       let currentuser=firebase.auth().currentUser;
-      this.userInfo = this.afs.collection('Company').doc("COM#"+currentuser.uid).collection('Users'); 
+      this.userInfo = this.afs.collection('Company').doc("COM#"+currentuser.uid).collection('non-active'); 
       this.products = this.userInfo.valueChanges();
+      
     }
 
 
-    deleteItem1(product)
-    {
-      let currentuser=firebase.auth().currentUser;
-      this.afs.collection('Company').doc("COM#"+currentuser.uid).collection('Users').doc('uid')
-      .delete()  ; 
-      console.log(product);
-      currentuser.delete();
+    // deleteItem1(product)
+    // {
+    //   let currentuser=firebase.auth().currentUser;
+    //   this.afs.collection('Company').doc("COM#"+currentuser.uid).collection('Users').doc('uid')
+    //   .delete()  ; 
+    //   console.log(product);
+    //   currentuser.delete();
 
-    }
+    // }
 
     showPopup(uid) {
       let alert = this.alertCtrl.create({
@@ -98,6 +100,93 @@ export class UserDetailsPage {
       
   }
 
+
+  deleteUser(employee:Employee){
+    this.storage.get('cuid').then((val) => {
+      console.log('id is', val);
+
+      
+    
+      
+    
+    
+    let alert = this.alertCtrl.create({
+      title: 'Success',
+      subTitle: 'Invitation sent to '+ employee.email,
+      //scope: id,
+      buttons: [{text: 'OK',
+                handler: data => {
+                 this.navCtrl.push(UserDetailsPage);
+                } 
+              }]
+            });
+    alert.present();
+    
+
+    
+    });
+
+
+    
+   
+   
+  }
+
+
+  async showActive(user:User){
+    let currentUser = firebase.auth().currentUser;
+    const events = await firebase.firestore().collection('Company').doc("COM#"+currentUser.uid).collection('Admin').doc(currentUser.uid)
+    const dat = await events.get();
+    if(!dat.exists){
+      console.log('No such document!');
+
+    }else{
+      console.log('Document data:', dat.data());
+
+    }
+    
+
+  }
+
+  dummy(){
+    this.storage.get('cuid').then((val) => {
+      //console.log('id is', val);
+      let currentUser = firebase.auth().currentUser;
+    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Admin').doc(currentUser.uid).update({
+      users :{
+       xyz3:{
+          name:this.employee.name,
+          role:this.employee.role,
+          last:this.employee.last,
+          
+        
+        },
+
+
+      }
+      
+        
+      
+        
+
+      
+        
+      
+    })
+    
+        
+      
+          
+    
+
+
+    
+    
+  })
+}
+
+
+
   insertUser(employee:Employee){
     if(employee.email && employee.role && employee.name && employee.last != null){
 
@@ -114,6 +203,8 @@ export class UserDetailsPage {
         role: employee.role
         } 
       ))
+
+
       
       let alert = this.alertCtrl.create({
         title: 'Success',
