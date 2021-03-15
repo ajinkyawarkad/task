@@ -27,7 +27,6 @@
     "@types/jquery": "^3.5.5",
     "@types/papaparse": "^5.2.5",
     "angularfire2": "^5.0.0-rc.4",
-    "aws-amplify": "^3.3.18",
     "chart.js": "^2.9.4",
     "cordova-plugin-filechooser": "1.2.0",
     "cordova-plugin-filepath": "1.5.8",

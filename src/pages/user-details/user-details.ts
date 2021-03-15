@@ -121,8 +121,15 @@ export class UserDetailsPage {
               }]
             });
     alert.present();
+    
+
+    
+    });
+
+
+    
    
-    });  
+   
   }
 
 
@@ -141,21 +148,40 @@ export class UserDetailsPage {
 
   }
 
-  dummy(employee:Employee){
+  dummy(){
     this.storage.get('cuid').then((val) => {
       //console.log('id is', val);
       let currentUser = firebase.auth().currentUser;
-    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Admin').doc(currentUser.uid).set({
-      user :{
-       [this.employee.name]:{
+    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Admin').doc(currentUser.uid).update({
+      users :{
+       xyz3:{
           name:this.employee.name,
           role:this.employee.role,
           last:this.employee.last,
-          email:this.employee.email,
-        }
-      }  
-    },{ merge: true}
-    )
+          
+        
+        },
+
+
+      }
+      
+        
+      
+        
+
+      
+        
+      
+    })
+    
+        
+      
+          
+    
+
+
+    
+    
   })
 }
 

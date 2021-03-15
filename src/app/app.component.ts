@@ -27,8 +27,14 @@ import { CreateLeadProfilePage } from '../pages/create-lead-profile/create-lead-
 export class MyApp {
  @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage ;
+
+
+  rootPage: any = LoginPage ;
+
+
+  
   public name: any;
+
  
   pages: Array<{title: string, component: any, icon: string}>;
  

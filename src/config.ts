@@ -1,6 +1,6 @@
 export const firebaseConfig = {
     fire :{
-        
+
         apiKey: "AIzaSyCjyUitM7_l2cTLnHSndXLI5DyLW1hayzs",
         authDomain: "adminnew-d710c.firebaseapp.com",
         projectId: "adminnew-d710c",
@@ -8,6 +8,7 @@ export const firebaseConfig = {
         messagingSenderId: "1017760632379",
         appId: "1:1017760632379:web:6048353cb4ac36aa6b961e",
         measurementId: "G-25WDLRTM3D"
+        
 
         //  apiKey: "AIzaSyALh0_RQqpQWHXFe6hS-ojWftaY3-aopTQ",
         // authDomain: "adminsale-93b98.firebaseapp.com",
