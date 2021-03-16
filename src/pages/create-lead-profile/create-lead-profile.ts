@@ -76,13 +76,12 @@ export class CreateLeadProfilePage {
         if (x < max_fields) {
             x++;
            
-  
-            var values = $("input[name='pname[]']")
-            .map(function(){return $(this).val();}).get();
-           console.log(values);
+          //   var values = $("input[name='pname[]']")
+          //   .map(function(){return $(this).val();}).get();
+          //  console.log(values);
 
-            let Mainheader =HR.concat(values);
-            console.log(Mainheader);
+          //   let Mainheader =HR.concat(values);
+          //   console.log(Mainheader);
 
             $(wrapper).append(
               '<div><tr><td><input type="text" name="pname[]" value=""/></td><td><input type="checkbox" /></td><td><input type="checkbox" /></td><td><a href="#" class="delete">Delete</a></td></tr></div>'); //add input box

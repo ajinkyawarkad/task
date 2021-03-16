@@ -22,8 +22,6 @@
 </ion-segment>
 
 
-
-
 <div [ngSwitch]="Segments">
  <br>
  <div *ngSwitchCase="1" >
@@ -32,12 +30,12 @@
    <ion-row>
       <ion-col>
         <ion-item>
-          <ion-input type="text" required placeholder="First Name" required [(ngModel)]="employee.name" ></ion-input>
+          <ion-input type="text" required placeholder="First Name" required [(ngModel)]="employee.first_name" ></ion-input>
       </ion-item>
       <br />
    
       <ion-item>
-        <ion-input type="text" required placeholder="Last Name" required [(ngModel)]="employee.last" ></ion-input>
+        <ion-input type="text" required placeholder="Last Name" required [(ngModel)]="employee.last_name" ></ion-input>
       </ion-item>
        <br />
    
@@ -60,7 +58,7 @@
 
     <ion-row>
       <ion-col>
-        <button ion-button round full color="primary" (click)= "dummy()" >
+        <button ion-button round full color="primary" (click)= "insertUser(employee)" >
           Invite
       </button>
       </ion-col>
@@ -73,22 +71,47 @@
 
       <div *ngSwitchCase="2"  > 
 
-        
-        <ion-content padding></ion-content>
-
-          <ion-segment [(ngModel)]="Segments" value="3" mode="ios" >
-          <ion-segment-button (ionSelect)="Segments = 3" value="3">
+          <ion-segment [(ngModel)]="Segments" value="5" mode="ios" >
+          <ion-segment-button (ionSelect)="Segments = 4" value="4">
             Active
           </ion-segment-button>
   
-          <ion-segment-button (ionSelect)="Segments = 4" value="4" >
+          <ion-segment-button (ionSelect)="Segments = 5" value="5" >
             Non-Active
           </ion-segment-button>
           </ion-segment>
-
+        </div>
        
         
-        
+        <div *ngSwitchCase="4"  > 
+       
+          <table padding>
+         
+            <thead>
+            <tr>
+              <th>First Name</th>
+              <th>Last Name</th>
+              <th>Role</th>
+              <th>Email</th>
+              <th>Action</th>
+             
+            </tr>
+            </thead>
+            <tbody>
+            <tr  *ngFor="let product of productss  | async">
+              <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</td>
+              <td>{{product.last}}</td>
+              <td>{{product.role}}</td>
+              <td>{{product.email}}</td>
+              
+              <td> <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.uid); deleteItem1(product.uid)"></ion-icon></td>
+             
+            </tr>
+            </tbody>
+          </table> 
+          </div>
+          
+          <div *ngSwitchCase="5"  > 
         <table padding>
          
           <thead>
@@ -98,7 +121,7 @@
             <th>Role</th>
             <th>Email</th>
             <th>Action</th>
-            <th>Status</th>
+           
           </tr>
           </thead>
           <tbody>
@@ -109,46 +132,12 @@
             <td>{{product.email}}</td>
             
             <td> <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.uid); deleteItem1(product.uid)"></ion-icon></td>
-            <td>Non-Active</td>
+           
           </tr>
           </tbody>
         </table> 
-
-       
       </div>
-
-      <div *ngSwitchCase="4"  > 
-
-        
-        
-        <table padding>
-         
-          <thead>
-          <tr>
-            <th>First Name</th>
-            <th>Last Name</th>
-            <th>Role</th>
-            <th>Email</th>
-            <th>Action</th>
-            <th>Status</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr  *ngFor="let product of products  | async">
-            <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</td>
-            <td>{{product.last}}</td>
-            <td>{{product.role}}</td>
-            <td>{{product.email}}</td>
-            
-            <td> <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.uid); deleteItem1(product.uid)"></ion-icon></td>
-            <td>Non-Active</td>
-          </tr>
-          </tbody>
-        </table> 
-
-       
-      </div>
-
+    
       <div *ngSwitchCase="3" >
         <table>
           <thead>

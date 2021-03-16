@@ -13,3 +13,11 @@ export class Employee{
     last:string;
     role:string;
 }
+
+export class Camp
+{
+    name:string;
+    goals:string;
+    manager:string;
+    sr:string;
+}
