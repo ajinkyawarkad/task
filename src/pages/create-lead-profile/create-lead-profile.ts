@@ -1,11 +1,15 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CreateCampaignsLeadPage } from '../create-campaigns-lead/create-campaigns-lead';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { Http } from '@angular/http';
 
 import * as $ from "jquery";
 import * as papa from 'papaparse';
+import { HomePage } from '../home/home';
+import { CreateNewCampleadPage } from '../create-new-camplead/create-new-camplead';
+import firebase from 'firebase';
+import { Camp } from '../../models/user';
 
 
 @IonicPage()
@@ -20,9 +24,10 @@ export class CreateLeadProfilePage {
    headerRow: any;
    csvContent: any;
    csvData: any;
- 
-  constructor(public navCtrl: NavController, public navParams: NavParams,private _FB   : FormBuilder, private http: Http) {
-   
+   value :any;
+  constructor(public navCtrl: NavController, public navParams: NavParams,private _FB   : FormBuilder, private http: Http
+    ,private alertCtrl:AlertController,public navParam:NavParams) {
+      
   }
 
   ngAfterViewInit(){
@@ -41,12 +46,16 @@ export class CreateLeadProfilePage {
     
    if (files && files.length) {
         const fileToRead = files[0];
+       
+        // var storageRef = firebase.storage().ref();
+        // storageRef.put(files[0].name)
+
         const fileReader = new FileReader();
         //fileReader.onload = this.onFileLoad;
 
         fileReader.onload = () => {
           fileReader.result; // This is valid
-          console.log(fileReader.result)
+          //console.log(fileReader.result)
           this.extractData(fileReader.result);
        };
         fileReader.readAsText(fileToRead, "UTF-8");
@@ -76,15 +85,15 @@ export class CreateLeadProfilePage {
         if (x < max_fields) {
             x++;
            
-          //   var values = $("input[name='pname[]']")
-          //   .map(function(){return $(this).val();}).get();
-          //  console.log(values);
+            var values = $("input[name='pname[]']")
+            .map(function(){return $(this).val();}).get();
+            //console.log(values);
 
-          //   let Mainheader =HR.concat(values);
-          //   console.log(Mainheader);
-
+            let Mainheader =HR.concat(values);
+            console.log(Mainheader);
+          
             $(wrapper).append(
-              '<div><tr><td><input type="text" name="pname[]" value=""/></td><td><input type="checkbox" /></td><td><input type="checkbox" /></td><td><a href="#" class="delete">Delete</a></td></tr></div>'); //add input box
+              '<div><tr><td><input type="text" name="pname[]" value=""/></td><td><input type="checkbox" /></td><td><input type="checkbox" /></td><td><input type="checkbox" /></td><td><a href="#" class="delete">Delete</a></td></tr></div>'); //add input box
               
         } else {
             alert('You Reached the limits')
@@ -100,12 +109,31 @@ export class CreateLeadProfilePage {
     
   }
 
+  upload(){
+    
+    this.value = this.navParams.get('item');  
+    console.log(this.value);
+     var adminId= firebase.auth().currentUser.uid;
+     var file_data = $('#myfile').prop('files')[0];
+ 
+   firebase.storage().ref("users").child(adminId +"/"+ this.value + "/file.csv").put(file_data);
   
+   let alert = this.alertCtrl.create({
+    title: 'Sucess',
+    subTitle: ' File Uploaded Successfully',
+    buttons: [{text: 'OK',
+              handler: data => {
+               this.navCtrl.setRoot(HomePage);
+              } 
+            }]
+          });
+  alert.present();
+  } 
 
-  
-  save(){
-    this.navCtrl.push(CreateCampaignsLeadPage);
-      
+  save1(){
+   // this.navCtrl.push(CreateCampaignsLeadPage);
+   this.navCtrl.push(CreateNewCampleadPage);
   }
  
+  
 }

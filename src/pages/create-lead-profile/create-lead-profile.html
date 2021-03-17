@@ -13,7 +13,7 @@
  
   <h5>Select file to upload data</h5>
   <div class="form-group">
-         <input type="file" (change)="onFileSelect($event.target)" name="myfile">
+         <input type="file" (change)="onFileSelect($event.target)"  id="myfile" accept=".csv">
     </div>
 
    
@@ -24,9 +24,9 @@
 		<thead>
 		<tr>
 			<th>Field</th>
-			<th>Unique</th>
-			<th>Action</th>
-			
+			<th>Unique</th>	
+      <th>Compulsory</th>
+      <th>Mobile</th>
 		</tr>
 		</thead>
     <tbody>
@@ -35,18 +35,21 @@
       <tr *ngFor="let header of headerRow">
         <td> <b>{{header}}</b></td>
         <td><input type="checkbox" ></td>
-        <td><input type="checkbox" > </td>
+        <td><input type="checkbox" ></td>
+        <td><input type="checkbox" ></td>
+       
        </tr> 
       </div>
       </tbody>
     </table>
 
   <br>
-  <button  ion-button  color="success"  class="add_form_field">Add New Field &nbsp; 
+  <button  ion-button  style="background-color: #bbbbbb;"  class="add_form_field">Add New Field &nbsp; 
     <span style="font-size:16px; font-weight:bold;">+ </span>
   </button>
  
-   <button ion-button  color="success" (click)="save()"> Save & Next </button> 
+   <button ion-button type="submit" color="success" (click)="upload()"> Upload & Exit </button> 
+   <button ion-button  color="success" (click)="save1()"> Create Lead </button> 
     
   
 
