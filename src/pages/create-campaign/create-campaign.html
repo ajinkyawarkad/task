@@ -54,7 +54,7 @@
       </ion-slide>
      
       <ion-slide >
-         <div class="container1">
+       
         <table style="margin-top:-5%;">
           <tr  style="height: 41px;font-size:15px;">
             <th >Status</th>
@@ -62,7 +62,7 @@
           </tr>
           <tr  style="height: 31px;font-size:15px;">
            
-           <td> <ion-input placeholder="Interested" type="text" name="pname[]" value=""></ion-input></td>
+           <td> <ion-input placeholder="Interested" type="text" name="pname[]" ></ion-input></td>
             <td><select  type="text">
               <option>None</option>
               <option>Inform Manager</option>
@@ -71,7 +71,7 @@
             </td>
           </tr>
           <tr  style="height: 31px;font-size:15px;">
-            <td> <ion-input placeholder="Not Interested" type="text" name="pname[]" value=""></ion-input></td>
+            <td> <ion-input placeholder="Not Interested" type="text" name="pname[]"></ion-input></td>
             <td><select  type="text">
               <option>None</option>
               <option>Inform Manager</option>
@@ -80,18 +80,31 @@
             </td>
           </tr>
          
+          <tr *ngFor="let att of anArray; let idx = index"> 
+            <td> <ion-input placeholder="Enter Status " type="text" [(ngModel)]="anArray[idx]"></ion-input></td>
+            <td><select  type="text">
+              <option>None</option>
+              <option>Inform Manager</option>
+              <option >Remove client from profile</option>
+            </select>
+            </td>
+            <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
+     
+            </tr >
+
        </table>
-         </div>
+       <button ion-button   (click)="Add()">Add More</button>
+       <button ion-button  (click)="goTo()" >let's go</button>
+      
 
          <br>
-  <button  ion-button  style="background-color: #bbbbbb;"  class="add_form_field">Add New Field &nbsp; 
-    <span style="font-size:16px; font-weight:bold;">+ </span>
-  </button>
+ 
  
         <div>
           <div style="float:right;">
             <button ion-button  id="prevBtn"  type="button" (click)="slideToPrev()">Previous</button>
             <button ion-button  id="nextBtn" (click)= "insertUser(camp)" >Save</button>
+            <button ion-button  id="nextBtn" (click)= "temp()" >Temp</button>
           </div>   
        </div>
   

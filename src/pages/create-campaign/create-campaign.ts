@@ -37,9 +37,8 @@ export class CreateCampaignPage {
   products: Observable<Camps[]>;
   productss: Observable<Camps[]>;
   
-  public array: any = [];
-  public bills: any = [];
   userInfo:any;
+  public anArray:any=[];
 
   constructor(private _FB   : FormBuilder,public navCtrl: NavController, public navParams: NavParams,
     private alertCtrl: AlertController,public afs: AngularFirestore,private storage: Storage) {
@@ -47,59 +46,24 @@ export class CreateCampaignPage {
       effect: 'flip'
     };
    
-
-  //  this.bills.push({ id: 0,  idd:11, value: 'Status1'});
-  //  this.bills.push({ id: 1,  idd:22, value: 'Status2'});
-  //  this.bills.push({ id: 2,  idd:33, value: 'Status3'});
-  //  this.bills.push({ id: 3,  idd:44, value: 'Status4'});
-  //  this.bills.push({ id: 4,  idd:55, value: 'Status5'});
-  //  this.bills.push({ id: 5,  idd:66, value: 'Status6'});
-  //  this.bills.push({ id: 6,  idd:77, value: 'Status7'});
-  // this.bills.push({ id: 7,  idd:88, value: 'Status8'});
-  //  this.bills.push({ id: 8,  idd:99, value: 'Status9'});
-  //  this.bills.push({ id: 9,  idd:89, value: 'Status10'});
-   
-
+  }
+  temp()
+  {
+    this.navCtrl.push(CreateLeadProfilePage)
   }
   
-  
+  goTo(){
+    console.log('this.anArray',this.anArray);
+    
+    }
+  Add(){
+    this.anArray.push('');
+    }
+    remove(idx)
+    {
+      this.anArray.splice(idx, 1);
+    }
   ionViewDidLoad() {
-
-    var max_fields = 10;
-    var wrapper = $(".container1");
-    var add_button = $(".add_form_field");
-  //  var HR=this.headerRow ;
-    var x = 1;
-    $(add_button).click(function(e) {
-        e.preventDefault();
-      
-        if (x < max_fields) {
-            x++;
-           
-            var values = $("input[name='pname[]']")
-            .map(function(){return $(this).val();}).get();
-            console.log(values);
-
-            
-
-            //let Mainheader =HR.concat(values);
-            //console.log(Mainheader);
-          
-            $(wrapper).append(
-              '<div><tr><td><input type="text" name="pname[]" value=""/></td><select  type="text"><option>None</option> <option>Inform Manager</option> <option >Remove client from profile</option</select><td><a href="#" class="delete">Delete</a></td></tr></div>');
-               //add input box
-              
-        } else {
-            alert('You Reached the limits')
-        }
-    });
-
-    $(wrapper).on("click", ".delete", function(e) {
-        e.preventDefault();
-        $(this).parent('div').remove();
-        x--;
-    })
-
     console.log('ionViewDidLoad CreateCampaignPage');
     let currentuser=firebase.auth().currentUser;
       firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid).onSnapshot((doc) => {

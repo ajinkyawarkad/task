@@ -4,12 +4,11 @@
   <ion-navbar>
     <ion-title>Create Lead Profile</ion-title>
   </ion-navbar>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
- 
+
 </ion-header>
 
 
-<ion-content padding> 
+<ion-content no-bounce> 
  
   <h5>Select file to upload data</h5>
   <div class="form-group">
@@ -17,7 +16,7 @@
     </div>
 
    
-    <!-- <p>OR</p> -->
+    <p>OR</p>
     <br>
 
   <table class="data-table">
@@ -27,28 +26,53 @@
 			<th>Unique</th>	
       <th>Compulsory</th>
       <th>Mobile</th>
+      <th></th>
 		</tr>
 		</thead>
     <tbody>
      
-      <div class="container1">
+      
       <tr *ngFor="let header of headerRow">
         <td> <b>{{header}}</b></td>
         <td><input type="checkbox" ></td>
         <td><input type="checkbox" ></td>
         <td><input type="checkbox" ></td>
+        <td></td>
+      </tr>
        
-       </tr> 
-      </div>
+       <tr *ngFor="let att of anArray; let idx = index"> 
+       <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="anArray[idx]"></ion-input></td>
+       <td><input type="checkbox" ></td>
+       <td><input type="checkbox" ></td>
+       <td><input type="checkbox" ></td>
+       <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
+
+       </tr >
+       
       </tbody>
+
+     
     </table>
 
   <br>
-  <button  ion-button  style="background-color: #bbbbbb;"  class="add_form_field">Add New Field &nbsp; 
-    <span style="font-size:16px; font-weight:bold;">+ </span>
-  </button>
- 
-   <button ion-button type="submit" color="success" (click)="upload()"> Upload & Exit </button> 
+
+
+  <!-- <ion-item *ngFor="let att of anArray; let idx = index">
+   <ion-label color="primary">{{att.label}}{{idx+1}}</ion-label> 
+    <ion-input type="text"  text-right  [(ngModel)]="anArray[idx].value"></ion-input>
+</ion-item> -->
+
+
+
+<!-- <ion-card *ngIf="data">
+<ion-item *ngFor="let att of anArray;">
+  <div class="card-title">{{att.value}}</div>
+</ion-item>
+</ion-card> -->
+
+  <button ion-button  style="background-color: #bbbbbb;" (click)="Add()">Add More</button>
+  <br>
+   <button ion-button type="submit" color="secondary" (click)="upload()"> Upload & Exit </button> 
    <button ion-button  color="success" (click)="save1()"> Create Lead </button> 
     
   

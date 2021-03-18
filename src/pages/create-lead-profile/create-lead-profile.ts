@@ -10,7 +10,7 @@ import { HomePage } from '../home/home';
 import { CreateNewCampleadPage } from '../create-new-camplead/create-new-camplead';
 import firebase from 'firebase';
 import { Camp } from '../../models/user';
-
+import { v4 as uuid } from 'uuid';
 
 @IonicPage()
 @Component({
@@ -25,17 +25,25 @@ export class CreateLeadProfilePage {
    csvContent: any;
    csvData: any;
    value :any;
+   public anArray:any=[];
+   data:any;
+   index:any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams,private _FB   : FormBuilder, private http: Http
-    ,private alertCtrl:AlertController,public navParam:NavParams) {
+  ,private alertCtrl:AlertController,public navParam:NavParams) {
       
   }
+ 
 
-  ngAfterViewInit(){
-    //  $(document).ready(function(){
-    //  alert('JQuery is working!!');
-    //  });
-    
+  Add(){
+    this.anArray.push('');
     }
+
+    remove(idx)
+    {
+      this.anArray.splice(idx, 1);
+    }
+  
   ionViewDidLoad() {
     console.log('ionViewDidLoad CreateLeadProfilePage');
   }
@@ -70,46 +78,25 @@ export class CreateLeadProfilePage {
     console.log( this.headerRow);
     parsedData.splice(0, 1);
     this.csvData = parsedData;
-
-   
-     
-     
-    var max_fields = 10;
-    var wrapper = $(".container1");
-    var add_button = $(".add_form_field");
-    var HR=this.headerRow ;
-    var x = 1;
-    $(add_button).click(function(e) {
-        e.preventDefault();
-      
-        if (x < max_fields) {
-            x++;
-           
-            var values = $("input[name='pname[]']")
-            .map(function(){return $(this).val();}).get();
-            //console.log(values);
-
-            let Mainheader =HR.concat(values);
-            console.log(Mainheader);
-          
-            $(wrapper).append(
-              '<div><tr><td><input type="text" name="pname[]" value=""/></td><td><input type="checkbox" /></td><td><input type="checkbox" /></td><td><input type="checkbox" /></td><td><a href="#" class="delete">Delete</a></td></tr></div>'); //add input box
-              
-        } else {
-            alert('You Reached the limits')
-        }
-    });
-
-    $(wrapper).on("click", ".delete", function(e) {
-        e.preventDefault();
-        $(this).parent('div').remove();
-        x--;
-    })
-
-    
   }
 
   upload(){
+
+    console.log(this.anArray);
+    this.data=true;
+    let ss=this.anArray;
+
+    let Mainheader =this.headerRow.concat(ss);
+    console.log(Mainheader); 
+    let uuid1 = uuid()
+    console.log(uuid);
+
+    let currentUser = firebase.auth().currentUser;
+    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc('06028c55-9cad-45b4-8475-0ef40f11ba3c')
+    .update({
+      field:Mainheader
+    }
+    )
     
     this.value = this.navParams.get('item');  
     console.log(this.value);

@@ -153,7 +153,8 @@ export class UserDetailsPage {
     this.storage.get('cuid').then((val) => {
       //console.log('id is', val);
       let currentUser = firebase.auth().currentUser;
-    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Admin').doc(currentUser.uid).update({
+    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Admin').doc(currentUser.uid)
+    .update({
       users :{
        [this.employee.name]:{
           name:this.employee.name,

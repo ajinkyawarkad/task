@@ -1,37 +1,21 @@
 page-create-lead-profile {
 
-	.container1 input[type=text] {
-		padding:5px 0px;
-		
-		margin:5px 5px 5px 0px;
-		}
-		.container1 input[type=checkbox] {
-			//padding:5px 0px;
-			padding: 10px; 
-			margin:5px 5px 5px 0px;
-			}
+	// ion-input{
+	// //	-webkit-transform:rotateZ(0);
+	// 	-webkit-transform: translateZ(0px) ;
+	// }
+	
 		ion-icon {
 			display: inline-block;
 			font-size: 1.4em;
 			margin-top: 10px;
 		}
-		.delete{
-			background-color: #fd1200;
-			border: none;
-			color: white;
-			padding: 5px 15px;
-			text-align: center;
-			text-decoration: none;
-			display: inline-block;
-			font-size: 14px;
-			margin: 4px 2px;
-			cursor: pointer;
-		}
+		
 		ion-content
-	{
+	   {
 		font-family: 'roboto';
 		font-size: 15px;	
-	}
+	    }
 
 	.button-full-md {
 		margin-left: 23%;
