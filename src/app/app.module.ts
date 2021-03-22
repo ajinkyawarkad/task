@@ -76,8 +76,8 @@ import { CallDetailsPage } from '../pages/call-details/call-details';
     HttpClientModule,
     IonicModule.forRoot(MyApp,
       {
-        // scrollAssist: false,
-        // scrollPadding: false
+        scrollAssist: false,
+        scrollPadding: false
       }),
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig.fire),

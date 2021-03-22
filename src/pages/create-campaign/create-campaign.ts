@@ -57,7 +57,7 @@ export class CreateCampaignPage {
     
     }
   Add(){
-    this.anArray.push('');
+    this.anArray.push({'status':'','action':''});
     }
     remove(idx)
     {
@@ -102,6 +102,7 @@ export class CreateCampaignPage {
         goals:camp.goals,
         manager: camp.manager,
         sr: camp.sr
+      
         } 
       ))
      

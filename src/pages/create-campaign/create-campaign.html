@@ -81,8 +81,8 @@
           </tr>
          
           <tr *ngFor="let att of anArray; let idx = index"> 
-            <td> <ion-input placeholder="Enter Status " type="text" [(ngModel)]="anArray[idx]"></ion-input></td>
-            <td><select  type="text">
+            <td> <ion-input placeholder="Enter Status " type="text" [(ngModel)]="anArray[idx].status"></ion-input></td>
+            <td><select  type="text" [(ngModel)]="anArray[idx].action">
               <option>None</option>
               <option>Inform Manager</option>
               <option >Remove client from profile</option>

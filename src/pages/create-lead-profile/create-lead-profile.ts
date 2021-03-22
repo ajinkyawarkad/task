@@ -36,7 +36,7 @@ export class CreateLeadProfilePage {
  
 
   Add(){
-    this.anArray.push('');
+    this.anArray.push({'value':''});
     }
 
     remove(idx)
@@ -81,20 +81,18 @@ export class CreateLeadProfilePage {
   }
 
   upload(){
-
+    this.data=true;
     console.log(this.anArray);
     this.data=true;
     let ss=this.anArray;
 
     let Mainheader =this.headerRow.concat(ss);
     console.log(Mainheader); 
-    let uuid1 = uuid()
-    console.log(uuid);
-
+   
     let currentUser = firebase.auth().currentUser;
     firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc('06028c55-9cad-45b4-8475-0ef40f11ba3c')
     .update({
-      field:Mainheader
+      CSVfield:Mainheader
     }
     )
     
@@ -110,7 +108,7 @@ export class CreateLeadProfilePage {
     subTitle: ' File Uploaded Successfully',
     buttons: [{text: 'OK',
               handler: data => {
-               this.navCtrl.setRoot(HomePage);
+              // this.navCtrl.setRoot(HomePage);
               } 
             }]
           });
