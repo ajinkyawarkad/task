@@ -2,6 +2,14 @@ import { Component, ViewChild } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
 import { Slides } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
+import { AngularFirestore} from 'angularfire2/firestore';
+import firebase from 'firebase';
+import { Observable } from 'rxjs';
+
+interface Camps {
+  name:string;
+  role:string;
+}
 
 @IonicPage()
 @Component({
@@ -14,45 +22,30 @@ export class EditCampaignsDetailsPage {
   slideOpts;
   public form: FormGroup;
   createSuccess = false;
+  value:any;
+  userInfo:any;
+  products: Observable<Camps[]>;
+  product:{name:'',goals:'',manager:'',sr:'',status:''};
+
 
   constructor(private _FB   : FormBuilder,public navCtrl: NavController, public navParams: NavParams,
-    private alertCtrl: AlertController) {
-      this.slideOpts = {
-        effect: 'flip'
-      };
-      this.form = this._FB.group({
-        name       	  : ['', Validators.required],
-        technologies     : this._FB.array([
-          this.initTechnologyFields()
-        ])
-     });
+    private alertCtrl: AlertController,public afs: AngularFirestore) {
+      this.value = navParams.get('product');
+      console.log(this.value);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditCampaignsDetailsPage');
+    let currentuser=firebase.auth().currentUser;
+      firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc('16222a73-4fec-4e7a-bac3-cdfac0d49afd').onSnapshot((doc) => {
+        var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+        console.log(source, " data: "); 
+        this.products =  doc.data().status ;
+         console.log(this.products) ;
+    });
   }
 
-  initTechnologyFields() : FormGroup
-{
-   return this._FB.group({  
-      name : ['', Validators.required]
-   });
-}
-
-  addNewInputField() : void
-{
-   const control = <FormArray>this.form.controls.technologies;
-   control.push(this.initTechnologyFields());
-}
-removeInputField(i : number) : void
-{
-   const control = <FormArray>this.form.controls.technologies;
-   control.removeAt(i);
-}
-manage(val : any) : void
-   {
-      console.dir(val);
-   }
+  
   
     ionViewDidEnter() {
       //lock manual swipe for main slider
@@ -81,28 +74,41 @@ manage(val : any) : void
       }  
    }
 
-   presentConfirm() {
-    let alert = this.alertCtrl.create({
-      title: 'Success',
-      message: 'Compaign Edited Successfully..',
-      buttons: [
-        {
-          text: 'Cancel',
-          role: 'cancel',
-          handler: () => {
-            console.log('Cancel clicked');
-          }
-        },
-        {
-          text: 'Add',
-          handler: () => {
-            console.log('Add clicked');
-            
-          }
-        }
-      ]
-    });
-    alert.present();
+   update(product){
+    let currentuser=firebase.auth().currentUser;
+    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns').doc('15742d61-2f49-4411-acaf-247362b5868c')
+            .update(Object.assign({
+              name: this.value.name,
+              goals: this.value.goals,
+              manager:this.value.manager,
+              sr:this.value.sr,
+              //status:this.product.status
+              } 
+            )).then(() => {
+              console.log("updated..");
+              let alert = this.alertCtrl.create({
+                title: 'Sucess',
+                subTitle: 'Updated Sucessfully',
+                buttons: [{text: 'OK',
+                          handler: data => {
+                         // this.navCtrl.setRoot(ProfilePage);
+                          } 
+                        }]
+                      });
+              alert.present();
+            }).catch((err) => {
+              console.log(err);
+              let alert = this.alertCtrl.create({
+                title: 'Error',
+                subTitle: err,
+                buttons: [{text: 'OK',
+                          handler: data => {
+                          // this.navCtrl.setRoot(ProfilePage);
+                          } 
+                        }]
+                      });
+            });
+    
   }
 
 }

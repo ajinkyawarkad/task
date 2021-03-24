@@ -8,110 +8,19 @@
 
 
 <ion-content class="content">
-  <!-- <div class="contaier">
-  <ion-list>
-    <ion-label> {{array}} </ion-label> 
-    <ion-item>
-       <ion-input type="text" required placeholder="First Name"></ion-input>
-   </ion-item>
-   <br />
-   <ion-item>
-    <ion-input type="text" required placeholder="Last Name"></ion-input>
-</ion-item>
-<br />
-<ion-item>
-  <ion-input type="number" required placeholder="Telephone"></ion-input>
-</ion-item>
-<br />
-<ion-item>
-  <ion-input type="email" required placeholder="Email"></ion-input>
-</ion-item>
-<br />
 
-<ion-item>
-  <ion-label>Sale Representative</ion-label>
-  <ion-select placeholder="Select Sale Representative">
-    <ion-option>Sale Representative 1</ion-option>
-    <ion-option >Sale Representative 2</ion-option>
-    <ion-option >Sale Representative 3</ion-option>
-  </ion-select>
-</ion-item>
-<br />
-   </ion-list>
-    <button ion-button full color="secondary" (click)="hide()" > Add Custom Fields </button>
+<div class="contaier">
+  <table >
+    <tr *ngFor="let product of products; let idx = index; ">
+      <!-- <td > <ion-label> {{product.value}}</ion-label></td> -->
+      <td><ion-input [(ngModel)]="products[idx].value"></ion-input></td> 
+      <td><ion-input [(ngModel)]="products[idx].action"></ion-input></td> 
+    </tr>  
+ </table>
 
-   <div *ngIf="hideMe"> 
-    <form [formGroup]="form" (ngSubmit)="manage(form.value)">
-      <ion-list >
-       <div formArrayName="technologies">
-        <section [formGroupName]="i" *ngFor="let tech of form.controls.technologies.controls; let i = index">
-         
-            <ion-item>
-              <ion-label floating> Your Field </ion-label>   
-                <ion-input type="text" formControlName="name"></ion-input>
-            </ion-item>  
-      
-            <span float-right ion-button icon-left clear  *ngIf="form.controls.technologies.length > 1" (click)="removeInputField(i)">
-             <ion-icon name="close"></ion-icon>
-                Remove
-            </span>  
-         
-        </section>
-      </div>
-    
-      <span  ion-button float-left icon-left clear (click)="addNewInputField()">
-        <ion-icon name="add"></ion-icon>
-                   Add new Action
-     </span>
-  </ion-list>
-  </form>
-    
 
-   </div> -
-
-   <button ion-button full color="success" > Save </button>
-</div> -->
-
-  <div class="contaier">
-<table>
-  <!-- <tr  style="height: 34px;font-size:15px;">
-    <th >Status</th>
-    <th>Action</th>
-  </tr> -->
-  <tr>
-    <td > <ion-label>First Name</ion-label> </td>
-    <td><ion-input placeholder="Enter First Name"  type="text"></ion-input></td>
-  </tr>  
-  <tr>
-    <td > <ion-label>Last Name</ion-label> </td>
-    <td><ion-input placeholder="Enter Last Name"  type="text"></ion-input></td>
-  </tr>  
-  <tr>
-    <td > <ion-label>Telephone</ion-label> </td>
-    <td><ion-input placeholder="Enter Telephone"  type="text"></ion-input></td>
-  </tr>  
-  <tr>
-    <td > <ion-label>Email</ion-label> </td>
-    <td><ion-input placeholder="Enter Email"  type="text"></ion-input></td>
-  </tr>  
-  <tr>
-    <td > <ion-label> Name</ion-label> </td>
-    <td><ion-input placeholder="Enter Name"  type="text"></ion-input></td>
-  </tr>  
-  <tr>
-    <td > <ion-label> Name</ion-label> </td>
-    <td><ion-input placeholder="Enter Name"  type="text"></ion-input></td>
-  </tr>  
-  <tr>
-    <td > <ion-label> Name</ion-label> </td>
-    <td><ion-input placeholder="Enter Name"  type="text"></ion-input></td>
-  </tr>  
-  <tr>
-    <td > <ion-label> Name</ion-label> </td>
-    <td><ion-input placeholder="Enter Name"  type="text"></ion-input></td>
-  </tr>  
-</table>
 <br>
-<button ion-button full color="success" > Save </button>
+
+<button ion-button  (click)= "insertLead(lead)" >Save</button>
 </div>
 </ion-content>

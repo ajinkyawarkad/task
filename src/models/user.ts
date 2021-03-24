@@ -21,3 +21,8 @@ export class Camp
     manager:string;
     sr:string;
 }
+
+export class Lead
+{
+    data:string;
+}

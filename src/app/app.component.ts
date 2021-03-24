@@ -20,6 +20,7 @@ import { ProfilePage } from '../pages/profile/profile';
 import {  } from 'ionic-angular';
 import { CreateCampaignsLeadPage } from '../pages/create-campaigns-lead/create-campaigns-lead';
 import { CreateLeadProfilePage } from '../pages/create-lead-profile/create-lead-profile';
+import { CreateNewCampleadPage } from '../pages/create-new-camplead/create-new-camplead';
 
 @Component({
   templateUrl: 'app.html'
@@ -27,7 +28,7 @@ import { CreateLeadProfilePage } from '../pages/create-lead-profile/create-lead-
 export class MyApp {
  @ViewChild(Nav) nav: Nav;
 
-  rootPage: any = HomePage ;
+  rootPage: any =  HomePage;
 
   public name: any;
 

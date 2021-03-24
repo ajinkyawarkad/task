@@ -7,7 +7,16 @@ import { EditCampaignsDetailsPage } from '../edit-campaigns-details/edit-campaig
 import { LeadsDetailsPage } from '../leads-details/leads-details';
 
 import { LoginPage } from '../login/login';
+import { AngularFirestore} from 'angularfire2/firestore';
 
+import { Observable } from 'rxjs';
+import firebase from 'firebase';
+
+interface Users {
+  name: string,  
+  manager:string;
+  
+}
 
 @IonicPage()
 @Component({
@@ -17,17 +26,26 @@ import { LoginPage } from '../login/login';
 export class TrackCampaignPage {
   
   Segments:string;
-  constructor(public navCtrl: NavController, public navParams: NavParams,public menuCtrl:MenuController) {
+  userInfo:any;
+  products: Observable<Users[]>;
+  constructor(public navCtrl: NavController, public navParams: NavParams,public afs: AngularFirestore,
+    public menuCtrl:MenuController) {
     this.Segments="1";
     //this.menuCtrl.enable(true, 'menu');
   }
 
   ionViewDidLoad() {
+
+    let currentuser=firebase.auth().currentUser;
+      this.userInfo = this.afs.collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns'); 
+      this.products = this.userInfo.valueChanges();
     console.log('ionViewDidLoad TrackCampaignPage');
   }
-  gotoActive()
+  gotoActive(product)
   {
-    this.navCtrl.push(EditCampaignsDetailsPage);
+    this.navCtrl.push(EditCampaignsDetailsPage, {
+      product:product
+    });
   }
 
   gotoAchived()

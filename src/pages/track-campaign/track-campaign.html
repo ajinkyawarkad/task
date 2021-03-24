@@ -38,20 +38,14 @@
             </tr>
             </thead>
             <tbody>
-            <tr>
-              <td style="text-decoration: underline;color:blue" (click)="gotoActive()">Test 1</td>
-              <td>Matman</td>
+            <tr  *ngFor="let product of products | async">
+              <td style="text-decoration: underline;color:blue" (click)="gotoActive(product)">{{product.name}}</td>
+              <td>{{product.manager}}</td>
               <td>6</td>
               <td>7</td>
               <td style="text-decoration: underline;color:blue" (click)="leads()">78</td>
             </tr>
-            <tr>
-              <td style="text-decoration: underline;color:blue" (click)="gotoActive()">Thert</td>
-              <td>Tick</td>
-              <td>9</td>
-              <td>8</td>
-              <td style="text-decoration: underline;color:blue" (click)="leads()">90</td> 
-            </tr>
+           
             </tbody>
           </table>
           <!-- <p>0 overdue follow-ups , 10 follow up for today , abc Manager</p> -->

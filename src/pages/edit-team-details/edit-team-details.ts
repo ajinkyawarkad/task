@@ -25,7 +25,7 @@ product:{first_name:'',last_name:'',email:'',role:''};
 
   update(product){
     let currentuser=firebase.auth().currentUser;
-    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Users').doc('bG2SsD8OcKwcwNEVbpES')
+    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('non-active').doc('Gny6RqAPh2RkMkSJFdzH')
             .update(Object.assign({
               first_name: this.value.first_name,
               last_name: this.value.last_name,

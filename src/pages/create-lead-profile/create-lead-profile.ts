@@ -21,7 +21,7 @@ export class CreateLeadProfilePage {
 
   public form: FormGroup;
  
-   headerRow: any;
+   public headerRow: any;
    csvContent: any;
    csvData: any;
    value :any;
@@ -35,8 +35,8 @@ export class CreateLeadProfilePage {
   }
  
 
-  Add(){
-    this.anArray.push({'value':''});
+    Add(){
+    this.anArray.push({'value':''}); 
     }
 
     remove(idx)
@@ -44,7 +44,17 @@ export class CreateLeadProfilePage {
       this.anArray.splice(idx, 1);
     }
   
+
   ionViewDidLoad() {
+    $('table#mytable tr').each(function() {
+    if ($(this).children('td').length < 0) {
+        $(this).hide();
+    }
+      else
+    {
+      $(this).show();
+    }
+});
     console.log('ionViewDidLoad CreateLeadProfilePage');
   }
 
@@ -54,10 +64,6 @@ export class CreateLeadProfilePage {
     
    if (files && files.length) {
         const fileToRead = files[0];
-       
-        // var storageRef = firebase.storage().ref();
-        // storageRef.put(files[0].name)
-
         const fileReader = new FileReader();
         //fileReader.onload = this.onFileLoad;
 
@@ -73,24 +79,29 @@ export class CreateLeadProfilePage {
   extractData(res) {
     let csvData = res;
     let parsedData = papa.parse(csvData).data;
- 
     this.headerRow = parsedData[0];
-    console.log( this.headerRow);
-    parsedData.splice(0, 1);
-    this.csvData = parsedData;
+   // console.log( this.headerRow);
+    var match =this.headerRow.toString().split(',');
+    console.log(match)
+    for (var a in match)
+    {
+        var variable = match[a]
+       // console.log(variable)
+       this.anArray.push({"value":variable})
+    }
+   
+    console.log(this.anArray);
+    
   }
 
-  upload(){
-    this.data=true;
-    console.log(this.anArray);
-    this.data=true;
-    let ss=this.anArray;
 
-    let Mainheader =this.headerRow.concat(ss);
+  upload(isChecked: boolean){
+    
+    let Mainheader =this.anArray;
     console.log(Mainheader); 
    
     let currentUser = firebase.auth().currentUser;
-    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc('06028c55-9cad-45b4-8475-0ef40f11ba3c')
+    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc('d69fc46e-e829-4b5f-a120-4591b77c4584')
     .update({
       CSVfield:Mainheader
     }

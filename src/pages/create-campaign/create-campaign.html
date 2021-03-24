@@ -49,7 +49,7 @@
           </ion-item >
         
            </ion-list>
-          <button ion-button  full type="button" (click)="slideToSlide()">Save & Next</button>
+          <button ion-button   type="button" (click)="slideToSlide()">Save & Next</button>
        
       </ion-slide>
      
@@ -80,26 +80,27 @@
             </td>
           </tr>
          
-          <tr *ngFor="let att of anArray; let idx = index"> 
-            <td> <ion-input placeholder="Enter Status " type="text" [(ngModel)]="anArray[idx].status"></ion-input></td>
-            <td><select  type="text" [(ngModel)]="anArray[idx].action">
-              <option>None</option>
-              <option>Inform Manager</option>
-              <option >Remove client from profile</option>
-            </select>
+          <tr *ngFor="let att of anArray; let idx = index;"> 
+            <td> 
+              <ion-input placeholder="Enter Status " type="text" [(ngModel)]="anArray[idx].status"></ion-input>
+            </td>
+            <td >
+                <select  type="text" [(ngModel)]="anArray[idx].action">
+                  <option>None</option>
+                  <option>Inform Manager</option>
+                  <option >Remove client from profile</option>
+                </select>
             </td>
             <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
      
             </tr >
 
        </table>
+       <div style="float:left;">
        <button ion-button   (click)="Add()">Add More</button>
-       <button ion-button  (click)="goTo()" >let's go</button>
-      
-
+      </div>
          <br>
- 
- 
+
         <div>
           <div style="float:right;">
             <button ion-button  id="prevBtn"  type="button" (click)="slideToPrev()">Previous</button>
