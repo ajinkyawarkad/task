@@ -11,6 +11,11 @@ interface Camps {
   role:string;
 }
 
+interface Status {
+  status:string;
+  action:string;
+}
+
 @IonicPage()
 @Component({
   selector: 'page-edit-campaigns-details',
@@ -22,11 +27,15 @@ export class EditCampaignsDetailsPage {
   slideOpts;
   public form: FormGroup;
   createSuccess = false;
-  value:any;
+  //product:any;
   userInfo:any;
   products: Observable<Camps[]>;
-  product:{name:'',goals:'',manager:'',sr:'',status:''};
-
+  pro:any;
+  proo:any;
+  
+  product:{cid:'',name:'',goals:'',manager:'',sr:''};
+  value:any;
+ public statuss:any;
 
   constructor(private _FB   : FormBuilder,public navCtrl: NavController, public navParams: NavParams,
     private alertCtrl: AlertController,public afs: AngularFirestore) {
@@ -37,16 +46,15 @@ export class EditCampaignsDetailsPage {
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditCampaignsDetailsPage');
     let currentuser=firebase.auth().currentUser;
-      firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc('16222a73-4fec-4e7a-bac3-cdfac0d49afd').onSnapshot((doc) => {
+      firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.value.cid).onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: "); 
-        this.products =  doc.data().status ;
-         console.log(this.products) ;
-    });
-  }
+        this.products =  doc.data().status;
+        console.log(this.products) ;
 
-  
-  
+    });
+   }
+
     ionViewDidEnter() {
       //lock manual swipe for main slider
       this.slides.lockSwipeToNext(true);
@@ -69,20 +77,35 @@ export class EditCampaignsDetailsPage {
       {
         this.slides.lockSwipeToPrev(false);
         this.slides.slideTo(this.slides.getActiveIndex() - 1);
-        this.slides.lockSwipeToPrev(true);
-        
+        this.slides.lockSwipeToPrev(true);  
       }  
    }
 
    update(product){
+  
     let currentuser=firebase.auth().currentUser;
-    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns').doc('15742d61-2f49-4411-acaf-247362b5868c')
+
+    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.value.cid)
+    .onSnapshot((doc) => {
+      var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+      console.log(source, " data: "); 
+       this.pro =  doc.data().status[0].status ;
+       this.proo = doc.data().status[0].action ;
+         console.log(this.products) ;
+    })
+    
+    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.value.cid)
             .update(Object.assign({
               name: this.value.name,
               goals: this.value.goals,
               manager:this.value.manager,
               sr:this.value.sr,
-              //status:this.product.status
+              status:{
+                status:this.pro,
+                action: this.proo,
+              } 
+                
+              
               } 
             )).then(() => {
               console.log("updated..");

@@ -51,14 +51,20 @@
   
 
     <ion-slide>
-      <ion-list>
+     
         <ion-label>Status</ion-label>
-        <ion-item *ngFor="let product of products | async" >
-          <ion-input [(ngModel)]="product.status"></ion-input>
-        </ion-item> 
-      </ion-list>
-
-
+      <tr *ngFor="let product of products "> 
+        <td> 
+          <ion-input type="text" [(ngModel)]="product.status"></ion-input>
+        </td>
+        <td >
+            <select  type="text" [(ngModel)]="product.action">
+              <option>None</option>
+              <option>Inform Manager</option>
+              <option >Remove client from profile</option>
+            </select>
+        </td>
+        </tr >
       
       <br><br>
       <div >

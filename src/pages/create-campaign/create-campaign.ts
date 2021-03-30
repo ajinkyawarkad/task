@@ -73,9 +73,11 @@ export class CreateCampaignPage {
         console.log(source, " data: "); 
         this.products =  doc.data().Managers ;
          console.log(this.products) ;
+         
     });
 
-    firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid).onSnapshot((doc) => {
+    firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid)
+    .onSnapshot((doc) => {
       var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
       console.log(source, " data: "); 
       this.productss =  doc.data().Users ;

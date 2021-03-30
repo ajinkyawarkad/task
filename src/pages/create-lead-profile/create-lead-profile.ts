@@ -31,7 +31,8 @@ export class CreateLeadProfilePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private _FB   : FormBuilder, private http: Http
   ,private alertCtrl:AlertController,public navParam:NavParams) {
-      
+    this.value = this.navParams.get('item');  
+    console.log(this.value);
   }
  
 
@@ -89,9 +90,7 @@ export class CreateLeadProfilePage {
        // console.log(variable)
        this.anArray.push({"value":variable})
     }
-   
-    console.log(this.anArray);
-    
+    console.log(this.anArray);    
   }
 
 
@@ -101,14 +100,13 @@ export class CreateLeadProfilePage {
     console.log(Mainheader); 
    
     let currentUser = firebase.auth().currentUser;
-    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc('d69fc46e-e829-4b5f-a120-4591b77c4584')
+    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.value)
     .update({
       CSVfield:Mainheader
     }
     )
     
-    this.value = this.navParams.get('item');  
-    console.log(this.value);
+    
      var adminId= firebase.auth().currentUser.uid;
      var file_data = $('#myfile').prop('files')[0];
  
@@ -128,7 +126,10 @@ export class CreateLeadProfilePage {
 
   save1(){
    // this.navCtrl.push(CreateCampaignsLeadPage);
-   this.navCtrl.push(CreateNewCampleadPage);
+   this.navCtrl.push(CreateNewCampleadPage, 
+    {
+    item:this.value
+    });
   }
  
   

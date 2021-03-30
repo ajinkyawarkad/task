@@ -15,13 +15,13 @@
             <ion-col>
               <ion-item>
                 <ion-label>First Name</ion-label>
-                <ion-input type="text" required [(ngModel)]="value.first_name" placeholder="First Name"></ion-input>
+                <ion-input type="text" required [(ngModel)]="value.name" placeholder="First Name"></ion-input>
             </ion-item>
             <br />
          
             <ion-item>
               <ion-label>Last Name</ion-label>
-              <ion-input type="text" required [(ngModel)]="value.last_name" placeholder="Last Name"></ion-input>
+              <ion-input type="text" required [(ngModel)]="value.last" placeholder="Last Name"></ion-input>
             </ion-item>
              <br />
          
@@ -42,7 +42,7 @@
   
           <ion-row>
             <ion-col>
-              <button ion-button round full color="primary" (click)="update()">
+              <button ion-button round full color="primary" (click)="update();update1()">
                 Save
             </button>
             </ion-col>

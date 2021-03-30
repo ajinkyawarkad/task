@@ -22,27 +22,30 @@ export class CreateNewCampleadPage {
   hideMe=false;
   public form: FormGroup;
   products: Observable<Camps[]>;
-  public array: any = [];
+ 
   lead = {} as Lead;
   public anArray:any=[]; 
+  value:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl:AlertController,
    private storage: Storage) {
 
-   this.array = navParams.get('array');
-   console.log(this.array);
-  
-   
+
+   this.value = this.navParams.get('item');  
+   console.log(this.value);
   }
 
   ionViewDidLoad() {
    let currentuser=firebase.auth().currentUser;
-   firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc('d69fc46e-e829-4b5f-a120-4591b77c4584').onSnapshot((doc) => {
+   firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.value).onSnapshot((doc) => {
      var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
      console.log(source, " data: "); 
      this.products =  doc.data().CSVfield ;
       console.log(this.products) ;
       this.anArray=this.products
+
+     
+     
  });
     console.log('ionViewDidLoad CreateNewCampleadPage');
   }
@@ -58,11 +61,18 @@ export class CreateNewCampleadPage {
        console.log(uuid);
       // this.storage.set('LeadId', uuid1) ;
 
-     firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc('d69fc46e-e829-4b5f-a120-4591b77c4584')
-     .collection('leads').doc('nAdldSDfOGs2iLvaCSVr')
+      let csv = '';
+      let header = Object.keys(this.anArray[0]).join(',');
+      let values = this.anArray.map(o => Object.values(o).join(',')).join('\n');
+
+      csv += header + '\n' + values;
+      console.log(csv)
+
+     firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value)
+     .collection('leads').doc(uuid1)
      .set(Object.assign({
       
-       leads:this.anArray
+       leads:values
        
        } 
      ))

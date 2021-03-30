@@ -11,24 +11,60 @@ import { AngularFirestore} from 'angularfire2/firestore';
 export class EditTeamDetailsPage {
 value:any;
 userInfo:any;
-product:{first_name:'',last_name:'',email:'',role:''};
+product:{id:'',name:'',last:'',email:'',role:''};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public afs: AngularFirestore,
     private alertCtrl:AlertController) {
     this.value = navParams.get('product');
-    console.log(this.value);
+    console.log(this.value.id);
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditTeamDetailsPage');
   }
 
-  update(product){
+  update(value){
     let currentuser=firebase.auth().currentUser;
-    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('non-active').doc('Gny6RqAPh2RkMkSJFdzH')
+    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Users' +'/'+this.value.id)
             .update(Object.assign({
-              first_name: this.value.first_name,
-              last_name: this.value.last_name,
+              name: this.value.name,
+              last: this.value.last,
+              email:this.value.email,
+              role:this.value.role
+              } 
+            )).then(() => {
+              console.log("updated..");
+              let alert = this.alertCtrl.create({
+                title: 'Sucess',
+                subTitle: 'Updated Sucessfully',
+                buttons: [{text: 'OK',
+                          handler: data => {
+                         // this.navCtrl.setRoot(ProfilePage);
+                          } 
+                        }]
+                      });
+              alert.present();
+            }).catch((err) => {
+              console.log(err);
+              let alert = this.alertCtrl.create({
+                title: 'Error',
+                subTitle: err,
+                buttons: [{text: 'OK',
+                          handler: data => {
+                          // this.navCtrl.setRoot(ProfilePage);
+                          } 
+                        }]
+                      });
+            });
+    
+  }
+
+  update1(value){
+    let currentuser=firebase.auth().currentUser;
+    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'non-active' +'/'+this.value.id)
+            .update(Object.assign({
+              name: this.value.name,
+              last: this.value.last,
               email:this.value.email,
               role:this.value.role
               } 

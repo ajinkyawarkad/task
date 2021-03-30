@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { MenuController } from 'ionic-angular';
+import { AlertController, MenuController } from 'ionic-angular';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { ArchivedCampaignsDetailsPage } from '../archived-campaigns-details/archived-campaigns-details';
@@ -14,8 +14,7 @@ import firebase from 'firebase';
 
 interface Users {
   name: string,  
-  manager:string;
-  
+  manager:string; 
 }
 
 @IonicPage()
@@ -25,11 +24,12 @@ interface Users {
 })
 export class TrackCampaignPage {
   
+  public anArray:any=[];
   Segments:string;
   userInfo:any;
   products: Observable<Users[]>;
   constructor(public navCtrl: NavController, public navParams: NavParams,public afs: AngularFirestore,
-    public menuCtrl:MenuController) {
+    public menuCtrl:MenuController,public alertCtrl:AlertController) {
     this.Segments="1";
     //this.menuCtrl.enable(true, 'menu');
   }
@@ -46,6 +46,40 @@ export class TrackCampaignPage {
     this.navCtrl.push(EditCampaignsDetailsPage, {
       product:product
     });
+  }
+
+  showPopup(value) {
+    let alert = this.alertCtrl.create({
+      title: 'Confirm Delete',
+      subTitle: 'Do you really want to delete?',
+      buttons: [
+        {
+          text: 'Cancel',
+          role: 'cancel',
+          handler: () => {
+          }
+        },
+        {
+          text: 'OK',
+          
+          handler: data => {
+            console.log(value);
+            this.deleteItem1(value);
+
+          }
+        }
+      ]
+    });
+    alert.present();
+  }
+ 
+
+  deleteItem1(value)
+  {
+
+  let currentuser=firebase.auth().currentUser;
+  this.afs.collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+value).delete();
+    
   }
 
   gotoAchived()
