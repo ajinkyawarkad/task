@@ -86,9 +86,11 @@ export class TrackCampaignPage {
   {
     this.navCtrl.push(ArchivedCampaignsDetailsPage);
   }
-  leads()
+  leads(product)
   {
-    this.navCtrl.push(LeadsDetailsPage);
+    this.navCtrl.push(LeadsDetailsPage, {
+      product:product
+    });
   }
 
 }

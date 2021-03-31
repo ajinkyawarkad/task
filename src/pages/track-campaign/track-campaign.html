@@ -44,7 +44,7 @@
               <td>{{product.manager}}</td>
               <td>6</td>
               <td>7</td>
-              <td style="text-decoration: underline;color:blue" (click)="leads()">78</td>
+              <td style="text-decoration: underline;color:blue" (click)="leads(product)">78</td>
               <td> <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.cid)"></ion-icon></td>
             </tr>
            
@@ -85,6 +85,5 @@
             </tbody>
           </table>
             </div>
-      
       </div>
 </ion-content>

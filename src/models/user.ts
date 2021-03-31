@@ -26,3 +26,17 @@ export class Lead
 {
     data:string;
 }
+export class Leadref
+{
+    first_name:string;
+    last_name:string;
+    email:string;
+    phone:string;
+}
+
+export class Leadd{
+    action:string;
+    datetime1:string;
+    selected_value:string;
+    remark:string;
+}

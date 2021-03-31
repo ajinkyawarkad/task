@@ -30,13 +30,13 @@
 		</tr>
 		</thead>
 		<tbody>
-		<tr>
-			<td style="text-decoration: underline;color: blue;" (click)="calldetails()" >James</td>
-			<td>Matmanfmnn</td>
+		<tr *ngFor="let product of products | async">
+			<td style="text-decoration: underline;color: blue;" (click)="calldetails()" >{{product.uid}}</td>
+			<td>{{product.last_name}}</td>
 			<td>Chief</td>
 			<td>Lettuce Green</td>
-			<td style="text-decoration: underline;color: blue;" (click)="gotocall()">
-				6758989966
+			<td style="text-decoration: underline;color: blue;" (click)="gotocall(product.uid)">
+				{{product.phone}}
 				<div style="display: inline-block;margin-left: 40px;">
 				<ion-icon name="call" ></ion-icon>
 				</div> </td>
@@ -47,43 +47,6 @@
 				<ion-icon name="trash" ></ion-icon>
 				</div>
 			</td>
-		</tr>
-		<tr>
-		  <td style="text-decoration: underline;color: blue;" (click)="calldetails()">The</td>
-		  <td>Tick</td>
-		  <td>Crimef</td>
-		  <td>Blue</td>
-		  <td style="text-decoration: underline;color: blue;" (click)="gotocall()">
-			9876543267
-				<div style="display: inline-block;margin-left: 40px;">
-				<ion-icon name="call" ></ion-icon>
-				</div>
-		</td>
-	      <td>John Smith</td>
-		  <td>
-			<ion-icon name="create" (click)="edit()"></ion-icon>
-			<div style="display: inline-block;margin-left: 40px;">
-			<ion-icon name="trash" ></ion-icon>
-			</div>
-		 </td>
-		</tr>
-		<tr>
-		  <td style="text-decoration: underline;color: blue;" (click)="calldetails()">Jokey</td>
-		  <td>Smurf</td>
-		  <td>Giving</td>
-		  <td>White</td>
-		  <td style="text-decoration: underline;color: blue;" (click)="gotocall()">
-			6758989966
-			<div style="display: inline-block;margin-left: 40px;">
-			<ion-icon name="call" ></ion-icon>
-			</div></td>
-		  <td>Smurflane wkfjnkn kkfkfn jjjjjklll nnnjjiionnl</td>
-          <td>
-			<ion-icon name="create" (click)="edit()"></ion-icon>
-			<div style="display: inline-block;margin-left: 40px;">
-			<ion-icon name="trash" ></ion-icon>
-			</div>
-		</td>
 		</tr>
 	
 		</tbody>
