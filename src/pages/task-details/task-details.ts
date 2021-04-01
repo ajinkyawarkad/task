@@ -16,6 +16,7 @@ import * as $ from "jquery";
 
 interface Lead {
   status:string; 
+  action:string;
 }
 
 
@@ -33,7 +34,7 @@ export class TaskDetailsPage {
 
   leadref = {} as Leadref;
   leadd = {} as Leadd;
-  products: Observable<Lead[]>;
+  public products: Observable<Lead[]>;
  
   
   constructor(public navCtrl: NavController, public navParams: NavParams,
@@ -66,8 +67,8 @@ export class TaskDetailsPage {
 
   Getselected(selected_value)
   {
-  console.log("selector: ", selected_value );
-  if(selected_value == "Inform Manager")
+  console.log("selector: ",selected_value);
+  if( "Inform Manager")
   {
     console.log("Message sent")
     let currentuser = firebase.auth().currentUser
@@ -76,7 +77,7 @@ export class TaskDetailsPage {
     '/'+this.value.cid+'/'+'leads messages'+'/'+this.id)
     .set(Object.assign({
     id: this.id,
-    message:"status upated to "+selected_value+" "+"by" +" "+this.value.manager
+    message:"status upated to "+selected_value+" "+"by" +" "+this.value.sr
     }
     ))
     

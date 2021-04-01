@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
 import firebase from 'firebase';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { CallDetailsPage } from '../call-details/call-details';
 import { EditLeadDetailsPage } from '../edit-lead-details/edit-lead-details';
 import { TaskDetailsPage } from '../task-details/task-details';
 import { AngularFirestore} from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
+import { LeadInTrackCampPage } from '../lead-in-track-camp/lead-in-track-camp';
 
 interface Users {
   name: string,  
@@ -23,7 +24,8 @@ export class LeadsDetailsPage {
   userInfo:any;
   products: Observable<Users[]>;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public afs: AngularFirestore,) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,public afs: AngularFirestore,
+    public alertCtrl:AlertController) {
     this.value = navParams.get('product');
     console.log(this.value);
   }
@@ -40,6 +42,14 @@ export class LeadsDetailsPage {
   {
     this.navCtrl.push(EditLeadDetailsPage);
   }
+  add()
+  {
+    this.navCtrl.push(LeadInTrackCampPage,
+      {
+        product:this.value
+      });
+    
+  }
   gotocall(id)
     {
       console.log("ljj mnmn",id);
@@ -53,6 +63,39 @@ export class LeadsDetailsPage {
     {
       this.navCtrl.push(CallDetailsPage);
     }
+    showPopup(value) {
+      let alert = this.alertCtrl.create({
+        title: 'Confirm Delete',
+        subTitle: 'Do you really want to delete?',
+        buttons: [
+          {
+            text: 'Cancel',
+            role: 'cancel',
+            handler: () => {
+            }
+          },
+          {
+            text: 'OK',
+            
+            handler: data => {
+              console.log(value);
+              this.deleteItem1(value);
   
+            }
+          }
+        ]
+      });
+      alert.present();
+    }
+   
+  
+    deleteItem1(value1)
+    {
+  
+    let currentuser=firebase.auth().currentUser;
+    this.afs.collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+
+    this.value.cid+'/'+'leads'+'/'+value1).delete();
+      
+    }
 
 }

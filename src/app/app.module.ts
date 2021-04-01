@@ -41,6 +41,7 @@ import { IonicStorageModule } from '@ionic/storage';
 import { ProfilePage } from '../pages/profile/profile';
 import { HttpModule } from '@angular/http';
 import { CallDetailsPage } from '../pages/call-details/call-details';
+import { LeadInTrackCampPage } from '../pages/lead-in-track-camp/lead-in-track-camp';
 
 
 
@@ -68,7 +69,8 @@ import { CallDetailsPage } from '../pages/call-details/call-details';
     EditLeadDetailsPage,
     EditTeamDetailsPage,
     ProfilePage,
-    CallDetailsPage
+    CallDetailsPage,
+    LeadInTrackCampPage
   ],
   imports: [
     BrowserModule,
@@ -109,7 +111,8 @@ import { CallDetailsPage } from '../pages/call-details/call-details';
     EditLeadDetailsPage,
     EditTeamDetailsPage,
     ProfilePage,
-    CallDetailsPage
+    CallDetailsPage,
+    LeadInTrackCampPage
     
   ],
   providers: [

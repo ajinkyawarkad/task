@@ -40,3 +40,10 @@ export class Leadd{
     selected_value:string;
     remark:string;
 }
+export class Sts{
+    sts1:string;
+    sts2:string;
+    action1:string;
+    action2:string;
+
+}

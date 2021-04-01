@@ -32,6 +32,7 @@ export class TrackCampaignPage {
     public menuCtrl:MenuController,public alertCtrl:AlertController) {
     this.Segments="1";
     //this.menuCtrl.enable(true, 'menu');
+    
   }
 
   ionViewDidLoad() {

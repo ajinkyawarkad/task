@@ -16,7 +16,8 @@
       <ion-option >Handler 3</ion-option>
     </ion-select>
   </ion-item> -->
-  <ion-searchbar showCancelButton="always" style="width: 100%;"></ion-searchbar>
+  <ion-searchbar showCancelButton="always" style="width: 50%;"></ion-searchbar>
+  <button ion-button  color="success" (click)="add()"> Add New Lead</button> 
   <table>
 		<thead>
 		<tr>
@@ -31,7 +32,7 @@
 		</thead>
 		<tbody>
 		<tr *ngFor="let product of products | async">
-			<td style="text-decoration: underline;color: blue;" (click)="calldetails()" >{{product.uid}}</td>
+			<td style="text-decoration: underline;color: blue;" (click)="calldetails()" >{{product.first_name}}</td>
 			<td>{{product.last_name}}</td>
 			<td>Chief</td>
 			<td>Lettuce Green</td>
@@ -44,7 +45,7 @@
 			<td> 
 				<ion-icon name="create" (click)="edit()"></ion-icon>
 				<div style="display: inline-block;margin-left: 40px;">
-				<ion-icon name="trash" ></ion-icon>
+				<ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
 				</div>
 			</td>
 		</tr>

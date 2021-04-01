@@ -11,6 +11,7 @@ import { CreateNewCampleadPage } from '../create-new-camplead/create-new-camplea
 import firebase from 'firebase';
 import { Camp } from '../../models/user';
 import { v4 as uuid } from 'uuid';
+import { TrackCampaignPage } from '../track-campaign/track-campaign';
 
 @IonicPage()
 @Component({
@@ -84,6 +85,7 @@ export class CreateLeadProfilePage {
    // console.log( this.headerRow);
     var match =this.headerRow.toString().split(',');
     console.log(match)
+   
     for (var a in match)
     {
         var variable = match[a]
@@ -130,6 +132,8 @@ export class CreateLeadProfilePage {
     {
     item:this.value
     });
+
+   
   }
  
   
