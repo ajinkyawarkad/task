@@ -18,30 +18,36 @@
   </ion-item> -->
   <ion-searchbar showCancelButton="always" style="width: 50%;"></ion-searchbar>
   <button ion-button  color="success" (click)="add()"> Add New Lead</button> 
+  
   <table>
+
+	
 		<thead>
-		<tr>
-			<th>First Name</th>
-			<th>Last Name</th>
-			<th>Status</th>
+		<tr >
+			<th *ngFor="let product of products ; let idx = index;">{{products[idx].value}}</th>		
+			
 			<th>Action</th>
-			<th>Phone </th>
-      <th>Previous Remark</th>
-      <th>Action</th>
+			<th>Follow Up</th>
+			<th>Status</th>
+			<th>Remarks</th>
+			<th>Edit/Delete</th>
 		</tr>
 		</thead>
 		<tbody>
-		<tr *ngFor="let product of products | async">
-			<td style="text-decoration: underline;color: blue;" (click)="calldetails()" >{{product.first_name}}</td>
-			<td>{{product.last_name}}</td>
-			<td>Chief</td>
-			<td>Lettuce Green</td>
+			<tr >
+				<td *ngFor="let product of productsss; let idx = index;">{{productsss[idx].action}}</td>		
+			
+			<!-- <td style="text-decoration: underline;color : blue;" (click)="calldetails()" ></td>
 			<td style="text-decoration: underline;color: blue;" (click)="gotocall(product.uid)">
-				{{product.phone}}
+				
 				<div style="display: inline-block;margin-left: 40px;">
-				<ion-icon name="call" ></ion-icon>
-				</div> </td>
-			<td>Digby Green</td>
+					<ion-icon name="call" ></ion-icon>
+				</div> </td> -->
+			
+			<td *ngFor="let product of productss  | async ; let idx = index;">{{product.action}}</td>
+			<td *ngFor="let product of productss  | async ; let idx = index;">{{product.datetime}}</td>
+			<td *ngFor="let product of productss  | async ; let idx = index;">{{product.status}}</td>
+			<td *ngFor="let product of productss  | async ; let idx = index;">{{product.remark}}</td>
 			<td> 
 				<ion-icon name="create" (click)="edit()"></ion-icon>
 				<div style="display: inline-block;margin-left: 40px;">

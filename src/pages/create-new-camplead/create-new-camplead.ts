@@ -7,6 +7,7 @@ import { Lead } from '../../models/user';
 import { Storage } from '@ionic/storage';
 import { v4 as uuid } from 'uuid';
 import { data } from 'jquery';
+import { LeadsDetailsPage } from '../leads-details/leads-details';
 
 
 interface Camps {
@@ -25,10 +26,11 @@ export class CreateNewCampleadPage {
   products: Observable<Camps[]>;
  
   lead = {} as Lead;
+  
   public anArray:any=[]; 
   public det:any=[];
   public hed:any=[];
-  value:any;
+    value:any;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl:AlertController,
    private storage: Storage) {
@@ -37,7 +39,7 @@ export class CreateNewCampleadPage {
    this.value = this.navParams.get('item');  
    console.log(this.value);
   }
-
+n
   ionViewDidLoad() {
    let currentuser=firebase.auth().currentUser;
    firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.value).onSnapshot((doc) => {
@@ -49,12 +51,12 @@ export class CreateNewCampleadPage {
      console.log(this.products) ;
      this.anArray=this.products
 
-     let i;
-     let n = this.anArray.length;
-     for(i=0;i<n;i++){
-       this.det[i] = this.anArray[i].value;
-       console.log('det is ' ,this.det)
-     }
+    //  let i;
+    //  let n = this.anArray.length;
+    //  for(i=0;i<n;i++){
+    //    this.det[i] = this.anArray[i].value;
+    //    console.log('det is ' ,this.det)
+    //  }
      
      
      
@@ -67,13 +69,14 @@ export class CreateNewCampleadPage {
   
   insertLead(lead:Lead){
     
-    let i;
-    let n = this.anArray.length;
-    for(i=0;i<n;i++){
-      this.hed[i] = this.anArray[i].action;
+    // let i;
+    // let n = this.anArray.length;
+    // for(i=0;i<n;i++){
+    //   this.hed[i] = this.anArray[i].action;
       
-    }
-    console.log('hed is ' ,this.hed)
+    // }
+    // console.log('hed is ' ,this.hed)
+    
 
    // if(camp.name && camp.goals && camp.manager && camp.sr != null){
      this.storage.get('cuid').then((val) => {
@@ -81,23 +84,28 @@ export class CreateNewCampleadPage {
        let uuid1 = uuid()
        console.log(uuid);
 
-      
-      console.log(this.det);
-      var obj = {'uid':uuid1,};
-      for (var i = 0; i < this.hed.length; i++) {
-      obj[this.det[i]] = this.hed[i];
-      }
-      console.log(obj);
+      //  let csv = '';
+      //  let header = Object.keys(this.anArray[0]).join(',');
+      //  let values = this.anArray.map(o => Object.values(o).join(',')).join('\n');
+ 
+      //  csv += header + '\n' + values;
+      //  console.log(csv)
+ 
+      // console.log(this.det);
+      // var obj = {'uid':uuid1,};
+      // for (var i = 0; i < this.hed.length; i++) {
+      // obj[this.det[i]] = this.hed[i];
+      // }
+      // console.log(obj);
      
-
-     
-  
-
-      
-
      firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value)
      .collection('leads').doc(uuid1)
-     .set(obj)
+     .set(Object.assign({
+
+      leads:this.anArray,
+    
+      } 
+    ))
     
      let alert = this.alertCtrl.create({
        title: 'Success',
@@ -105,10 +113,7 @@ export class CreateNewCampleadPage {
        //scope: id,
        buttons: [{text: 'OK',
                  handler: data => {
-               //    this.navCtrl.push(CreateLeadProfilePage,
-               //     {
-               //       item:uuid1
-               //       });
+                 
                   } 
                }]
              });
@@ -116,6 +121,7 @@ export class CreateNewCampleadPage {
      }).catch((err) => {
        console.log(err); 
        let alert = this.alertCtrl.create({
+         
          //title: 'Error',
          subTitle:  err ,
          buttons: [{text: 'OK',
