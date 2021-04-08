@@ -1,6 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { CUSTOM_ELEMENTS_SCHEMA, ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
+import {NgxPaginationModule} from 'ngx-pagination'; 
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
@@ -74,6 +75,7 @@ import { LeadInTrackCampPage } from '../pages/lead-in-track-camp/lead-in-track-c
   ],
   imports: [
     BrowserModule,
+    NgxPaginationModule,
     HttpModule,
     HttpClientModule,
     IonicModule.forRoot(MyApp,

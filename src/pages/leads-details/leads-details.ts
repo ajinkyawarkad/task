@@ -19,15 +19,18 @@ selector: 'page-leads-details',
 templateUrl: 'leads-details.html',
 })
 export class LeadsDetailsPage {
+  p: number = 1;
 
 value:any;
 userInfo:any;
 products: Observable<Users[]>;
 productss: Observable<Users[]>;
-productsss: Observable<Users[]>;
+productsss: any;
 public anArray:any=[];
 public det:any=[];
-public hed:any=[];
+public hed=[];
+
+
 
 constructor(public navCtrl: NavController, public navParams: NavParams,public afs: AngularFirestore,
 public alertCtrl:AlertController) {
@@ -35,6 +38,8 @@ this.value = navParams.get('product');
 console.log(this.value);
 
 }
+
+
 
 ionViewDidLoad() {
 console.log('ionViewDidLoad LeadsDetailsPage');
@@ -52,14 +57,30 @@ this.userInfo = this.afs.collection('Company').doc("COM#"+currentuser.uid).colle
 .doc(this.value.cid).collection('leads');
 this.productss = this.userInfo.valueChanges();
 
-firebase.firestore().collection("Company").doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid+"/"+"leads"
-+"/"+"cae7c35d-27c4-4738-b860-7ec764601dc6")
-.onSnapshot((doc) => {
+
+firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
+.doc(this.value.cid).collection('leads').get().then((snaps) =>{
+snaps.docs.forEach(doc =>{
+
+this.hed.push(doc.data());
 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-console.log(source, " data: ");
-this.productsss = doc.data().leads;
-console.log(this.productsss);
-});
+console.log(source, " data: " ,);
+
+this.productsss=this.hed;
+console.log('HHHHHHH',this.productsss);
+
+})
+
+//console.log('HHHHHHH',this.hed);
+
+// if(this.productsss[3].isChecked === true)
+// {
+//   console.log("phone",this.productsss[3].action); 
+// }
+// else{
+//   console.log("error");
+// }
+ })
 
 
 console.log('ionViewDidLoad TrackCampaignPage');
@@ -123,5 +144,4 @@ this.afs.collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+
 this.value.cid+'/'+'leads'+'/'+value1).delete();
 
 }
-
 }

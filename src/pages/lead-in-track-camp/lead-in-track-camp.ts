@@ -42,12 +42,12 @@ export class LeadInTrackCampPage {
       console.log(this.products) ;
       this.anArray=this.products
  
-      let i;
-      let n = this.anArray.length;
-      for(i=0;i<n;i++){
-        this.det[i] = this.anArray[i].value;
-        console.log('det is ' ,this.det)
-      }
+      // let i;
+      // let n = this.anArray.length;
+      // for(i=0;i<n;i++){
+      //   this.det[i] = this.anArray[i].value;
+      //   console.log('det is ' ,this.det)
+      // }
     
   });
     console.log('ionViewDidLoad LeadInTrackCampPage');
@@ -55,31 +55,36 @@ export class LeadInTrackCampPage {
 
   insertLead(lead:Lead){
     
-    let i;
-    let n = this.anArray.length;
-    for(i=0;i<n;i++){
-      this.hed[i] = this.anArray[i].action;
+    // let i;
+    // let n = this.anArray.length;
+    // for(i=0;i<n;i++){
+    //   this.hed[i] = this.anArray[i].action;
       
-    }
-    console.log('hed is ' ,this.hed)
+    // }
+    // console.log('hed is ' ,this.hed)
 
    // if(camp.name && camp.goals && camp.manager && camp.sr != null){
      this.storage.get('cuid').then((val) => {
-      // console.log('id is', val);
+       console.log('id is', val);
        let uuid1 = uuid()
        console.log(uuid);
 
       
-      console.log(this.det);
-      var obj = {'uid':uuid1,};
-      for (var i = 0; i < this.hed.length; i++) {
-      obj[this.det[i]] = this.hed[i];
-      }
-      console.log(obj);
+      // console.log(this.det);
+      // var obj = {'uid':uuid1,};
+      // for (var i = 0; i < this.hed.length; i++) {
+      // obj[this.det[i]] = this.hed[i];
+      // }
+      // console.log(obj);
      
-     firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value.cid)
-     .collection('leads').doc(uuid1)
-     .set(obj)
+      firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value.cid)
+      .collection('leads').doc(uuid1)
+      .set(Object.assign({
+ 
+       leads:this.anArray
+     
+       } 
+     ))
     
      let alert = this.alertCtrl.create({
        title: 'Success',

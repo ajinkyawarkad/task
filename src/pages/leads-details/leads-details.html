@@ -1,61 +1,70 @@
 <ion-header>
 
-  <ion-navbar>
-    <ion-title>Leads Details</ion-title>
-  </ion-navbar>
-
-</ion-header>
-
-
-<ion-content padding="true" class="has-header">
-  <!-- <ion-item>
-    <ion-label>Assign to Handler</ion-label>
-    <ion-select >
-      <ion-option>Handler 1</ion-option>
-      <ion-option >Handler 2</ion-option>
-      <ion-option >Handler 3</ion-option>
-    </ion-select>
-  </ion-item> -->
-  <ion-searchbar showCancelButton="always" style="width: 50%;"></ion-searchbar>
-  <button ion-button  color="success" (click)="add()"> Add New Lead</button> 
+	<ion-navbar>
+	  <ion-title>Leads Details</ion-title>
+	</ion-navbar>
   
-  <table>
+  </ion-header>
+  
+  
+  <ion-content padding="true" class="has-header">
+	<!-- <ion-item>
+	  <ion-label>Assign to Handler</ion-label>
+	  <ion-select >
+		<ion-option>Handler 1</ion-option>
+		<ion-option >Handler 2</ion-option>
+		<ion-option >Handler 3</ion-option>
+	  </ion-select>
+	</ion-item> -->
+	<ion-searchbar showCancelButton="always" style="width: 50%;"></ion-searchbar>
+	<button ion-button  color="success" (click)="add()"> Add New Lead</button> 
+	
+	<table>
+  
+	  
+		  <thead>
+		  <tr >
+			  <th *ngFor="let product of products ; let idx = index;">{{products[idx].value}}</th>		
+			  
+			  <th>Action</th>
+			  <th>Follow Up</th>
+			  <th>Status</th>
+			  <th>Remarks</th>
+			  <th>Edit/Delete</th>
+		  </tr>
+		  </thead>
+		  <tbody>
+			
+			  <tr *ngFor="let product of productsss | paginate: { itemsPerPage: 3, currentPage: p } ;let idx = index; ">
+				  <td  *ngFor="let produ of product; let i = index;" >
+					  
+						  {{product[i].action}}
 
-	
-		<thead>
-		<tr >
-			<th *ngFor="let product of products ; let idx = index;">{{products[idx].value}}</th>		
-			
-			<th>Action</th>
-			<th>Follow Up</th>
-			<th>Status</th>
-			<th>Remarks</th>
-			<th>Edit/Delete</th>
-		</tr>
-		</thead>
-		<tbody>
-			<tr >
-				<td *ngFor="let product of productsss; let idx = index;">{{productsss[idx].action}}</td>		
-			
-			<!-- <td style="text-decoration: underline;color : blue;" (click)="calldetails()" ></td>
-			<td style="text-decoration: underline;color: blue;" (click)="gotocall(product.uid)">
+						  <div *ngIf=" product[i].isChecked == true " style="display: inline-block;margin-left: 40px;">
+							<div >
+								<ion-icon   name="call" (click)="gotocall(product.uid)" > </ion-icon>
+							</div>
+						</div>   
+				  </td>	
 				
-				<div style="display: inline-block;margin-left: 40px;">
-					<ion-icon name="call" ></ion-icon>
-				</div> </td> -->
-			
-			<td *ngFor="let product of productss  | async ; let idx = index;">{{product.action}}</td>
-			<td *ngFor="let product of productss  | async ; let idx = index;">{{product.datetime}}</td>
-			<td *ngFor="let product of productss  | async ; let idx = index;">{{product.status}}</td>
-			<td *ngFor="let product of productss  | async ; let idx = index;">{{product.remark}}</td>
-			<td> 
-				<ion-icon name="create" (click)="edit()"></ion-icon>
-				<div style="display: inline-block;margin-left: 40px;">
-				<ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
-				</div>
-			</td>
-		</tr>
-	
-		</tbody>
-	</table>
-</ion-content>
+			  <!-- <td style="text-decoration: underline;color : blue;" (click)="calldetails()" ></td>
+			  <td style="text-decoration: underline;color: blue;" (click)="gotocall(product.uid)"> -->
+				  
+				 
+				<!-- </td> -->
+			  
+			  <td *ngFor="let product of productss  | async ; let idx = index;">{{product.action}}</td>
+			  <td *ngFor="let product of productss  | async ; let idx = index;">{{product.datetime}}</td>
+			  <td *ngFor="let product of productss  | async ; let idx = index;">{{product.status}}</td>
+			  <td *ngFor="let product of productss  | async ; let idx = index;">{{product.remark}}</td>
+			  <td> 
+				  <ion-icon name="create" (click)="edit()"></ion-icon>
+				  <div style="display: inline-block;margin-left: 40px;">
+				  <ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
+				  </div>
+			  </td>
+		  </tr>
+		  <pagination-controls  (pageChange)="p = $event"></pagination-controls>
+		  </tbody>
+	  </table>
+  </ion-content>

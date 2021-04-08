@@ -4,13 +4,9 @@ page-leads-details {
 		font-family: 'roboto';
 		font-size: 15px;	
 	}
-	
 
-	// tr { 
-	// //	border: 1px solid #ccc; 
-	// 	display: block;
-	// 	float: left;
-	// }
+
+	
 	/* Extra small devices (phones, 600px and down) */
 	@media only screen and (max-width: 600px) {
 		table, thead, tbody, th, td, tr {
@@ -27,13 +23,9 @@ page-leads-details {
 			position: absolute;
 			top: -9999px;
 			left: -9999px;
-			
 		}
 	
-		tr { 
-			border: 1px solid #ccc; 
-			
-		}
+		tr { border: 1px solid #ccc; }
 	
 		td {
 			/* Behave  like a "row" */
@@ -181,9 +173,31 @@ page-leads-details {
 		background: rgb(250, 245, 245); 
 		}
 	   
+		th:nth-child(1){
+			width:10%;
+		}
+		// th:nth-child(2){
+		// 	width:20%;
+		// }
+		// th:nth-child(4){
+		// 	width:10%;
+		// }
 		th:nth-child(5){
 			width:10%;
 		}
+		th:nth-child(6){
+			width:10%;
+		}
+		// th:nth-child(7){
+		// 	width:10%;
+		// }
+		// th:nth-child(8){
+		// 	width:20%;
+		// }
+		// th:nth-child(9){
+		// 	width:40%;
+		// }
+
 		th { 
 			background: rgb(70, 69, 69); 
 			color: white; 
