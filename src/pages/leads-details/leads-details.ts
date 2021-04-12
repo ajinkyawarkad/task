@@ -7,6 +7,7 @@ import { TaskDetailsPage } from '../task-details/task-details';
 import { AngularFirestore} from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { LeadInTrackCampPage } from '../lead-in-track-camp/lead-in-track-camp';
+import { Lead } from '../../models/user';
 
 interface Users {
 name: string,
@@ -20,7 +21,8 @@ templateUrl: 'leads-details.html',
 })
 export class LeadsDetailsPage {
   p: number = 1;
-
+  public hideMe: boolean = false;
+  public hideMe1: boolean = false;
 value:any;
 userInfo:any;
 products: Observable<Users[]>;
@@ -29,7 +31,12 @@ productsss: any;
 public anArray:any=[];
 public det:any=[];
 public hed=[];
+public array=[];
+public leaduid:any;
 
+lead = {} as Lead;
+isIndeterminate:boolean;
+  masterCheck:boolean;
 
 
 constructor(public navCtrl: NavController, public navParams: NavParams,public afs: AngularFirestore,
@@ -38,9 +45,70 @@ this.value = navParams.get('product');
 console.log(this.value);
 
 }
+hide() {
+  this.hideMe = !this.hideMe;
+}
+hide1() {
+  this.hideMe1 = !this.hideMe1;
+}
+checkMaster() {
+  setTimeout(()=>{
+    this.productsss.forEach(obj => {
 
+      obj.isChecked = this.masterCheck;
+      if (obj.isChecked == true){
+        this.leaduid=obj.uid
+        this.array.push(obj.uid)
+          console.log(this.array)  ;
+          this.hide();           
+      }   
+    });
+  });
+}
 
+checkEvent(lead:Lead) {
+  const totalItems = this.productsss.length;
+  let checked = 0;
+  this.productsss.map(obj => {
+    if (obj.isChecked == true){
+    // checked++;
+       console.log(obj.uid);
+       this.array.push(obj.uid)
+       console.log(this.array)  ;
+       this.hide();
+    }                             
+  });
 
+  if (checked > 0 && checked < totalItems) {
+    this.isIndeterminate = true;
+    this.masterCheck = false;
+    
+  } else if (checked == totalItems) {
+    //If all are checked
+    this.masterCheck = true;
+    this.isIndeterminate = false;
+    
+  } else {
+    //If none is checked
+    this.isIndeterminate = false;
+    this.masterCheck = false;
+   
+  }
+}
+insertsr(lead:Lead){
+  console.log(this.value.cid);
+  console.log(this.array);
+  console.log(lead.sr)
+  let currentuser=firebase.auth().currentUser;
+  firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.value.cid)
+  .collection('leads').doc(this.leaduid)
+  .update(Object.assign({
+
+   sr:lead.sr
+ 
+   } 
+ ))
+}
 ionViewDidLoad() {
 console.log('ionViewDidLoad LeadsDetailsPage');
 
@@ -53,10 +121,13 @@ this.products = doc.data().CSVfield ;
 
 });
 
-this.userInfo = this.afs.collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
-.doc(this.value.cid).collection('leads');
-this.productss = this.userInfo.valueChanges();
-
+firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid)
+.onSnapshot((doc) => {
+var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+console.log(source, " data: ");
+this.productss = doc.data().Users ;
+console.log(this.productss) ;
+});
 
 firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
 .doc(this.value.cid).collection('leads').get().then((snaps) =>{
@@ -70,21 +141,10 @@ this.productsss=this.hed;
 console.log('HHHHHHH',this.productsss);
 
 })
-
-//console.log('HHHHHHH',this.hed);
-
-// if(this.productsss[3].isChecked === true)
-// {
-//   console.log("phone",this.productsss[3].action); 
-// }
-// else{
-//   console.log("error");
-// }
  })
-
-
 console.log('ionViewDidLoad TrackCampaignPage');
 }
+
 edit()
 {
 this.navCtrl.push(EditLeadDetailsPage);
@@ -135,7 +195,7 @@ this.deleteItem1(value);
 alert.present();
 }
 
-
+ 
 deleteItem1(value1)
 {
 

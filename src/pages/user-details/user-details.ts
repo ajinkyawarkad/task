@@ -165,13 +165,14 @@ role: employee.role
 }
 ))
 if(employee.role == 'Manager'){
-firebase.firestore().collection('Company').doc(val).collection('Admin').doc(currentUser.uid).set({
-Managers :[ {
+firebase.firestore().collection('Company').doc(val).collection('Admin').doc(currentUser.uid) 
+.set({
+Managers : {
 id: uid,
-name: this.employee.name,
+name: this.employee.name,                           
 role: this.employee.role,
 last: this.employee.last,
-}]
+}
 },{merge: true})
 
 }

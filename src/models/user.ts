@@ -24,7 +24,8 @@ export class Camp
 
 export class Lead
 {
-    data:string;
+    //data:string;
+    sr:string
 }
 export class Leadref
 {

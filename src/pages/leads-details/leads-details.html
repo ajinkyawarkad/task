@@ -18,12 +18,31 @@
 	</ion-item> -->
 	<ion-searchbar showCancelButton="always" style="width: 50%;"></ion-searchbar>
 	<button ion-button  color="success" (click)="add()"> Add New Lead</button> 
-	
-	<table>
-  
-	  
-		  <thead>
-		  <tr >
+
+	<div *ngIf="hideMe">  
+		<button ion-button  color="success" (click)="hide1()"> Assign Handler</button> 
+		
+  </div>
+
+  <div *ngIf="hideMe1"> 
+  <ion-item>
+		<ion-label>Sale Representative</ion-label>
+		<ion-select [(ngModel)]="lead.sr" (ionChange)="insertsr(lead)">
+		<ion-option *ngFor="let prod of productss">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
+		</ion-select>
+	</ion-item>
+  </div>
+ 
+	<div style="overflow-x:auto">                                  
+	<table >   
+		  <thead>            
+		  <tr  >
+			  <th>  All
+				<ion-checkbox slot="start" 
+				[(ngModel)]="masterCheck"    
+				[indeterminate]="isIndeterminate"
+				  (click)="checkMaster($event);"></ion-checkbox>
+			  </th>
 			  <th *ngFor="let product of products ; let idx = index;">{{products[idx].value}}</th>		
 			  
 			  <th>Action</th>
@@ -35,36 +54,41 @@
 		  </thead>
 		  <tbody>
 			
-			  <tr *ngFor="let product of productsss | paginate: { itemsPerPage: 3, currentPage: p } ;let idx = index; ">
-				  <td  *ngFor="let produ of product; let i = index;" >
-					  
-						  {{product[i].action}}
+			  <tr *ngFor="let product of productsss | paginate: { itemsPerPage: 5, currentPage: p } ;let idx = index; ">
+				<td >
+					<ion-checkbox slot="start" 
+					[(ngModel)]="product.isChecked" 
+					(ionChange)="checkEvent()"></ion-checkbox>
 
-						  <div *ngIf=" product[i].isChecked == true " style="display: inline-block;margin-left: 40px;">
-							<div >
-								<ion-icon   name="call" (click)="gotocall(product.uid)" > </ion-icon>
-							</div>
-						</div>   
+				<td  *ngFor="let produ of product.leads; let i = index;" >
+						  {{produ.action}}
+						  <div *ngIf="produ.isChecked == true " style="display: inline-block;margin-left: 40px;">
+								<ion-icon   name="call" (click)="gotocall(product.uid)" > </ion-icon>	
+						 </div>   
+						 <div *ngIf="produ.value == 'First Name' " style="display: inline-block;margin-left: 40px;">
+							<td  style=" text-decoration: underline;color : blue;" (click)="calldetails()" > </td>	
+					 </div> 
 				  </td>	
-				
-			  <!-- <td style="text-decoration: underline;color : blue;" (click)="calldetails()" ></td>
-			  <td style="text-decoration: underline;color: blue;" (click)="gotocall(product.uid)"> -->
-				  
 				 
-				<!-- </td> -->
+			  <!-- <td style="text-decoration: underline;color : blue;" (click)="calldetails()" ></td> -->
+			    
+			  <td >{{product.action}}</td>
+			  <td >{{product.datetime}}</td>
+			  <td >{{product.status}}</td>
+			  <td >{{product.remark}}</td>
 			  
-			  <td *ngFor="let product of productss  | async ; let idx = index;">{{product.action}}</td>
-			  <td *ngFor="let product of productss  | async ; let idx = index;">{{product.datetime}}</td>
-			  <td *ngFor="let product of productss  | async ; let idx = index;">{{product.status}}</td>
-			  <td *ngFor="let product of productss  | async ; let idx = index;">{{product.remark}}</td>
 			  <td> 
 				  <ion-icon name="create" (click)="edit()"></ion-icon>
-				  <div style="display: inline-block;margin-left: 40px;">
+				  <div style="display: inline-block;margin-left: 30px;">
 				  <ion-icon name="trash" (click)="showPopup(product.uid)"></ion-icon>
 				  </div>
 			  </td>
 		  </tr>
-		  <pagination-controls  (pageChange)="p = $event"></pagination-controls>
+		 
 		  </tbody>
 	  </table>
+	</div>
+
+	
+	  <pagination-controls  (pageChange)="p = $event"></pagination-controls>
   </ion-content>
