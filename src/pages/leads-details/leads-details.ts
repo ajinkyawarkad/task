@@ -152,13 +152,18 @@ this.products = doc.data().CSVfield ;
 
 });
 
-firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid)
-.onSnapshot((doc) => {
+
+this.userInfo = this.afs.collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid);
+this.productss = this.userInfo.valueChanges().Users ;
+
+firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid).onSnapshot((doc) => {
 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
 console.log(source, " data: ");
 this.productss = doc.data().Users ;
 console.log(this.productss) ;
 });
+
+
 
 firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
 .doc(this.value.cid).collection('leads').get().then((snaps) =>{
@@ -173,6 +178,7 @@ console.log('HHHHHHH',this.productsss);
 
 })
  })
+ 
 console.log('ionViewDidLoad TrackCampaignPage');
 }
 

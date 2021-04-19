@@ -15,7 +15,7 @@ export class EditLeadDetailsPage {
  
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl:AlertController) {
     this.value = navParams.get('product');
-    //console.log(this.value.uid);
+    console.log("edit page",this.value.leads);
     this.campid = navParams.get('campid');
     //console.log(this.campid);      
    
@@ -28,14 +28,14 @@ export class EditLeadDetailsPage {
   
   update()
   {
-  console.log(this.value.leads.action)
+  console.log(this.value.leads)
     let currentuser=firebase.auth().currentUser;
 
     firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns').doc(this.campid)
     .collection('leads').doc(this.value.uid)
 
             .update(Object.assign({
-              leads:this.value.leads.action
+              leads:this.value.leads
               // sr:this.value.sr,
               } 
             )).then(() => {

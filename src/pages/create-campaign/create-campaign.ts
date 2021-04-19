@@ -71,13 +71,19 @@ this.sts.sts1 = 'Interested';
 this.sts.sts2 = 'Not-Interested';
 console.log('ionViewDidLoad CreateCampaignPage');
 let currentuser=firebase.auth().currentUser;
-firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid).onSnapshot((doc) => {
-var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-console.log(source, " data: ");
-this.products = doc.data().Managers ;
-console.log(this.products) ;
 
-});
+firebase
+  .firestore()
+  .collection("Company")
+  .doc("COM#" + currentuser.uid)
+  .collection("Admin")
+  .doc(currentuser.uid)
+  .onSnapshot((doc) => {
+    var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+    console.log(source, " data: ");
+    this.products = doc.data().Managers;
+    console.log(this.products);
+  });
 
 firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid)
 .onSnapshot((doc) => {

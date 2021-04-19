@@ -39,14 +39,18 @@
               <th>Action</th>
             </tr>
             </thead>
-            <tbody>
-            <tr  *ngFor="let product of products | async">
+
+            <tbody *ngFor="let product of products | async" >
+            <tr *ngIf="product.active == true ">
               <td style="text-decoration: underline;color:blue" (click)="gotoActive(product)">{{product.name}}</td>
               <td>{{product.manager}}</td>
               <td>{{product.pendingCalls}}</td>
               <td>{{product.pendingMeets}}</td>
               <td   style="text-decoration: underline;color:blue" (click)="leads(product)" >{{product.totalLeads}}</td>
-              <td> <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.cid)"></ion-icon></td>
+              <td> 
+                <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.cid)"></ion-icon>
+                <p (click)="archive(product)">Archive</p>
+            </td>
             </tr>
            
             </tbody>
@@ -55,9 +59,8 @@
           </div>
 
         
-            <div *ngSwitchCase="2" >
-              <h4 (click)="gotoAchived()">Item 1</h4>
-              <br>
+          <div *ngSwitchCase="2" >
+            <br>
           <table>
             <thead>
             <tr>
@@ -66,25 +69,28 @@
               <th>Pending Call</th>
               <th>Pending Meeting</th>
               <th>Total Lead</th>
+              <th>Action</th>
             </tr>
             </thead>
-            <tbody>
-            <tr>
-              <td style="text-decoration: underline;" (click)="gotoActive()">Test 1</td>
-              <td>Matman</td>
-              <td>6</td>
-              <td>7</td>
-              <td style="text-decoration: underline;" (click)="leads()">78</td>
+
+            <tbody *ngFor="let product of products | async" >
+            <tr *ngIf="product.active == false ">
+              <td style="text-decoration: underline;color:blue" (click)="gotoActive(product)">{{product.name}}</td>
+              <td>{{product.manager}}</td>
+              <td>{{product.pendingCalls}}</td>
+              <td>{{product.pendingMeets}}</td>
+              <td   style="text-decoration: underline;color:blue" (click)="leads(product)" >{{product.totalLeads}}</td>
+              <td> 
+                <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.cid)"></ion-icon>
+                <p (click)="active(product)">Active</p>
+            </td>
             </tr>
-            <tr>
-              <td style="text-decoration: underline;" (click)="gotoActive()">Thert</td>
-              <td>Tick</td>
-              <td>9</td>
-              <td>8</td>
-              <td style="text-decoration: underline;" (click)="leads()">90</td> 
-            </tr>
+           
             </tbody>
           </table>
-            </div>
+          <!-- <p>0 overdue follow-ups , 10 follow up for today , abc Manager</p> -->
+          </div>
       </div>
       </ion-content>
+
+

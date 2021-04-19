@@ -167,12 +167,9 @@ export class TrackCampaignPage {
 
     // }
 
-    this.userInfo = this.afs
-      .collection("Company")
-      .doc("COM#" + currentuser.uid)
-      .collection("Campaigns");
+    this.userInfo = this.afs.collection("Company").doc("COM#" + currentuser.uid).collection("Campaigns");
     this.products = this.userInfo.valueChanges();
-    // this.arr=this.products;
+   
    
     console.log("ionViewDidLoad TrackCampaignPage");
   }
@@ -205,6 +202,80 @@ export class TrackCampaignPage {
     alert.present();
   }
 
+  archive(value)
+  {
+    console.log(value)
+    let currentuser = firebase.auth().currentUser;
+    this.afs
+      .collection("Company")
+      .doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + value.cid)
+      .update(Object.assign({
+        active:false
+        } 
+      )).then(() => {
+        
+        let alert = this.alertCtrl.create({
+          title: 'Sucess',
+          subTitle: value.name + ' ' + 'is Archived',
+          buttons: [{text: 'OK',
+                    handler: data => {
+                   // this.navCtrl.setRoot(ProfilePage);
+                    } 
+                  }]
+                });
+        alert.present();
+      }).catch((err) => {
+        console.log(err);
+        let alert = this.alertCtrl.create({
+          title: 'Error',
+          subTitle: err,
+          buttons: [{text: 'OK',
+                    handler: data => {
+                    // this.navCtrl.setRoot(ProfilePage);
+                    } 
+                  }]
+                });
+      });
+
+  }
+
+  active(value)
+  {
+    console.log(value)
+    let currentuser = firebase.auth().currentUser;
+    this.afs
+      .collection("Company")
+      .doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + value.cid)
+      .update(Object.assign({
+        active:true
+        } 
+      )).then(() => {
+        
+        let alert = this.alertCtrl.create({
+          title: 'Sucess',
+          subTitle: value.name + ' ' + 'is back to Active now',
+          buttons: [{text: 'OK',
+                    handler: data => {
+                   // this.navCtrl.setRoot(ProfilePage);
+                    } 
+                  }]
+                });
+        alert.present();
+      }).catch((err) => {
+        console.log(err);
+        let alert = this.alertCtrl.create({
+          title: 'Error',
+          subTitle: err,
+          buttons: [{text: 'OK',
+                    handler: data => {
+                    // this.navCtrl.setRoot(ProfilePage);
+                    } 
+                  }]
+                });
+      });
+
+  }
+
   deleteItem1(value) {
     let currentuser = firebase.auth().currentUser;
     this.afs
@@ -220,5 +291,4 @@ export class TrackCampaignPage {
     this.navCtrl.push(LeadsDetailsPage, {
       product: product,
     });
-  }
-}
+  }}
