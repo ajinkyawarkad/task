@@ -24,6 +24,7 @@ export class LeadsDetailsPage {
   p: number = 1;
   public hideMe: boolean = false;
   public hideMe1: boolean = false;
+  public hideMe2: boolean = false;
   
 value:any;
 userInfo:any;
@@ -56,6 +57,9 @@ hide() {
 }
 hide1() {
   this.hideMe1 = !this.hideMe1;
+}
+hide2() {
+  this.hideMe2 = !this.hideMe2;
 }
 checkMaster() {
   setTimeout(()=>{
@@ -135,9 +139,7 @@ ionViewDidLoad() {
             }
         });
 });
-  // $(document).ready(function(){
-  //    alert('JQuery is working!!');
-  //    });
+
 console.log('ionViewDidLoad LeadsDetailsPage');
 
 let currentuser=firebase.auth().currentUser;

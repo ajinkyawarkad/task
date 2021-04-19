@@ -11,69 +11,54 @@
 	
 	
 	<ion-searchbar showCancelButton="always" style="width: 50%;"></ion-searchbar>
+	<ion-icon style="display: inline-block;font-size: 1.6em" name="settings" (click)="hide2()"></ion-icon>
 	<button ion-button  color="success" (click)="add()"> Add New Lead</button> 
 
+
 	<div *ngIf="hideMe">  
+		<ion-footer>
 		<button ion-button  color="success" (click)="hide1()"> Assign Handler</button> 
-		
+		</ion-footer>
     </div>
 
   <div *ngIf="hideMe1"> 
-  <ion-item>
+	<ion-footer>
+  <ion-item style="width: 50%;">
 		<ion-label>Sale Representative</ion-label>
 		<ion-select [(ngModel)]="lead.sr" (ionChange)="insertsr(lead)">
 		<ion-option *ngFor="let prod of productss">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
 		</ion-select>
 	</ion-item>
+	</ion-footer>
   </div>
-
-  <!-- <ion-item>
-	<ion-label>Show/hide</ion-label>
-	<ion-select multiple >
-	<td><ion-option *ngFor="let prod of products; let idx = index;">{{products[idx].value}}</ion-option></td>
-	<td>
-		<ion-option><input type="checkbox" checked="checked" /></ion-option>
-	</td>
-	<td>
-		<input type="checkbox" checked="checked" />
-	</td>
-	<td>
-		<input type="checkbox" checked="checked" />
-	</td>
-	<td>
-		<input type="checkbox" checked="checked" />
-	</td>    
-	</ion-select>
-	</ion-item> -->
-	<br />
- 
+    
+  <table > 
+		
+	<thead *ngIf="hideMe2"> 
+		<hr/>	
+	  
+	  <td *ngFor="let product of products ; let idx = index;">
+		  <input type="checkbox" checked="checked" />{{products[idx].value}}</td>
+	  <td><input type="checkbox" checked="checked" />Action</td>
+	  <td><input type="checkbox" checked="checked" />Follow up</td>
+	  <td><input type="checkbox" checked="checked" />Status</td>
+	  <td><input type="checkbox" checked="checked" />Remarks
+	  </td>  
+	  </thead>
+	  </table>
+	  <hr/>	
+	  
 	<div  style="overflow-x:auto">                                  
-	<table >   
-		  <thead>   
-
-
-			<td *ngFor="let product of products ; let idx = index;">
-				<input type="checkbox" checked="checked" />
-			</td>
-			<td>
-				<input type="checkbox" checked="checked" />
-			</td>
-			<td>
-				<input type="checkbox" checked="checked" />
-			</td>
-			<td>
-				<input type="checkbox" checked="checked" />
-			</td>
-			<td>
-				<input type="checkbox" checked="checked" />
-			</td>         
-		  <tr  >
-			  <!-- <th>  All
+	<table >   	
+		  <tr>
+			  <th> All
 				<ion-checkbox slot="start" 
 				[(ngModel)]="masterCheck"    
 				[indeterminate]="isIndeterminate"
 				  (click)="checkMaster($event);"></ion-checkbox>
-			  </th> -->
+
+					
+			  </th>
 			  <th *ngFor="let product of products ; let idx = index;">{{products[idx].value}}</th>		
 			  
 			  <th>Action</th>
@@ -82,15 +67,18 @@
 			  <th>Remarks</th>
 			  <th>Edit/Delete</th>
 		  </tr>
-		  </thead>
+		  
 		  <tbody>
 			
-			  <tr *ngFor="let product of productsss | paginate: { itemsPerPage: 5, currentPage: p } ;let idx = index; ">
-				<!-- <td >
+			  <tr *ngFor="let product of productsss | paginate: { itemsPerPage: 4, currentPage: p } ;let idx = index; ">
+				<td >
+					<ion-icon style="display: inline-block;font-size: 1.3em" name="call" (click)="calldetails()"></ion-icon>
 					<ion-checkbox slot="start" 
 					[(ngModel)]="product.isChecked" 
 					(ionChange)="checkEvent()"></ion-checkbox>
-				</td> -->
+
+					 
+				</td>
 
 				<td  *ngFor="let produ of product.leads; let i = index;" >
 						  {{produ.action}}
