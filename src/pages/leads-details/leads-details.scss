@@ -5,13 +5,19 @@ page-leads-details {
 		font-size: 15px;	
 	}
 
-
+	.table {
+        border-collapse: collapse;
+    }
+	.table th {
+        user-select: none;
+    }
 	
 	/* Extra small devices (phones, 600px and down) */
 	@media only screen and (max-width: 600px) {
 		table, thead, tbody, th, td, tr {
 			display: block;
 			float: left;
+			
 		
 		}
 		ion-segment 

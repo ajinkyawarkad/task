@@ -1,12 +1,8 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
+import firebase from 'firebase';
+import { AngularFirestore} from 'angularfire2/firestore';
 
-/**
- * Generated class for the EditLeadDetailsPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -14,12 +10,59 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   templateUrl: 'edit-lead-details.html',
 })
 export class EditLeadDetailsPage {
-
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+ value:any;
+ campid:any;
+ 
+  constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl:AlertController) {
+    this.value = navParams.get('product');
+    //console.log(this.value.uid);
+    this.campid = navParams.get('campid');
+    //console.log(this.campid);      
+   
+    //console.log(this.proStatus);                                                                                                         
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditLeadDetailsPage');
+  }
+  
+  update()
+  {
+  console.log(this.value.leads.action)
+    let currentuser=firebase.auth().currentUser;
+
+    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns').doc(this.campid)
+    .collection('leads').doc(this.value.uid)
+
+            .update(Object.assign({
+              leads:this.value.leads.action
+              // sr:this.value.sr,
+              } 
+            )).then(() => {
+              console.log("updated..");
+              let alert = this.alertCtrl.create({
+                title: 'Sucess',
+                subTitle: 'Updated Sucessfully',
+                buttons: [{text: 'OK',
+                          handler: data => {
+                         // this.navCtrl.setRoot(ProfilePage);
+                          } 
+                        }]
+                      });
+              alert.present();
+            }).catch((err) => {
+              console.log(err);
+              let alert = this.alertCtrl.create({
+                title: 'Error',
+                subTitle: err,
+                buttons: [{text: 'OK',
+                          handler: data => {
+                          // this.navCtrl.setRoot(ProfilePage);
+                          } 
+                        }]
+                      });
+            });
+    
   }
 
 }

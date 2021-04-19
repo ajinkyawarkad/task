@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { Lead } from '../../models/user';
 import { Storage } from '@ionic/storage';
 import { v4 as uuid } from 'uuid';
+import { updateIdentifier } from 'typescript';
 
 
 interface Camps {
@@ -67,9 +68,9 @@ console.log(this.productss) ;
       .set(Object.assign({
  
        leads:this.anArray,
-       sr:lead.sr
-     
-       } 
+       sr:lead.sr,
+       uid:uuid1 
+       }  
      ))
     
      let alert = this.alertCtrl.create({

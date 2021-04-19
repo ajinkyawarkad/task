@@ -97,13 +97,10 @@ this.slides.lockSwipeToPrev(true);
 }
 }
 
-update(product) {
+update() {
 let currentuser = firebase.auth().currentUser;
 
-firebase
-.firestore()
-.collection("Company")
-.doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid)
+firebase.firestore().collection("Company").doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid)
 .onSnapshot((doc) => {
 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
 console.log(source, " data: ");

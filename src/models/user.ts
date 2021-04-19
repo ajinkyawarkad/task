@@ -1,3 +1,5 @@
+import { Time } from "@angular/common";
+
 export class User{
     name:string;
     email:string;
@@ -14,18 +16,28 @@ export class Employee{
     role:string;
 }
 
+export class Counts{
+    runTime=new Date();
+    
+
+
+    
+}
+
 export class Camp
 {
     name:string;
     goals:string;
     manager:string;
     sr:string;
+    sId:string;
 }
 
 export class Lead
 {
     //data:string;
-    sr:string
+    sr:string;
+    sId:string;
 }
 export class Leadref
 {

@@ -17,13 +17,14 @@ product:{id:'',name:'',last:'',email:'',role:''};
     private alertCtrl:AlertController) {
     this.value = navParams.get('product');
     console.log(this.value.id);
+    
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditTeamDetailsPage');
   }
 
-  update(value){
+  update(){
     let currentuser=firebase.auth().currentUser;
     firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Users' +'/'+this.value.id)
             .update(Object.assign({

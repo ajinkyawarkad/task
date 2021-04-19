@@ -10,46 +10,26 @@
 
 <ion-content padding class="content">
   <div class="contaier">
+
+    <table >
+      <tr *ngFor="let produ of value.leads; let i = index;"> 
+        <td><ion-input [(ngModel)]="produ.value"  style="font-weight: bold;"></ion-input></td> 
+        <td><ion-input [(ngModel)]="produ.action"></ion-input></td>  
+      </tr>  
+  <!--      
+      <tr>
+        <td style="font-weight: bold;">Handler</td>
+        <td><ion-input [(ngModel)]="value.sr"></ion-input></td>
+      </tr>
+    -->
+    
+   </table>
+   
     <ion-list>
-    <ion-grid>
-     <ion-row>
-        <ion-col>
-          <ion-item>
-            <ion-input type="text" required placeholder="First Name"></ion-input>
-        </ion-item>
-        <br />
+   
      
-        <ion-item>
-          <ion-input type="text" required placeholder="Last Name"></ion-input>
-        </ion-item>
-         <br />
-     
-         <ion-item>
-             <ion-input type="text" required placeholder="Status"></ion-input>
-         </ion-item> 
-         <br />
-
-         <ion-item>
-          <ion-input type="text" required placeholder="Action"></ion-input>
-        </ion-item> 
-        <br />
-     
-        <ion-item>
-          <ion-input type="text" required placeholder="Phone"></ion-input>
-        </ion-item> 
-        <br />
-
-        <ion-item>
-          <ion-textarea type="text" required placeholder="Previous Remark"></ion-textarea>
-        </ion-item> 
-        <br />
-                
-        </ion-col>
-      </ion-row>
-    </ion-grid>
-     
-          <button ion-button round full color="primary" >
-            Save
+          <button ion-button round full color="primary" (click)="update()">
+            Save Changes
         </button>
        </ion-list>
     

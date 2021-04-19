@@ -8,6 +8,7 @@ import { AngularFirestore} from 'angularfire2/firestore';
 import { Observable } from 'rxjs';
 import { LeadInTrackCampPage } from '../lead-in-track-camp/lead-in-track-camp';
 import { Lead } from '../../models/user';
+import * as $ from "jquery";
 
 interface Users {
 name: string,
@@ -23,6 +24,7 @@ export class LeadsDetailsPage {
   p: number = 1;
   public hideMe: boolean = false;
   public hideMe1: boolean = false;
+  
 value:any;
 userInfo:any;
 products: Observable<Users[]>;
@@ -33,6 +35,7 @@ public det:any=[];
 public hed=[];
 public array=[];
 public leaduid:any;
+public campid :any;
 
 lead = {} as Lead;
 isIndeterminate:boolean;
@@ -41,8 +44,11 @@ isIndeterminate:boolean;
 
 constructor(public navCtrl: NavController, public navParams: NavParams,public afs: AngularFirestore,
 public alertCtrl:AlertController) {
+
+
 this.value = navParams.get('product');
 console.log(this.value);
+this.campid =this.value.cid;
 
 }
 hide() {
@@ -98,18 +104,40 @@ checkEvent(lead:Lead) {
 insertsr(lead:Lead){
   console.log(this.value.cid);
   console.log(this.array);
-  console.log(lead.sr)
   let currentuser=firebase.auth().currentUser;
+  let i;
+  for(i=0;i<this.array.length;i++){
+    lead.sId='d63af2dc-b7bc-49c2-9063-23f470ed740c';
+    
   firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.value.cid)
-  .collection('leads').doc(this.leaduid)
-  .update(Object.assign({
-
-   sr:lead.sr
- 
-   } 
- ))
+  .collection('leads').doc(this.array[i]).update({
+    sr:lead.sId
+  })
+    
+  }
+  console.log(lead.sr)
+  
+  
 }
 ionViewDidLoad() {
+  $(document).on('change', 'table thead input', function() {
+    var checked = $(this).is(":checked");
+
+    var index = $(this).parent().index();
+        $('table  tr').each(function() {
+            if(checked) {
+                $(this).find("td").eq(index).show(); 
+                $(this).find("th").eq(index).show(); 
+                
+            } else {
+                $(this).find("td").eq(index).hide();  
+                $(this).find("th").eq(index).hide(); 
+            }
+        });
+});
+  // $(document).ready(function(){
+  //    alert('JQuery is working!!');
+  //    });
 console.log('ionViewDidLoad LeadsDetailsPage');
 
 let currentuser=firebase.auth().currentUser;
@@ -117,6 +145,7 @@ firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collectio
 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
 // console.log(source, " data: ");
 this.products = doc.data().CSVfield ;
+//this.proStatus = doc.data().status;
 // console.log(this.products) ;
 
 });
@@ -145,9 +174,15 @@ console.log('HHHHHHH',this.productsss);
 console.log('ionViewDidLoad TrackCampaignPage');
 }
 
-edit()
+edit(product)
 {
-this.navCtrl.push(EditLeadDetailsPage);
+console.log("edit",product)
+this.navCtrl.push(EditLeadDetailsPage, {
+  product:product,
+  campid:this.campid,
+  //proStatus:this.proStatus
+ 
+});
 }
 add()
 {

@@ -31,7 +31,7 @@ export class TaskDetailsPage {
   myDate;
   value:any;
   id:any;
-
+ //refid:any;
   leadref = {} as Leadref;
   leadd = {} as Leadd;
   public products: Observable<Lead[]>;
@@ -43,9 +43,10 @@ export class TaskDetailsPage {
 
       this.value = navParams.get('product');
       console.log(this.value);
+      
 
       this.id = navParams.get('id');
-      console.log(this.id);
+      console.log("lead id",this.id);
 
 
       let currentuser=firebase.auth().currentUser;
@@ -55,8 +56,7 @@ export class TaskDetailsPage {
         console.log(source, " data: "); 
         this.products =  doc.data().status ;
          console.log(this.products) ;
-         
-         
+ 
     });
     
   }
@@ -159,7 +159,8 @@ export class TaskDetailsPage {
     first_name:leadref.first_name,
     last_name:leadref.last_name,
     email: leadref.email,
-    phone: leadref.phone
+    phone: leadref.phone,
+    refId:this.id
     }
     ))
     

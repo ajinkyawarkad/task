@@ -1,4 +1,3 @@
-
 <ion-header>
 
   <ion-navbar>
@@ -44,9 +43,9 @@
             <tr  *ngFor="let product of products | async">
               <td style="text-decoration: underline;color:blue" (click)="gotoActive(product)">{{product.name}}</td>
               <td>{{product.manager}}</td>
-              <td>6</td>
-              <td>7</td>
-              <td style="text-decoration: underline;color:blue" (click)="leads(product)">78</td>
+              <td>{{product.PendingCall}}</td>
+              <td>{{product.pendingMeet}}</td>
+              <td   style="text-decoration: underline;color:blue" (click)="leads(product)" >{{product.count2}}</td>
               <td> <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.cid)"></ion-icon></td>
             </tr>
            
@@ -88,4 +87,4 @@
           </table>
             </div>
       </div>
-</ion-content>
+      </ion-content>
