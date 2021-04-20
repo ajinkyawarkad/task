@@ -53,73 +53,96 @@ this.campid =this.value.cid;
 
 }
 hide() {
-  this.hideMe = !this.hideMe;
+  this.hideMe = true;
 }
 hide1() {
-  this.hideMe1 = !this.hideMe1;
+  this.hideMe1 = true;
 }
 hide2() {
   this.hideMe2 = !this.hideMe2;
 }
 checkMaster() {
   setTimeout(()=>{
+    this.hide();
     this.productsss.forEach(obj => {
 
-      obj.isChecked = this.masterCheck;
-      if (obj.isChecked == true){
-        this.leaduid=obj.uid
+      obj.isChecked = this.masterCheck; 
+      console.log(obj.isChecked);
+     
+      if (obj.isChecked == true && this.array.includes(obj.uid) === false){  
         this.array.push(obj.uid)
-          console.log(this.array)  ;
-          this.hide();           
+        console.log(this.array)  ;           
       }   
+     if(obj.isChecked == false){
+      
+        var index = this.array.indexOf(obj.uid);
+        if (index !== -1) {
+          this.array.splice(index,1);
+        }
+        console.log(this.array)  ;  
+      
+     }
     });
   });
 }
 
 checkEvent(lead:Lead) {
-  const totalItems = this.productsss.length;
+  this.hide();
   let checked = 0;
+ 
+  
   this.productsss.map(obj => {
-    if (obj.isChecked == true){
-    // checked++;
-       console.log(obj.uid);
-       this.array.push(obj.uid)
-       console.log(this.array)  ;
-       this.hide();
-    }                             
-  });
-
-  if (checked > 0 && checked < totalItems) {
-    this.isIndeterminate = true;
-    this.masterCheck = false;
-    
-  } else if (checked == totalItems) {
-    //If all are checked
-    this.masterCheck = true;
-    this.isIndeterminate = false;
-    
-  } else {
-    //If none is checked
-    this.isIndeterminate = false;
-    this.masterCheck = false;
    
-  }
+    console.log(obj.isChecked);
+    checked++;
+    if (obj.isChecked == true && this.array.includes(obj.uid) === false){  
+     
+      this.array.push(obj.uid)
+      console.log(this.array)  ;           
+    }   
+   if(obj.isChecked == false){
+    
+      var index = this.array.indexOf(obj.uid);
+      if (index !== -1) {
+        this.array.splice(index,1);
+      }
+      console.log(this.array)  ;  
+    
+   }
+  
+});
 }
-insertsr(lead:Lead){
+insertsr(data){
   console.log(this.value.cid);
   console.log(this.array);
   let currentuser=firebase.auth().currentUser;
-  let i;
+  let i,j;
   for(i=0;i<this.array.length;i++){
-    lead.sId='d63af2dc-b7bc-49c2-9063-23f470ed740c';
-    
+    for(j=0;j<data.length;j++){
+      var SR_id=data[j].id
+      console.log("id",SR_id)
+
   firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.value.cid)
   .collection('leads').doc(this.array[i]).update({
-    sr:lead.sId
+    SR_id:SR_id
   })
     
   }
-  console.log(lead.sr)
+}
+let alert = this.alertCtrl.create({
+  title: 'Success',
+  subTitle: 'added',
+  //scope: id,
+  buttons: [{text: 'OK',
+  handler: data => {
+  
+  }
+  }]
+  });
+  alert.present();
+ 
+  
+ // console.log(lead.sr)
   
   
 }

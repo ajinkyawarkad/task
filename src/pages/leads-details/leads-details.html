@@ -14,7 +14,7 @@
 	<ion-icon style="display: inline-block;font-size: 1.6em" name="settings" (click)="hide2()"></ion-icon>
 	<button ion-button  color="success" (click)="add()"> Add New Lead</button> 
 
-
+	
 	<div *ngIf="hideMe">  
 		<ion-footer>
 		<button ion-button  color="success" (click)="hide1()"> Assign Handler</button> 
@@ -25,7 +25,7 @@
 	<ion-footer>
   <ion-item style="width: 50%;">
 		<ion-label>Sale Representative</ion-label>
-		<ion-select [(ngModel)]="lead.sr" (ionChange)="insertsr(lead)">
+		<ion-select [(ngModel)]="lead.sr" (ionChange)="insertsr(productss)">
 		<ion-option *ngFor="let prod of productss">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
 		</ion-select>
 	</ion-item>
@@ -51,12 +51,13 @@
 	<div  style="overflow-x:auto">                                  
 	<table >   	
 		  <tr>
-			  <th> All
+			  <th>
+				   All
 				<ion-checkbox slot="start" 
 				[(ngModel)]="masterCheck"    
 				[indeterminate]="isIndeterminate"
 				  (click)="checkMaster($event);"></ion-checkbox>
-
+				  
 					
 			  </th>
 			  <th *ngFor="let product of products ; let idx = index;">{{products[idx].value}}</th>		
@@ -75,8 +76,8 @@
 					<ion-icon style="display: inline-block;font-size: 1.3em" name="call" (click)="calldetails()"></ion-icon>
 					<ion-checkbox slot="start" 
 					[(ngModel)]="product.isChecked" 
-					(ionChange)="checkEvent()"></ion-checkbox>
-
+					(ionChange)="checkEvent();"></ion-checkbox>
+					
 					 
 				</td>
 
@@ -110,5 +111,5 @@
 	</div>
 
 	
-	  <pagination-controls  (pageChange)="p = $event"></pagination-controls>
+	  <pagination-controls style="float:right"  (pageChange)="p = $event"></pagination-controls>
   </ion-content>
