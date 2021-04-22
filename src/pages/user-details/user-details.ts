@@ -14,7 +14,7 @@ import { AngularFirestore} from 'angularfire2/firestore';
 
 
 import { Observable } from 'rxjs';
-import { merge } from 'jquery';
+// import { merge } from 'jquery';
 import { uuid } from 'uuidv4';
 
 interface Users {
@@ -166,22 +166,16 @@ role: employee.role
 ))
 if(employee.role == 'Manager'){
 firebase.firestore().collection('Company').doc(val).collection('Admin').doc(currentUser.uid) 
-.set({
-Managers : [
-  {
+.set(Object.assign(
+{
+Managers : [{
 id: uid,
 name: this.employee.name,                           
 role: this.employee.role,
 last: this.employee.last,
-},
-{
-  id: '120',
-  name: 'jbhjnjjnnd',                           
-  role: 'Manager',
-  last: 'kjnhfknvjkkjjj',
-  },
- ]
-},{merge : true})
+
+}]
+}))
 
 }
 else{
@@ -227,8 +221,5 @@ alert.present();
 }
 
 }
-
-
-
 
 }

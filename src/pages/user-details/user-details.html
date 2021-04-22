@@ -82,7 +82,7 @@
   
   
   <div *ngSwitchCase="4" >
-  
+    <ion-searchbar placeholder="Search " [(ngModel)]="term" showCancelButton="always" style="width: 50%;"></ion-searchbar>
   <table padding>
   
   <thead>
@@ -96,7 +96,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let product of productss | async">
+  <tr *ngFor="let product of productss | async | search1 :term">
   <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</td>
   <td>{{product.last}}</td>
   <td>{{product.role}}</td>
@@ -123,7 +123,7 @@
   </tr>
   </thead>
   <tbody>
-  <tr *ngFor="let product of products | async">
+  <tr *ngFor="let product of products | async | search1 :term ">
   <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</td>
   <td>{{product.last}}</td>
   <td>{{product.role}}</td>

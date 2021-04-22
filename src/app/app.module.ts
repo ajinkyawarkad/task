@@ -43,6 +43,10 @@ import { ProfilePage } from '../pages/profile/profile';
 import { HttpModule } from '@angular/http';
 import { CallDetailsPage } from '../pages/call-details/call-details';
 import { LeadInTrackCampPage } from '../pages/lead-in-track-camp/lead-in-track-camp';
+import { SearchPipe } from '../pipes/search/search';
+import { SortPipe } from '../pipes/sort/sort';
+import { SearchPipe1 } from '../pipes/search/search1';
+import { SearchPipe2 } from '../pipes/search/search2';
 
 
 
@@ -71,7 +75,11 @@ import { LeadInTrackCampPage } from '../pages/lead-in-track-camp/lead-in-track-c
     EditTeamDetailsPage,
     ProfilePage,
     CallDetailsPage,
-    LeadInTrackCampPage
+    LeadInTrackCampPage,
+    SearchPipe,
+    SearchPipe1,
+    SearchPipe2,
+    SortPipe
   ],
   imports: [
     BrowserModule,

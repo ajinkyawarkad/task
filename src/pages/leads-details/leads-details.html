@@ -10,7 +10,7 @@
   <ion-content padding="true" class="has-header">
 	
 	
-	<ion-searchbar showCancelButton="always" style="width: 50%;"></ion-searchbar>
+	<ion-searchbar placeholder="Search" [(ngModel)]="terms"  showCancelButton="always" style="width: 50%;"></ion-searchbar>
 	<ion-icon style="display: inline-block;font-size: 1.6em" name="settings" (click)="hide2()"></ion-icon>
 	<button ion-button  color="success" (click)="add()"> Add New Lead</button> 
 
@@ -71,7 +71,7 @@
 		  
 		  <tbody>
 			
-			  <tr *ngFor="let product of productsss | paginate: { itemsPerPage: 4, currentPage: p } ;let idx = index; ">
+			  <tr *ngFor="let product of productsss | search : terms  | paginate: { itemsPerPage: 4, currentPage: p } ;let idx = index; ">
 				<td >
 					<ion-icon style="display: inline-block;font-size: 1.3em" name="call" (click)="calldetails()"></ion-icon>
 					<ion-checkbox slot="start" 

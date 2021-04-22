@@ -37,6 +37,7 @@ public hed=[];
 public array=[];
 public leaduid:any;
 public campid :any;
+isItemAvailable = false;
 
 lead = {} as Lead;
 isIndeterminate:boolean;
@@ -52,6 +53,10 @@ console.log(this.value);
 this.campid =this.value.cid;
 
 }
+
+
+
+
 hide() {
   this.hideMe = true;
 }

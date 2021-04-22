@@ -129,7 +129,8 @@ name:camp.name,
 goals:camp.goals,
 manager: camp.manager,
 sr: camp.sr,
-status:obj
+status:obj,
+active:true
 
 }
 ))

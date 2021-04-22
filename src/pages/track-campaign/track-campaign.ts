@@ -26,13 +26,16 @@ interface Users {
 })
 export class TrackCampaignPage {
   counts = {} as Counts;
+  descending: boolean = false;
+order: number;
+column: string = 'name';
 
   public anArray: any = [];
   public arr = [];
   public a;
   Segments: string;
   userInfo: any;
-  products: Observable<Users[]>;
+  products: any;
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -43,7 +46,10 @@ export class TrackCampaignPage {
     this.Segments = "1";
     //this.menuCtrl.enable(true, 'menu');
   }
-
+  sort(){
+    this.descending = !this.descending;
+    this.order = this.descending ? 1 : -1;
+  }
   ionViewDidLoad() {
     let currentuser = firebase.auth().currentUser;
     let cu = currentuser.uid;
@@ -291,4 +297,7 @@ export class TrackCampaignPage {
     this.navCtrl.push(LeadsDetailsPage, {
       product: product,
     });
-  }}
+  }
+  
+
+}

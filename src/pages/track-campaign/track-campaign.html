@@ -12,9 +12,12 @@
 
 
 <ion-content padding>
-  
-  <ion-searchbar showCancelButton="always" style="width: 100%;"></ion-searchbar>
-  
+  <div>
+    <div style="float: left;width: 50%;">
+  <ion-searchbar placeholder="Search" [(ngModel)]="term" showCancelButton="always" ></ion-searchbar>
+  <!-- <button ion-button type="button" (click)="sort()">Sort</button> -->
+  </div>
+  <div style="float: right;width: 50%;margin-top: 13px;">
       <ion-segment [(ngModel)]="Segments" value="1" mode="ios" style="width: 100%;">
           <ion-segment-button value="1">
               Active
@@ -23,7 +26,8 @@
               Archived
           </ion-segment-button>
       </ion-segment>
-      
+      </div>
+  </div> 
 
       <div [ngSwitch]="Segments">
           <div *ngSwitchCase="1" >
@@ -31,7 +35,7 @@
           <table>
             <thead>
             <tr>
-              <th>Compaigns Name</th>
+              <th (click)="sort()">Compaigns Name <ion-icon   mode="ios" name="arrow-down"></ion-icon></th>
               <th>Manager</th>
               <th>Pending Call</th>
               <th>Pending Meeting</th>
@@ -40,7 +44,7 @@
             </tr>
             </thead>
 
-            <tbody *ngFor="let product of products | async" >
+            <tbody *ngFor="let product of products | async | search2 : term | sort: {property: column, order: order} " >
             <tr *ngIf="product.active == true ">
               <td style="text-decoration: underline;color:blue" (click)="gotoActive(product)">{{product.name}}</td>
               <td>{{product.manager}}</td>
@@ -73,7 +77,7 @@
             </tr>
             </thead>
 
-            <tbody *ngFor="let product of products | async" >
+            <tbody *ngFor="let product of products | async | search : terms" >
             <tr *ngIf="product.active == false ">
               <td style="text-decoration: underline;color:blue" (click)="gotoActive(product)">{{product.name}}</td>
               <td>{{product.manager}}</td>
