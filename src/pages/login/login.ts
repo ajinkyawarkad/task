@@ -4,7 +4,7 @@ import { User } from '../../models/user';
 
 import { HomePage } from '../home/home';
 import { RegisterPage } from '../register/register';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
 
 import { Storage } from '@ionic/storage';

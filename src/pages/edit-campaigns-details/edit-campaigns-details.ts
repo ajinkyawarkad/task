@@ -13,7 +13,7 @@ FormControl,
 Validators,
 FormArray,
 } from "@angular/forms";
-import { AngularFirestore } from "angularfire2/firestore";
+import { AngularFirestore } from "@angular/fire/firestore";
 import firebase from "firebase";
 import { Observable } from "rxjs";
 

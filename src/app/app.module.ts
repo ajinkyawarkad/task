@@ -29,12 +29,13 @@ import { CreateNewCampleadPage } from '../pages/create-new-camplead/create-new-c
 import { EditLeadDetailsPage } from '../pages/edit-lead-details/edit-lead-details';
 import { EditTeamDetailsPage } from '../pages/edit-team-details/edit-team-details';
 
-import { AngularFireModule } from 'angularfire2';
- import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireModule } from '@angular/fire';
+ import { AngularFireAuth } from '@angular/fire/auth';
  import { firebaseConfig } from '../config';
 
  import { Observable } from 'rxjs';
- import { AngularFirestore, AngularFirestoreModule } from 'angularfire2/firestore';
+ 
+ import { AngularFirestore, AngularFirestoreModule } from '@angular/fire/firestore';
 
 import { AuthserviceProvider } from '../providers/authservice/authservice';
 import { HttpClientModule } from '@angular/common/http';
@@ -94,6 +95,7 @@ import { SearchPipe2 } from '../pipes/search/search2';
     IonicStorageModule.forRoot(),
     AngularFireModule.initializeApp(firebaseConfig.fire),
     AngularFirestoreModule,
+    
   
     
   ],

@@ -4,13 +4,13 @@ import { EditTeamDetailsPage } from '../edit-team-details/edit-team-details';
 import { UserLicensesPage } from '../user-licenses/user-licenses';
 
 import { UserlistPage } from '../userlist/userlist';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import 'firebase/firestore';
 import { Employee, User } from '../../models/user';
-import firebase, { database } from 'firebase/app';
+import firebase from 'firebase';
 import { Storage } from '@ionic/storage';
 
-import { AngularFirestore} from 'angularfire2/firestore';
+import { AngularFirestore} from '@angular/fire/firestore';
 
 
 import { Observable } from 'rxjs';
@@ -135,7 +135,9 @@ let currentUser = firebase.auth().currentUser;
 firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Admin').doc(currentUser.uid)
 .update({
 users :{
+
 [this.employee.name]:{
+
 name:this.employee.name,
 role:this.employee.role,
 last:this.employee.last,
@@ -166,27 +168,27 @@ role: employee.role
 ))
 if(employee.role == 'Manager'){
 firebase.firestore().collection('Company').doc(val).collection('Admin').doc(currentUser.uid) 
-.set(Object.assign(
+.update(
 {
-Managers : [{
-id: uid,
-name: this.employee.name,                           
-role: this.employee.role,
-last: this.employee.last,
-
-}]
-}))
+Managers : firebase.firestore.FieldValue.arrayUnion( {
+  id: uid,
+  name: this.employee.name,                           
+  role: this.employee.role,
+  last: this.employee.last,
+  
+  })  
+})
 
 }
 else{
-firebase.firestore().collection('Company').doc(val).collection('Admin').doc(currentUser.uid).set({
-Users :[ {
-id: uid,
-name: this.employee.name,
-role: this.employee.role,
-last: this.employee.last,
-}]
-},{merge: true})
+firebase.firestore().collection('Company').doc(val).collection('Admin').doc(currentUser.uid).update({
+Users : firebase.firestore.FieldValue.arrayUnion({
+  id: uid,
+  name: this.employee.name,
+  role: this.employee.role,
+  last: this.employee.last,
+  })
+})
 }
 let alert = this.alertCtrl.create({
 title: 'Success',

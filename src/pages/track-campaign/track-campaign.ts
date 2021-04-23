@@ -7,7 +7,7 @@ import { EditCampaignsDetailsPage } from '../edit-campaigns-details/edit-campaig
 import { LeadsDetailsPage } from '../leads-details/leads-details';
 
 import { LoginPage } from '../login/login';
-import { AngularFirestore} from 'angularfire2/firestore';
+import { AngularFirestore} from '@angular/fire/firestore';
 
 import { Observable } from 'rxjs';
 import firebase from 'firebase';

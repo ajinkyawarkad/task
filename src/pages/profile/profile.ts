@@ -5,7 +5,7 @@ import { Storage } from '@ionic/storage';
 
 import { User } from '../../models/user';
 import { LoginPage } from '../login/login';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
 
 

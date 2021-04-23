@@ -4,7 +4,7 @@ import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angu
 import { CallDetailsPage } from '../call-details/call-details';
 import { EditLeadDetailsPage } from '../edit-lead-details/edit-lead-details';
 import { TaskDetailsPage } from '../task-details/task-details';
-import { AngularFirestore} from 'angularfire2/firestore';
+import { AngularFirestore} from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { LeadInTrackCampPage } from '../lead-in-track-camp/lead-in-track-camp';
 import { Lead } from '../../models/user';

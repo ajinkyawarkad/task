@@ -7,7 +7,7 @@ import { ReportPage } from '../report/report';
 import { TrackCampaignPage } from '../track-campaign/track-campaign';
 import { UserDetailsPage } from '../user-details/user-details';
 
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 
 import { AuthserviceProvider } from '../../providers/authservice/authservice';

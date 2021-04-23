@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
 import { User } from '../../models/user';
 import { LoginPage } from '../login/login';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFireAuth } from '@angular/fire/auth';
 import firebase from 'firebase';
 import { AuthserviceProvider } from '../../providers/authservice/authservice';
 import 'firebase/firestore';
@@ -33,7 +33,7 @@ signup(user:User){
     firebase.auth().createUserWithEmailAndPassword(user.email,user.password).then((data) => {
       let currentuser=firebase.auth().currentUser;
      // console.log(data);
-       if(currentuser && data.emailVerified === false)
+       if(currentuser && data.user.emailVerified === false)
        {
          currentuser.sendEmailVerification().then
            {

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import firebase from 'firebase';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
-import { AngularFirestore} from 'angularfire2/firestore';
+import { AngularFirestore} from '@angular/fire/firestore';
 
 @IonicPage()
 @Component({

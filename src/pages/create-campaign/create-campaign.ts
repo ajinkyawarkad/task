@@ -6,7 +6,7 @@ import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@ang
 
 import { CreateLeadProfilePage } from '../create-lead-profile/create-lead-profile';
 import { Camp,Sts } from '../../models/user';
-import { AngularFirestore } from 'angularfire2/firestore';
+import { AngularFirestore } from '@angular/fire/firestore';
 import firebase, { firestore } from 'firebase/app';
 import { Storage } from '@ionic/storage';
 import { v4 as uuid } from 'uuid';

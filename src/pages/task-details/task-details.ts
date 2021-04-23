@@ -5,8 +5,8 @@ import { Leadd, Leadref } from '../../models/user';
 import firebase, { database } from 'firebase/app';
 import { Storage } from '@ionic/storage';
 
-import { AngularFirestore} from 'angularfire2/firestore';
-import { AngularFireAuth } from 'angularfire2/auth';
+import { AngularFirestore} from '@angular/fire/firestore';
+import { AngularFireAuth } from '@angular/fire/auth';
 
 import { uuid } from 'uuidv4';
 import { Observable } from 'rxjs';

@@ -13,8 +13,9 @@ import { LoginPage } from '../pages/login/login';
 import { UserDetailsPage } from '../pages/user-details/user-details';
 import { TaskDetailsPage } from '../pages/task-details/task-details';
 
-import { AngularFireAuth } from 'angularfire2/auth';
-import firebase from 'firebase/app';
+
+import { AngularFireAuth } from '@angular/fire/auth';
+import firebase from 'firebase';
 import { Storage } from '@ionic/storage';
 import { ProfilePage } from '../pages/profile/profile';
 import {  } from 'ionic-angular';
