@@ -10,6 +10,7 @@ import { LeadInTrackCampPage } from '../lead-in-track-camp/lead-in-track-camp';
 import { Lead } from '../../models/user';
 import * as $ from "jquery";
 
+
 interface Users {
 name: string,
 manager:string;
@@ -25,6 +26,9 @@ export class LeadsDetailsPage {
   public hideMe: boolean = false;
   public hideMe1: boolean = false;
   public hideMe2: boolean = false;
+
+ pageSize :number = 3;
+  last;
   
 value:any;
 userInfo:any;
@@ -118,21 +122,20 @@ checkEvent(lead:Lead) {
 });
 }
 insertsr(data){
-  console.log(this.value.cid);
-  console.log(this.array);
+  
+  console.log("i",data.id);
+  console.log("i",data.name);
   let currentuser=firebase.auth().currentUser;
   let i,j;
   for(i=0;i<this.array.length;i++){
-    for(j=0;j<data.length;j++){
-      var SR_id=data[j].id
-      console.log("id",SR_id)
-
+   
   firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.value.cid)
   .collection('leads').doc(this.array[i]).update({
-    SR_id:SR_id
+    SR_id:data.id,
+    SR_name:data.name+" "+data.last
   })
     
-  }
+  
 }
 let alert = this.alertCtrl.create({
   title: 'Success',
@@ -181,7 +184,8 @@ this.products = doc.data().CSVfield ;
 });
 
 
-this.userInfo = this.afs.collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid);
+this.userInfo = this.afs.collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid)
+;
 this.productss = this.userInfo.valueChanges().Users ;
 
 firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid).onSnapshot((doc) => {
@@ -190,8 +194,6 @@ console.log(source, " data: ");
 this.productss = doc.data().Users ;
 console.log(this.productss) ;
 });
-
-
 
 firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
 .doc(this.value.cid).collection('leads').get().then((snaps) =>{
@@ -203,13 +205,38 @@ console.log(source, " data: " ,);
 
 this.productsss=this.hed;
 console.log('HHHHHHH',this.productsss);
-
+// let query= ref  => ref.orderBy(this.productsss[0].SR_name).limit(this.pageSize);
+this.last = doc;
+ 
 })
  })
  
 console.log('ionViewDidLoad TrackCampaignPage');
 }
 
+nextPage(last)
+ {
+   let currentuser=firebase.auth().currentUser;
+   firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
+  .doc(this.value.cid).collection('leads').startAfter(last).limit(3).get().then((snaps) =>{
+  snaps.docs.forEach(doc =>{
+
+this.hed.push(doc.data());
+var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+console.log(source, " data: " ,);
+
+this.productsss=this.hed;
+console.log('nxt',this.productsss);
+ //let query= ref  => ref.orderBy(this.productsss[0].SR_name).limit(this.pageSize);
+
+ 
+})
+ })
+ }
+ prevPage(first)
+ {
+  let  query= ref  => ref.orderBy(this.productsss[0].SR_name).startAfter(first[this.productsss[0].SR_name]).limitToLast(this.pageSize);
+ }
 edit(product)
 {
 console.log("edit",product)

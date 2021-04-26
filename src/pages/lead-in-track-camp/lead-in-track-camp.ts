@@ -55,20 +55,22 @@ console.log(this.productss) ;
     console.log('ionViewDidLoad LeadInTrackCampPage');
   }
 
-  insertLead(lead:Lead){
+  insertLead(data){
   
    // if(camp.name && camp.goals && camp.manager && camp.sr != null){
      this.storage.get('cuid').then((val) => {
        console.log('id is', val);
        let uuid1 = uuid()
        console.log(uuid);
+       console.log(data);
      
       firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value.cid)
       .collection('leads').doc(uuid1)
       .set(Object.assign({
  
        leads:this.anArray,
-       sr:lead.sr,
+       SR_id:data.id,
+       SR_name:data.name+" "+data.last,
        uid:uuid1 
        }  
      ))

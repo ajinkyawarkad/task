@@ -36,7 +36,7 @@ export class EditLeadDetailsPage {
 
             .update(Object.assign({
               leads:this.value.leads
-              // sr:this.value.sr,
+             
               } 
             )).then(() => {
               console.log("updated..");

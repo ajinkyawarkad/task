@@ -25,11 +25,11 @@
 	<ion-footer>
   <ion-item style="width: 50%;">
 		<ion-label>Sale Representative</ion-label>
-		<ion-select [(ngModel)]="lead.sr" (ionChange)="insertsr(productss)">
-		<ion-option *ngFor="let prod of productss">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
+		<ion-select [(ngModel)]="prod" (ionChange)="insertsr(prod)">
+		<ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
 		</ion-select>
 	</ion-item>
-	</ion-footer>
+	</ion-footer>                            
   </div>
     
   <table > 
@@ -39,6 +39,7 @@
 	  
 	  <td *ngFor="let product of products ; let idx = index;">
 		  <input type="checkbox" checked="checked" />{{products[idx].value}}</td>
+		  <td><input type="checkbox" checked="checked" />Handler</td>
 	  <td><input type="checkbox" checked="checked" />Action</td>
 	  <td><input type="checkbox" checked="checked" />Follow up</td>
 	  <td><input type="checkbox" checked="checked" />Status</td>
@@ -61,7 +62,7 @@
 					
 			  </th>
 			  <th *ngFor="let product of products ; let idx = index;">{{products[idx].value}}</th>		
-			  
+			  <th>Handler</th>
 			  <th>Action</th>
 			  <th>Follow Up</th>
 			  <th>Status</th>
@@ -92,7 +93,7 @@
 				  </td>	
 				 
 			  <!-- <td style="text-decoration: underline;color : blue;" (click)="calldetails()" ></td> -->
-			
+			  <td >{{product.SR_name}}</td>	  
 			  <td >{{product.action}}</td>
 			  <td >{{product.datetime}}</td>
 			  <td >{{product.status}}</td>
@@ -112,4 +113,13 @@
 
 	
 	  <pagination-controls style="float:right"  (pageChange)="p = $event"></pagination-controls>
+
+	  <div slot="after">
+		<button ion-button round full color="primary" (click)="	prevPage(first)">
+            Previous
+        </button>
+		<button ion-button round full color="primary" (click)="nextPage(last)">
+            Next
+        </button>
+	  </div>
   </ion-content>

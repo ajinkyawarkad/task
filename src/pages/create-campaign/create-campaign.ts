@@ -34,13 +34,14 @@ public form: FormGroup;
 createSuccess = false;
 camp = {} as Camp;
 sts = {} as Sts;
-
+uuid1 = uuid()
 products: Observable<Camps[]>;
 productss: Observable<Camps[]>;
 
 userInfo:any;
 public anArray:any=[];
 public acArr:any= [];
+
 
 constructor(private _FB : FormBuilder,public navCtrl: NavController, public navParams: NavParams,
 private alertCtrl: AlertController,public afs: AngularFirestore,private storage: Storage) {
@@ -96,10 +97,7 @@ console.log(this.productss) ;
 }
 
 
-
-
-
-insertUser(camp:Camp){
+insertUser(camp:Camp, data){
 var obj=[{
 status:this.sts.sts1,
 action:this.sts.action1
@@ -118,17 +116,18 @@ console.log('obj is ', obj);
 // if(camp.name && camp.goals && camp.manager && camp.sr != null){
 this.storage.get('cuid').then((val) => {
 // console.log('id is', val);
-let uuid1 = uuid()
-console.log(uuid);
-this.storage.set('campId', uuid1) ;
 
-firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(uuid1)
+console.log(uuid);
+this.storage.set('campId', this.uuid1) ;
+
+firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.uuid1)
 .set(Object.assign({
-cid: uuid1,
+cid: this.uuid1,
 name:camp.name,
 goals:camp.goals,
 manager: camp.manager,
-sr: camp.sr,
+SR_id:data.id,
+SR_name:data.name+" "+data.last,
 status:obj,
 active:true
 
@@ -143,7 +142,7 @@ buttons: [{text: 'OK',
 handler: data => {
 this.navCtrl.push(CreateLeadProfilePage,
 {
-item:uuid1
+item:this.uuid1
 });
 }
 }]

@@ -21,13 +21,13 @@
 
  <ion-item>
   <ion-label>Sale Representative</ion-label>
-  <ion-select [(ngModel)]="lead.sr" >
-  <ion-option *ngFor="let prod of productss">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
+  <ion-select [(ngModel)]="prod" >
+  <ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
   </ion-select>
   </ion-item>
   
 <br>
 
-<button ion-button  (click)= "insertLead(lead)" >Save</button>
+<button ion-button  (click)= "insertLead(prod)" >Save</button>
 </div>
 </ion-content>
