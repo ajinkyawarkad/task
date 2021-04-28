@@ -77,7 +77,7 @@
             </tr>
             </thead>
 
-            <tbody *ngFor="let product of products | async | search : terms" >
+            <tbody *ngFor="let product of products | async | search2 : term" >
             <tr *ngIf="product.active == false ">
               <td style="text-decoration: underline;color:blue" (click)="gotoActive(product)">{{product.name}}</td>
               <td>{{product.manager}}</td>

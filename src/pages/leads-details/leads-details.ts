@@ -27,14 +27,22 @@ export class LeadsDetailsPage {
   public hideMe1: boolean = false;
   public hideMe2: boolean = false;
 
- pageSize :number = 3;
+  pageSize :number = 3;
   last;
-  
+  public first: any = [];
+  public prev_strt_at: any = [];
+  public pagination_clicked_count = 0;
+  public disable_next: boolean = false;
+  public disable_prev: boolean = false;
+  public itemnumberbypage = 0;
+   
+
 value:any;
 userInfo:any;
 products: Observable<Users[]>;
 productss: Observable<Users[]>;
-productsss: any;
+productsss: any=[];
+prod: any=[];
 public anArray:any=[];
 public det:any=[];
 public hed=[];
@@ -57,9 +65,6 @@ console.log(this.value);
 this.campid =this.value.cid;
 
 }
-
-
-
 
 hide() {
   this.hideMe = true;
@@ -154,6 +159,28 @@ let alert = this.alertCtrl.create({
   
   
 }
+
+getItems(ev) {
+//   let currentuser=firebase.auth().currentUser;
+//   firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
+// .doc(this.value.cid).collection('leads').get().then((snaps) =>{
+// snaps.docs.forEach(doc =>{
+//     this.hed.push(doc.data());
+//     var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+//     console.log(source, " data: " );
+//     this.prod=this.hed;
+//     console.log('HHHHHHH',this.prod);
+
+// })
+//  })
+  
+  var val = ev.target.value;
+  if (val && val.trim() != '') {
+    this.prod = this.prod.filter((item) => {
+      return (item.leads[0].action.toLowerCase().indexOf(val.toLowerCase()) > -1);
+    })
+  }
+}
 ionViewDidLoad() {
   $(document).on('change', 'table thead input', function() {
     var checked = $(this).is(":checked");
@@ -195,47 +222,127 @@ this.productss = doc.data().Users ;
 console.log(this.productss) ;
 });
 
+
+
+
+
+
 firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
-.doc(this.value.cid).collection('leads').get().then((snaps) =>{
+.doc(this.value.cid).collection('leads').limit(this.pageSize).get().then((snaps) =>{
+  if (!snaps.docs.length) {
+    console.log("No Data Available");
+    return false;
+  }
 snaps.docs.forEach(doc =>{
+    this.hed.push(doc.data());
+    var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+    console.log(source, " data: " );
+    this.productsss=this.hed;
+    console.log('HHHHHHH',this.productsss);
 
-this.hed.push(doc.data());
-var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-console.log(source, " data: " ,);
-
-this.productsss=this.hed;
-console.log('HHHHHHH',this.productsss);
-// let query= ref  => ref.orderBy(this.productsss[0].SR_name).limit(this.pageSize);
 this.last = doc;
- 
+this.first = doc;
+ console.log("last",this.last);
 })
  })
+ this.prev_strt_at = [];
+ this.pagination_clicked_count = 0;
+ this.disable_next = false;
+ this.disable_prev = false;
+ this.itemnumberbypage = 1;
+
+ //Push first item to use for Previous action
+ //this.push_prev_startAt(this.first);
+
  
 console.log('ionViewDidLoad TrackCampaignPage');
 }
 
 nextPage(last)
  {
+  
+   this.productsss.length = 0;
+   this.disable_next = true;
    let currentuser=firebase.auth().currentUser;
    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
-  .doc(this.value.cid).collection('leads').startAfter(last).limit(3).get().then((snaps) =>{
+  .doc(this.value.cid).collection('leads').startAfter(last).limit(this.pageSize).get().then((snaps) =>{
+    if (!snaps.docs.length) {
+      console.log("No Data Available");
+      alert("No More Data");
+      return false;
+    }
   snaps.docs.forEach(doc =>{
+   
+  this.hed.push(doc.data());
+  var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+  console.log(source, " data: " ,);
 
-this.hed.push(doc.data());
-var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-console.log(source, " data: " ,);
+  this.productsss=this.hed;
+  console.log('nxt',this.productsss);
+  
+  
+this.last = doc;
+this.first = doc;
 
-this.productsss=this.hed;
-console.log('nxt',this.productsss);
- //let query= ref  => ref.orderBy(this.productsss[0].SR_name).limit(this.pageSize);
 
- 
-})
+//console.log("first",this.push_prev_startAt)
+this.disable_next = false;
+},
+error => {
+  this.disable_next = false;
+});
+this.pagination_clicked_count++;
+this.itemnumberbypage*this.pagination_clicked_count;
  })
- }
+ 
+  
+}
+ 
+
+
+
+
  prevPage(first)
  {
-  let  query= ref  => ref.orderBy(this.productsss[0].SR_name).startAfter(first[this.productsss[0].SR_name]).limitToLast(this.pageSize);
+   
+  this.productsss.length = 0; 
+ // this.productsss.push(this.first)
+  this.disable_prev = true;
+ 
+  let currentuser=firebase.auth().currentUser;
+  firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
+ .doc(this.value.cid).collection('leads')
+ .endBefore(first)
+ .limit(this.pageSize).get().then((snaps) =>{
+  if (!snaps.docs.length) {
+    console.log("No Data Available");
+    alert("No More Data");
+    return false;
+  }
+ snaps.docs.forEach(doc =>{
+
+  this.hed.push(doc.data());
+ 
+ var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+ console.log(source, " data: " ,);
+
+ this.productsss=this.hed;
+ console.log("prev",this.productsss)
+ this.last = doc;
+this.first = doc;
+
+        //Enable buttons again
+        this.disable_prev = false;
+        this.disable_next = false;
+        
+
+},error => {
+  this.disable_prev = false;})
+  this.pagination_clicked_count--;
+ this.itemnumberbypage/this.pagination_clicked_count;
+})
+
+  
  }
 edit(product)
 {
