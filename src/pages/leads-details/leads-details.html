@@ -24,32 +24,41 @@
     </div>
 	</div>
 	
-	<div *ngIf="hideMe">  
-		<ion-footer style="background-color: bisque;">
-		<button ion-button  color="success" (click)="hide1()"> Assign Handler</button> 
-		</ion-footer>
+	<div *ngIf="hideMe" style="float: left;margin-left: 16px;margin-top: -18px;">  
+		
+		<button  ion-button  color="secondary" (click)="hide1()"> Assign Handler</button> 
+		
     </div>
 
+	<div *ngIf="hideMe1"> 
+
+		<ion-item style="width: 50%;">
+		   <ion-label>Sale Representative</ion-label>
+			<ion-select [(ngModel)]="prod" (ionChange)="insertsr(prod)">
+			<ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
+		   </ion-select>
+		</ion-item>                     
+    </div>
   
-    
-  <table > 
-		
-	<thead *ngIf="hideMe2"  > 
-		<hr/>	
+	<div>
+	<div  class="scrollbar" >    
+		<table > 		
+			<thead  *ngIf="hideMe2" > 
+				<hr  >	
+			<td  style="border: none;" *ngFor="let product of products ; let idx = index;">
+				<input type="checkbox" checked="checked" />{{products[idx].value}}</td>
+			<td style="border: none;"><input type="checkbox" checked="checked" />Handler</td>
+			<td style="border: none;"><input type="checkbox" checked="checked" />Action</td>
+			<td style="border: none;"><input type="checkbox" checked="checked" />Follow up</td>
+			<td style="border: none;"><input type="checkbox" checked="checked" />Status</td>
+			<td style="border: none;"><input type="checkbox" checked="checked" />Remarks
+			</td>  
+			</thead>	
+		</table>
+		<hr >	  
+	</div>
 	  
-	  <td  *ngFor="let product of products ; let idx = index;">
-		  <input type="checkbox" checked="checked" />{{products[idx].value}}</td>
-		  <td><input type="checkbox" checked="checked" />Handler</td>
-	  <td><input type="checkbox" checked="checked" />Action</td>
-	  <td><input type="checkbox" checked="checked" />Follow up</td>
-	  <td><input type="checkbox" checked="checked" />Status</td>
-	  <td><input type="checkbox" checked="checked" />Remarks
-	  </td>  
-	  </thead>
-	  </table>
-	  <hr/>	
-	  
-	<div  style="overflow-x:auto">                                  
+	<div   class="scrollbar">                                  
 	<table >   	
 		  <tr>
 			  <th>
@@ -146,7 +155,7 @@
 		</tbody>
 	  </table>
 	</div>
-
+</div>
 	
 	  <!-- <pagination-controls style="float:right"  (pageChange)="p = $event"></pagination-controls> -->
 	  
@@ -162,15 +171,4 @@
 	  </div>
   </ion-content>
 
-  <div *ngIf="hideMe1"> 
-	<ion-footer>
-		<ion-toolbar>
-		<ion-item style="width: 50%;">
-		   <ion-label>Sale Representative</ion-label>
-			<ion-select [(ngModel)]="prod" (ionChange)="insertsr(prod)">
-			<ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
-		   </ion-select>
-		</ion-item>
-	</ion-toolbar>
-	</ion-footer>                            
-  </div>
+ 

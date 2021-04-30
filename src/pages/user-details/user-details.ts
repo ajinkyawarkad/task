@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
+import { IonicPage, NavController, NavParams ,AlertController, LoadingController} from 'ionic-angular';
 import { EditTeamDetailsPage } from '../edit-team-details/edit-team-details';
 import { UserLicensesPage } from '../user-licenses/user-licenses';
 
@@ -38,7 +38,7 @@ productss: Observable<Users[]>;
 Segments:string;
 
 
-constructor(public navCtrl: NavController,public afs: AngularFirestore,
+constructor(public navCtrl: NavController,public afs: AngularFirestore, public loadingCtrl: LoadingController ,                                               
 private storage: Storage, public navParams: NavParams,private auth:AngularFireAuth,public alertCtrl: AlertController,) {
 this.Segments="1";
 

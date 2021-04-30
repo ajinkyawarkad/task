@@ -124,7 +124,7 @@ export class TaskDetailsPage {
     //scope: id,
     buttons: [{text: 'OK',
     handler: data => {
-    //this.navCtrl.push(UserDetailsPage);
+    //this.navCtrl.pop();
     }
     }]
     });

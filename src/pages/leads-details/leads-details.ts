@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { LeadInTrackCampPage } from '../lead-in-track-camp/lead-in-track-camp';
 import { Lead } from '../../models/user';
 import * as $ from "jquery";
+import { LoadingController } from 'ionic-angular';
 
 
 interface Users {
@@ -27,7 +28,7 @@ export class LeadsDetailsPage {
   public hideMe1: boolean = false;
   public hideMe2: boolean = false;
 
-  pageSize :number = 3;
+  pageSize :number = 10;
   last;
   public first: any = [];
   public prev_strt_at: any = [];
@@ -53,11 +54,11 @@ isItemAvailable = false;
 
 lead = {} as Lead;
 isIndeterminate:boolean;
-  masterCheck:boolean;
+masterCheck:boolean;
 
 
 constructor(public navCtrl: NavController, public navParams: NavParams,public afs: AngularFirestore,
-public alertCtrl:AlertController) {
+public alertCtrl:AlertController,public loadingCtrl: LoadingController) {
 
 
 this.value = navParams.get('product');
@@ -138,17 +139,14 @@ insertsr(data){
   .collection('leads').doc(this.array[i]).update({
     SR_id:data.id,
     SR_name:data.name+" "+data.last
-  })
-    
-  
+  })  
 }
 let alert = this.alertCtrl.create({
   title: 'Success',
   subTitle: 'added',
   //scope: id,
   buttons: [{text: 'OK',
-  handler: data => {
-  
+  handler: data => { 
   }
   }]
   });
@@ -231,13 +229,18 @@ firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collectio
 })
 })
 
-
+let loading = this.loadingCtrl.create({
+  spinner: 'bubbles',
+  content: 'Loading...',
+});
+loading.present();
 firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
 .doc(this.value.cid).collection('leads').limit(this.pageSize).get().then((snaps) =>{
   if (!snaps.docs.length) {
     console.log("No Data Available");
     return false;
   }
+  loading.dismiss();
 snaps.docs.forEach(doc =>{
     this.hed.push(doc.data());
     var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
@@ -269,13 +272,23 @@ nextPage(last)
    this.productsss.length = 0;
    this.disable_next = true;
    let currentuser=firebase.auth().currentUser;
+
+   let loading = this.loadingCtrl.create({
+    spinner: 'bubbles',
+    content: 'Loading...',
+  });
+  loading.present();
+
    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
   .doc(this.value.cid).collection('leads').startAfter(last).limit(this.pageSize).get().then((snaps) =>{
+
     if (!snaps.docs.length) {
       console.log("No Data Available");
       alert("No More Data");
       return false;
     }
+      loading.dismiss();
+    
   snaps.docs.forEach(doc =>{
    
   this.hed.push(doc.data());
@@ -300,6 +313,7 @@ this.pagination_clicked_count++;
 this.itemnumberbypage*this.pagination_clicked_count;
  })
  
+
   
 }
  
@@ -313,7 +327,11 @@ this.itemnumberbypage*this.pagination_clicked_count;
   this.productsss.length = 0; 
  // this.productsss.push(this.first)
   this.disable_prev = true;
- 
+  let loading = this.loadingCtrl.create({
+    spinner: 'bubbles',
+    content: 'Loading...',
+  });
+  loading.present();
   let currentuser=firebase.auth().currentUser;
   firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
  .doc(this.value.cid).collection('leads')
@@ -324,6 +342,7 @@ this.itemnumberbypage*this.pagination_clicked_count;
     alert("No More Data");
     return false;
   }
+  loading.dismiss();
  snaps.docs.forEach(doc =>{
 
   this.hed.push(doc.data());

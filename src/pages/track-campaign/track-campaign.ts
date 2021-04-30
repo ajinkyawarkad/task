@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, MenuController } from 'ionic-angular';
+ import { AlertController, LoadingController, MenuController } from 'ionic-angular';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 
 import { ArchivedCampaignsDetailsPage } from '../archived-campaigns-details/archived-campaigns-details';
@@ -22,7 +22,7 @@ interface Users {
 @IonicPage()
 @Component({
   selector: "page-track-campaign",
-  templateUrl: "track-campaign.html",
+    templateUrl: "track-campaign.html",
 })
 export class TrackCampaignPage {
   counts = {} as Counts;
@@ -41,7 +41,8 @@ column: string = 'name';
     public navParams: NavParams,
     public afs: AngularFirestore,
     public menuCtrl: MenuController,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public loadingCtrl: LoadingController
   ) {
     this.Segments = "1";
     //this.menuCtrl.enable(true, 'menu');
@@ -115,7 +116,7 @@ column: string = 'name';
                     .doc(snap.data().cid)
                     .collection("leads")
                     .get()
-                    .then((docu) => {
+                     .then((docu) => {
                       console.log(docu.docs.length);
                       //
                       data.docs.forEach(snap2 =>{
@@ -172,10 +173,14 @@ column: string = 'name';
     // for(i=0;i<n;i++){
 
     // }
-
+    let loading = this.loadingCtrl.create({
+      spinner: 'bubbles',
+      content: 'Loading...',
+    });
+    loading.present();
     this.userInfo = this.afs.collection("Company").doc("COM#" + currentuser.uid).collection("Campaigns");
     this.products = this.userInfo.valueChanges();
-   
+    loading.dismiss();
    
     console.log("ionViewDidLoad TrackCampaignPage");
   }
