@@ -9,7 +9,7 @@
   
   
   <ion-content padding>
-  <ion-segment [(ngModel)]="Segments"  value="2" mode="ios" >
+  <!-- <ion-segment [(ngModel)]="Segments"  value="2" mode="ios" >
   <ion-segment-button (ionSelect)="Segments = 1" value="1">
   Add
   </ion-segment-button>
@@ -19,70 +19,43 @@
   <ion-segment-button (ionSelect)="Segments = 3" value="3" >
   Licenses
   </ion-segment-button>
-  </ion-segment>
+  </ion-segment> -->
   
   
-  <div [ngSwitch]="Segments">
+  <!-- 
   <br>
   <div *ngSwitchCase="1" >
-  <div class="contaier-login">
-  <ion-grid>
-  <ion-row>
-  <ion-col>
-  <ion-item>
-  <ion-input type="text" required placeholder="First Name" required [(ngModel)]="employee.name" ></ion-input>
-  </ion-item>
-  <br />
   
-  <ion-item>
-  <ion-input type="text" required placeholder="Last Name" required [(ngModel)]="employee.last" ></ion-input>
-  </ion-item>
-  <br />
-  
-  <ion-item>
-  <ion-input type="text" required placeholder="Email" required [(ngModel)]="employee.email"></ion-input>
-  </ion-item>
-  <br />
-  
-  <ion-item>
-  <ion-label>Role</ion-label>
-  <ion-select placeholder="Select One" required [(ngModel)]="employee.role">
-  <ion-option >Manager</ion-option>
-  <ion-option >Sale Representative</ion-option>
-  </ion-select>
-  </ion-item>
-  </ion-col>
-  </ion-row>
-  
-  <ion-row>
-  <ion-col>
-  <button ion-button round full color="primary" (click)= "insertUser(employee)" >
-  Invite
-  </button>
-  </ion-col>
-  </ion-row>
-  
-  </ion-grid>
   </div>
-  </div>
+   -->
   
   
-  <div *ngSwitchCase="2" >
   
-  <ion-segment [(ngModel)]="Segments" value="4" mode="ios" >
-  <ion-segment-button (ionSelect)="Segments = 4" value="4">
-  Active
+  <ion-segment [(ngModel)]="Segments" value="1" mode="ios" >
+  <ion-segment-button (ionSelect)="Segments = 1" value="1">
+  Active Users
   </ion-segment-button>
   
-  <ion-segment-button (ionSelect)="Segments = 5" value="5" >
-  Non-Active
+  <ion-segment-button (ionSelect)="Segments = 2" value="2" >
+  Non-Active Users
   </ion-segment-button>
-  </ion-segment>
-  </div>
+ 
+  <ion-segment-button (ionSelect)="Segments = 3" value="3" >
+  User Licenses
+  </ion-segment-button> 
+</ion-segment>
   
-  
-  <div *ngSwitchCase="4" >
-    <ion-searchbar placeholder="Search " [(ngModel)]="term" showCancelButton="always" style="width: 50%;"></ion-searchbar>
+  <div [ngSwitch]="Segments">
+  <div *ngSwitchCase="1" >
+
+    <div style="float: right;margin-top: -6px;">
+     <ion-searchbar placeholder="Search " [(ngModel)]="term" showCancelButton="always" ></ion-searchbar>
+    </div>
+
+     <div style="float: left">
+      <button ion-button  color="secondary" (click)="add()"> Add New User</button> 
+     </div>
+
   <table padding>
   
   <thead>
@@ -94,7 +67,7 @@
   <th>Action</th>
   
   </tr>
-  </thead>
+    </thead>
   <tbody>
   <tr *ngFor="let product of productss | async | search1 :term">
   <td style="text-decoration: underline;color: blue;" (click)="edit(product)">{{product.name}}</td>
@@ -109,8 +82,11 @@
   </table>
   </div>
   
-  <div *ngSwitchCase="5" >
-    <ion-searchbar placeholder="Search " [(ngModel)]="term" showCancelButton="always" style="width: 50%;"></ion-searchbar>
+  <div *ngSwitchCase="2" >
+    <div style="float: right;margin-top: -6px;">
+      <ion-searchbar placeholder="Search " [(ngModel)]="term" showCancelButton="always" ></ion-searchbar>
+     </div>
+ 
   <table padding>
   
   <thead>
@@ -138,7 +114,10 @@
   </div>
   
   <div *ngSwitchCase="3" >
-  <table>
+    <div style="float: right;margin-top: -6px;">
+      <ion-searchbar placeholder="Search " [(ngModel)]="term" showCancelButton="always" ></ion-searchbar>
+     </div>
+  <table padding>
   <thead>
   <tr>
   <th>No. of Licenses</th>

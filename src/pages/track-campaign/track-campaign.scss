@@ -1,5 +1,4 @@
 page-track-campaign {
-	
 	ion-content
 	{
 		font-family: 'roboto';
@@ -36,7 +35,8 @@ page-track-campaign {
 		td {
 			/* Behave  like a "row" */
 			border: none;
-			border-bottom: 1px solid #eee;
+			//border: 1px solid #ccc;
+			border-bottom: 1px solid #ccc;
 			position: relative;
 			//padding-left: 50%;
 		}
@@ -55,7 +55,7 @@ page-track-campaign {
 		/*
 		Label the data
 		*/
-		//td:nth-of-type(1) { font-weight:bold;font-size:150%;margin-top:5px; }
+		td:nth-of-type(1) { font-weight:bold;font-size:150%;margin-top:5px; }
 		td:nth-of-type(1):before { content: "Compaigns Name:"; }
 		td:nth-of-type(2):before { content: "Manager:"; }
 		td:nth-of-type(3):before { content: "Pending Call:"; }
@@ -72,7 +72,8 @@ page-track-campaign {
 		}
 		td, th { 
 			padding: 10px; 
-			 border-bottom: 1px solid #8b8989; 
+			//border: 1px solid #ccc;
+			border-bottom: 1px solid #ccc; 
 			text-align: left; 
 			
 		}
@@ -96,7 +97,8 @@ page-track-campaign {
 		}
 		td, th { 
 			padding: 10px; 
-			 border-bottom: 1px solid #8b8989; 
+			//border: 1px solid #ccc;
+			 border-bottom: 1px solid #ccc; 
 			text-align: left; 
 			
 		}
@@ -176,8 +178,8 @@ page-track-campaign {
 		}
 		/* Zebra striping */
 		tr:nth-of-type(odd) { 
-		background: rgb(250, 245, 245); 
-		}
+			background: rgb(250, 245, 245); 
+			}
 	   
 		th:nth-child(5){
 			width:10%;
@@ -189,9 +191,9 @@ page-track-campaign {
 		}
 		td, th { 
 			padding: 10px; 
-			 border-bottom: 1px solid #8b8989; 
+		//	border: 1px solid #ccc;
+			 border-bottom: 1px solid #ccc; 
 			text-align: left; 
 			
 		}
-
 	}

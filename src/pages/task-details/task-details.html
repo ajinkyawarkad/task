@@ -10,15 +10,15 @@
 <ion-content class="content"> 
   <div class="contaier">
   <ion-list>
-
+    <ion-item > 
+      {{data}} {{data1}}
+   </ion-item>
+  
     
    
-    <ion-item >
+    <ion-item > 
       <ion-label>Action</ion-label>
       
-      <!-- <ion-datetime [hidden]="!!myDate" pickerFormat="MMM DD, YYYY " (ngModelChange)="change(datePicker)" [(ngModel)]="myDate"></ion-datetime>
-      <ion-datetime [hidden]="!myDate"  #datePicker (ionCancel)="myDate=undefined" pickerFormat="HH:mm" [(ngModel)]="myTime"> </ion-datetime>
-     -->  
      <ion-select placeholder="Select Action" (ionChange)="hide()"  [(ngModel)]="leadd.action"> 
       <ion-option value="Callback">Callback</ion-option>
       <ion-option value="Schedule Meet">Schedule Meet</ion-option>

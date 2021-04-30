@@ -44,7 +44,7 @@ productss: Observable<Users[]>;
 productsss: any=[];
 prod: any=[];
 public anArray:any=[];
-public det:any=[];
+public det=[];
 public hed=[];
 public array=[];
 public leaduid:any;
@@ -161,23 +161,16 @@ let alert = this.alertCtrl.create({
 }
 
 getItems(ev) {
-//   let currentuser=firebase.auth().currentUser;
-//   firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
-// .doc(this.value.cid).collection('leads').get().then((snaps) =>{
-// snaps.docs.forEach(doc =>{
-//     this.hed.push(doc.data());
-//     var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-//     console.log(source, " data: " );
-//     this.prod=this.hed;
-//     console.log('HHHHHHH',this.prod);
-
-// })
-//  })
-  
+  this.productsss.length = 0;
   var val = ev.target.value;
   if (val && val.trim() != '') {
     this.prod = this.prod.filter((item) => {
-      return (item.leads[0].action.toLowerCase().indexOf(val.toLowerCase()) > -1);
+      console.log("searchh",item);
+      return item.leads[0].action.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+      item.leads[1].action.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+      item.leads[2].action.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
+      item.leads[3].action.toLowerCase().indexOf(val.toLowerCase()) > -1   
+      // item.status.toLowerCase().indexOf(val.toLowerCase()) > -1 
     })
   }
 }
@@ -222,9 +215,21 @@ this.productss = doc.data().Users ;
 console.log(this.productss) ;
 });
 
+// let currentuser=firebase.auth().currentUser;
+firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
+.doc(this.value.cid).collection('leads').get().then((snaps) =>{
+  
+  snaps.docs.forEach(doc =>{
+    
+    this.det.push(doc.data());
+    var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+    console.log(source, " data: " );
+    this.prod=this.det;
+   
+    console.log('prod ',this.prod);
 
-
-
+})
+})
 
 
 firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
@@ -362,12 +367,15 @@ product:this.value
 });
 
 }
-gotocall(id)
+gotocall(data,data1,id)
 {
-console.log(id);
+console.log("goto Call",data,data1,id);
 this.navCtrl.push(TaskDetailsPage, {
 product:this.value,
-id
+data,
+data1,
+id,
+
 
 });
 }

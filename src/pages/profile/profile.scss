@@ -4,6 +4,20 @@ page-profile {
 		font-family: 'roboto';
 		font-size: 15px;	
 	}
+	.button-full-md {
+        margin-left: 23%;
+        margin-right: 0;
+        border-radius: 5px;
+        border-right-width: 0;
+        border-left-width: 0;
+        width: 57%;
+    }
+	ion-segment 
+		{
+			width: 50%;
+		}
+
+
 	
 	/* Extra small devices (phones, 600px and down) */
   @media only screen and (max-width: 600px) {
@@ -165,22 +179,6 @@ table{
 	}
 }
 
-	.button-full-md {
-        margin-left: 23%;
-        margin-right: 0;
-        border-radius: 5px;
-        border-right-width: 0;
-        border-left-width: 0;
-        width: 57%;
-    }
-	ion-segment 
-		{
-			width: 50%;
-		}
-th{
-	background-color:  rgb(100, 98, 98);
-	font-weight: normal;
-}
-
+	
 
 }

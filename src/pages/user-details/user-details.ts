@@ -40,7 +40,7 @@ Segments:string;
 
 constructor(public navCtrl: NavController,public afs: AngularFirestore,
 private storage: Storage, public navParams: NavParams,private auth:AngularFireAuth,public alertCtrl: AlertController,) {
-this.Segments="2";
+this.Segments="1";
 
 }
 
@@ -50,11 +50,13 @@ let currentuser=firebase.auth().currentUser;
 this.userInfo = this.afs.collection('Company').doc("COM#"+currentuser.uid).collection('non-active');
 this.products = this.userInfo.valueChanges();
 
-
 this.userInfo = this.afs.collection('Company').doc("COM#"+currentuser.uid).collection('Users');
 this.productss = this.userInfo.valueChanges();
 
-
+}
+add()
+{
+ this.navCtrl.push(UserlistPage);
 }
 
 showPopup(value) {
@@ -148,80 +150,6 @@ last:this.employee.last,
 })
 }
 
-insertUser(employee:Employee){
-if(employee.email && employee.role && employee.name && employee.last != null){
 
-this.storage.get('cuid').then((val) => {
-console.log('id is', val);
-let uid = uuid();
-console.log(uid);
-let currentUser = firebase.auth().currentUser
-
-firebase.firestore().collection('Company').doc(val).collection('Users').doc(uid)
-.set(Object.assign({
-id: uid,
-name:employee.name,
-last:employee.last,
-email: employee.email,
-role: employee.role
-}
-))
-if(employee.role == 'Manager'){
-firebase.firestore().collection('Company').doc(val).collection('Admin').doc(currentUser.uid) 
-.update(
-{
-Managers : firebase.firestore.FieldValue.arrayUnion( {
-  id: uid,
-  name: this.employee.name,                           
-  role: this.employee.role,
-  last: this.employee.last,
-  
-  })  
-})
-
-}
-else{
-firebase.firestore().collection('Company').doc(val).collection('Admin').doc(currentUser.uid).update({
-Users : firebase.firestore.FieldValue.arrayUnion({
-  id: uid,
-  name: this.employee.name,
-  role: this.employee.role,
-  last: this.employee.last,
-  })
-})
-}
-let alert = this.alertCtrl.create({
-title: 'Success',
-subTitle: 'Invitation sent to '+ employee.email,
-//scope: id,
-buttons: [{text: 'OK',
-handler: data => {
-this.navCtrl.push(UserDetailsPage);
-}
-}]
-});
-alert.present();
-
-});
-
-
-
-}else{
-
-let alert = this.alertCtrl.create({
-title: 'Warning',
-subTitle: 'Insert Data',
-//scope: id,
-buttons: [{text: 'OK',
-handler: data => {
-//this.navCtrl.push(LoginPage);
-}
-}]
-});
-alert.present();
-
-}
-
-}
 
 }

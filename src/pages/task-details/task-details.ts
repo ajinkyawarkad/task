@@ -31,6 +31,8 @@ export class TaskDetailsPage {
   myDate;
   value:any;
   id:any;
+  data:any;
+  data1:any;
  //refid:any;
   leadref = {} as Leadref;
   leadd = {} as Leadd;
@@ -48,6 +50,12 @@ export class TaskDetailsPage {
       this.id = navParams.get('id');
       console.log("lead id",this.id);
 
+      this.data = navParams.get('data');
+      console.log("Data",this.data);
+
+      this.data1 = navParams.get('data1');
+      console.log("Data1",this.data1);
+
 
       let currentuser=firebase.auth().currentUser;
       firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.value.cid)
@@ -62,7 +70,7 @@ export class TaskDetailsPage {
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad TaskDetailsPage');
+  
   }
 
   Getselected(selected_value)
