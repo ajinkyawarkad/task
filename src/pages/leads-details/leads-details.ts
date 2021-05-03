@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import firebase from 'firebase';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 import { CallDetailsPage } from '../call-details/call-details';
 import { EditLeadDetailsPage } from '../edit-lead-details/edit-lead-details';
 import { TaskDetailsPage } from '../task-details/task-details';
@@ -17,7 +17,7 @@ name: string,
 manager:string;
 }
 
-@IonicPage()
+
 @Component({
 selector: 'page-leads-details',
 templateUrl: 'leads-details.html',

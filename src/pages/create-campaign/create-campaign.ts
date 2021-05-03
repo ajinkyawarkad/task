@@ -1,6 +1,5 @@
 import { Component, ViewChild } from "@angular/core";
 import {
-  IonicPage,
   NavController,
   NavParams,
   AlertController,
@@ -30,7 +29,7 @@ interface Camps {
   role: string;
 }
 
-@IonicPage()
+
 @Component({
   selector: "page-create-campaign",
   templateUrl: "create-campaign.html",

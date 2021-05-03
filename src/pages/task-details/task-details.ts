@@ -12,15 +12,11 @@ import { uuid } from 'uuidv4';
 import { Observable } from 'rxjs';
 import * as $ from "jquery";
 
-
-
 interface Lead {
   status:string; 
   action:string;
 }
 
-
-@IonicPage()
 @Component({
   selector: 'page-task-details',
   templateUrl: 'task-details.html',

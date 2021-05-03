@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController,  NavController, NavParams } from 'ionic-angular';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import firebase from 'firebase';
 import { Observable } from 'rxjs';
@@ -15,7 +15,7 @@ interface Camps {
      
  }
 
-@IonicPage()
+
 @Component({
   selector: 'page-create-new-camplead',
   templateUrl: 'create-new-camplead.html',

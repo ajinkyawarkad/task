@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
+import {  NavController, NavParams ,AlertController} from 'ionic-angular';
 import { User } from '../../models/user';
 import { LoginPage } from '../login/login';
 import { AngularFireAuth } from '@angular/fire/auth';
@@ -8,7 +8,7 @@ import { AuthserviceProvider } from '../../providers/authservice/authservice';
 import 'firebase/firestore';
 import { Storage } from '@ionic/storage';
 
-@IonicPage()
+
 @Component({
   selector: 'page-register',
   templateUrl: 'register.html',

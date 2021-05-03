@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController,  NavController, NavParams } from 'ionic-angular';
 import { CreateCampaignsLeadPage } from '../create-campaigns-lead/create-campaigns-lead';
 import { FormGroup, FormBuilder, FormControl, Validators, FormArray } from '@angular/forms';
 import { Http } from '@angular/http';
@@ -13,7 +13,7 @@ import { Camp } from '../../models/user';
 import { v4 as uuid } from 'uuid';
 import { TrackCampaignPage } from '../track-campaign/track-campaign';
 
-@IonicPage()
+
 @Component({
   selector: 'page-create-lead-profile',
   templateUrl: 'create-lead-profile.html',

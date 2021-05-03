@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
+import {  NavController, NavParams ,AlertController} from 'ionic-angular';
 import firebase from 'firebase';
 import { AngularFirestore} from '@angular/fire/firestore';
 
 
-@IonicPage()
+
 @Component({
   selector: 'page-edit-lead-details',
   templateUrl: 'edit-lead-details.html',

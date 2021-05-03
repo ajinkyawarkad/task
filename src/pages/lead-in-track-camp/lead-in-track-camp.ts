@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import firebase from 'firebase';
-import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
+import { AlertController, NavController, NavParams } from 'ionic-angular';
 
 import { Observable } from 'rxjs';
 import { Lead } from '../../models/user';
@@ -13,7 +13,7 @@ interface Camps {
   name:string;
     
 }
-@IonicPage()
+
 @Component({
   selector: 'page-lead-in-track-camp',
   templateUrl: 'lead-in-track-camp.html',

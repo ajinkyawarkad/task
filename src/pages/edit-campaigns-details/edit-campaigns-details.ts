@@ -1,6 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import {
-IonicPage,
+
 NavController,
 NavParams,
 AlertController,
@@ -27,7 +27,7 @@ status: string;
 action: string;
 }
 
-@IonicPage()
+
 @Component({
 selector: "page-edit-campaigns-details",
 templateUrl: "edit-campaigns-details.html",

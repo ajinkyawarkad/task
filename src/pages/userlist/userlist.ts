@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams ,AlertController} from 'ionic-angular';
+import {  NavController, NavParams ,AlertController} from 'ionic-angular';
 import { AngularFireAuth } from '@angular/fire/auth';
 import 'firebase/firestore';
 import { Employee, User } from '../../models/user';
@@ -17,7 +17,7 @@ interface Users {
   role:string;
   }
 
-@IonicPage()
+
 @Component({
   selector: 'page-userlist',
   templateUrl: 'userlist.html',
