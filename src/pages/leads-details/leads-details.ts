@@ -398,9 +398,12 @@ id,
 
 });
 }
-calldetails()
+calldetails(uid)
 {
-this.navCtrl.push(CallDetailsPage);
+
+  console.log("Uid",uid)
+this.navCtrl.push(CallDetailsPage,
+ {uid});
 }
 showPopup(value) {
 let alert = this.alertCtrl.create({

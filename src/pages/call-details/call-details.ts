@@ -7,8 +7,11 @@ import { NavController, NavParams } from 'ionic-angular';
   templateUrl: 'call-details.html',
 })
 export class CallDetailsPage {
-
+  uid:any;
   constructor(public navCtrl: NavController, public navParams: NavParams) {
+
+    this.uid = navParams.get('uid');
+    console.log("lead id",this.uid);
   }
 
   ionViewDidLoad() {

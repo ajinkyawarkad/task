@@ -1,5 +1,6 @@
 import { Component, ViewChild } from "@angular/core";
 import {
+ 
   NavController,
   NavParams,
   AlertController,
@@ -23,12 +24,12 @@ import { v4 as uuid } from "uuid";
 
 import { Observable } from "rxjs";
 import * as $ from "jquery";
+import { merge } from "jquery";
 
 interface Camps {
   name: string;
   role: string;
 }
-
 
 @Component({
   selector: "page-create-campaign",
@@ -157,12 +158,35 @@ export class CreateCampaignPage {
               name: camp.name,
               goals: camp.goals,
               manager: camp.manager,
-              sr_id: x,
-              sr_name: y,
+              SR_id: x,
+              SR_name: y,
               status: obj,
               active: true,
             })
           );
+          
+          for(var d in x){
+            firebase
+          .firestore()
+          .collection("Company")
+          .doc(val)
+          .collection("Users").doc(x[d]).collection('CampsAsso')
+          .doc(this.uuid1)
+          .set(
+            Object.assign({
+              cid: this.uuid1,
+              name: camp.name,
+              goals: camp.goals,
+              manager: camp.manager,
+              active: true,
+            },{merge:true})
+          );
+
+
+          }
+          
+
+
 
         let alert = this.alertCtrl.create({
           title: "Success",

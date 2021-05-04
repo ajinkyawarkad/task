@@ -54,8 +54,11 @@ signup(user:User){
  
              firebase.firestore().collection('Company').doc("COM#"+currentuser.uid ).collection('Admin').doc(currentuser.uid)
              .set(Object.assign({
-               name: user.name,
+                name: user.name,
                 company_id: "COM#"+currentuser.uid ,
+                fuction:true,
+                 Managers:[],
+                 Users:[]
                } 
              ))
              // this.storage.set('data', data );

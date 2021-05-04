@@ -84,7 +84,7 @@
 			
 			  <tr *ngFor="let product of productsss  ;let idx = index; ">
 				<td >
-					<ion-icon style="display: inline-block;font-size: 1.3em" name="call" (click)="calldetails()"></ion-icon>
+					<ion-icon style="display: inline-block;font-size: 1.3em" name="call" (click)="calldetails(product.uid)"></ion-icon>
 					<ion-checkbox slot="start" 
 					[(ngModel)]="product.isChecked" 
 					(ionChange)="checkEvent();"></ion-checkbox>
@@ -123,7 +123,7 @@
 			
 			<tr *ngFor="let product of prod  ;let idx = index; ">
 			  <td >
-				  <ion-icon style="display: inline-block;font-size: 1.3em" name="call" (click)="calldetails()"></ion-icon>
+				  <ion-icon style="display: inline-block;font-size: 1.3em" name="call" (click)="calldetails(product.uid)"></ion-icon>
 				  <ion-checkbox slot="start" 
 				  [(ngModel)]="product.isChecked" 
 				  (ionChange)="checkEvent();"></ion-checkbox>
