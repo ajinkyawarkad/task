@@ -48,6 +48,7 @@ import { SearchPipe } from '../pipes/search/search';
 import { SortPipe } from '../pipes/sort/sort';
 import { SearchPipe1 } from '../pipes/search/search1';
 import { SearchPipe2 } from '../pipes/search/search2';
+import { EditCsvFieldPage } from '../pages/edit-csv-field/edit-csv-field';
 
 
 
@@ -77,6 +78,7 @@ import { SearchPipe2 } from '../pipes/search/search2';
     ProfilePage,
     CallDetailsPage,
     LeadInTrackCampPage,
+    EditCsvFieldPage,
     SearchPipe,
     SearchPipe1,
     SearchPipe2,
@@ -124,7 +126,8 @@ import { SearchPipe2 } from '../pipes/search/search2';
     EditTeamDetailsPage,
     ProfilePage,
     CallDetailsPage,
-    LeadInTrackCampPage
+    LeadInTrackCampPage,
+    EditCsvFieldPage
     
   ],
   providers: [

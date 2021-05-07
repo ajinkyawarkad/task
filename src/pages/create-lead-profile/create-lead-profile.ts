@@ -96,6 +96,42 @@ export class CreateLeadProfilePage {
   }
 
 
+  savefield()
+  {
+     let Mainheader =this.anArray;
+    console.log(Mainheader); 
+   
+    let currentUser = firebase.auth().currentUser;
+    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.value)
+    .update({
+      CSVfield:Mainheader
+    })
+    let alert = this.alertCtrl.create({
+      title: 'Sucess',
+      subTitle: ' Field Added Successfully .. Now you can add lead ',
+      buttons: [
+        {text: 'OK',
+                handler: data => {
+                  this.navCtrl.push(CreateNewCampleadPage, 
+                    {
+                    item:this.value
+                    });
+                } 
+              },
+              {
+                text: "Cancel",
+                role: "cancel",
+                handler: () => {
+                  console.log("Cancel clicked");
+                  this.navCtrl.push(HomePage);
+                },
+              },
+            ]
+            });
+    alert.present();
+    
+  }
+
   upload(isChecked: boolean){
     
     let Mainheader =this.anArray;

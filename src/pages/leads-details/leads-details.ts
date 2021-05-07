@@ -202,8 +202,7 @@ this.products = doc.data().CSVfield ;
 });
 
 
-this.userInfo = this.afs.collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid)
-;
+this.userInfo = this.afs.collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid);
 this.productss = this.userInfo.valueChanges().Users ;
 
 firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid).onSnapshot((doc) => {
@@ -232,12 +231,14 @@ firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collectio
 let loading = this.loadingCtrl.create({
   spinner: 'bubbles',
   content: 'Loading...',
+  duration: 2000
 });
 loading.present();
 firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
 .doc(this.value.cid).collection('leads').limit(this.pageSize).get().then((snaps) =>{
   if (!snaps.docs.length) {
     console.log("No Data Available");
+    alert("No Data Available")
     return false;
   }
   loading.dismiss();
@@ -276,6 +277,7 @@ nextPage(last)
    let loading = this.loadingCtrl.create({
     spinner: 'bubbles',
     content: 'Loading...',
+    duration: 2000
   });
   loading.present();
 
@@ -330,6 +332,7 @@ this.itemnumberbypage*this.pagination_clicked_count;
   let loading = this.loadingCtrl.create({
     spinner: 'bubbles',
     content: 'Loading...',
+    duration: 2000
   });
   loading.present();
   let currentuser=firebase.auth().currentUser;
@@ -374,7 +377,6 @@ console.log("edit",product)
 this.navCtrl.push(EditLeadDetailsPage, {
   product:product,
   campid:this.campid,
-  //proStatus:this.proStatus
  
 });
 }
@@ -400,10 +402,12 @@ id,
 }
 calldetails(uid)
 {
-
-  console.log("Uid",uid)
-this.navCtrl.push(CallDetailsPage,
- {uid});
+console.log("campid",this.campid)
+let campid=this.campid
+this.navCtrl.push(CallDetailsPage,{
+  uid,
+  campid
+});
 }
 showPopup(value) {
 let alert = this.alertCtrl.create({

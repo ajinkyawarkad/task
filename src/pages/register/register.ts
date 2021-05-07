@@ -56,7 +56,7 @@ signup(user:User){
              .set(Object.assign({
                 name: user.name,
                 company_id: "COM#"+currentuser.uid ,
-                fuction:true,
+                function:true,
                  Managers:[],
                  Users:[]
                } 
