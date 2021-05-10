@@ -70,40 +70,27 @@ export class TaskDetailsPage {
   }
 
   ionViewDidLoad() {
+    
   
   }
 
-  Getselected(selected_value)
-  {
-    this.select=selected_value;
-
+  Getselected(selected_value) {
+    let temp=[];
+    console.log("SELECT",selected_value)
+    this.select=selected_value
     let action;
-    console.log("selector222: ",this.arr, this.arr.length);
-  console.log("selector: ",selected_value);
-  for(var a in this.arr){
-    if(this.arr[a].value=selected_value){
-      action=this.arr[a].action;
-    }else{
-      console.log("ELSE")
-    }
-  }
+      for (var s in this.arr){
+        if (this.arr[s].status == selected_value){
+          temp.push(this.arr[s])
+          action=this.arr[s].action
+          
+        }
+      }
+      
+     
+      this.act=action
+      console.log("TEMO",this.act)
 
-  if(action="Remove client from profile"){
-    this.act=action;
-
-  }else{
-    this.act=action
-  }
-  
-  // switch (action){
-  //   case "Inform Manager":
-  //     this.act="Inform Manager";
-  //     break;
-  //   case "Remove Client from profile":
-  //     this.act="Remove client from profile";
-  //     break;
-  // }
-  
   
   }
 
@@ -135,7 +122,7 @@ export class TaskDetailsPage {
         '/'+this.value.cid+'/'+'leads messages'+'/'+this.id)
         .set(Object.assign({
               id: this.id,
-              message:"status upated to "+this.select+" "+"by" +" "+this.value.sr
+              message:"status upated to "+this.select+" "+"by" +" "+currentuser.displayName
         }
         ))
         break;
@@ -143,6 +130,8 @@ export class TaskDetailsPage {
         firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.value.cid+'/'+'leads'+'/'+this.id).delete();
         console.log("DELETED", this.id)
         break;
+
+
 
       
     }

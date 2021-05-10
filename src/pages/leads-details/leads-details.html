@@ -9,8 +9,6 @@
   
   <ion-content padding="true" class="has-header" >
 
-
-	
 	<div>
 	<div style="float: right;margin-top: -6px;">
 		<ion-searchbar (ionInput)="getItems($event)" placeholder="Search" [(ngModel)]="terms"  showCancelButton="always" ></ion-searchbar>
@@ -43,15 +41,15 @@
 		</ion-item>                     
     </div>
   
-	<div>
+	<div >
 	<div  class="scrollbar" >    
 		<table > 		
 			<thead  *ngIf="hideMe2" > 
 				<hr >	
 			<td  style="border: none;" *ngFor="let product of products ; let idx = index;">
-				<input type="checkbox" checked="checked" />{{products[idx].value}}</td>
-			<td style="border: none;"><input type="checkbox" checked="checked" />Handler</td>
-			<td style="border: none;"><input type="checkbox" checked="checked" />Action</td>
+				<input class="messageCheckbox" type="checkbox" checked="checked" />{{products[idx].value}}</td>
+			<td class="messageCheckbox" style="border: none;"><input type="checkbox" checked="checked" />Handler</td>
+			<td class="messageCheckbox" style="border: none;"><input type="checkbox" checked="checked" />Action</td>
 			<td style="border: none;"><input type="checkbox" checked="checked" />Follow up</td>
 			<td style="border: none;"><input type="checkbox" checked="checked" />Status</td>
 			<td style="border: none;"><input type="checkbox" checked="checked" />Remarks
