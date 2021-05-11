@@ -267,7 +267,7 @@ export class TaskDetailsPage {
     }
 
   hide() {
-    this.hideMe = !this.hideMe;
+    this.hideMe = true;
   }
   hide1() {
     this.hideMe1 = !this.hideMe1;

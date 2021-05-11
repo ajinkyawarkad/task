@@ -38,7 +38,7 @@ export class CreateLeadProfilePage {
  
 
     Add(){
-    this.anArray.push({'value':''}); 
+    this.anArray.push({'value':'','userselectedfield':''}); 
     }
 
     remove(idx)
