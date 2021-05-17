@@ -56,7 +56,7 @@ isItemAvailable = false;
 lead = {} as Lead;
 isIndeterminate:boolean;
 masterCheck:boolean;
-
+checkedCount:number;
 
 constructor(public navCtrl: NavController, public navParams: NavParams,public afs: AngularFirestore,
 public alertCtrl:AlertController,public loadingCtrl: LoadingController) {
@@ -87,7 +87,9 @@ checkMaster() {
      
       if (obj.isChecked == true && this.array.includes(obj.uid) === false){  
         this.array.push(obj.uid)
-        console.log(this.array)  ;           
+        console.log(this.array)  ;    
+        this.checkedCount=this.array.length  ;  
+        console.log("count",this.checkedCount)  ;        
       }   
      if(obj.isChecked == false){
       
@@ -96,7 +98,8 @@ checkMaster() {
           this.array.splice(index,1);
         }
         console.log(this.array)  ;  
-      
+        console.log(this.array.length)  ; 
+        console.log("count",this.checkedCount)  ;  
      }
     });
   });
@@ -114,7 +117,9 @@ checkEvent(lead:Lead) {
     if (obj.isChecked == true && this.array.includes(obj.uid) === false){  
      
       this.array.push(obj.uid)
-      console.log(this.array)  ;           
+      console.log(this.array)  ;   
+      this.checkedCount=this.array.length  ;    
+      console.log("count",this.checkedCount)  ;      
     }   
    if(obj.isChecked == false){
     
@@ -122,7 +127,9 @@ checkEvent(lead:Lead) {
       if (index !== -1) {
         this.array.splice(index,1);
       }
-      console.log(this.array)  ;  
+      console.log(this.array)  ; 
+      this.checkedCount=this.array.length  ;   
+      console.log("count",this.checkedCount)  ;  
     
    }
   

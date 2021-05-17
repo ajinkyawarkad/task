@@ -93,12 +93,8 @@ doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid)
 
     for(var c in this.prod){
       this.anArray.push(this.prod[c])
-
       this.anArray2.push(this.prod[c])
     }
-
-   
-    console.log("sr name",this.anArray);
     });
 
 firebase
@@ -114,29 +110,14 @@ firebase
   for(var i in this.productsss){
     let n = this.productsss[i].name+' '+this.productsss[i].last
     for(var x in this.anArray){
-      if(n != this.anArray[x]){
-        this.anArray2.push(n)
+      if(this.anArray.includes(n) === false){
+        this.anArray2.push(n);
 
       }
     }
   }
 
-  console.log("productssss",this.anArray2);
-
-  //console.log("prod in productssss",this.prod);
-  
-  // for(let i=0;i<this.productsss.length;i++){
-   
-  //     this.prod.push(this.productsss[i].name+" "+this.productsss[i].last);
-  
-    
-  // }
-
-     // this.productsss.push(this.prod);
-  
- 
-
-  //console.log("All sr name",this.productsss);
+  console.log("productssss",this.anArray2)
 
 }); 
 
