@@ -51,7 +51,22 @@
             </ion-select> 
         </ion-item>
         
+        <!-- <ion-item >
+          <ion-label>Sales Representative</ion-label>
+          <ion-select *ngFor="let pr of prod" required [(ngModel)]="pr">
+            <ion-option *ngFor="let product of productsss">{{product.name}}&nbsp;{{product.last}}</ion-option>
+            </ion-select> 
+        </ion-item>
+        <br />   -->
       
+        <!-- <ion-item>
+          <ion-label>
+           Allow Manager to Edit
+          </ion-label>
+          <ion-checkbox checked="true"></ion-checkbox>
+        </ion-item >
+       -->
+       
         
         <button ion-button   type="button" (click)="slideToSlide()">Save & Next</button>
         
@@ -91,7 +106,7 @@
             <option >Remove client from profile</option>
           </select>
       </td>
-      </tr >
+    </tr>
     
     </table>
     <div style="float:left;">

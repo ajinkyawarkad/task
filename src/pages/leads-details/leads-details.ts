@@ -89,7 +89,7 @@ checkMaster() {
         this.array.push(obj.uid)
         console.log(this.array)  ;    
         this.checkedCount=this.array.length  ;  
-        console.log("count",this.checkedCount)  ;        
+         console.log("count",this.checkedCount)  ;        
       }   
      if(obj.isChecked == false){
       
@@ -181,10 +181,6 @@ getItems(ev) {
   }
 }
 
-remaining()
-{
-  this.navCtrl.push(RemainingLeadDeatilsPage);
-}
 ionViewDidLoad() {
   $(document).on('change', 'table thead input', function() {
   
@@ -251,6 +247,7 @@ let loading = this.loadingCtrl.create({
   duration: 2000
 });
 loading.present();
+
 firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
 .doc(this.value.cid).collection('leads').limit(this.pageSize).get().then((snaps) =>{
   if (!snaps.docs.length) {
@@ -425,6 +422,12 @@ this.navCtrl.push(CallDetailsPage,{
   uid,
   campid
 });
+}
+
+remaining(product)
+{
+  this.navCtrl.push(RemainingLeadDeatilsPage,
+    {product: product});
 }
 showPopup(value) {
 let alert = this.alertCtrl.create({

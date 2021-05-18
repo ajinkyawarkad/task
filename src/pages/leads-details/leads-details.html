@@ -38,7 +38,7 @@
 				<input class="messageCheckbox" type="checkbox" checked="checked" />{{products[idx].value}}</td> -->
 			<td style="border: none;"><input type="checkbox" checked="checked" />first_name</td>
 			<td style="border: none;"><input type="checkbox" checked="checked" />last_name</td>
-			<td style="border: none;"><input type="checkbox" checked="checked" />Email</td>	
+			<!-- <td style="border: none;"><input type="checkbox" checked="checked" />Email</td>	 -->
 			<td style="border: none;"><input type="checkbox" checked="checked" />Phone</td>	
 			<td  style="border: none;"><input type="checkbox" checked="checked" />Handler</td>
 			<td style="border: none;"><input type="checkbox" checked="checked" />Action</td>
@@ -85,7 +85,7 @@
 			  <!-- <th *ngFor="let product of products ; let idx = index;">{{products[idx].value}}</th>		 -->
 			  <th>First Name</th>
 			  <th>Last Name</th>
-			  <th>Email</th>
+			  <!-- <th>Email</th> -->
 			  <th>Phone</th>
 			  <!-- <th>Address</th> -->
 			  <th>Handler</th>
@@ -117,12 +117,12 @@
 						 </div>   
 				  </td>	 -->
 				  <td style="color: cornflowerblue;text-decoration: underline;" 
-				  	  (click)="remaining()">{{product.first_name}}</td>	  
+				  	  (click)="remaining(product)">{{product.first_name}}</td>	  
 				  <td >{{product.last_name}}</td>
-				  <td style="color: cornflowerblue;" >
-					{{product.Email}}</td>	  	  
-				  <td >{{product.Phone}} 
-					  <div  *ngIf="product.Phone" style="display: inline-block;margin-left: 20px;">
+				  <!-- <td style="color: cornflowerblue;" >
+					{{product.Email}}</td>	  	   -->
+				  <td>{{product.Phone}} 
+					  <div  *ngIf="product.Phone" style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
 					<ion-icon name="call" (click)="gotocall(product.first_name, product.last_name,product.uid)" > </ion-icon>	
 			 		</div>  
 				</td>	  
@@ -150,7 +150,7 @@
 			  
 			<tr *ngFor="let product of prod  ;let idx = index; ">
 			  <td >
-				  <ion-icon style="display: inline-block;font-size: 1.3em" name="document" (click)="calldetails(product.uid)"></ion-icon>
+				  <ion-icon style="display: inline-block;font-size: 1.3em;margin-left: 2px;" name="document" (click)="calldetails(product.uid)"></ion-icon>
 				  &nbsp;
 				  <ion-checkbox slot="start" 
 				  [(ngModel)]="product.isChecked" 
@@ -161,7 +161,7 @@
 
 			  <td  *ngFor="let produ of product.leads; let i = index;" >
 						{{produ.action}}
-						<div *ngIf="produ.isChecked == true " style="display: inline-block;margin-left: 40px;">
+						<div *ngIf="produ.isChecked == true " style="display: inline-block;margin-left: 2px;">
 							  <ion-icon   name="call" (click)="gotocall(product.uid)" > </ion-icon>	
 					   </div>   
 				</td>	
