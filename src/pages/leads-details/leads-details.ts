@@ -29,7 +29,7 @@ export class LeadsDetailsPage {
   public hideMe1: boolean = false;
   public hideMe2: boolean = false;
 
-  pageSize :number = 10;
+  pageSize :number = 5;
   last;
   public first: any = [];
   public prev_strt_at: any = [];
@@ -43,7 +43,7 @@ value:any;
 userInfo:any;
 products: Observable<Users[]>;
 productss: Observable<Users[]>;
-productsss: any=[];
+productsss: any;
 prod: any=[];
 public anArray:any=[];
 public det=[];
@@ -172,13 +172,15 @@ getItems(ev) {
   if (val && val.trim() != '') {
     this.prod = this.prod.filter((item) => {
       console.log("searchh",item);
-      return item.leads[0].action.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-      item.leads[1].action.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-      item.leads[2].action.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
-      item.leads[3].action.toLowerCase().indexOf(val.toLowerCase()) > -1   
-      // item.status.toLowerCase().indexOf(val.toLowerCase()) > -1 
+      return item.first_name.toLowerCase().indexOf(val.toLowerCase()) > -1  ||
+             item.last_name.toLowerCase().indexOf(val.toLowerCase()) > -1  ||
+             item.Phone.toLowerCase().indexOf(val.toLowerCase()) > -1  
+           // item.SR_name.toLowerCase().indexOf(val.toLowerCase()) > -1    
+            //  item.status.toLowerCase().indexOf(val.toLowerCase()) > -1 
     })
   }
+
+  
 }
 
 ionViewDidLoad() {
@@ -205,14 +207,14 @@ ionViewDidLoad() {
 console.log('ionViewDidLoad LeadsDetailsPage');
 
 let currentuser=firebase.auth().currentUser;
-firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.value.cid).onSnapshot((doc) => {
-var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-// console.log(source, " data: ");
-this.products = doc.data().CSVfield ;
-//this.proStatus = doc.data().status;
-// console.log(this.products) ;
+// firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.value.cid).onSnapshot((doc) => {
+// var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+// // console.log(source, " data: ");
+// this.products = doc.data().CSVfield ;
+// //this.proStatus = doc.data().status;
+// // console.log(this.products) ;
 
-});
+// });
 
 
 this.userInfo = this.afs.collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid);
@@ -225,7 +227,8 @@ this.productss = doc.data().Users ;
 console.log(this.productss) ;
 });
 
-// let currentuser=firebase.auth().currentUser;
+
+//let currentuser=firebase.auth().currentUser;
 firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
 .doc(this.value.cid).collection('leads').get().then((snaps) =>{
   
@@ -241,6 +244,7 @@ firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collectio
 })
 })
 
+
 let loading = this.loadingCtrl.create({
   spinner: 'bubbles',
   content: 'Loading...',
@@ -249,20 +253,25 @@ let loading = this.loadingCtrl.create({
 loading.present();
 
 firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
-.doc(this.value.cid).collection('leads').limit(this.pageSize).get().then((snaps) =>{
+.doc(this.value.cid).collection('leads').limit(this.pageSize).onSnapshot((snaps) =>{
+ 
   if (!snaps.docs.length) {
     console.log("No Data Available");
     alert("No Data Available")
     return false;
   }
   loading.dismiss();
-snaps.docs.forEach(doc =>{
+
+    snaps.docs.forEach((doc) =>{
     this.hed.push(doc.data());
     var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-    console.log(source, " data: " );
+    console.log(source, " data: " , doc.data());
     this.productsss=this.hed;
     console.log('HHHHHHH',this.productsss);
-
+    if (doc.data().type === "removed") {
+      console.log("Removed city: ", doc.data().doc.data());
+  }
+    
 this.last = doc;
 this.first = doc;
  console.log("last",this.last);
@@ -274,12 +283,12 @@ this.first = doc;
  this.disable_prev = false;
  this.itemnumberbypage = 1;
 
- //Push first item to use for Previous action
- //this.push_prev_startAt(this.first);
+//  Push first item to use for Previous action
+//  this.push_prev_startAt(this.first);
 
  
 console.log('ionViewDidLoad TrackCampaignPage');
-}
+ }
 
 nextPage(last)
  {
@@ -296,7 +305,7 @@ nextPage(last)
   loading.present();
 
    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
-  .doc(this.value.cid).collection('leads').startAfter(last).limit(this.pageSize).get().then((snaps) =>{
+  .doc(this.value.cid).collection('leads').startAfter(last).limit(this.pageSize).onSnapshot((snaps) =>{
 
     if (!snaps.docs.length) {
       console.log("No Data Available");
@@ -305,7 +314,7 @@ nextPage(last)
     }
       loading.dismiss();
     
-  snaps.docs.forEach(doc =>{
+  snaps.forEach(doc =>{
    
   this.hed.push(doc.data());
   var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
@@ -333,10 +342,6 @@ this.itemnumberbypage*this.pagination_clicked_count;
   
 }
  
-
-
-
-
  prevPage(first)
  {
    
@@ -353,14 +358,14 @@ this.itemnumberbypage*this.pagination_clicked_count;
   firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns')
  .doc(this.value.cid).collection('leads')
  .endBefore(first)
- .limit(this.pageSize).get().then((snaps) =>{
+ .limit(this.pageSize).onSnapshot((snaps) =>{
   if (!snaps.docs.length) {
     console.log("No Data Available");
     alert("No More Data");
     return false;
   }
   loading.dismiss();
- snaps.docs.forEach(doc =>{
+ snaps.forEach(doc =>{
 
   this.hed.push(doc.data());
  
@@ -381,10 +386,10 @@ this.first = doc;
   this.disable_prev = false;})
   this.pagination_clicked_count--;
  this.itemnumberbypage/this.pagination_clicked_count;
-})
-
-  
+}) 
  }
+
+
 edit(product)
 {
 console.log("edit",product)
@@ -402,15 +407,12 @@ product:this.value
 });
 
 }
-gotocall(data,data1,id)
+gotocall(data)
 {
-console.log("goto Call",data,data1,id);
+let cid=this.value
 this.navCtrl.push(TaskDetailsPage, {
-product:this.value,
-data,
-data1,
-id,
-
+cid,
+data
 
 });
 }
@@ -425,9 +427,11 @@ this.navCtrl.push(CallDetailsPage,{
 }
 
 remaining(product)
-{
+{console.log("campid",this.campid)
+let campid=this.campid
   this.navCtrl.push(RemainingLeadDeatilsPage,
-    {product: product});
+    {product: product,
+    campid});
 }
 showPopup(value) {
 let alert = this.alertCtrl.create({
@@ -457,7 +461,7 @@ alert.present();
  
 deleteItem1(value1)
 {
-
+this.productsss.length = 0;
 let currentuser=firebase.auth().currentUser;
 this.afs.collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+
 this.value.cid+'/'+'leads'+'/'+value1).delete();

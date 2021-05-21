@@ -32,6 +32,7 @@ export class CreateLeadProfilePage {
    csvData: any;
    value :any;
    public anArray:any=[];
+   public anArray1:any=[];
    products: Observable<Camps[]>;
    FireHead:any=[];
    data:any;
@@ -48,12 +49,13 @@ export class CreateLeadProfilePage {
  
 
     Add(){
-    this.anArray.push({'value':'','indicator':''}); 
+    this.anArray1.push({'value':'','indicator':''}); 
     }
 
     remove(idx)
     {
       this.anArray.splice(idx, 1);
+      this.anArray1.splice(idx, 1);
     }
   
 
@@ -110,9 +112,54 @@ export class CreateLeadProfilePage {
     console.log(this.anArray);    
   }
 
+  savefield1()
+  {
+    
+     let Mainheader =this.anArray1;
+    console.log(Mainheader); 
+   
+    let currentUser = firebase.auth().currentUser;
+    firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.value)
+    .update({
+      CSVfield:Mainheader
+    })
+//execute function
+    firebase.firestore().collection('Company').doc('COM#'+currentUser.uid).collection('Campaigns').doc(this.value).onSnapshot((doc) => {
+      var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+      console.log(source, " data: ");
+      this.FireHead =  doc.data().CSVfield ;
+      console.log("Headers from firebase",this.FireHead) ;
+      });
+      
+    let alert = this.alertCtrl.create({
+      title: 'Sucess',
+      subTitle: ' Field Added Successfully .. Now you can add lead ',
+      buttons: [
+        {text: 'OK',
+                handler: data => {
+                  // this.navCtrl.push(CreateNewCampleadPage, 
+                  //   {
+                  //   item:this.value
+                  //   });
+                } 
+              },
+              {
+                text: "Cancel",
+                role: "cancel",
+                handler: () => {
+                  console.log("Cancel clicked");
+                  this.navCtrl.push(HomePage);
+                },
+              },
+            ]
+            });
+    alert.present();
+    
+  }
 
   savefield()
   {
+    this.anArray.push({'value':'','indicator':''}); 
      let Mainheader =this.anArray;
     console.log(Mainheader); 
    

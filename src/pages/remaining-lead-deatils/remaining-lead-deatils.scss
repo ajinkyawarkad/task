@@ -4,10 +4,14 @@ page-remaining-lead-deatils {
 		background-color:#fafafa;
 		height: 100%; 
         position: fixed;
-        z-index: 1;
-	
+        z-index: 1;	
 	}
 
+    ion-content
+	{
+		font-family: 'roboto';
+		font-size: 14px;	
+	}
     .left {
         left: 10px;
         width:40%;
@@ -27,7 +31,7 @@ page-remaining-lead-deatils {
     }
     table{
         width:90%;
-        margin-top: 4%;
+        margin-top: 3%;
         margin-left:5%;
         background-color: white;
         border: 1px solid #ddd !important;

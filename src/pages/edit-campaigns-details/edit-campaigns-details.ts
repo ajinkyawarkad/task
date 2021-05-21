@@ -175,27 +175,29 @@ export class EditCampaignsDetailsPage {
     //========================== IDS For selected SRs ================
 
     for (var a in uiArr) {
-      let x = [];
-      x = uiArr[a].split(" ");
-      console.log("Spited names",x)
+      let x,y = [];
+      x = uiArr[a].split(" ")[0];
+      y = uiArr[a].split(" ")[1];
+      console.log("first names",x)
+      console.log("last names",y)
 
       firebase
         .firestore()
         .collection("Company")
         .doc(currentuser.photoURL)
         .collection("Users")
-        .where("name", "==", x[a])
+        .where("name", "==", x)
+        .where("last", "==", y)
         .get()
         .then((dat) => {
           dat.docs.forEach((snap) => {
             console.log("IDS ARE FINL", snap.data().id);
             this.idArr.push(snap.data().id)
+            console.log("IDS ARE FINLll", this.idArr);
           });
-        });
-    }
-    //========================== IDS For selected SRs ================
+        }).then(()=>{
 
-    firebase
+           firebase
       .firestore()
       .collection("Company")
       .doc("COM#" + currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid)
@@ -253,5 +255,11 @@ export class EditCampaignsDetailsPage {
           ],
         });
       });
+
+        })
+    }
+   
+
+   
   }
 }
