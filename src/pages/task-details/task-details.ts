@@ -135,7 +135,7 @@ export class TaskDetailsPage {
      dataa:firebase.firestore.FieldValue.arrayUnion({
        Time: new Date(),
        Action:this.data.action,
-       Handler:currentuser.displayName,
+       Handler:this.data.SR_name,
        FollowUp:this.data.datetime1,
        Remark:this.data.remark,
        link:"https://google.com"
@@ -160,7 +160,7 @@ export class TaskDetailsPage {
       
        FollowUp:this.data.datetime1,
        Remark:this.data.remark,
-       name:this.id,
+       name:this.data.uid,
        link:"https://google.com"
       })
        
@@ -219,7 +219,7 @@ export class TaskDetailsPage {
     last_name:leadref.last_name,
     email: leadref.email,
     phone: leadref.phone,
-    refId:this.id
+    refId:this.data.uid
     }
     ))
     

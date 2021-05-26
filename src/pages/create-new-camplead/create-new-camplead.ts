@@ -30,6 +30,7 @@ export class CreateNewCampleadPage {
   lead = {} as Lead;
   
   public anArray:any=[]; 
+  public anArray2:any=[]; 
   public det:any=[];
   public hed:any=[];
     value:any;
@@ -66,52 +67,66 @@ n
   }
   
   insertLead(data){
-   
-    this.storage.get('cuid').then((val) => {
-      console.log('id is', val);
-      let uuid1 = uuid()
-      console.log("uuid",uuid);
-      console.log("camp id",this.value.cid);
-      console.log("data",data)
-    
-     firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value)
-     .collection('leads').doc(uuid1)
-     .set(Object.assign({
-
-      leads:this.anArray,
-      SR_id:data.id,
-      SR_name:data.name+" "+data.last,
-      uid:uuid1 
-      }  
-    )) .then(()=>{
-     let alert = this.alertCtrl.create({
-       title: 'Success',
-       subTitle: 'Lead added Successfully',
-       //scope: id,
-       buttons: [{text: 'OK',
-                 handler: data => {
-                 this.navCtrl.push(HomePage);
-                  } 
-               }
-              
-              ]
-             });
-     alert.present();
-    })
-   
+  
+    // if(camp.name && camp.goals && camp.manager && camp.sr != null){
+      this.storage.get('cuid').then((val) => {
+        console.log('id is', val);
+        let uuid1 = uuid()
+        console.log("uuid",uuid);
+        console.log("camp id",this.value.cid);
+        console.log("data",data)
  
-    }).catch((err) => {
-      console.log(err); 
-      let alert = this.alertCtrl.create({
-        //title: 'Error',
-        subTitle:  'Problem in adding Lead' ,
-        buttons: [{text: 'OK',
-                  handler: data => {
-                  } 
-                }]
-              });
-      alert.present();
-    });
-  }
+       for (var a in this.anArray) {
+         
+      
+       firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value.cid)
+       .collection('leads').doc(uuid1)
+       .set({
+         [this.anArray[a].indicator]:this.anArray[a].action
+         
+  
+       },{merge:true})
+ 
+       }
+      
+       firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value.cid)
+       .collection('leads').doc(uuid1)
+       .set(Object.assign({
+  
+        leads:this.anArray2,
+        SR_id:data.id,
+        SR_name:data.name+" "+data.last,
+        uid:uuid1 
+        }  
+      ),{merge:true}) .then(()=>{
+       let alert = this.alertCtrl.create({
+         title: 'Success',
+         subTitle: 'Lead added Successfully',
+         //scope: id,
+         buttons: [{text: 'OK',
+                   handler: data => {
+                   this.navCtrl.push(HomePage);
+                    } 
+                 }
+                
+                ]
+               });
+       alert.present();
+      })
+     
+   
+      }).catch((err) => {
+        console.log(err); 
+        let alert = this.alertCtrl.create({
+          //title: 'Error',
+          subTitle:  'Problem in adding Lead' ,
+          buttons: [{text: 'OK',
+                    handler: data => {
+                    } 
+                  }]
+                });
+        alert.present();
+      });
+    }
 
 }
