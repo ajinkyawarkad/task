@@ -54,11 +54,11 @@ export class RemainingLeadDeatilsPage {
               console.log(source, " data: ");
               this.productss = doc.data().data;
               
-              this.date = this.productss[0].Time.toDate();
-              let mm = this.date.getMonth();
-              let dd = this.date.getDate();
-              let yyyy = this.date.getFullYear();
-              this.date = dd + '/' + mm + '/' + yyyy;
+              // this.date = this.productss[0].Time.toDate();
+              // let mm = this.date.getMonth();
+              // let dd = this.date.getDate();
+              // let yyyy = this.date.getFullYear();
+              // this.date = dd + '/' + mm + '/' + yyyy;
               
               console.log(this.productss)
             });

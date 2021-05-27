@@ -76,6 +76,7 @@ export class TaskDetailsPage {
 
   Getselected(selected_value) {
     let temp=[];
+    
     console.log("SELECT",selected_value)
     this.select=selected_value
     let action;
@@ -86,9 +87,11 @@ export class TaskDetailsPage {
           
         }
       }
-    
       this.act=action
       console.log("TEMO",this.act)
+      if(this.act === "Remove client from profile"){
+        alert('this will remove this lead profile permently');
+      }
   }
 
 
@@ -105,7 +108,7 @@ export class TaskDetailsPage {
     .update(Object.assign({
     //id: uid,
     action:this.data.action,
-    datetime:this.data.datetime1,
+    datetime:this.data.datetime,
     status: this.data.status,
     remark: this.data.remark
     },{merge:true}
@@ -136,7 +139,7 @@ export class TaskDetailsPage {
        Time: new Date(),
        Action:this.data.action,
        Handler:this.data.SR_name,
-       FollowUp:this.data.datetime1,
+       FollowUp:this.data.datetime,
        Remark:this.data.remark,
        link:"https://google.com"
 
@@ -158,7 +161,7 @@ export class TaskDetailsPage {
         Time: new Date(),
        Action:this.data.action,
       
-       FollowUp:this.data.datetime1,
+       FollowUp:this.data.datetime,
        Remark:this.data.remark,
        name:this.data.uid,
        link:"https://google.com"

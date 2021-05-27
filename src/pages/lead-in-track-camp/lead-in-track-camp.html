@@ -16,7 +16,7 @@
 
     <div  class="form-inline">
 
-      <div class="row" *ngFor="let product of products; let idx = index; let even = even;">
+      <div class="row" *ngFor="let product of anArray; let idx = index; let even = even;">
           <ion-col class="col-xs-6">
               <label class="sr-only">{{product.indicator}}</label>
               <ion-input [(ngModel)]="products[idx].action" type="text" ></ion-input>
@@ -30,8 +30,8 @@
      
       <div class="row" *ngFor="let product of anArray2; let idx = index; ">
         <ion-col class="col-xs-6">
-            <label class="sr-only">{{product.value}}</label>
-            <ion-input [(ngModel)]="product.action" type="text" ></ion-input>
+            <label class="sr-only">{{anArray2[idx].value}}</label>
+            <ion-input [(ngModel)]="anArray2[idx].action" type="text" ></ion-input>
         </ion-col>
     </div>
     </div>

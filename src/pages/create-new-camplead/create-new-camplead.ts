@@ -39,19 +39,32 @@ export class CreateNewCampleadPage {
    private storage: Storage) {
 
 
-   this.value = this.navParams.get('item');  
+   this.value = this.navParams.get('campid');  
    console.log("camp id",this.value);
   }
 n
   ionViewDidLoad() {
    let currentuser=firebase.auth().currentUser;
    firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.value).onSnapshot((doc) => {
-     var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-     console.log(source, " data: ");
-     this.products =  doc.data().CSVfield ;
-     console.log(this.products) ;
-     this.anArray=this.products
- });
+    var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+    console.log(source, " data: "); 
+    this.products =  doc.data().CSVfield ; 
+    
+    console.log("csv ",this.products) ;
+    let test:any=[];
+    test = this.products ;
+    for(var a in test){
+      if(test[a].indicator !== "None"){
+        this.anArray.push(test[a])
+      }else{
+        this.anArray2.push(test[a])
+
+      }
+    }
+
+   
+});
+
 
  firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Admin').doc(currentuser.uid)
  .onSnapshot((doc) => {
@@ -79,7 +92,7 @@ n
        for (var a in this.anArray) {
          
       
-       firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value.cid)
+       firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value)
        .collection('leads').doc(uuid1)
        .set({
          [this.anArray[a].indicator]:this.anArray[a].action
@@ -89,7 +102,7 @@ n
  
        }
       
-       firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value.cid)
+       firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value)
        .collection('leads').doc(uuid1)
        .set(Object.assign({
   

@@ -27,40 +27,16 @@
 	</div>
 	</div>
 	
-	
-	
 	<div >
 	<div class="scrollbar" *ngIf="hideMe2" >
-		<tr *ngFor="let hed of active" >
-			<th >{{hed}}<ion-checkbox (ionChange)="showhide(hed, $event)"></ion-checkbox></th>
-		</tr>
-
-<!--  	
-	<th >Salutation<ion-checkbox (ionChange)="showhide('Salutation', $event)"></ion-checkbox></th>
-	<th >Full Name<ion-checkbox (ionChange)="showhide('Full_Name', $event)"></ion-checkbox></th>
-	<th >First Name<ion-checkbox (ionChange)="showhide('first_name', $event)"></ion-checkbox></th>
-	<th >Middle Name<ion-checkbox (ionChange)="showhide('middle_name', $event)"></ion-checkbox></th>
-	<th >Last Name<ion-checkbox (ionChange)="showhide('last_name', $event)"></ion-checkbox></th>
-	<th >Phone<ion-checkbox (ionChange)="showhide('Phone', $event)"></ion-checkbox></th>
-	<th >Other Contact<ion-checkbox (ionChange)="showhide('Other_Contact', $event)"></ion-checkbox></th>
-	<th >Email<ion-checkbox (ionChange)="showhide('Email', $event)"></ion-checkbox></th>
-	<th >Other Email<ion-checkbox (ionChange)="showhide('Other_Email', $event)"></ion-checkbox></th>
-	<th >Address<ion-checkbox (ionChange)="showhide('Address', $event)"></ion-checkbox></th>
-	<th >City<ion-checkbox (ionChange)="showhide('City', $event)"></ion-checkbox></th>
-	<th >State<ion-checkbox (ionChange)="showhide('State', $event)"></ion-checkbox></th>
-	<th >Country<ion-checkbox (ionChange)="showhide('Country', $event)"></ion-checkbox></th>
-	<th >Gender<ion-checkbox (ionChange)="showhide('Gender', $event)"></ion-checkbox></th>
-	<th ><ion-checkbox (ionChange)="showhide('Company_Name', $event)"></ion-checkbox>Company_Name</th>
-	<th >Position<ion-checkbox (ionChange)="showhide('Position', $event)"></ion-checkbox></th>
-	<th >Profile URL<ion-checkbox (ionChange)="showhide('Profile_URL', $event)"></ion-checkbox></th>
-	<th >Date of Birth<ion-checkbox (ionChange)="showhide('Date_of_Birth', $event)"></ion-checkbox></th>
-	<th >Office/Apartment<ion-checkbox (ionChange)="showhide('Apartment', $event)"></ion-checkbox></th>
-	<th >Zip/Postal<ion-checkbox (ionChange)="showhide('Zip', $event)"></ion-checkbox></th>
-	<th >Fax<ion-checkbox (ionChange)="showhide('Fax', $event)"></ion-checkbox></th>
-	<th >Price<ion-checkbox (ionChange)="showhide('Price', $event)"></ion-checkbox></th>
-	<th >Stage<ion-checkbox (ionChange)="showhide('Stage', $event)"></ion-checkbox></th>
-	<th >Quality<ion-checkbox (ionChange)="showhide('Quality', $event)"></ion-checkbox></th>
-	<th >Currency<ion-checkbox (ionChange)="showhide('Currency', $event)"></ion-checkbox></th> -->
+	<tr *ngFor="let hed of tru" >
+	<th >{{hed}}<ion-checkbox (ionChange)="showhide(hed, $event)" checked></ion-checkbox></th>
+	
+	</tr>
+	<tr *ngFor="let hed2 of fal" >
+	<th >{{hed2}}<ion-checkbox (ionChange)="showhide(hed2, $event)" ></ion-checkbox></th>
+	</tr>
+	
 	<th >Handler</th>
 	<th>Action</th>
 	<th>Follow Up</th>

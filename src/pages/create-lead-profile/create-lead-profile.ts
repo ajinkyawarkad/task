@@ -151,9 +151,10 @@ export class CreateLeadProfilePage {
         {
           text: "OK",
           handler: (data) => {
+            let campid=this.campid
             this.navCtrl.push(CreateNewCampleadPage,
               {
-              item:this.campid
+              campid
               });
           },
         },
@@ -329,9 +330,10 @@ export class CreateLeadProfilePage {
         {
           text: "OK",
           handler: (data) => {
+            let campid=this.campid
             this.navCtrl.push(CreateNewCampleadPage,
               {
-              item:this.campid
+              campid
               });
           },
         },
