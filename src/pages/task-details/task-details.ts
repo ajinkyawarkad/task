@@ -96,6 +96,7 @@ export class TaskDetailsPage {
 
 
   Task(){
+    console.log("SR name",this.data.SR_name)
     if(this.data.action && this.data.remark  != null){
     
     this.storage.get('cuid').then((val) => {
@@ -133,18 +134,25 @@ export class TaskDetailsPage {
 
     }
    
-    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid).collection('Campaigns').doc(this.value.cid).collection('leads').doc(this.data.uid).collection('History')
-    .doc('Activity1').set({
-     dataa:firebase.firestore.FieldValue.arrayUnion({
-       Time: new Date(),
-       Action:this.data.action,
-       Handler:this.data.SR_name,
-       FollowUp:this.data.datetime,
-       Remark:this.data.remark,
-       link:"https://google.com"
+    firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.value.cid).collection('leads')
+    .doc(this.data.uid).collection('History')
+    .doc('Activity1')
+    .set({
+     data:firebase.firestore.FieldValue.arrayUnion({
+
+      Time: new Date(),
+      Action:this.data.action,
+      FollowUp:this.data.datetime,
+      Remark:this.data.remark,
+      name:this.data.uid,
+      link:"https://google.com",
+    
+      Handler:this.data.SR_name,
+      
 
      }) 
-    },{merge:true})
+    },{merge:true}
+    )
     var b = new Date().getMonth()+1;
 
     var c = new Date().getFullYear();
@@ -153,18 +161,17 @@ export class TaskDetailsPage {
     let date = a+'-'+b+'-'+c;
     let dat='';
     dat=date;
+    console.log("Dateee",date)
     
     firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Admin').doc(currentuser.uid).collection('Report').
-    doc(dat).set(
-      {
+    doc(dat).set({
         data:firebase.firestore.FieldValue.arrayUnion({
         Time: new Date(),
-       Action:this.data.action,
-      
-       FollowUp:this.data.datetime,
-       Remark:this.data.remark,
-       name:this.data.uid,
-       link:"https://google.com"
+        Action:this.data.action,
+        FollowUp:this.data.datetime,
+        Remark:this.data.remark,
+        name:this.data.uid,
+        link:"https://google.com"
       })
        
       },{merge:true}

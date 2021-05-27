@@ -29,13 +29,9 @@
 	
 	<div >
 	<div class="scrollbar" *ngIf="hideMe2" >
-	<tr *ngFor="let hed of tru" >
-	<th >{{hed}}<ion-checkbox (ionChange)="showhide(hed, $event)" checked></ion-checkbox></th>
 	
-	</tr>
-	<tr *ngFor="let hed2 of fal" >
-	<th >{{hed2}}<ion-checkbox (ionChange)="showhide(hed2, $event)" ></ion-checkbox></th>
-	</tr>
+	<th *ngFor="let hed of tru">{{hed}}<ion-checkbox (ionChange)="showhide(hed, $event)" checked></ion-checkbox></th>
+	<th *ngFor="let hed2 of fal" >{{hed2}}<ion-checkbox (ionChange)="showhide(hed2, $event)" ></ion-checkbox></th>
 	
 	<th >Handler</th>
 	<th>Action</th>

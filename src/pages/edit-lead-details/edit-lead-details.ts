@@ -29,6 +29,8 @@ interface Lead {
 export class EditLeadDetailsPage {
   public hideMe: boolean = false;
   public hideMe1: boolean = false;
+  field = [];
+val = [];
   myDate;
   value:any;
   id:any;
@@ -103,7 +105,29 @@ export class EditLeadDetailsPage {
   }
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditLeadDetailsPage');
-  }
+
+    let currentuser = firebase.auth().currentUser;
+    firebase.firestore().collection("Company").doc("COM#" + currentuser.uid).collection("Campaigns")
+    .doc(this.value.cid).collection("leads").doc(this.data.uid)
+    .onSnapshot(res =>{
+      let a:any =[]
+      a= res.data()
+
+      this.field = [];
+      this.val = [];
+      
+      let k = Object.keys(a)
+      let v = Object.values(a)
+      console.log("TEMO",k)
+      console.log("TEMO",v)
+
+
+      for(var i in k ){
+        this.field.push(k[i])
+      }
+      console.log("field",this.field)
+  })
+}
   
   // update()
   // {
@@ -147,4 +171,4 @@ export class EditLeadDetailsPage {
     
   // }
 
-}
+  }

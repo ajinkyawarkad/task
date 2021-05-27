@@ -259,7 +259,8 @@ for(var i in k ){
 if(k[i] !== "None"){
 if(v[i] == true){
 this.tru.push(k[i])
-}else{
+}
+else{
 for(var e in this.active){
 if(this.active[e] == k[i]){
 this.fal.push(k[i])
@@ -546,11 +547,11 @@ this.itemnumberbypage / this.pagination_clicked_count;
 });
 }
 
-edit(product) {
-// console.log("edit", product);
+edit(data) {
+    let cid = this.value;
 this.navCtrl.push(EditLeadDetailsPage, {
-product: product,
-campid: this.campid,
+    cid,
+    data,
 });
 }
 add() {
