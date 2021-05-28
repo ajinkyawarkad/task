@@ -42,12 +42,15 @@ id: any;
 data: any;
 data1: any;
 public anArray: any = [];
-public anArray2: any = [];
+
+
+
 arr: any = [];
 act;
 select;
 public products: Observable<any[]>;
 public productss: Observable<any[]>;
+public non: any=[];
 
 constructor(
 public navCtrl: NavController,
@@ -91,7 +94,7 @@ for (var a in test) {
 if (test[a].indicator !== "None") {
 this.anArray.push(test[a]);
 } else {
-this.anArray2.push(test[a]);
+// this.anArray2.push(test[a]);
 }
 }
 });
@@ -129,15 +132,22 @@ firebase
 .doc(this.data.uid)
 .onSnapshot((res) => {
 let a: any = [];
+let b: any = [];
 a = res.data();
+b = res.data().leads;
 
 this.field = [];
 this.val = [];
 
 let k = Object.keys(a);
 let v = Object.values(a);
-console.log("TEMO", k);
-console.log("TEMO", v);
+this.non = b
+
+
+console.log("TEMO",this.non);
+
+
+
 
 for (var i in k) {
 let r = k[i];
@@ -163,6 +173,8 @@ console.log("fiegggggggggggld", k[i]);
 }
 console.log("field", this.field);
 });
+
+
 }
 
 update() {
@@ -188,6 +200,17 @@ firebase
 });
 }
 //=======================================================================
+firebase
+.firestore()
+.collection("Company")
+.doc("COM#" + currentuser.uid)
+.collection("Campaigns")
+.doc(this.value.cid)
+.collection("leads")
+.doc(this.data.uid)
+.set({
+leads:this.non
+},{merge:true})
 
 // firebase
 // .firestore()
@@ -200,14 +223,13 @@ firebase
 
 // .update(
 // Object.assign({
-
 // action: this.data.action,
 // remark: this.data.remark,
 // status: this.data.status,
 // datetime: this.data.datetime,
 // })
 // )
-
+.then(() => {
 console.log("updated..");
 let alert = this.alertCtrl.create({
 title: "Sucess",
@@ -216,12 +238,27 @@ buttons: [
 {
 text: "OK",
 handler: (data) => {
- this.navCtrl.pop();
+// this.navCtrl.setRoot(ProfilePage);
 },
 },
 ],
 });
 alert.present();
-
+})
+.catch((err) => {
+console.log(err);
+let alert = this.alertCtrl.create({
+title: "Error",
+subTitle: err,
+buttons: [
+{
+text: "OK",
+handler: (data) => {
+// this.navCtrl.setRoot(ProfilePage);
+},
+},
+],
+});
+});
 }
 }

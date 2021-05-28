@@ -14,24 +14,24 @@
   <!-- <ion-item style="color:cornflowerblue;margin-top: -16px; border-bottom: 1px solid #ccc;">
   {{data.first_name}} {{data.last_name}}
   </ion-item> -->
-  
-  <!-- <label style="margin-top: 10px;">Action</label>
+  <!--
+  <label style="margin-top: 10px;">Action</label>
   <ion-item style="width: 204%;margin-left: 8px;">
   <ion-select (ionChange)="hide()" [(ngModel)]="data.action">
   <ion-option value="Callback">Callback</ion-option>
   <ion-option value="Schedule Meet">Schedule Meet</ion-option>
   <ion-option value="Send Mail">Send Mail</ion-option>
   </ion-select>
-  </ion-item> -->
+  </ion-item>
   
-  <!-- <div *ngIf="hideMe">
+  <div *ngIf="hideMe">
   <label style="color: black;">Follow Back</label>
   <ion-item style="width: 102%;margin-left: 8px;height: 61px;">
   <input type="date" [(ngModel)]="data.datetime" name="datetime" >
   </ion-item>
-  </div> -->
+  </div>
   
-  <!-- <label>Status</label>
+  <label>Status</label>
   <ion-item style="width: 204%;margin-left: 8px;">
   <ion-select placeholder="Select Status" [(ngModel)]="data.status" (ionChange)="Getselected(data.status)" >
   <ion-option *ngFor="let product of productss" [value]="product.status">{{product.status}}</ion-option>
@@ -49,6 +49,9 @@
   <ion-col class="col-xs-6">
   <label class="sr-only">{{field[idx].action}}</label>
   <ion-input [(ngModel)]="field[idx].value" type="text" ></ion-input>
+  
+  
+  
   <!-- <ion-input [(ngModel)]="products[idx].action" type="text" ></ion-input> -->
   </ion-col>
   <!-- <ion-col class="col-xs-6">
@@ -57,6 +60,16 @@
   </ion-col> -->
   </div>
   
+  <div *ngFor="let n of non; let idx = index;">
+  <label class="sr-only">{{non[idx].value}}</label>
+  <ion-input [(ngModel)]="non[idx].action" type="text" ></ion-input>
+  
+  
+  
+  </div>
+  
+  
+  
   <!-- <div class="row" *ngFor="let product of anArray2; let idx = index; ">
   <ion-col class="col-xs-6">
   <label class="sr-only">{{anArray2[idx].value}}</label>
@@ -64,6 +77,8 @@
   </ion-col>
   </div> -->
   </div>
+  
+  
   
   <!-- <table >
   <tr *ngFor="let produ of value.leads; let i = index;">
