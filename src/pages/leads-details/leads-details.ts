@@ -164,7 +164,9 @@ insertsr(data) {
 // console.log("i", data.name);
 let currentuser = firebase.auth().currentUser;
 let i, j;
+
 for (i = 0; i < this.array.length; i++) {
+    
 firebase
 .firestore()
 .collection("Company")
@@ -190,11 +192,12 @@ alert.present();
 }
 
 getItems(ev) {
-this.productsss.length = 0;
+  //  this.prod =[]
+    this.productsss =[]
 var val = ev.target.value;
 if (val && val.trim() != "") {
 this.prod = this.prod.filter((item) => {
-// console.log("searchh", item);
+console.log("searchh", item);
 return (
 item.first_name.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
 item.last_name.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
@@ -344,12 +347,18 @@ firebase
 .collection("Campaigns")
 .doc(this.value.cid)
 .collection("leads")
-.get()
-.then((snaps) => {
+.onSnapshot((snaps) => {
+    if (!snaps.docs.length) {
+        // console.log("No Data Available");
+        alert("No Data Available");
+        return false;
+        }
+        
+    this.det =[]
+this.prod =[]
 snaps.docs.forEach((doc) => {
 this.det.push(doc.data());
 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-// console.log(source, " data: ");
 this.prod = this.det;
 
 
@@ -378,13 +387,17 @@ alert("No Data Available");
 return false;
 }
 loading.dismiss();
-
+this.hed =[]
+this.productsss =[]
 snaps.docs.forEach((doc) => {
+   
 this.hed.push(doc.data());
+
 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
 // console.log(source, " data: ", doc.data());
 this.productsss = this.hed;
 // console.log("HHHHHHH", this.productsss);
+
 
 this.last = doc;
 this.first = doc;
@@ -416,34 +429,10 @@ firebase
 .update({
 [name]: ev.value,
 });
-// if (ev.value == true) {
-// console.log(name, ev.value);
-// let i;
-// for (i = 0; i < 5; i++) {
-
-// }
-// }
-// if (ev.value == false) {
-// console.log(name, ev.value);
-// let i;
-// for (i = 0; i < 5; i++) {
-// firebase
-// .firestore()
-// .collection("Company")
-// .doc(currentUser.photoURL)
-// .collection("Campaigns")
-// .doc(this.campid)
-// .collection("Fields")
-// .doc("records")
-// .update({
-// [name]: false,
-// });
-// }
-// }
 }
 
 nextPage(last) {
-this.productsss.length = 0;
+
 this.disable_next = true;
 let currentuser = firebase.auth().currentUser;
 
@@ -470,7 +459,8 @@ alert("No More Data");
 return false;
 }
 loading.dismiss();
-
+this.hed =[]
+this.productsss =[]
 snaps.forEach(
 (doc) => {
 this.hed.push(doc.data());
@@ -496,7 +486,7 @@ this.itemnumberbypage * this.pagination_clicked_count;
 }
 
 prevPage(first) {
-this.productsss.length = 0;
+
 // this.productsss.push(this.first)
 this.disable_prev = true;
 let loading = this.loadingCtrl.create({
@@ -522,6 +512,8 @@ alert("No More Data");
 return false;
 }
 loading.dismiss();
+this.hed =[]
+this.productsss =[]
 snaps.forEach(
 (doc) => {
 this.hed.push(doc.data());
@@ -575,10 +567,12 @@ campid,
 });
 }
 
-remaining(product) {
+remaining(data) {
 // console.log("campid", this.campid);
+
 let campid = this.campid;
-this.navCtrl.push(RemainingLeadDeatilsPage, { product: product, campid });
+this.navCtrl.push(RemainingLeadDeatilsPage,
+     { data, campid });
 }
 showPopup(value) {
 let alert = this.alertCtrl.create({
@@ -604,22 +598,7 @@ alert.present();
 }
 
 deleteItem1(value1) {
-this.productsss.length = 0;
 let currentuser = firebase.auth().currentUser;
-this.afs
-.collection("Company")
-.doc(
-"COM#" +
-currentuser.uid +
-"/" +
-"Campaigns" +
-"/" +
-this.value.cid +
-"/" +
-"leads" +
-"/" +
-value1
-)
-.delete();
+this.afs.collection("Company").doc("COM#" +currentuser.uid +"/" + "Campaigns" +"/" +this.value.cid +"/" +"leads" +"/" +value1).delete();
 }
 }
