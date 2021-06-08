@@ -30,7 +30,7 @@ import { UserlistPage } from '../pages/userlist/userlist';
 export class MyApp {
  @ViewChild(Nav) nav: Nav;
 
-  rootPage: any =  LoginPage;
+  rootPage: any =  HomePage;
 
   public name: any;
 
