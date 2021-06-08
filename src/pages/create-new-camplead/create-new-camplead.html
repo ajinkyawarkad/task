@@ -1,46 +1,46 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>Create New Lead</ion-title>
+  <ion-title>Create New Lead</ion-title>
   </ion-navbar>
-
-</ion-header>
-<ion-content padding>
-
+  
+  </ion-header>
+  <ion-content padding>
+  
   <div class="container">
-
-    
-
-    <div  class="form-inline">
-
-      <div class="row" *ngFor="let product of anArray; let idx = index; let even = even;">
-          <ion-col class="col-xs-6">
-              <label class="sr-only">{{product.indicator}}</label>
-              <ion-input [(ngModel)]="products[idx].action" type="text" ></ion-input>
-          </ion-col>
-
-          <!-- <ion-col class="col-xs-6">
-              <label >{{products[idx+1].value}}</label>
-              <ion-input [(ngModel)]="products[idx+1].action" type="text" ></ion-input>
-          </ion-col> -->
-      </div>
-     
-      <div class="row" *ngFor="let product of anArray2; let idx = index; ">
-        <ion-col class="col-xs-6">
-            <label class="sr-only">{{anArray2[idx].value}}</label>
-            <ion-input [(ngModel)]="anArray2[idx].action" type="text" ></ion-input>
-        </ion-col>
-    </div>
-    </div>
- <label style="margin-left: 10px;">Sale Representative</label>
- <ion-item style="width: 200%;margin-left: -6px;">
+  
+  
+  
+  <div class="form-inline">
+  
+  <div class="row" *ngFor="let product of anArray; let idx = index; let even = even;">
+  <ion-col class="col-xs-6">
+  <label class="sr-only">{{anArray[idx].indicator}}</label>
+  <ion-input [(ngModel)]="anArray[idx].action" type="text" ></ion-input>
+  </ion-col>
+  
+  <!-- <ion-col class="col-xs-6">
+  <label >{{products[idx+1].value}}</label>
+  <ion-input [(ngModel)]="products[idx+1].action" type="text" ></ion-input>
+  </ion-col> -->
+  </div>
+  
+  <div class="row" *ngFor="let product of anArray2; let idx = index; ">
+  <ion-col class="col-xs-6">
+  <label class="sr-only">{{anArray2[idx].value}}</label>
+  <ion-input [(ngModel)]="anArray2[idx].action" type="text" ></ion-input>
+  </ion-col>
+  </div>
+  </div>
+  <label style="margin-left: 10px;">Sale Representative</label>
+  <ion-item style="width: 200%;margin-left: -6px;">
   <ion-select [(ngModel)]="prod" >
   <ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
   </ion-select>
   </ion-item>
   
-<br>
-
-<button ion-button  (click)= "insertLead(prod)" >Save</button>
-</div>
-</ion-content>
+  <br>
+  
+  <button ion-button (click)= "insertLead(prod)" >Save</button>
+  </div>
+  </ion-content>
