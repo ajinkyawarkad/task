@@ -52,6 +52,8 @@ import { SearchPipe1 } from '../pipes/search/search1';
 import { SearchPipe2 } from '../pipes/search/search2';
 import { EditCsvFieldPage } from '../pages/edit-csv-field/edit-csv-field';
 import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remaining-lead-deatils';
+import { ExportPage } from '../pages/export/export';
+import { HomeManagerPage } from '../pages/home-manager/home-manager';
 
 
 
@@ -70,7 +72,7 @@ import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remain
     CreateLeadProfilePage,
     PendingLeadsPage,
 
- 
+    ExportPage,
     EditCampaignsDetailsPage,
     LeadsDetailsPage,
     TaskDetailsPage,
@@ -86,6 +88,7 @@ import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remain
     LeadInTrackCampPage,
     EditCsvFieldPage,
     RemainingLeadDeatilsPage,
+    HomeManagerPage,
     SearchPipe,
     SearchPipe1,
     SearchPipe2,
@@ -112,6 +115,7 @@ import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remain
   entryComponents: [
     MyApp,
     LoginPage,
+    HomeManagerPage,
     RegisterPage,
     HomePage,
     ReportPage,
@@ -135,7 +139,8 @@ import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remain
     ProfilePage,
     CallDetailsPage,
     LeadInTrackCampPage,
-    EditCsvFieldPage
+    EditCsvFieldPage,
+    ExportPage
     
   ],
   providers: [

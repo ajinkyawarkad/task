@@ -23,6 +23,7 @@ import { CreateCampaignsLeadPage } from '../pages/create-campaigns-lead/create-c
 import { CreateLeadProfilePage } from '../pages/create-lead-profile/create-lead-profile';
 import { CreateNewCampleadPage } from '../pages/create-new-camplead/create-new-camplead';
 import { UserlistPage } from '../pages/userlist/userlist';
+import { HomeManagerPage } from '../pages/home-manager/home-manager';
 
 @Component({
   templateUrl: 'app.html'
@@ -30,7 +31,7 @@ import { UserlistPage } from '../pages/userlist/userlist';
 export class MyApp {
  @ViewChild(Nav) nav: Nav;
 
-  rootPage: any =  HomePage;
+  rootPage: any =  HomeManagerPage;
 
   public name: any;
 

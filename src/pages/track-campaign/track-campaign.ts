@@ -163,7 +163,7 @@ column: string = 'name';
                   }
                   // console.log("Inserted",snap.data().cid,meet,call);
                  
-                  console.log("Toal lead counts", snap.data().cid, data.size);
+                 // console.log("Toal lead counts", snap.data().cid, data.size);
                   firebase
                     .firestore()
                     .collection("Company")
