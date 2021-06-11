@@ -55,6 +55,12 @@ import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remain
 import { ExportPage } from '../pages/export/export';
 import { HomeManagerPage } from '../pages/home-manager/home-manager';
 import { HomeUserPage } from '../pages/home-user/home-user';
+import { ManagerCreateCampaignPage } from '../pages/manager-create-campaign/manager-create-campaign';
+import { ManagerEditCampaignPage } from '../pages/manager-edit-campaign/manager-edit-campaign';
+import { ManagerCreateLeadProfilePage } from '../pages/manager-create-lead-profile/manager-create-lead-profile';
+import { ManagerLeadDetailsPage } from '../pages/manager-lead-details/manager-lead-details';
+import { ManagerTaskDetailsPage } from '../pages/manager-task-details/manager-task-details';
+import { ManagerTrackCampaignPage } from '../pages/manager-track-campaign/manager-track-campaign';
 
 
 
@@ -68,6 +74,12 @@ import { HomeUserPage } from '../pages/home-user/home-user';
     HomeUserPage,
     ReportPage,
     CreateCampaignPage,
+    ManagerCreateCampaignPage,
+    ManagerEditCampaignPage,
+    ManagerCreateLeadProfilePage,
+    ManagerLeadDetailsPage,
+    ManagerTaskDetailsPage,
+    ManagerTrackCampaignPage,
     TrackCampaignPage,
     AccountPage,
     SettingsPage,
@@ -121,6 +133,12 @@ import { HomeUserPage } from '../pages/home-user/home-user';
     HomeUserPage,
     ReportPage,
     CreateCampaignPage,
+    ManagerCreateCampaignPage,
+    ManagerEditCampaignPage,
+    ManagerCreateLeadProfilePage,
+    ManagerLeadDetailsPage,
+    ManagerTaskDetailsPage,
+    ManagerTrackCampaignPage,
     TrackCampaignPage,
     AccountPage,
     SettingsPage,
