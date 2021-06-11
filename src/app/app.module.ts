@@ -54,6 +54,7 @@ import { EditCsvFieldPage } from '../pages/edit-csv-field/edit-csv-field';
 import { RemainingLeadDeatilsPage } from '../pages/remaining-lead-deatils/remaining-lead-deatils';
 import { ExportPage } from '../pages/export/export';
 import { HomeManagerPage } from '../pages/home-manager/home-manager';
+import { HomeUserPage } from '../pages/home-user/home-user';
 
 
 
@@ -63,6 +64,8 @@ import { HomeManagerPage } from '../pages/home-manager/home-manager';
     LoginPage,
     RegisterPage,
     HomePage, 
+    HomeManagerPage,
+    HomeUserPage,
     ReportPage,
     CreateCampaignPage,
     TrackCampaignPage,
@@ -71,7 +74,6 @@ import { HomeManagerPage } from '../pages/home-manager/home-manager';
     UserLicensesPage,
     CreateLeadProfilePage,
     PendingLeadsPage,
-
     ExportPage,
     EditCampaignsDetailsPage,
     LeadsDetailsPage,
@@ -79,7 +81,6 @@ import { HomeManagerPage } from '../pages/home-manager/home-manager';
     CreateCampaignsLeadPage,
     UserDetailsPage,
     UserlistPage,
-
     CreateNewCampleadPage,
     EditLeadDetailsPage,
     EditTeamDetailsPage,
@@ -88,7 +89,6 @@ import { HomeManagerPage } from '../pages/home-manager/home-manager';
     LeadInTrackCampPage,
     EditCsvFieldPage,
     RemainingLeadDeatilsPage,
-    HomeManagerPage,
     SearchPipe,
     SearchPipe1,
     SearchPipe2,
@@ -115,9 +115,10 @@ import { HomeManagerPage } from '../pages/home-manager/home-manager';
   entryComponents: [
     MyApp,
     LoginPage,
-    HomeManagerPage,
     RegisterPage,
     HomePage,
+    HomeManagerPage,
+    HomeUserPage,
     ReportPage,
     CreateCampaignPage,
     TrackCampaignPage,

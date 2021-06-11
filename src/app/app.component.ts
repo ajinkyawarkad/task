@@ -24,6 +24,7 @@ import { CreateLeadProfilePage } from '../pages/create-lead-profile/create-lead-
 import { CreateNewCampleadPage } from '../pages/create-new-camplead/create-new-camplead';
 import { UserlistPage } from '../pages/userlist/userlist';
 import { HomeManagerPage } from '../pages/home-manager/home-manager';
+import { HomeUserPage } from '../pages/home-user/home-user';
 
 @Component({
   templateUrl: 'app.html'
@@ -31,7 +32,7 @@ import { HomeManagerPage } from '../pages/home-manager/home-manager';
 export class MyApp {
  @ViewChild(Nav) nav: Nav;
 
-  rootPage: any =  HomeManagerPage;
+  rootPage: any =  LoginPage;
 
   public name: any;
 
