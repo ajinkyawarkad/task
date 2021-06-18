@@ -4,6 +4,32 @@ page-user-details {
 		font-family: 'roboto';
 		font-size: 14px;	
 	}
+
+	.wrap {
+		width: 100%;
+	}
+	
+	.wrap table {
+		width: 98%;
+		table-layout: fixed;
+	}
+	
+	table tr td {
+		padding: 9px;
+		//border: 1px solid #eee;
+		width: 98%;
+		word-wrap: break-word;
+	}
+	
+	table.head tr td {
+		background: #fff;
+		padding: 10px;
+	}
+	
+	.inner_table {
+		height: 450px;
+		overflow-y: auto;
+	}
 	.container {
 		border-radius: 5px;
 		background-color:#fafafa;

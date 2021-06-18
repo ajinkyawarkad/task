@@ -11,10 +11,18 @@ import { AngularFireAuth } from '@angular/fire/auth';
 import { uuid } from 'uuidv4';
 import { Observable } from 'rxjs';
 import * as $ from "jquery";
+import { Slides } from "ionic-angular";
 
 interface Lead {
   status:string; 
   action:string;
+}
+interface Task{
+  status:string; 
+  action:string; 
+  remark:string;
+  datetime:string;
+ 
 }
 
 @Component({
@@ -22,11 +30,14 @@ interface Lead {
   templateUrl: 'task-details.html',
 })
 export class TaskDetailsPage {
+  @ViewChild(Slides) slides: Slides;
+slideOpts;
   public hideMe: boolean = false;
   public hideMe1: boolean = false;
   myDate;
   value:any;
   id:any;
+  cid:any;
   data:any;
   data1:any;
   arr:any=[]
@@ -34,6 +45,7 @@ export class TaskDetailsPage {
   select;
  //refid:any;
   leadref = {} as Leadref;
+  task = {} as Task;
   leadd = {} as Leadd;
   public products: Observable<Lead[]>;
  
@@ -42,22 +54,22 @@ export class TaskDetailsPage {
     public afs: AngularFirestore,private storage: Storage, private auth:AngularFireAuth,
     public alertCtrl: AlertController,) {
 
-      this.value = navParams.get('cid');
-      console.log(this.value);
-      
+      // this.value = navParams.get('cid');
+      // console.log(this.value);
 
-      // this.id = navParams.get('id');
-      // console.log("lead id",this.id);
-
+      this.cid = navParams.get('cid');
+      console.log(this.cid);
+  
       this.data = navParams.get('data');
       console.log("Data",this.data);
 
-      // this.data1 = navParams.get('data1');
-      // console.log("Data1",this.data1);
+      this.slideOpts = {
+        effect: "flip",
+        };
 
 
       let currentuser=firebase.auth().currentUser;
-      firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.value.cid)
+      firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.cid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: "); 
@@ -73,6 +85,48 @@ export class TaskDetailsPage {
     
   
   }
+  slideToSlide() {
+if (this.slides.getActiveIndex() + 1 === this.slides.length()) {
+this.slides.slideTo(0);
+} else {
+this.slides.lockSwipeToNext(false);
+this.slides.slideTo(this.slides.getActiveIndex() + 1);
+this.slides.lockSwipeToNext(true);
+}
+}
+
+slideToPrev() {
+if (this.slides.getActiveIndex() + 1 == this.slides.length()) {
+this.slides.lockSwipeToPrev(false);
+this.slides.slideTo(this.slides.getActiveIndex() - 1);
+this.slides.lockSwipeToPrev(true);
+}
+}
+
+completeTask(val)
+{
+  
+  console.log("Val", val)
+  let currentuser = firebase.auth().currentUser
+  firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.cid+'/'+'leads'+'/'+val.uid)
+  .update(
+    Object.assign({
+      complete: true,
+    })
+  )
+
+
+  firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.cid).collection('leads')
+    .doc(this.data.uid).collection('History')
+    .doc('Activity1')
+    .set({
+     data:firebase.firestore.FieldValue.arrayUnion({
+      complete:true
+     }) 
+    },{merge:true}
+    )
+
+}
 
   Getselected(selected_value) {
     let temp=[];
@@ -95,9 +149,9 @@ export class TaskDetailsPage {
   }
 
 
-  Task(){
+  Task(task:Task){
     console.log("SR name",this.data.SR_name)
-    if(this.data.action && this.data.remark  != null){
+    if(task.action && task.remark  != null){
     
     this.storage.get('cuid').then((val) => {
     console.log('id is', val);
@@ -105,13 +159,13 @@ export class TaskDetailsPage {
     console.log(uid);
     let currentuser = firebase.auth().currentUser
     
-    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.value.cid+'/'+'leads'+'/'+this.data.uid)
+    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.cid+'/'+'leads'+'/'+this.data.uid)
     .update(Object.assign({
     //id: uid,
-    action:this.data.action,
-    datetime:this.data.datetime,
-    status: this.data.status,
-    remark: this.data.remark
+    action:task.action,
+    datetime:task.datetime,
+    status: task.status,
+    remark:task.remark
     },{merge:true}
     ))
     console.log("ACT IS ",this.act)
@@ -120,7 +174,7 @@ export class TaskDetailsPage {
     switch (this.act){
       case "Inform Manager":
         firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +
-        '/'+this.value.cid+'/'+'leads messages'+'/'+this.data.uid)
+        '/'+this.cid+'/'+'leads messages'+'/'+this.data.uid)
         .set(Object.assign({
               id: this.data.uid,
               message:"status upated to "+this.select+" "+"by" +" "+currentuser.displayName
@@ -128,27 +182,25 @@ export class TaskDetailsPage {
         ))
         break;
       case "Remove client from profile":
-        firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.value.cid+'/'+'leads'+'/'+this.data.uid).delete();
+        firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.cid+'/'+'leads'+'/'+this.data.uid).delete();
         console.log("DELETED", this.data.uid)
         break;
 
     }
    
-    firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.value.cid).collection('leads')
+    firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.cid).collection('leads')
     .doc(this.data.uid).collection('History')
     .doc('Activity1')
     .set({
      data:firebase.firestore.FieldValue.arrayUnion({
 
       Time: new Date(),
-      Action:this.data.action,
-      FollowUp:this.data.datetime,
-      Remark:this.data.remark,
+      Action:task.action,
+      FollowUp:task.datetime,
+      Remark:task.remark,
       name:this.data.uid,
-      link:"https://google.com",
-    
       Handler:this.data.SR_name,
-      
+      complete:true
 
      }) 
     },{merge:true}
@@ -167,11 +219,11 @@ export class TaskDetailsPage {
     doc(dat).set({
         data:firebase.firestore.FieldValue.arrayUnion({
         Time: new Date(),
-        Action:this.data.action,
-        FollowUp:this.data.datetime,
-        Remark:this.data.remark,
+        Action:task.action,
+        FollowUp:task.datetime,
+        Remark:task.remark,
         name:this.data.uid,
-        link:"https://google.com"
+        
       })
        
       },{merge:true}
@@ -222,7 +274,7 @@ export class TaskDetailsPage {
     console.log(uid);
     let currentuser = firebase.auth().currentUser
     
-    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.value.cid+'/'+'Lead references'+'/'+uid)
+    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.cid+'/'+'Lead references'+'/'+uid)
     .set(Object.assign({
     id: uid,
     first_name:leadref.first_name,
@@ -248,8 +300,7 @@ export class TaskDetailsPage {
     
     });
     
-    
-    
+
     }else{
     
     let alert = this.alertCtrl.create({

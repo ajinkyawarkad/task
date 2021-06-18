@@ -35,7 +35,7 @@ export class EditCsvFieldPage {
 
     remove(idx)
     {
-      this.anArray.splice(idx, 1);
+      this.arr.splice(idx, 1);
     }
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditCsvFieldPage');
@@ -51,9 +51,9 @@ export class EditCsvFieldPage {
 
   savefield()
   {
-     let Mainheader =this.anArray;
+     //let Mainheader =this.anArray;
  
-    console.log("EDITED/Added",this.arr); 
+    //console.log("EDITED/Added",this.arr); 
    
     let currentUser = firebase.auth().currentUser;
     firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
@@ -73,15 +73,6 @@ export class EditCsvFieldPage {
         })
     })
 
-
-  //   firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
-  //   .collection('leads').doc('3954116f-d868-4de9-b9f5-c57d44c5dd3f')
-  //   .set(Object.assign({
-  
-  //    leads:this.anArray
-    
-  //    }  
-  //  )) 
   for(var x in this.arr){
     firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
     .update({

@@ -25,24 +25,43 @@
         <td>{{time.val}}</td>
       </tr>
 
-
-
       <tr *ngFor="let produ of data.leads; let i = index;">
 
         <td>{{produ.value}} </td>
         <td>{{produ.action}}</td>
       </tr>
 
+      <tr *ngFor="let att of arr; let idx = index">
+        <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="arr[idx].value"></ion-input> </td>
+        <td><ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
+      </tr>
+
     </table>
+
+    <button ion-button  style="background-color: #bbbbbb;margin-left: 20px;" (click)="Add()">Add More</button>
+    <button  ion-button type="submit" *ngIf="hideMe1" (click)="savefield()"> Save</button>
   </div>
 
   <div class="container right">
     <ion-item-divider class="divider">
-      <ion-label>
-        Call History
+      <ion-label left>
+        Activity History
       </ion-label>
-    </ion-item-divider>
 
+      <ion-label left>
+        Pending Activity 
+      </ion-label>
+
+      <ion-label style="color: blue;text-decoration: underline;" (click)="activity()">
+       Add new Activity
+      </ion-label>
+
+      <ion-label style="color: blue;text-decoration: underline;" name="dta" (click)="comment()">
+        Add comment
+       </ion-label>
+
+      <button ion-button full  color="success" >Register</button>
+    </ion-item-divider>
 
     <ion-card *ngFor="let prod of productss">
 
@@ -59,21 +78,41 @@
 
       </ion-card-content>
 
-      <ion-row>
+      <ion-row >
         <ion-col>
           <button ion-button icon-start clear small>
             <ion-icon name="play"></ion-icon>
             <div>{{prod.link}}</div>
           </button>
         </ion-col>
-        <ion-col align-self-center text-center>
-          <ion-note>
-            Created at : {{date}}
+        <ion-col align-self-center text-center >
+          <ion-note >
+            Created at : {{prod.Time.toDate() | date }}
           </ion-note>
         </ion-col>
       </ion-row>
 
     </ion-card>
 
+    <ion-item-divider>
+      <ion-label left>
+       Comments
+      </ion-label>
+    </ion-item-divider>
+
+
+      <ion-card *ngFor="let com of comments">  
+        <ion-item>
+          <h2>Comment  : {{com.Time.toDate() | date }}</h2>
+        </ion-item>
+  
+        <ion-card-content>
+
+          <p>{{com.Comment}}</p>
+        
+        </ion-card-content>
+
+      </ion-card>
+   
   </div>
 </ion-content>

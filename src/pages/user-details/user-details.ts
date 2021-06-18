@@ -59,7 +59,7 @@ add()
  this.navCtrl.push(UserlistPage);
 }
 
-showPopup(value,value1) {
+showPopup(value) {
     let alert = this.alertCtrl.create({
       title: 'Confirm Delete',
       subTitle: 'Do you really want to delete?',
@@ -76,7 +76,7 @@ showPopup(value,value1) {
           handler: data => {
             console.log(value);
             this.deleteItem1(value);
-            this.deleteItem2(value1);
+            this.deleteItem2(value);
           }
         }
       ]

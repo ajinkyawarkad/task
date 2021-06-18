@@ -41,12 +41,25 @@ export class CreateLeadProfilePage {
   FireHead: any = [];
   data: any;
   index: any;
-  arr: any = [];
+  arr: any = [];s
   show = false;
+  name=true
+  name1=true
+  name2=true
+  name3=true
+  name4=true
+  name5=true
+  name6=true
+
+  arrFilelds = ["Select","None","Id","Salutation","first_name","middle_name","last_name","Full_Name",
+                "Email","Phone","Address","City","State","Country","Gender","Company_Name","Position",
+                  "Profile_URL","Date_of_Birth","Apartment","Zip","Fax","Price","Stage","Quality","Currency","Other_Contact"] 
 
   uploadFlag = false;
 
   MAIN = [];
+  Segments:string;
+
 
   constructor(
     public navCtrl: NavController,
@@ -56,6 +69,9 @@ export class CreateLeadProfilePage {
     private alertCtrl: AlertController,
     public navParam: NavParams
   ) {
+
+    this.Segments="1";
+
     this.campid = this.navParams.get("item");
     console.log("Camp idd", this.campid);
   }
@@ -81,9 +97,30 @@ export class CreateLeadProfilePage {
     console.log("ionViewDidLoad CreateLeadProfilePage");
   }
 
+  removeField(att){
+    console.log("ATTT", att)
+    let a:number;
+    for(var i in this.arrFilelds){
+      if(att==this.arrFilelds[i]  ){
+        a = this.arrFilelds.indexOf(att)
+        this.arrFilelds.splice(a,1)
+      }else{console.log("Not match")}
+
+     
+    }
+    console.log("ATTT", this.arrFilelds)
+   
+
+  }
+
   onFileSelect(input: HTMLInputElement) {
+    this.headerRow=[]
+    this.arr = []
+    this.anArray=[]
+    console.log("HeaderRow",this.arr , " ", " Arr", this.arr)
     const files = input.files;
     var content = this.csvContent;
+    
 
     if (files && files.length) {
       const fileToRead = files[0];
@@ -100,6 +137,10 @@ export class CreateLeadProfilePage {
   }
 
   extractData(res) {
+    this.arr = null
+    this.headerRow=null
+    this.anArray=[]
+    console.log("HeaderRow2",this.arr , " ", " Arr2", this.arr)
     let csvData = res;
     let parsedData = papa.parse(csvData).data;
     this.headerRow = parsedData[0];                    //Headers
@@ -108,6 +149,7 @@ export class CreateLeadProfilePage {
     console.log("DATA IS = : ", this.arr);
 
     var match = this.headerRow.toString().split(",");
+      
     console.log(match);
 
     for (var a in match) {
@@ -220,7 +262,8 @@ export class CreateLeadProfilePage {
             .doc(uid)
             .set(
               {
-                [subMain[a].indicator]: subMain[a].action,    
+                [subMain[a].indicator]: subMain[a].action,   
+               
               },
               { merge: true }
             );
@@ -240,7 +283,7 @@ export class CreateLeadProfilePage {
               createdAt:firebase.firestore.FieldValue.serverTimestamp(),
               SR_id:'NA',
               SR_name:'NA',
-              
+              complete: false,     
             },
             { merge: true }
           );

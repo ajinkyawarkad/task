@@ -32,7 +32,7 @@ import { HomeUserPage } from '../pages/home-user/home-user';
 export class MyApp {
  @ViewChild(Nav) nav: Nav;
 
-  rootPage: any =  LoginPage;
+  rootPage: any =  HomePage;
 
   public name: any;
 

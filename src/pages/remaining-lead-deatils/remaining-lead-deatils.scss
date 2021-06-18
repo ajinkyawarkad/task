@@ -7,6 +7,12 @@ page-remaining-lead-deatils {
         z-index: 1;	
 	}
 
+    .text-input-md {
+        margin: -1px 8px;
+        padding: 0;
+        width: calc(100% - 8px - 8px);
+    }
+
     ion-content
 	{
 		font-family: 'roboto';
