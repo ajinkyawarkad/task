@@ -342,18 +342,18 @@ selectedstatus(status){
 
 
 insertsr(data) {
-console.log("i", data.id);
+console.log(" SRid", data.id);
 console.log("i", data.name);
 console.log("array", this.array);
 let currentuser = firebase.auth().currentUser;
 let i, j;
-for (i = 0; i < this.array.length; i++) {
+for (i = 0; i<this.array.length; i++) {
 firebase
 .firestore()
 .collection("Company")
 .doc("COM#" + currentuser.uid)
 .collection("Campaigns")
-.doc(this.value.cid)
+.doc(this.campid)
 .collection("leads")
 .doc(this.array[i])
 .update({
@@ -841,20 +841,7 @@ alert.present();
 
 deleteItem1(value1) {
 let currentuser = firebase.auth().currentUser;
-this.afs
-.collection("Company")
-.doc(
-"COM#" +
-currentuser.uid +
-"/" +
-"Campaigns" +
-"/" +
-this.value.cid +
-"/" +
-"leads" +
-"/" +
-value1
-)
+this.afs.collection("Company").doc("COM#" +currentuser.uid +"/" +"Campaigns" +"/" +this.value.cid +"/" +"leads" +"/" +value1)
 .delete();
 }
 }

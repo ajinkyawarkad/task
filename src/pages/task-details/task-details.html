@@ -12,7 +12,7 @@
 
     <ion-slides #slides >
   
-      <ion-slide >
+      <ion-slide *ngIf = "showSlide">
 
         <ion-item style="color:cornflowerblue;margin-top: -16px; border-bottom: 1px solid #ccc;"> 
           {{data.first_name}}  {{data.last_name}}
@@ -63,6 +63,7 @@
        <label style="margin-top: 10px;">Action</label> 
         <ion-item style="width: 204%;margin-left: 8px;"> 
           <ion-select (ionChange)="hide()"  [(ngModel)]="task.action" > 
+            <ion-option value="None">None</ion-option>
             <ion-option value="Callback">Callback</ion-option>
             <ion-option value="Schedule Meet">Schedule Meet</ion-option>
             <ion-option value="Send Mail">Send Mail</ion-option>

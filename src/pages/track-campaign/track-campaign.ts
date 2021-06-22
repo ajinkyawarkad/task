@@ -134,7 +134,17 @@ export class TrackCampaignPage {
                             case "Callback":
                               if (t < d1) {
                                 call.push(t);
-                                this.AllPendings.push(snap2.data());
+                                console.log("afsd",snap2.data())
+                                firebase
+                                .firestore()
+                                .collection("Company")
+                                .doc("COM#" + currentuser.uid)
+                                .collection("Campaigns")
+                                .doc(snap.data().cid)
+                                .collection("leads").doc(snap2.data().uid).set({
+                                  pending:true
+                                },{merge:true})
+                                // this.AllPendings.push(snap2.data());
                               } else {
                                 break;
                               }
@@ -142,7 +152,17 @@ export class TrackCampaignPage {
                             case "Schedule Meet":
                               if (t < d1) {
                                 meet.push(t);
-                                this.AllPendings.push(snap2.data());
+                                console.log("afsd",snap2.data())
+                                firebase
+                                .firestore()
+                                .collection("Company")
+                                .doc("COM#" + currentuser.uid)
+                                .collection("Campaigns")
+                                .doc(snap.data().cid)
+                                .collection("leads").doc(snap2.data().uid).set({
+                                  pending:true
+                                },{merge:true})
+                                // this.AllPendings.push(snap2.data());
                               } else {
                                 break;
                               }

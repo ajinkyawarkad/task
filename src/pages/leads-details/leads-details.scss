@@ -1,6 +1,45 @@
 page-leads-details {
 
-	@import url('https://fonts.googleapis.com/css?family=Roboto:300,500');
+	.dot {
+		height: 10px;
+		width: 10px;
+		background-color: red;
+		border-radius: 50%;
+		display: inline-block;
+	  }
+	  .dot1 {
+		height: 10px;
+		width: 10px;
+		background-color: green;
+		border-radius: 50%;
+		display: inline-block;
+	  }
+
+	.wrap {
+		width: 100%;
+	}
+	
+	.wrap table {
+		width: 98%;
+		table-layout: fixed;
+	}
+	
+	table tr td {
+		padding: 9px;
+		//border: 1px solid #eee;
+		width: 98%;
+		word-wrap: break-word;
+	}
+	
+	table.head tr td {
+		background: #fff;
+		padding: 10px;
+	}
+	
+	.inner_table {
+		height: 450px;
+		overflow-y: auto;
+	}
 
 .form-popup-bg {
 	position:absolute;
@@ -51,7 +90,7 @@ page-leads-details {
   }
   .close-button {
 	background:none;
-	color: #fff;
+	//color: #fff;
 	width: 40px;
 	height: 40px;
 	position: absolute;
@@ -156,13 +195,13 @@ page-leads-details {
 	// 	background: transparent; /* make scrollbar transparent */
 	// }
 
-	.scrollbar
-	{
-		//overflow: scroll;
-	    overflow-x: scroll;
-		overflow-y: scroll;
-		width:100%;
-	}
+// 	.scrollbar
+// 	{
+// 		//overflow: scroll;
+// 	    overflow-x: scroll;
+// 		overflow-y: scroll;
+// 		width:100%;
+// 	}
 
 	.settingicon{
 		display: inline-block;
@@ -178,7 +217,7 @@ page-leads-details {
 	/* Large devices (laptops/desktops, 992px and up) */
 	@media only screen and (min-width: 992px) {
 			table{
-			width:98%;
+			width:95%;
 			table-layout: fixed;
 			margin-left: 1%;
 			background-color: white;
@@ -191,11 +230,8 @@ page-leads-details {
 		th { 
 			padding: 10px;  
 			text-align: left; 
-			//background: #faf5f5;
 			border-bottom: 2px solid #ccc; 
-			//border-top: 1px solid rgb(160, 154, 154);
             color: black;
-			//font-weight: bold; 
 		}
 		td { 
 			padding: 8px;  
@@ -204,18 +240,18 @@ page-leads-details {
 			
 			
 		}
-		td:first-child {
-			width: 7%;
-		  }
-	
-		td:last-child {
-			width: 6%;
-		  }
+		.cardheader{
+			float: left;
+		}
+		.cardCheckbox{
+			float: right;
+			margin-top: 17px;
+    		margin-right: 20%;
+		}
 	.deleteicon{
 		margin-left: 10px;
 	
 	}
-	}
-	
+ 	}
 
 	}

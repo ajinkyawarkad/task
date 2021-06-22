@@ -41,7 +41,7 @@ export class CreateLeadProfilePage {
   FireHead: any = [];
   data: any;
   index: any;
-  arr: any = [];s
+  arr: any = [];
   show = false;
   name=true
   name1=true

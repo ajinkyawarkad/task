@@ -2,7 +2,7 @@ import { Component, ViewChild } from '@angular/core';
 import { AlertController, IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Leadd, Leadref } from '../../models/user';
 
-import firebase, { database } from 'firebase/app';
+import firebase, { database, firestore } from 'firebase/app';
 import { Storage } from '@ionic/storage';
 
 import { AngularFirestore} from '@angular/fire/firestore';
@@ -47,6 +47,7 @@ slideOpts;
   leadref = {} as Leadref;
   task = {} as Task;
   leadd = {} as Leadd;
+  showSlide=false;
   public products: Observable<Lead[]>;
  
   
@@ -62,6 +63,7 @@ slideOpts;
   
       this.data = navParams.get('data');
       console.log("Data",this.data);
+    
 
       this.slideOpts = {
         effect: "flip",
@@ -82,6 +84,16 @@ slideOpts;
   }
 
   ionViewDidLoad() {
+    if(this.data.action == null){
+      console.log("action=Null")
+      this.showSlide = false
+
+    }else{
+      console.log("action= ", this.data.action )
+      this.showSlide = true
+
+    }
+   
     
   
   }
@@ -108,23 +120,31 @@ completeTask(val)
   
   console.log("Val", val)
   let currentuser = firebase.auth().currentUser
-  firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.cid+'/'+'leads'+'/'+val.uid)
+  firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Campaigns' +'/'+this.cid+'/'+'leads'+'/'+val.uid).collection("History").doc("Activity1")
   .update(
-    Object.assign({
-      complete: true,
-    })
+   {
+     data:firestore.FieldValue.arrayUnion({
+      Time: new Date(),
+      Action:this.data.action,
+      FollowUp:this.data.datetime,
+      Remark:this.data.remark,
+      name:val.uid,
+      Handler:this.data.SR_name,
+      Completed:true
+     })
+   }
   )
 
 
-  firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.cid).collection('leads')
-    .doc(this.data.uid).collection('History')
-    .doc('Activity1')
-    .set({
-     data:firebase.firestore.FieldValue.arrayUnion({
-      complete:true
-     }) 
-    },{merge:true}
-    )
+  // firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.cid).collection('leads')
+  //   .doc(this.data.uid).collection('History')
+  //   .doc('Activity1')
+  //   .set({
+  //    data:firebase.firestore.FieldValue.arrayUnion({
+  //     complete:true
+  //    }) 
+  //   },{merge:true}
+  //   )
 
 }
 
@@ -200,7 +220,7 @@ completeTask(val)
       Remark:task.remark,
       name:this.data.uid,
       Handler:this.data.SR_name,
-      complete:true
+      Completed:false
 
      }) 
     },{merge:true}
