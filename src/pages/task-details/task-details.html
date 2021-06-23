@@ -10,17 +10,17 @@
 <ion-content padding> 
   <div class="container">
 
-    <ion-slides #slides >
+    <ion-slides #slides class="mainslide">
   
       <ion-slide *ngIf = "showSlide">
 
-        <ion-item style="color:cornflowerblue;margin-top: -16px; border-bottom: 1px solid #ccc;"> 
+        <ion-item class="nameLabel" > 
           {{data.first_name}}  {{data.last_name}}
        </ion-item>
       
        
        <label style="margin-top: 10px;">Action</label> 
-        <ion-item style="width: 204%;margin-left: 8px;"> 
+        <ion-item class="itemselect"> 
           <ion-select (ionChange)="hide()"  [(ngModel)]="data.action" disabled> 
             <ion-option value="Callback">Callback</ion-option>
             <ion-option value="Schedule Meet">Schedule Meet</ion-option>
@@ -30,13 +30,13 @@
     
         <div *ngIf="hideMe"> 
           <label style="color: black;">Follow Back</label> 
-          <ion-item style="width: 102%;margin-left: 8px;height: 61px;"> 
+          <ion-item class="datetime" > 
             <input type="date" [(ngModel)]="data.datetime" name="datetime" disabled>
          </ion-item>
          </div>
          
          <label>Status</label>
-         <ion-item style="width: 204%;margin-left: 8px;">
+         <ion-item class="itemselect">
           <ion-select placeholder="Select Status" [(ngModel)]="data.status" (ionChange)="Getselected(data.status)" disabled>
             <ion-option *ngFor="let product of products" [value]="product.status">{{product.status}}</ion-option>
           </ion-select>
@@ -47,22 +47,22 @@
         <ion-input [(ngModel)]="data.remark" disabled></ion-input>
       </ion-item>
     
-      <label>Tick to complete task & next</label>
+      <label>Tick to complete task </label>
       <ion-checkbox slot="start"  (ionChange)="completeTask(data);"></ion-checkbox>
       
-<br>
+<br><br>
         <button ion-button type="button" (click)="slideToSlide()">Save & Next</button>
       </ion-slide>
 
-      <ion-slide >
-        <ion-item style="color:cornflowerblue;margin-top: -16px; border-bottom: 1px solid #ccc;"> 
+      <ion-slide>
+        <ion-item class="nameLabel"> 
           {{data.first_name}}  {{data.last_name}}
        </ion-item>
       
        
        <label style="margin-top: 10px;">Action</label> 
-        <ion-item style="width: 204%;margin-left: 8px;"> 
-          <ion-select (ionChange)="hide()"  [(ngModel)]="task.action" > 
+        <ion-item class="itemselect" > 
+          <ion-select placeholder="Select Action" (ionChange)="hide()"  [(ngModel)]="task.action" > 
             <ion-option value="None">None</ion-option>
             <ion-option value="Callback">Callback</ion-option>
             <ion-option value="Schedule Meet">Schedule Meet</ion-option>
@@ -72,13 +72,13 @@
     
         <div *ngIf="hideMe"> 
           <label style="color: black;">Follow Back</label> 
-          <ion-item style="width: 102%;margin-left: 8px;height: 61px;"> 
+          <ion-item class="datetime" > 
             <input type="date" [(ngModel)]="task.datetime" name="datetime" >
          </ion-item>
          </div>
          
          <label>Status</label>
-         <ion-item style="width: 204%;margin-left: 8px;">
+         <ion-item class="itemselect">
           <ion-select placeholder="Select Status" [(ngModel)]="task.status" (ionChange)="Getselected(task.status)" >
             <ion-option *ngFor="let product of products" [value]="product.status">{{product.status}}</ion-option>
           </ion-select>
@@ -108,15 +108,10 @@
       <button ion-button  color="secondary" text-center (click)="Save(leadref)" > Save Reference </button>
       </div>
      
-        
            <button ion-button color="secondary" text-center (click)="hide1()" > Add Reference </button>
       </ion-slide>
 
     </ion-slides>  
-
- 
-   
-
 
 <br>
 </div>

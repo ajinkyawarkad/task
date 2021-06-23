@@ -53,27 +53,28 @@
     <ion-option *ngFor="let att of arrFilelds;" [value]="anArray[idx].indicator">{{att}}</ion-option>
   </ion-select> -->
 
-  <ion-item>
-    <ion-select [(ngModel)]="anArray[idx].indicator" (ionChange)="removeField(anArray[idx].indicator)"  style="width: 100%;">  
-      <ion-option *ngFor="let produ of arrFilelds">{{produ}}</ion-option>
-      <ion-option *ngFor="let produ of anArray">{{produ.indicator}}</ion-option>
-    </ion-select>
-  </ion-item>
+  <div>
+    <select [(ngModel)]=" anArray[idx].indicator" (change)="removeField(idx, anArray[idx].indicator)"  > 
+      
+      <option *ngFor="let produ of arrFilelds">{{produ}}</option>
+      
+      <!-- <option *ngFor="let produ2 of dummy">{{produ2}}</option> -->
+     
+      
+
+        <!-- <option >Select</option>
+        <option [disabled]="isEnabled" value="None">None</option> -->
+        <!-- <option [disabled]="isEnabled" value="Id">Id</option>
+        <option [disabled]="isEnabled" value="Salutation">Salutation</option>
+        <option [disabled]="isEnabled" value="first_name">first_name</option> -->
+        <!-- <ion-option id="middle_name">middle_name</option>
+        <ion-option id="last_name">last_name</ion-option> -->
+       
+    </select>
+  </div>
   
    
-  <!-- <option >Select</option>
-  <option >None</option>
-  <option >Id</option>
-  <option >Salutation</option>
-  <option >first_name</option>
-  <option >middle_name</option>
-  <option >last_name</option>
-  <option >Full_Name</option>
-  <option >Email</option>
-  <option >Phone</option>
-  <option >Address</option>
-  <option >City</option>
-  <option >State</option>
+  <!-- 
   <option >Country</option>
   <option >Gender</option>
   <option >Company_Name</option>

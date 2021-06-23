@@ -20,10 +20,6 @@
               <ion-input [(ngModel)]="products[idx].action" type="text" ></ion-input>
           </ion-col>
 
-          <!-- <ion-col class="col-xs-6">
-              <label >{{products[idx+1].value}}</label>
-              <ion-input [(ngModel)]="products[idx+1].action" type="text" ></ion-input>
-          </ion-col> -->
       </div>
      
       <div class="row" *ngFor="let product of anArray2; let idx = index; ">
@@ -33,8 +29,8 @@
         </ion-col>
     </div>
     </div>
- <label style="margin-left: 10px;">Sale Representative</label>
- <ion-item style="width: 200%;margin-left: -6px;">
+ <label class="SrLabel">Sale Representative</label>
+ <ion-item class="sr">
   <ion-select [(ngModel)]="prod" >
   <ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}&nbsp;{{prod.last}}</ion-option>
   </ion-select>

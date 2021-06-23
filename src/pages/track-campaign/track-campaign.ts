@@ -134,7 +134,7 @@ export class TrackCampaignPage {
                             case "Callback":
                               if (t < d1) {
                                 call.push(t);
-                                console.log("afsd",snap2.data())
+                               
                                 firebase
                                 .firestore()
                                 .collection("Company")
@@ -152,7 +152,7 @@ export class TrackCampaignPage {
                             case "Schedule Meet":
                               if (t < d1) {
                                 meet.push(t);
-                                console.log("afsd",snap2.data())
+                                
                                 firebase
                                 .firestore()
                                 .collection("Company")
@@ -217,9 +217,10 @@ export class TrackCampaignPage {
       .collection("Campaigns");
     this.products = this.userInfo.valueChanges();
     this.pc = this.products;
+    console.log("PC", this.products);
 
     for (var z in this.pc) {
-      console.log("PC", this.pc[z]);
+      // console.log("PC", this.pc[z]);
     }
     loading.dismiss();
 
@@ -228,9 +229,9 @@ export class TrackCampaignPage {
 
   //==================
 
-  pendigDetails(AllPendings) {
+  pendigDetails(id) {
     this.navCtrl.push(PendingLeadsPage, {
-      AllPendings: this.AllPendings,
+      cid: id,
     });
   }
 

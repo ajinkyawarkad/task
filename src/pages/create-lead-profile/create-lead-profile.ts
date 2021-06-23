@@ -43,23 +43,52 @@ export class CreateLeadProfilePage {
   index: any;
   arr: any = [];
   show = false;
-  name=true
-  name1=true
-  name2=true
-  name3=true
-  name4=true
-  name5=true
-  name6=true
+  name = true;
+  name1 = true;
+  name2 = true;
+  name3 = true;
+  name4 = true;
+  name5 = true;
+  name6 = true;
 
-  arrFilelds = ["Select","None","Id","Salutation","first_name","middle_name","last_name","Full_Name",
-                "Email","Phone","Address","City","State","Country","Gender","Company_Name","Position",
-                  "Profile_URL","Date_of_Birth","Apartment","Zip","Fax","Price","Stage","Quality","Currency","Other_Contact"] 
+  arrDummy;
+  dummy = [];
+  dummy2 = [];
+
+  arrFilelds = [
+    "Select",
+    "None",
+    "Id",
+    "Salutation",
+    "first_name",
+    "middle_name",
+    "last_name",
+    "Full_Name",
+    "Email",
+    "Phone",
+    "Address",
+    "City",
+    "State",
+    "Country",
+    "Gender",
+    "Company_Name",
+    "Position",
+    "Profile_URL",
+    "Date_of_Birth",
+    "Apartment",
+    "Zip",
+    "Fax",
+    "Price",
+    "Stage",
+    "Quality",
+    "Currency",
+    "Other_Contact",
+  ];
 
   uploadFlag = false;
 
   MAIN = [];
-  Segments:string;
-
+  Segments: string;
 
   constructor(
     public navCtrl: NavController,
@@ -69,8 +98,7 @@ export class CreateLeadProfilePage {
     private alertCtrl: AlertController,
     public navParam: NavParams
   ) {
-
-    this.Segments="1";
+    this.Segments = "1";
 
     this.campid = this.navParams.get("item");
     console.log("Camp idd", this.campid);
@@ -97,30 +125,130 @@ export class CreateLeadProfilePage {
     console.log("ionViewDidLoad CreateLeadProfilePage");
   }
 
-  removeField(att){
-    console.log("ATTT", att)
-    let a:number;
-    for(var i in this.arrFilelds){
-      if(att==this.arrFilelds[i]  ){
-        a = this.arrFilelds.indexOf(att)
-        this.arrFilelds.splice(a,1)
-      }else{console.log("Not match")}
 
+
+
+
+  removeField(valuee ,att) {
+    console.log(valuee , att);
+    
+    let b = att;
+    if (b) {
      
-    }
-    console.log("ATTT", this.arrFilelds)
-   
+      let s = this.arrFilelds.includes(att);
+     
+     
+      switch (s) {
+        case true:
+          let f;
+          let a ;
+         
 
+          // let f = this.dummy.includes({indicator:att});
+          for(var t in this.dummy){
+            if(this.dummy[t].indicator == att){
+              f= true
+              a = t
+              break;
+
+            }else{
+              f = false
+              
+              
+            }
+
+          }
+          console.log("fa",f)
+            switch(f){
+              case false:
+                // this.dummy.push(att)
+                this.dummy[valuee].indicator = att
+                console.log("false Dummy", this.dummy)
+                console.log("False Anarray", this.anArray);
+                break;
+              case true:
+                alert("Duplicate Fields not allowed")
+                
+                console.log("indessss", a)
+
+                this.dummy[a].indicator = ""
+                this.anArray[a].indicator = ""
+                this.anArray[valuee].indicator = att
+                this.dummy[valuee].indicator = att
+
+                console.log("true Dummy", this.dummy)
+                console.log("true anArray", this.anArray);
+
+                // let a = this.dummy.indexOf(att);
+            }
+            
+
+        
+          
+          // this.arrFilelds.splice(a, 1);
+          // this.dummy.push(att);
+          // for (var u in this.anArray) {
+          //   if (this.anArray[u].indicator == "") {
+          //     this.anArray[u].indicator = att;
+          //    
+          //     break;
+          //   } else {
+          //   }
+          // }
+         
+          break;
+
+        case false:
+          alert("Something went  Wrong")
+          break;
+      }
+    } else {
+      console.log("Bllank");
+    }
+
+    // for(var i in this.arrFilelds){
+    //   let r =this.arrFilelds[i]
+
+    //   if(att == r){
+    //
+
+    //           for(var u in this.anArray){
+    //             if(this.anArray[u].indicator == ""){
+    //               this.anArray[u].indicator = att
+    //               console.log("e",this.anArray)
+    //               break;
+
+    //             }else{
+
+    //             }
+    //           }
+    //    break
+
+    //   }else{
+
+    //     for(var o in this.dummy){
+    //       let z = this.dummy[o]
+    //       if(att == z){
+    //         console.log("Alert")
+    //       }
+    //       break
+
+    //     }
+    //   }
+
+    // }
+    // console.log("ATTT", this.arrFilelds)
   }
 
+
   onFileSelect(input: HTMLInputElement) {
-    this.headerRow=[]
-    this.arr = []
-    this.anArray=[]
-    console.log("HeaderRow",this.arr , " ", " Arr", this.arr)
+    this.headerRow = [];
+    this.arr = [];
+    this.anArray = [];
+    this.arrDummy = [];
+    console.log("HeaderRow", this.arr, " ", " Arr", this.arr);
     const files = input.files;
     var content = this.csvContent;
-    
 
     if (files && files.length) {
       const fileToRead = files[0];
@@ -137,28 +265,30 @@ export class CreateLeadProfilePage {
   }
 
   extractData(res) {
-    this.arr = null
-    this.headerRow=null
-    this.anArray=[]
-    console.log("HeaderRow2",this.arr , " ", " Arr2", this.arr)
+    this.arr = null;
+    this.headerRow = null;
+    this.anArray = [];
+    this.arrDummy = [];
+    console.log("HeaderRow2", this.arr, " ", " Arr2", this.arr);
     let csvData = res;
     let parsedData = papa.parse(csvData).data;
-    this.headerRow = parsedData[0];                    //Headers
-    this.arr = parsedData;                            //DATA Except headers
+    this.headerRow = parsedData[0]; //Headers
+    this.arr = parsedData; //DATA Except headers
     console.log("Length = : ", this.arr.length);
     console.log("DATA IS = : ", this.arr);
 
     var match = this.headerRow.toString().split(",");
-      
+
     console.log(match);
 
     for (var a in match) {
       var variable = match[a];
       // console.log(variable)
-      this.anArray.push({value:variable,indicator: "" });   //Creating CsvFields Structure
-     
+      this.anArray.push({ value: variable, indicator: "" }); //Creating CsvFields Structure
+      this.arrDummy.push({ value: variable, indicator: "" });
+     this.dummy.push({indicator: ""})
     }
-    console.log("aaaaaaaa",this.anArray);
+    console.log("aaaaaaaa", this.dummy);
   }
 
   // savefield1() {
@@ -226,8 +356,8 @@ export class CreateLeadProfilePage {
   //     });
   // }
 
-  upload(){
-    let currentUser =firebase.auth().currentUser
+  upload() {
+    let currentUser = firebase.auth().currentUser;
     let i;
     for (i = 1; i < this.arr.length; i++) {
       let x = [];
@@ -236,22 +366,21 @@ export class CreateLeadProfilePage {
       let j;
       for (j = 0; j < x.length; j++) {
         subMain.push({
-          "value": this.FireHead[j].value,                
-          "indicator": this.FireHead[j].indicator,
-          "action": x[j],
+          value: this.FireHead[j].value,
+          indicator: this.FireHead[j].indicator,
+          action: x[j],
         });
       }
       console.log("SUBMAIN", i, subMain);
-
 
       let cust = [];
       let uid = uuid();
 
       for (var a in subMain) {
-        if (subMain[a].indicator == "None") {   //non Adressed fields Sorting CustomeFields
+        if (subMain[a].indicator == "None") {
+          //non Adressed fields Sorting CustomeFields
           cust.push(subMain[a]);
         } else {
-         
           firebase
             .firestore()
             .collection("Company")
@@ -262,8 +391,7 @@ export class CreateLeadProfilePage {
             .doc(uid)
             .set(
               {
-                [subMain[a].indicator]: subMain[a].action,   
-               
+                [subMain[a].indicator]: subMain[a].action,
               },
               { merge: true }
             );
@@ -280,16 +408,15 @@ export class CreateLeadProfilePage {
             {
               leads: cust,
               uid: uid,
-              createdAt:firebase.firestore.FieldValue.serverTimestamp(),
-              SR_id:'NA',
-              SR_name:'NA',
-              complete: false,     
+              createdAt: firebase.firestore.FieldValue.serverTimestamp(),
+              SR_id: "NA",
+              SR_name: "NA",
+              complete: false,
             },
             { merge: true }
           );
       }
     }
-
 
     let alert = this.alertCtrl.create({
       title: "Sucess",
@@ -298,11 +425,10 @@ export class CreateLeadProfilePage {
         {
           text: "OK",
           handler: (data) => {
-            let campid=this.campid
-            this.navCtrl.push(CreateNewCampleadPage,
-              {
-              campid
-              });
+            let campid = this.campid;
+            this.navCtrl.push(CreateNewCampleadPage, {
+              campid,
+            });
           },
         },
         {
@@ -318,7 +444,7 @@ export class CreateLeadProfilePage {
     alert.present();
   }
 
-  savefield() {                             
+  savefield() {
     let Mainheader = this.anArray;
     console.log("MAIN HEADERS", Mainheader);
 
@@ -348,10 +474,7 @@ export class CreateLeadProfilePage {
             console.log("Headers from firebase", this.FireHead);
             this.uploadFlag = true;
           });
-        })
-
-
-
+      });
 
     let arrz = [];
 
@@ -371,7 +494,7 @@ export class CreateLeadProfilePage {
           middle_name: false,
           last_name: false,
           Full_Name: false,
-          Email:false,
+          Email: false,
           Phone: false,
           Address: false,
           City: false,
@@ -395,7 +518,7 @@ export class CreateLeadProfilePage {
       )
       .then((res) => {
         let i;
-      
+
         for (i = 0; i < 4; i++) {
           firebase
             .firestore()

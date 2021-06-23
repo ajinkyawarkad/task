@@ -86,10 +86,9 @@
 	<div *ngIf="hideMe" style="float: left;margin-left: 16px;margin-top: 3px;">
 	<p style="margin-left: 10px;" *ngIf="hideMe">Selected : {{checkedCount}} </p>
 	</div>
+
 	<div *ngIf="hideMe" style="float: left;margin-left: 16px;">
-	
 	<button ion-button color="secondary" (click)="hide1()"> Assign Handler</button>
-	
 	</div>
 
 	<div *ngIf="hideMe1"> 
@@ -120,8 +119,8 @@
 				</th>
 				
 				<th *ngIf="Salutation">Salutation</th>
-				<th *ngIf="Full_Name">Full Name</th>
 				<th *ngIf="first_name">First Name</th>
+				<th *ngIf="Full_Name">Full Name</th>
 				<th *ngIf="middle_name">Middle Name</th>
 				<th *ngIf="last_name">Last Name</th>
 				<th *ngIf="Phone">Phone</th>

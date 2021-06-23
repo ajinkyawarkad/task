@@ -335,41 +335,49 @@ this.checkedCount = this.array.length;
 });
 }
 
-selectedstatus(status){
-
+insertsr(dataa){
+  
+  console.log("i",dataa.id);
+  console.log("i",dataa.name);
+  let currentuser=firebase.auth().currentUser;
+  let i,j;
+  for(i=0;i<this.array.length;i++){
+   
+  firebase.firestore().collection('Company').doc('COM#'+currentuser.uid).collection('Campaigns').doc(this.value.cid)
+  .collection('leads').doc(this.array[i]).update({
+    SR_id:dataa.id,
+    SR_name:dataa.name+" "+dataa.last
+  })  .then(()=>{
+    let alert = this.alertCtrl.create({
+      title: 'Success',
+      subTitle: 'added',
+      //scope: id,
+      buttons: [{text: 'OK',
+      handler: data => { 
+      }
+      }]
+      });
+      alert.present();
+     
+      
+  }).catch((e)=>{
+    let alert = this.alertCtrl.create({
+      title: 'Error',
+      subTitle: e,
+      //scope: id,
+      buttons: [{text: 'OK',
+      handler: data => { 
+      }
+      }]
+      });
+      alert.present();
+  })
 }
 
-
-
-insertsr(data) {
-console.log(" SRid", data.id);
-console.log("i", data.name);
-console.log("array", this.array);
-let currentuser = firebase.auth().currentUser;
-let i, j;
-for (i = 0; i<this.array.length; i++) {
-firebase
-.firestore()
-.collection("Company")
-.doc("COM#" + currentuser.uid)
-.collection("Campaigns")
-.doc(this.campid)
-.collection("leads")
-.doc(this.array[i])
-.update({
-
-SR_name: data.name + " " + data.last,
-SR_id: data.id,
-});
+ // console.log(lead.sr)
+  
+  
 }
-// let alert = this.alertCtrl.create({
-// title: "Success",
-// subTitle: "added",
-// //scope: id,
-// buttons: [{ text: "OK", handler: (data) => {} }],
-// });
-// alert.present();
- }
 
 getItems(ev) {
 // this.prod =[]
@@ -613,7 +621,7 @@ spinner: "bubbles",
 content: "Loading...",
 duration: 2000,
 });
-loading.present();
+//loading.present();
 //>...............................................................................<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
 firebase
@@ -623,14 +631,39 @@ firebase
 .collection("Campaigns")
 .doc(this.value.cid)
 .collection("leads")
+.orderBy('datetime')
 .limit(this.pageSize)
 .onSnapshot((snaps) => {
 if (!snaps.docs.length) {
+  firebase
+.firestore()
+.collection("Company")
+.doc("COM#" + currentuser.uid)
+.collection("Campaigns")
+.doc(this.value.cid)
+.collection("leads")
+.limit(this.pageSize)
+.onSnapshot((snaps)=>{
+  this.hed = [];
+this.productsss = [];
+snaps.docs.forEach((doc) => {
+this.hed.push(doc.data());
+
+var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+// console.log(source, " data: ", doc.data());
+this.productsss = this.hed;
+// console.log("HHHHHHH", this.productsss);
+
+this.last = doc;
+this.first = doc;
+// console.log("last", this.last);
+});
+})
 // console.log("No Data Available");
-alert("No Data Available");
+
 return false;
 }
-loading.dismiss();
+// loading.dismiss();
 this.hed = [];
 this.productsss = [];
 snaps.docs.forEach((doc) => {

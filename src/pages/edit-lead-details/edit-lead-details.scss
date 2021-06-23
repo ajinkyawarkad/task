@@ -1,11 +1,114 @@
 page-edit-lead-details {
+	* {
+		box-sizing: border-box;
+	}
+	ion-content{
+		font-family: 'roboto';
+		font-size: 14px;	
+	}
+	.item-md.item-block .item-inner,
+	.item-md.item-input.input-has-focus .item-inner,
+	.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
+	.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner,
+	.list-md .item-input.input-has-focus:last-child,
+	.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child,
+	.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
+	border-bottom: none;
+	box-shadow: none;
+}
+	.list-md .item-input.input-has-focus:last-child .item-inner,
+	.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child .item-inner,
+	.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child .item-inner {
+	box-shadow: none; 
+}
+
+	/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+	.container {
+		border-radius: 5px;
+		//background-color: rgb(241, 238, 238);
+		border: 1px solid #ccc; 
+		padding: 4% 27% 9% 25%;		
+	}
+	input[type=text],input[type=email], select ,option
+		{
+			width: 192%;
+			padding: 8px;
+			border: 1px solid #ccc;
+			border-radius: 4px;
+			-webkit-box-sizing: border-box;
+			box-sizing: border-box;
+			margin-top: 2px;
+			margin-bottom: 12px;
+			resize: vertical;
+			display: inline;
+			margin-left: -42%;
+
+			&:focus {
+				outline: none;
+				border-color: #2d8cf0;
+			}
+
+		}
+
+		ion-select
+		{
+			
+			width: 95%; 
+			padding: 10px; 
+			border: 1px solid #ccc; 
+			border-radius: 4px; 
+			box-sizing: border-box; 
+			margin-top: 6px; 
+			margin-bottom: 16px; 
+			resize: vertical ;
+			//margin-left: 2px;
+			font-size: 15px;
+
+			&:focus {
+				outline: none;
+				border-color: #2d8cf0;
+			}
+
+		}
+		.select-md {
+			padding: 6px 9px 8px 13px;
+		}
+
+		ion-input{
+			margin-top: 4px;
+    		margin-bottom: -11px;
+		}
+		label {
+			margin-left: -45px;
+			font-family: inherit;
+			line-height: normal;
+		}
+		.sr{
+			width: 402%;
+			margin-left: -58px;
+		}
+		
+		.SrLabel{
+			margin-left: 10px;
+		}
+
+}
 	@media only screen and (min-width: 992px) {
 
-	
-		// .reg_name {
-		// 	max-width:200px;
-		// }
-
+		.container {
+			border-radius: 5px;
+			//background-color: rgb(241, 238, 238);
+			border: 1px solid #ccc; 
+			padding: 7% 27% 9% 25%;		
+		}
+		.sr{
+			width: 200%;
+			margin-left: -6px;
+		}
+		.SrLabel{
+			margin-left: 10px;
+		}
 		input[type=text],input[type=email], select ,option
 		{
 			//width: 50%; 
@@ -61,42 +164,7 @@ page-edit-lead-details {
 			line-height: normal;
 		}
 
-		* {
-			box-sizing: border-box;
-		}
-		
-
-		.container {
-			border-radius: 5px;
-			//background-color: rgb(241, 238, 238);
-			border: 1px solid #ccc; 
-			padding: 7% 27% 9% 25%;
-			//padding: 7% 5% 1% 7%;
-			
-		}
-
-
-		ion-content
-		{
-			font-family: 'roboto';
-			font-size: 14px;	
-		}
-		.item-md.item-block .item-inner,
-	.item-md.item-input.input-has-focus .item-inner,
-	.item-md.item-input.ng-valid.input-has-value:not(.input-has-focus) .item-inner,
-	.item-md.item-input.ng-invalid.ng-touched:not(.input-has-focus) .item-inner,
-	.list-md .item-input.input-has-focus:last-child,
-	.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child,
-	.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child {
-    border-bottom: none;
-    box-shadow: none;
-}
-	.list-md .item-input.input-has-focus:last-child .item-inner,
-	.list-md .item-input.ng-valid.input-has-value:not(.input-has-focus):last-child .item-inner,
-	.list-md .item-input.ng-invalid.ng-touched:not(.input-has-focus):last-child .item-inner {
-    box-shadow: none; 
-}
-
 	}
+	
 	
 }

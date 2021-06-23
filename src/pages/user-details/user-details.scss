@@ -5,42 +5,96 @@ page-user-details {
 		font-size: 14px;	
 	}
 
-	.wrap {
-		width: 100%;
-	}
-	
-	.wrap table {
-		width: 98%;
-		table-layout: fixed;
-	}
-	
-	table tr td {
-		padding: 9px;
-		//border: 1px solid #eee;
-		width: 98%;
-		word-wrap: break-word;
-	}
-	
-	table.head tr td {
-		background: #fff;
-		padding: 10px;
-	}
-	
-	.inner_table {
-		height: 450px;
-		overflow-y: auto;
-	}
-	.container {
-		border-radius: 5px;
-		background-color:#fafafa;
-		height: 100%;
-		//border: 1px solid #ccc; 
-		//padding: 7% 26% 9% 31%;
+
+	  
+	//   .horizontal-scroll-except-first-column > table > * > tr > th,
+	//   .horizontal-scroll-except-first-column > table > * > tr > td {
+	// 	/* Without this, if a cell wraps onto two lines, the first column
+	// 	 * will look bad, and may need padding. */
+	// 	//white-space: nowrap;
+	//   }
+
+	/* Extra small devices (phones, 600px and down) */
+	@media only screen and (max-width: 600px) {
+		.container {
+			border-radius: 5px;
+			//background-color:#fafafa;
+			height: 100%;	
+		}
+		.search{
+			float: right;
+			margin-top: -6px;
+			width: 65%;
+			margin-right: -9px;
+		}
+		.addbutton{
+			width: 58px;
+			margin-top:3px;
+		}
+		table {
+			table-layout: fixed; 
+			width: 100%;
+			*margin-left: -100px;/*ie7*/
+		  }
+		  td, th {
+			vertical-align: top;
+			border-top: 1px solid #ccc;
+			padding:10px;
+			width:100px;
+		  }
+		  .col1{
+			position:absolute;
+			*position: relative; /*ie7*/
+			left:0; 
+			width:100px;
+		  }
 		
+		 
+		  .outer {
+			  position:relative
+			}
+		  .inner {
+			overflow-x:scroll;
+			overflow-y:visible;
+			width:500px; 
+			margin-left:101px;
+		  }
+
 	}
+
 
 	/* Medium devices (landscape tablets, 768px and up) */
 	@media only screen and (min-width: 992px) {
+		.container {
+			border-radius: 5px;
+			background-color:#fafafa;
+			height: 100%;	
+		}
+		.wrap {
+			width: 100%;
+		}
+		
+		.wrap table {
+			width: 98%;
+			table-layout: fixed;
+		}
+		
+		table tr td {
+			padding: 9px;
+			//border: 1px solid #eee;
+			width: 98%;
+			word-wrap: break-word;
+		}
+		
+		table.head tr td {
+			background: #fff;
+			padding: 10px;
+		}
+		
+		.inner_table {
+			height: 450px;
+			overflow-y: auto;
+		}
 		.segment-ios .segment-button {	
 			height: 3.6rem;
 			background-color: white;
@@ -68,17 +122,22 @@ page-user-details {
 			padding: 8px;  
 			text-align: left; 
 			border-bottom: 1px solid rgb(221, 220, 220); 
-			
-			
+		
 		}
 	
+		td:last-child {
+			width: 30%;
+		}
 		.search{
 			float: right;
 			margin-top: -55px;
 			width: 22%;
 			margin-right: 0%;
 		}
-		
+		.addbutton{
+			float: right;
+			margin-top: -48px;
+		}
 		ion-segment 
 	{
 		width: 47%;

@@ -91,11 +91,9 @@ slideOpts;
     }else{
       console.log("action= ", this.data.action )
       this.showSlide = true
-
+      
     }
    
-    
-  
   }
   slideToSlide() {
 if (this.slides.getActiveIndex() + 1 === this.slides.length()) {

@@ -12,6 +12,8 @@ import { TaskDetailsPage } from "../task-details/task-details";
 })
 export class RemainingLeadDeatilsPage {
   product:any;
+  Segments: string;
+  p: number = 1;
   field = [];
   val = [];
   uid: any;
@@ -31,7 +33,7 @@ export class RemainingLeadDeatilsPage {
 
     this.campid = navParams.get("cid");
     console.log("camp id", this.campid);
-
+    this.Segments = "1";
     
   }
   Add(){
