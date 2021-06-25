@@ -426,9 +426,11 @@ export class CreateLeadProfilePage {
           text: "OK",
           handler: (data) => {
             let campid = this.campid;
-            this.navCtrl.push(CreateNewCampleadPage, {
-              campid,
-            });
+            // this.navCtrl.push(CreateNewCampleadPage, {
+            //   campid,
+            // });
+            this.navCtrl.push(HomePage);
+
           },
         },
         {

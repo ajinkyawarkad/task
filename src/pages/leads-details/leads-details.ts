@@ -34,6 +34,7 @@ public hideMe3 = false;
 public hideMe4 = true;
 public csvShow= false;
 public exelShow= false;
+mainField;
 
 
 fileName;
@@ -109,7 +110,7 @@ lead = {} as Lead;
 isIndeterminate: boolean;
 masterCheck: boolean;
 checkedCount: number;
-pro:[];
+pro:any=[];
 
 selectedStatus;
 
@@ -143,9 +144,64 @@ hide4() {
 this.hideMe4 = true;
 }
 
+setField(field){
+  this.pro=[]
+  let currentuser = firebase.auth().currentUser
+
+  this.mainField=field
+  switch(this.mainField){
+    case "Status":
+      let test1 =[]
+            firebase
+      .firestore()
+      .collection("Company")
+      .doc("COM#" + currentuser.uid)
+      .collection("Campaigns")
+      .doc(this.value.cid).get().then(doc => {
+      test1 = doc.data().status
+      for(var i in test1){
+        this.pro.push(test1[i].status)
+      }
+      console.log(this.pro)
+
+      })
+      break;
+    
+    case "Handler":
+      let test =[]
+      firebase
+      .firestore()
+      .collection("Company")
+      .doc("COM#" + currentuser.uid)
+      .collection("Admin")
+      .doc(currentuser.uid).get().then(doc => {
+      test = doc.data().Users
+      for(var i in test){
+        let nam = test[i].name+" "+test[i].last
+        let name = nam
+        this.pro.push(name)
+      }
+      console.log(this.pro)
+
+      })
+      break;
+    
+    case "Action":
+      this.pro[0]="Schedule Meet"
+      this.pro[1]="Callback"
+      this.pro[2]="Send Mail"
+      this.pro[3]="None"
+      break
+
+      
+
+      
+  }
 
 
-showOptions(status) {
+}
+
+showOptions(val) {
 this.selSts = status
 
 this.productsss = []
@@ -181,19 +237,59 @@ this.productsss = this.filled
 this.productsss = this.filled
 
 }else{
-firebase
-.firestore()
-.collection("Company")
-.doc("COM#" + currentuser.uid)
-.collection("Campaigns")
-.doc(this.campid)
-.collection("leads").where('status','==',status).get().then(data =>{
-data.docs.forEach(snap =>
-{
-this.filled.push(snap.data())
-})
-})
-this.productsss = this.filled
+  switch(this.mainField){
+    case "Handler":
+              firebase
+        .firestore()
+        .collection("Company")
+        .doc("COM#" + currentuser.uid)
+        .collection("Campaigns")
+        .doc(this.campid)
+        .collection("leads").where("SR_name",'==',val).get().then(data =>{
+        data.docs.forEach(snap =>
+        {
+        this.filled.push(snap.data())
+        })
+        })
+        this.productsss = this.filled
+        break;
+
+    case "Action":
+      firebase
+        .firestore()
+        .collection("Company")
+        .doc("COM#" + currentuser.uid)
+        .collection("Campaigns")
+        .doc(this.campid)
+        .collection("leads").where("action",'==',val).get().then(data =>{
+        data.docs.forEach(snap =>
+        {
+        this.filled.push(snap.data())
+        })
+        })
+        this.productsss = this.filled
+        break;
+
+        case "Status":
+          firebase
+            .firestore()
+            .collection("Company")
+            .doc("COM#" + currentuser.uid)
+            .collection("Campaigns")
+            .doc(this.campid)
+            .collection("leads").where("status",'==',val).get().then(data =>{
+            data.docs.forEach(snap =>
+            {
+            this.filled.push(snap.data())
+            })
+            })
+            this.productsss = this.filled
+            break;   
+
+
+
+  }
+
 
 
 
@@ -455,15 +551,7 @@ console.log("ionViewDidLoad LeadsDetailsPage");
 let currentuser = firebase.auth().currentUser;
 
 
-firebase
-.firestore()
-.collection("Company")
-.doc("COM#" + currentuser.uid)
-.collection("Campaigns")
-.doc(this.value.cid).get().then(doc => {
-this.pro = doc.data().status
 
-})
 
 
 

@@ -1,102 +1,136 @@
 page-track-campaign {
+
 	ion-content
 	{
 		font-family: 'roboto';
 		font-size: 14px;	
 	}
 	
-	.wrap {
+	
+	/* Extra small devices (phones, 600px and down) */
+	@media only screen and (max-width: 600px) {
+	
+		.container {
+			border-radius: 5px;
+			height: 100%;
+			width: 100%;
+		}
+		.tableFixHead  { 
+			overflow-x: scroll;
+			 height: 50%; 
+			 width: 100%;
+			//margin-top :20px
+		  }
+  
+	  .tableFixHead thead th { 
+		  position: sticky; 
+		  top: 0; 
+		  z-index: 1; 
+		//  overflow-x: scroll;
+		 // width: 100%;
+	  }
+  
+	  /* Just common table stuff. Really. */
+	  table  { border-collapse: collapse; width: 100%; }
+	  th, td {
+		   padding: 1px 4px;
+		   border: 1px solid #ddd;
+		   text-align: center;
+		   
+		   
+	 }
+	  th 
+	  { background:#eee; }
+
+	  p{
+		display: inline-block;
+		color: red;
+		height: 1px;
+		margin-top: 2px;
+		margin-left: 8px;
+	}
+
+	.seg{
+		float: left;
 		width: 100%;
+		margin-top: -7px;
+	}
+	.Sbar{
+		float: right;
+		width: 105%;
+		margin-top: -2px;
+		margin-right: -7px;
 	}
 	
-	.wrap table {
-		width: 98%;
-		table-layout: fixed;
-	}
-	
-	table tr td {
-		padding: 9px;
-		//border: 1px solid #eee;
-		width: 98%;
-		word-wrap: break-word;
-	}
-	
-	table.head tr td {
-		background: #fff;
-		padding: 10px;
-	}
-	
-	.inner_table {
-		height: 450px;
-		overflow-y: auto;
-	}
-	.container {
-		border-radius: 5px;
-		background-color:#fafafa;
-		height: 100%;
-		//border: 1px solid #ccc; 
-		//padding: 7% 26% 9% 31%;
-		
-	}
+	 }
 
 	/* Medium devices (landscape tablets, 768px and up) */
 	@media only screen and (min-width: 992px) {
-		.segment-ios .segment-button {	
-			height: 3.6rem;
-			background-color: white;
-			text-align: center;
+		.container {
+			border-radius: 5px;
+			height: 100%;
+			width: 100%;
 		}
-		table{
-			width:98%;
-			margin-left: 1%;
-			background-color: white;
-			 border: 1px solid #ddd !important;
-		}
-		tr:hover {
-			background-color:#f5f5f5;
-		}
-		th { 
-			padding: 10px;  
-			text-align: left; 
-			//background: #faf5f5;
-			border-bottom: 2px solid #ccc; 
-			//border-top: 1px solid rgb(160, 154, 154);
-            color: black;
-			//font-weight: bold; 
-		}
-		td { 
-			padding: 8px;  
-			text-align: left; 
-			border-bottom: 1px solid rgb(221, 220, 220); 
-			
-			
-		}
-	
-		.search{
-			float: right;
-			margin-top: -46px;
-			width: 22%;
-			margin-right: 0%;
-		}
-		p{
-			display: inline-block;
-			color: red;
-			height: 1px;
-			margin-top: 2px;
-			margin-left: 8px;
-		}
-		ion-segment 
-	{
-		width: 47%;
-    	padding: 9px;
-		margin-top: -10px;
-
+		.tableFixHead  { 
+			overflow-x: scroll;
+			 height: 50%; 
+			 width: 100%;
+			//margin-top :20px
+		  }
+  
+	  .tableFixHead thead th { 
+		 position: sticky; 
+		  //width: 100%;
+		  top: 0; 
+		  z-index: 1; 
+	  }
+  
+	  /* Just common table stuff. Really. */
+	  table  { 
+		 border-collapse: collapse; 
+		  width: 100%;
+		//  table-layout: fixed;
+		 }
+	  th, td {
+		  padding: 8px 4px;
+		  border: 1px solid #ddd;
+		   text-align: center;  
+		   
+	 }
+	 p{
+		display: inline-block;
+		color: red;
+		height: 1px;
+		margin-top: 2px;
+		margin-left: 8px;
 	}
 
-		.deleteicon{
-			margin-left: 15px;
+
+	  th 
+	  { 
+		background:#eee;
+		border-bottom: 3px solid #ddd;
+		border-top: 3px solid #ddd;
+	}
+
+	.seg{
+		float: left;
+		width: 50%;
+		margin-top: 2px;
+	}
+	.Sbar{
+		float: right;
+		width: 50%;
+		margin-top: -10px;
+		margin-right: -7px;
+	}
 	
-		}
+		
+	
+	
+
+	
+	
 	}
 	
 
