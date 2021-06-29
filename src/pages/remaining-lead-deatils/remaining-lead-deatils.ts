@@ -39,7 +39,7 @@ export class RemainingLeadDeatilsPage {
   Add(){
    
     if (this.arr.length < 5) {
-      this.arr.push({ value: "", action: "" });
+      this.arr.push({ value: "", indicator: "" });
     } else {
       alert("you reached to limit.. ");
     }
@@ -58,10 +58,7 @@ export class RemainingLeadDeatilsPage {
 
     savefield()
   {
-     //let Mainheader =this.anArray;
- 
-    //console.log("EDITED/Added",this.arr); 
-   
+     
     let currentUser = firebase.auth().currentUser;
     firebase.firestore().collection('Company').doc(currentUser.photoURL).collection('Campaigns').doc(this.campid)
     .collection('leads').get().then(dat =>{

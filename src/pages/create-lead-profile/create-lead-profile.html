@@ -1,12 +1,9 @@
 <ion-header>
-
   <ion-navbar>
   <ion-title>Create Lead Profile</ion-title>
   </ion-navbar>
-  
-  </ion-header>
-  
-  
+</ion-header>
+
   <ion-content padding>
   <!-- Item Dividers in a List -->
 
@@ -18,28 +15,19 @@
     <ion-segment-button (ionSelect)="Segments = 2" value="2" >
       Manually Add Data
     </ion-segment-button>
-  
   </ion-segment>
-
 
   <div [ngSwitch]="Segments">
     <div *ngSwitchCase="1" style="margin-top: 12px;">
       <h6 >Select file to upload data</h6>
+
   <div class="form-group" >
-    <input type="file" (change)="onFileSelect($event.target)" id="myfile" accept=".csv">
-    
+    <input type="file" (change)="onFileSelect($event.target)" id="myfile" accept=".csv">  
   </div>
  
   <!-- <button style="margin-left: 20px;margin-top: 10px;" ion-button type="submit" (click)="upload()"> Upload</button> -->
   
-  <table >
-  
-  <!-- <tr>
-  <th>Field</th>
-  <th>Unique</th>
-  <th>Mobile</th>
-  <th></th>
-  </tr> -->
+  <table>
   
   <tbody>
   
@@ -54,19 +42,16 @@
   <div>
     <select [(ngModel)]=" anArray[idx].indicator" (change)="removeField(idx, anArray[idx].indicator)"  > 
       
-      <option *ngFor="let produ of arrFilelds">{{produ}}</option>
-      
-      <!-- <option *ngFor="let produ2 of dummy">{{produ2}}</option> -->
-     
-      
-
+      <option *ngFor="let produ of arrFilelds">{{produ}}</option>  
+      <!-- <option *ngFor="let produ2 of dummy">{{produ2}}</option> --> 
         <!-- <option >Select</option>
         <option [disabled]="isEnabled" value="None">None</option> -->
         <!-- <option [disabled]="isEnabled" value="Id">Id</option>
         <option [disabled]="isEnabled" value="Salutation">Salutation</option>
         <option [disabled]="isEnabled" value="first_name">first_name</option> -->
         <!-- <ion-option id="middle_name">middle_name</option>
-        <ion-option id="last_name">last_name</ion-option> -->
+        <ion-option id="last_name">last_name</ion-option> 
+      -->
        
     </select>
   </div>
@@ -91,10 +76,9 @@
   </td>
   <!-- <td><ion-checkbox [(ngModel)]="anArray[idx].Checked"></ion-checkbox></td>
   <td><ion-checkbox [(ngModel)]="anArray[idx].isChecked"></ion-checkbox></td> -->
-  
   <!-- <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td> -->
   
-  </tr >
+  </tr >  
   
   </tbody>
   
@@ -127,17 +111,13 @@
       </select>
       </td>
       <!-- <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td> -->
-      
       </tr >
-      
-      </tbody>
-     
+      </tbody> 
       </table>
       
       <br>
       
-      <button ion-button style="background-color: #bbbbbb;margin-left: 20px;" (click)="Add()">Add More</button>
-      
+      <button ion-button style="background-color: #bbbbbb;margin-left: 20px;" (click)="Add()">Add More</button>   
       <button ion-button type="submit" (click)="savefield1()"> Save</button>
     </div>
 

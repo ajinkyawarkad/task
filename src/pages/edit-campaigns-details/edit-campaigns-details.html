@@ -78,7 +78,7 @@
     <th>Action</th>
     </tr>
     
-    <tr *ngFor="let product of sts "> 
+    <tr *ngFor="let product of sts ; let idx = index;"> 
       <td> 
         <ion-input class="status" type="text" [(ngModel)]="product.status"></ion-input>
       </td>
@@ -89,6 +89,8 @@
             <option >Remove client from profile</option>
           </select>
       </td>
+   
+      <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
     </tr>
     
     </table>

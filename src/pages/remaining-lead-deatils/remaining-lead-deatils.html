@@ -28,11 +28,12 @@
       <tr *ngFor="let produ of data.leads; let i = index;">
 
         <td>{{produ.value}} </td>
-        <td>{{produ.action}}</td>
+        <td>{{produ.indicator}}</td>
       </tr>
 
       <tr *ngFor="let att of arr; let idx = index">
         <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="arr[idx].value"></ion-input> </td>
+        <td> <ion-input type="text" placeholder="Enter Field " [(ngModel)]="arr[idx].indicator"></ion-input> </td>
         <td><ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
       </tr>
 
@@ -52,7 +53,7 @@
         Pending Activity 
       </ion-label> -->
       <ion-label>
-      <div style="float: left;width: 60%;">
+      <!-- <div style="float: left;width: 60%;">
         <ion-segment [(ngModel)]="Segments" value="1" mode="ios" style="width: 70%;">
         <ion-segment-button value="1">
           Pending Activity 
@@ -61,7 +62,7 @@
           Activity History
         </ion-segment-button>
         </ion-segment>
-        </div>
+        </div> -->
       </ion-label>
 
       <div style="display:inline-block;">

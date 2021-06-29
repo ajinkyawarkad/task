@@ -67,8 +67,11 @@ export class EditCsvFieldPage {
 
     remove(idx)
     {
-      this.arr.splice(idx, 1);
+      this.anArray.splice(idx, 1);
     }
+
+
+
   ionViewDidLoad() {
     console.log('ionViewDidLoad EditCsvFieldPage');
     let currentuser=firebase.auth().currentUser;
@@ -141,15 +144,9 @@ export class EditCsvFieldPage {
 
                 console.log("true Dummy", this.dummy)
                 console.log("true anArray", this.anArray);
-
-              
-            }
-            
-
         
-          
-         
-         
+            }
+
           break;
 
         case false:
@@ -158,9 +155,7 @@ export class EditCsvFieldPage {
       }
     } else {
       console.log("Bllank");
-    }
-
-   
+    }   
   }
 
 
@@ -207,10 +202,8 @@ export class EditCsvFieldPage {
         {text: 'OK',
                 handler: data => {
                   this.navCtrl.push(HomePage)
-                }
-                
-              },
-             
+                }  
+              },  
             ]
             });
     alert.present();
