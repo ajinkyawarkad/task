@@ -198,7 +198,6 @@ active: true,
 },{merge:true})
 );
 
-
 }
 
 let alert = this.alertCtrl.create({

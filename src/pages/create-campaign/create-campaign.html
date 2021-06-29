@@ -81,7 +81,7 @@
   <table >
   
   <tr style="height: 28px;font-size:15px;">
-  <th >Status</th>
+  <th>Status</th>
   <th>Action</th>
   </tr>
   
@@ -89,9 +89,9 @@
   <td>
   <ion-input class="status" placeholder="Interested" [(ngModel)]="sts.sts1" type="text" name="pname[]" ></ion-input></td>
   <td><select class="selectoptionn" (click)="checkAlert($event)" type="text" [(ngModel)]="sts.action1">
-  <option>None</option>
-  <option>Inform Manager</option>
-  <option >Remove client from profile</option>
+    <option value="None" selected>None</option>
+    <option value="Inform Manager">Inform Manager</option>
+    <option value="Remove client from profile">Remove client from profile</option>
   </select>
   
   </td>
@@ -100,7 +100,7 @@
   <tr >
   <td> <ion-input class="status" placeholder="Not Interested" [(ngModel)]="sts.sts2" type="text" name="pname[]"></ion-input></td>
   <td><select class="selectoptionn" (click)="checkAlert($event)" type="text" [(ngModel)]="sts.action2" >
-  <option>None</option>
+  <option selected>None</option>
   <option>Inform Manager</option>
   <option >Remove client from profile</option>
   </select>
@@ -108,29 +108,29 @@
   </tr>
   
   <tr *ngFor="let att of anArray; let idx = index;">
-  <td>
-  <ion-input class="status" placeholder="Enter Status " type="text" [(ngModel)]="anArray[idx].status"></ion-input>
-  </td>
+    <td>
+    <ion-input class="status" placeholder="Enter Status " type="text" [(ngModel)]="anArray[idx].status"></ion-input>
+    </td>
   <td >
-  <select class="selectoptionn" (click)="checkAlert($event)" type="text" [(ngModel)]="anArray[idx].action">
-  <option>None</option>
-  <option>Inform Manager</option>
-  <option >Remove client from profile</option>
-  </select>
+    <select class="selectoptionn" (click)="checkAlert($event)" type="text" [(ngModel)]="anArray[idx].action">
+      <option selected>None</option>
+      <option>Inform Manager</option>
+      <option >Remove client from profile</option>
+    </select>
   </td>
   <td> <ion-icon name="trash" class="deleteicon" (click)="remove(idx);"></ion-icon></td>
   
   </tr >
   
   </table>
-  <div style="float:left;">
-  <button color="secondary" ion-button (click)="Add()">Add More</button>
-  </div>
+    <div style="float:left;">
+      <button color="secondary" ion-button (click)="Add()">Add More</button>
+    </div>
   <br>
   <div style="float:right;">
-  <button ion-button id="prevBtn" type="button" (click)="slideToPrev()">Previous</button>
-  <button ion-button id="nextBtn" (click)= "insertUser(camp,prod,product);" >Save</button>
-  <button ion-button id="nextBtn" (click)= "temp()" >Temp</button>
+    <button ion-button id="prevBtn" type="button" (click)="slideToPrev()">Previous</button>
+    <button ion-button id="nextBtn" (click)= "insertUser(camp,prod,product);" >Save</button>
+    <button ion-button id="nextBtn" (click)= "temp()" >Temp</button>
   </div>
   
   

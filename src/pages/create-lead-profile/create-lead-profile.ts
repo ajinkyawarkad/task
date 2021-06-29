@@ -420,7 +420,7 @@ export class CreateLeadProfilePage {
 
     let alert = this.alertCtrl.create({
       title: "Sucess",
-      subTitle: " Field Added Successfully .. Now you can add lead ",
+      subTitle: " Field Added Successfully ",
       buttons: [
         {
           text: "OK",

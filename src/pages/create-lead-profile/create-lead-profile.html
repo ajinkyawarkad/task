@@ -12,14 +12,13 @@
 
   <ion-segment [(ngModel)]="Segments" value="1" mode="ios" >
     <ion-segment-button (ionSelect)="Segments = 1" value="1">
-    Select File
+      Select File
     </ion-segment-button>
     
     <ion-segment-button (ionSelect)="Segments = 2" value="2" >
-    Manually Add Data
+      Manually Add Data
     </ion-segment-button>
-   
-   
+  
   </ion-segment>
 
 
@@ -27,11 +26,10 @@
     <div *ngSwitchCase="1" style="margin-top: 12px;">
       <h6 >Select file to upload data</h6>
   <div class="form-group" >
-  <input type="file" (change)="onFileSelect($event.target)" id="myfile" accept=".csv">
-  
+    <input type="file" (change)="onFileSelect($event.target)" id="myfile" accept=".csv">
+    
   </div>
-  
-  
+ 
   <!-- <button style="margin-left: 20px;margin-top: 10px;" ion-button type="submit" (click)="upload()"> Upload</button> -->
   
   <table >
@@ -133,8 +131,7 @@
       </tr >
       
       </tbody>
-      
-      
+     
       </table>
       
       <br>

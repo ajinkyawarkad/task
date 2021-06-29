@@ -111,7 +111,7 @@ export class UserlistPage {
             {
               text: "OK",
               handler: (data) => {
-                this.navCtrl.push(HomePage);
+               // this.navCtrl.push(HomePage);
               },
             },
           ],
