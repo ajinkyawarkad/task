@@ -85,51 +85,51 @@ export class UserDetailsPage {
      
   }
 
-  makeAdmin(id){
-    let currentuser = firebase.auth().currentUser;
-    let a = this.userIds.indexOf(id);
-    console.log("data",a, this.productss[a].isAdmin )
-    let f = this.productss[a].isAdmin
+  // makeAdmin(id){
+  //   let currentuser = firebase.auth().currentUser;
+  //   let a = this.userIds.indexOf(id);
+  //   console.log("data",a, this.productss[a].isAdmin )
+  //   let f = this.productss[a].isAdmin
 
 
-    if(f){
-      firebase
-      .firestore()
-      .collection("Company")
-      .doc("COM#" + currentuser.uid)
-      .collection("Users").doc(id).update({
-        isAdmin:false
+  //   if(f){
+  //     firebase
+  //     .firestore()
+  //     .collection("Company")
+  //     .doc("COM#" + currentuser.uid)
+  //     .collection("Users").doc(id).update({
+  //       isAdmin:false
         
-      })
-    }else{
-      firebase
-      .firestore()
-      .collection("Company")
-      .doc("COM#" + currentuser.uid)
-      .collection("Users").doc(id).update({
-        isAdmin:true
+  //     })
+  //   }else{
+  //     firebase
+  //     .firestore()
+  //     .collection("Company")
+  //     .doc("COM#" + currentuser.uid)
+  //     .collection("Users").doc(id).update({
+  //       isAdmin:true
         
-      })
+  //     })
 
-    }
+  //   }
 
 
 
     
-    console.log("For Admin",id)
-    firebase
-    .firestore()
-    .collection("Company")
-    .doc("COM#" + currentuser.uid)
-    .collection("secAdmins").doc("userIds").update({
-      ids:firestore.FieldValue.arrayUnion(
-        id
-      )
-    })
+  //   console.log("For Admin",id)
+  //   firebase
+  //   .firestore()
+  //   .collection("Company")
+  //   .doc("COM#" + currentuser.uid)
+  //   .collection("secAdmins").doc("userIds").update({
+  //     ids:firestore.FieldValue.arrayUnion(
+  //       id
+  //     )
+  //   })
 
    
    
-  }
+  // }
 
 
   add() {

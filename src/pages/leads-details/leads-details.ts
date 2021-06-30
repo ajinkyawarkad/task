@@ -26,7 +26,7 @@ templateUrl: "leads-details.html",
 
 
 export class LeadsDetailsPage {
-p: number = 1;
+public page: number = 10;
 public hideMe: boolean = false;
 public hideMe1: boolean = false;
 public hideMe2: boolean = false;
@@ -39,7 +39,7 @@ mainField;
 
 fileName;
 show= false; //table flag ExelTable
-pageSize: number = 15;
+public pageSize: number = 10;
 last;
 public first: any = [];
 public prev_strt_at: any = [];
@@ -443,36 +443,18 @@ insertsr(dataa){
   .collection('leads').doc(this.array[i]).update({
     SR_id:dataa.id,
     SR_name:dataa.name+" "+dataa.last
-  })  .then(()=>{
-    let alert = this.alertCtrl.create({
-      title: 'Success',
-      subTitle: 'added',
-      //scope: id,
-      buttons: [{text: 'OK',
-      handler: data => { 
-      }
-      }]
-      });
-      alert.present();
-     
-      
-  }).catch((e)=>{
-    let alert = this.alertCtrl.create({
-      title: 'Error',
-      subTitle: e,
-      //scope: id,
-      buttons: [{text: 'OK',
-      handler: data => { 
-      }
-      }]
-      });
-      alert.present();
-  })
+  })  
 }
-
- // console.log(lead.sr)
-  
-  
+let alert = this.alertCtrl.create({
+  title: 'Success',
+  subTitle: 'Handler added Successfully',
+  //scope: id,
+  buttons: [{text: 'OK',
+  handler: data => { 
+  }
+  }]
+  });
+  alert.present();
 }
 
 getItems(ev) {
@@ -546,14 +528,7 @@ $(this).find("th").eq(index).hide();
 
 console.log("ionViewDidLoad LeadsDetailsPage");
 
-
-
 let currentuser = firebase.auth().currentUser;
-
-
-
-
-
 
 firebase
 .firestore()
@@ -719,7 +694,7 @@ firebase
 .collection("Campaigns")
 .doc(this.value.cid)
 .collection("leads")
-.orderBy('datetime')
+//.orderBy('datetime')
 .limit(this.pageSize)
 .onSnapshot((snaps) => {
 if (!snaps.docs.length) {
@@ -730,7 +705,77 @@ if (!snaps.docs.length) {
 .collection("Campaigns")
 .doc(this.value.cid)
 .collection("leads")
+.limit(10)
+.onSnapshot((snaps)=>{
+  this.hed = [];
+this.productsss = [];
+snaps.docs.forEach((doc) => {
+this.hed.push(doc.data());
+
+var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+// console.log(source, " data: ", doc.data());
+this.productsss = this.hed;
+// console.log("HHHHHHH", this.productsss);
+
+this.last = doc;
+this.first = doc;
+// console.log("last", this.last);
+});
+})
+// console.log("No Data Available");
+
+return false;
+}
+// loading.dismiss();
+this.hed = [];
+this.productsss = [];
+snaps.docs.forEach((doc) => {
+this.hed.push(doc.data());
+
+var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+// console.log(source, " data: ", doc.data());
+this.productsss = this.hed;
+// console.log("HHHHHHH", this.productsss);
+
+this.last = doc;
+this.first = doc;
+// console.log("last", this.last);
+});
+});
+this.prev_strt_at = [];
+this.pagination_clicked_count = 0;
+this.disable_next = false;
+this.disable_prev = false;
+this.itemnumberbypage = 1;
+
+// Push first item to use for Previous action
+// this.push_prev_startAt(this.first);
+
+console.log("ionViewDidLoad TrackCampaignPage");
+
+
+
+
+
+firebase
+.firestore()
+.collection("Company")
+.doc("COM#" + currentuser.uid)
+.collection("Campaigns")
+.doc(this.value.cid)
+.collection("leads")
+//.orderBy('datetime')
 .limit(this.pageSize)
+.onSnapshot((snaps) => {
+if (!snaps.docs.length) {
+  firebase
+.firestore()
+.collection("Company")
+.doc("COM#" + currentuser.uid)
+.collection("Campaigns")
+.doc(this.value.cid)
+.collection("leads")
+.limit(10)
 .onSnapshot((snaps)=>{
   this.hed = [];
 this.productsss = [];
@@ -794,6 +839,76 @@ firebase
 });
 }
 
+
+SelectedPageSize(data)
+{
+
+    this.page = parseInt(<string>data);
+    //alert(typeof(page));
+
+  let currentuser=firebase.auth().currentUser;
+  firebase
+.firestore()
+.collection("Company")
+.doc("COM#" + currentuser.uid)
+.collection("Campaigns")
+.doc(this.value.cid)
+.collection("leads")
+.orderBy('datetime')
+.limit(this.page)
+.onSnapshot((snaps) => {
+if (!snaps.docs.length) {
+  firebase
+.firestore()
+.collection("Company")
+.doc("COM#" + currentuser.uid)
+.collection("Campaigns")
+.doc(this.value.cid)
+.collection("leads")
+.limit(this.page)
+.onSnapshot((snaps)=>{
+  this.hed = [];
+this.productsss = [];
+snaps.docs.forEach((doc) => {
+this.hed.push(doc.data());
+
+var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+// console.log(source, " data: ", doc.data());
+this.productsss = this.hed;
+// console.log("HHHHHHH", this.productsss);
+
+this.last = doc;
+this.first = doc;
+// console.log("last", this.last);
+});
+})
+// console.log("No Data Available");
+
+return false;
+}
+// loading.dismiss();
+this.hed = [];
+this.productsss = [];
+snaps.docs.forEach((doc) => {
+this.hed.push(doc.data());
+
+var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+// console.log(source, " data: ", doc.data());
+this.productsss = this.hed;
+// console.log("HHHHHHH", this.productsss);
+
+this.last = doc;
+this.first = doc;
+// console.log("last", this.last);
+});
+});
+this.prev_strt_at = [];
+this.pagination_clicked_count = 0;
+this.disable_next = false;
+this.disable_prev = false;
+this.itemnumberbypage = 1;
+}
+
 nextPage(last) {
 this.disable_next = true;
 let currentuser = firebase.auth().currentUser;
@@ -813,7 +928,8 @@ firebase
 .doc(this.value.cid)
 .collection("leads")
 .startAfter(last)
-.limit(this.pageSize)
+
+.limit(this.page)
 .onSnapshot((snaps) => {
 if (!snaps.docs.length) {
 // console.log("No Data Available");
@@ -865,7 +981,7 @@ firebase
 .doc(this.value.cid)
 .collection("leads")
 .endBefore(first)
-.limit(this.pageSize)
+.limit(this.page)
 .onSnapshot((snaps) => {
 if (!snaps.docs.length) {
 // console.log("No Data Available");
@@ -899,6 +1015,11 @@ this.pagination_clicked_count--;
 this.itemnumberbypage / this.pagination_clicked_count;
 });
 }
+
+
+
+
+
 
 edit(data) {
 let cid = this.value;

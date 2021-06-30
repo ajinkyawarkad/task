@@ -93,6 +93,7 @@ slideOpts;
       this.showSlide = true
       
     }
+    this.slides.onlyExternal = true;
    
   }
   slideToSlide() {
@@ -101,7 +102,8 @@ this.slides.slideTo(0);
 } else {
 this.slides.lockSwipeToNext(false);
 this.slides.slideTo(this.slides.getActiveIndex() + 1);
-this.slides.lockSwipeToNext(true);
+this.slides.lockSwipeToNext(false);
+
 }
 }
 
@@ -109,7 +111,7 @@ slideToPrev() {
 if (this.slides.getActiveIndex() + 1 == this.slides.length()) {
 this.slides.lockSwipeToPrev(false);
 this.slides.slideTo(this.slides.getActiveIndex() - 1);
-this.slides.lockSwipeToPrev(true);
+this.slides.lockSwipeToPrev(false);
 }
 }
 
