@@ -11,7 +11,7 @@ import { AngularFirestore} from '@angular/fire/firestore';
 export class EditTeamDetailsPage {
 value:any;
 userInfo:any;
-product:{id:'',name:'',last:'',email:'',role:''};
+product:{id:'',name:'',email:'',role:''};
 
   constructor(public navCtrl: NavController, public navParams: NavParams,public afs: AngularFirestore,
     private alertCtrl:AlertController) {
@@ -26,10 +26,10 @@ product:{id:'',name:'',last:'',email:'',role:''};
 
   update(){
     let currentuser=firebase.auth().currentUser;
-    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'Users' +'/'+this.value.id)
+    firebase.firestore().collection('Company').doc(currentuser.photoURL+'/' +'Users' +'/'+this.value.id)
             .update(Object.assign({
               name: this.value.name,
-              last: this.value.last,
+            //  last: this.value.last,
               email:this.value.email,
               role:this.value.role
               } 
@@ -62,7 +62,7 @@ product:{id:'',name:'',last:'',email:'',role:''};
 
   update1(value){
     let currentuser=firebase.auth().currentUser;
-    firebase.firestore().collection('Company').doc("COM#"+currentuser.uid+'/' +'non-active' +'/'+this.value.id)
+    firebase.firestore().collection('Company').doc(currentuser.photoURL+'/' +'non-active' +'/'+this.value.id)
             .update(Object.assign({
               name: this.value.name,
               last: this.value.last,
