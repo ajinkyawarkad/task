@@ -86,6 +86,7 @@ export class CreateLeadProfilePage {
   ];
 
   uploadFlag = false;
+  uploadFlagg = false;
 
   MAIN = [];
   Segments: string;
@@ -227,6 +228,7 @@ export class CreateLeadProfilePage {
       };
       fileReader.readAsText(fileToRead, "UTF-8");
     }
+    this.uploadFlagg = true;
   }
 
   extractData(res) {
