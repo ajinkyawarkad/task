@@ -126,104 +126,84 @@ export class CreateLeadProfilePage {
   }
 
   removeField(valuee, att) {
-    console.log(valuee, att);
-
-    let b = att;
-    if (b) {
-      let s = this.arrFilelds.includes(att);
-
-      switch (s) {
-        case true:
-          let f;
-          let a;
-
-          // let f = this.dummy.includes({indicator:att});
-          for (var t in this.dummy) {
-            if (this.dummy[t].indicator == att) {
-              f = true;
-              a = t;
-              break;
-            } else {
-              f = false;
+    if(att !== "None"){
+      let b = att;
+      if (b) {
+        let s = this.arrFilelds.includes(att);
+  
+        switch (s) {
+          case true:
+            let f;
+            let a;
+  
+            // let f = this.dummy.includes({indicator:att});
+            for (var t in this.dummy) {
+              if (this.dummy[t].indicator == att) {
+                f = true;
+                a = t;
+                break;
+              } else {
+                f = false;
+              }
             }
-          }
-          console.log("fa", f);
-          switch (f) {
-            case false:
-              // this.dummy.push(att)
-              this.dummy[valuee].indicator = att;
-              console.log("false Dummy", this.dummy);
-              console.log("False Anarray", this.anArray);
-              break;
-            case true:
-              alert("Duplicate Fields not allowed");
-
-              console.log("indessss", a);
-
-              this.dummy[a].indicator = "";
-              this.anArray[a].indicator = "";
-              this.anArray[valuee].indicator = att;
-              this.dummy[valuee].indicator = att;
-
-              console.log("true Dummy", this.dummy);
-              console.log("true anArray", this.anArray);
-
-            // let a = this.dummy.indexOf(att);
-          }
-
-          // this.arrFilelds.splice(a, 1);
-          // this.dummy.push(att);
-          // for (var u in this.anArray) {
-          //   if (this.anArray[u].indicator == "") {
-          //     this.anArray[u].indicator = att;
-          //
-          //     break;
-          //   } else {
-          //   }
-          // }
-
-          break;
-
-        case false:
-          alert("Something went  Wrong");
-          break;
+  
+            //a = match found index
+            //value
+            console.log("fa", f);
+            switch (f) {
+              case false:
+                // this.dummy.push(att)
+                console.log(valuee, att);
+                this.dummy[valuee].indicator = att;
+                // console.log("false Dummy", this.dummy);
+                // console.log("False Anarray", this.anArray);
+                break;
+              case true:
+                
+                alert("Duplicate Fields not allowed");
+                console.log(valuee, att);
+  
+                console.log("indessss", a);
+  
+                this.anArray[valuee].indicator = "Select";
+                this.dummy[valuee].indicator = "Select";
+               
+  
+                this.anArray[a].indicator = att;
+                this.dummy[a].indicator = att;
+  
+               
+               
+  
+                console.log("true Dummy", this.dummy);
+                console.log("true anArray", this.anArray);
+  
+              // let a = this.dummy.indexOf(att);
+            }
+  
+  
+  
+            break;
+  
+          case false:
+            alert("Something went  Wrong");
+            break;
+        }
+      } else {
+        console.log("Bllank");
       }
-    } else {
-      console.log("Bllank");
+
+
+    }else{
+      this.anArray[valuee].indicator = att;
+      this.dummy[valuee].indicator = att;
+
     }
+   
 
-    // for(var i in this.arrFilelds){
-    //   let r =this.arrFilelds[i]
+   
 
-    //   if(att == r){
-    //
-
-    //           for(var u in this.anArray){
-    //             if(this.anArray[u].indicator == ""){
-    //               this.anArray[u].indicator = att
-    //               console.log("e",this.anArray)
-    //               break;
-
-    //             }else{
-
-    //             }
-    //           }
-    //    break
-
-    //   }else{
-
-    //     for(var o in this.dummy){
-    //       let z = this.dummy[o]
-    //       if(att == z){
-    //         console.log("Alert")
-    //       }
-    //       break
-
-    //     }
-    //   }
-
-    // }
-    // console.log("ATTT", this.arrFilelds)
+  
   }
 
   onFileSelect(input: HTMLInputElement) {
@@ -269,9 +249,9 @@ export class CreateLeadProfilePage {
     for (var a in match) {
       var variable = match[a];
       // console.log(variable)
-      this.anArray.push({ value: variable, indicator: "" }); //Creating CsvFields Structure
+      this.anArray.push({ value: variable, indicator: "None" }); //Creating CsvFields Structure
       this.arrDummy.push({ value: variable, indicator: "" });
-      this.dummy.push({ indicator: "" });
+      this.dummy.push({ indicator: "None" });
     }
     console.log("aaaaaaaa", this.dummy);
   }
