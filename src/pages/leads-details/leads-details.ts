@@ -175,7 +175,8 @@ export class LeadsDetailsPage {
           .then((doc) => {
             test = doc.data().Users;
             for (var i in test) {
-              let nam = test[i].name;
+              let nam =
+               test[i].name;
               let name = nam;
               this.pro.push(name);
             }
@@ -977,7 +978,7 @@ export class LeadsDetailsPage {
   }
 
   edit(data) {
-    let cid = this.value;
+    let cid = this.value.cid;
     this.navCtrl.push(EditLeadDetailsPage, {
       cid,
       data,

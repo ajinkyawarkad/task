@@ -21,9 +21,6 @@
 	
 	<div style="float: left;margin-top: 8px;">
 		
-		<!-- <div class="button">
-			<ion-icon id="btnOpenForm" class="settingicon" name="settings" (click)="hide2()"></ion-icon>
-		  </div> -->
 
 		<div class="form-popup-bg">
 		  <div class="form-container">
@@ -33,15 +30,18 @@
 			<ion-row>
 				<ion-col>
 				<ion-card *ngFor="let hed of tru; let ind = index;">
-					<ion-card-header class="cardheader">{{hed}}</ion-card-header>
-					<ion-checkbox class="cardCheckbox" (ionChange)="showhide(hed, $event)" checked></ion-checkbox>
+				
+					<ion-card-header class="cardheader">{{hed}}
+						<ion-checkbox class="cardCheckbox" (ionChange)="showhide(hed, $event)" checked></ion-checkbox>
+					</ion-card-header>
 				</ion-card>	
 				</ion-col>
 
 				<ion-col>
 					<ion-card *ngFor="let hed2 of fal">
-						<ion-card-header class="cardheader" >{{hed2}}</ion-card-header>
+						<ion-card-header class="cardheader" >{{hed2}}
 						<ion-checkbox class="cardCheckbox" (ionChange)="showhide(hed2, $event)" ></ion-checkbox>
+					</ion-card-header>
 					</ion-card>	
 					</ion-col>
 			</ion-row>
@@ -49,6 +49,7 @@
 		  </div>
 		</div>
 	</div>
+	
 	&nbsp;
 	<div style="float: left;margin-left: 10px;margin-top: 7px;">
 	<button ion-button color="success" (click)="add()"> Add</button>
@@ -59,23 +60,31 @@
 	<button ion-button color="success" (click)="hide3()">Filter</button>
 	</div>
 
-	<!-- <div *ngIf="hideMe3" style="float: right;margin-right: 20%;margin-top: -7px;">
-		<ion-item style="border: 1px solid gray;">
-			<select [(ngModel)]="field" (change)="setField(field)">
-				<option>Status</option>
-				<option>Action</option>
-				<option>Handler</option>
+	<div *ngIf="hideMe3" style="float: right;margin-right: 20%;margin-top: -7px;">
+	
+		<ion-item>
+				  <ion-row>
+					<ion-col>
+						<select [(ngModel)]="field" (change)="setField(field)">
+							<option>Status</option>
+							<option>Action</option>
+							<option>Handler</option>
+						</select>
+						</ion-col>
+						<ion-col>
+						<select [(ngModel)]="ss" (change)="showOptions(ss)">
+							<option>All</option>
+							<option *ngFor="let pr of pro ">{{pr}}</option>
+						</select>
+						</ion-col>
+						</ion-row>
+				</ion-item>
 			
-				
-				</select>
+	
+		<!-- <button ion-button color="secondary" (click)="downloadCsv()" *ngIf="csvShow" style="float: right;margin-left: 22px;margin-top: 7px;">Download Csv</button> -->
 		
-			<select [(ngModel)]="ss" (change)="showOptions(ss)">
-			<option>All</option>
-			<option *ngFor="let pr of pro ">{{pr}}</option>
-			</select>
-		</ion-item>
+		</div> 
 
-		</div>  -->
 
 		<div style="float: right;margin-right: 29%;margin-top: -35px;">
 			<ion-icon style="font-size: 1.8em;"
@@ -98,7 +107,7 @@
 
 	<div *ngIf="hideMe1"> 
 
-		<ion-item style="width: 30%;border: 1px solid gray;">
+		<ion-item style="width: 30%;border: none;">
 		   <ion-label>Sale Representative</ion-label>
 			<ion-select [(ngModel)]="prod" (ionChange)="insertsr(prod)">
 			<ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}</ion-option>
@@ -108,20 +117,15 @@
   
 	<br>
 
-
 	<div class="tableFixHead">
 		<table >
 			<thead>
 		  <tr>
 			<th>
-	
 				<div >
-			
 					<ion-icon  id="btnOpenForm" class="settingicon" name="settings" (click)="hide2()"></ion-icon>
 					<ion-checkbox  slot="start" [(ngModel)]="masterCheck" [indeterminate]="isIndeterminate"
-					(click)="checkMaster($event);"></ion-checkbox>
-			
-					
+					(click)="checkMaster($event);"></ion-checkbox>		
 				</div>	
 			</th>
 			
@@ -210,12 +214,12 @@
 				
 				<td *ngIf="product.pending" style="color: red;" (click)="gotocall(product)" >
 				{{product.action}} <br> {{product.datetime}}
-				
+				<p style="text-decoration:underline;color: black;">Add activiy</p>
 				</td>
 
 				<td  *ngIf="!product.pending" style="color: green;"  (click)="gotocall(product)" >
 					{{product.action}} <br> {{product.datetime}}
-						
+					<p style="text-decoration:underline;color: black"> Add activiy</p>
 					</td>
 			
 				<td>{{product.status}}</td>
@@ -283,7 +287,7 @@
 				
 				<td *ngIf="product.pending" style="color: red;" (click)="gotocall(product)" >
 				{{product.action}} <br> {{product.datetime}}
-				
+				<p>Add activiy</p>
 				</td>
 
 				<td  *ngIf="!product.pending" style="color: green;"  (click)="gotocall(product)" >
@@ -324,7 +328,9 @@
 		</ion-select>	
 	</ion-item>
 	</div>
+
 	
+
 	<div style="float:right;">
 	<b>Page no: {{pagination_clicked_count+1}}</b>
 	<button ion-button color="primary" (click)="prevPage(first)"
