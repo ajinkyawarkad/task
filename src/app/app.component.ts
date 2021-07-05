@@ -32,10 +32,11 @@ import { HomeUserPage } from '../pages/home-user/home-user';
 export class MyApp {
  @ViewChild(Nav) nav: Nav;
 
-  rootPage: any =  HomePage;
+  rootPage: any =  LoginPage;
 
   public name: any;
 
+ 
   pages: Array<{title: string, component: any, icon: string}>;
  
   constructor(private auth:AngularFireAuth,private storage: Storage,
@@ -55,22 +56,23 @@ export class MyApp {
      // { title: 'Sign Out', component: LoginPage, icon:'log-out'},   
     ];
 
-    this.storage.get('name').then((name) => {
-      console.log('name', name);
-      this.name=name;
-      //this.isLoggedIn = true;
-   });
-  }
+
+    }
 
   initializeApp() {
     this.platform.ready().then(() => {
+      // Okay, so the platform is ready and our plugins are available.
+      // Here you can do any higher level native things you might need.
       this.statusBar.styleDefault();
       this.splashScreen.hide();
     });
   }
 
 
+
   openPage(page) {
+    // Reset the content nav to have just this page
+    // we wouldn't want the back button to show in this scenario
     this.nav.setRoot(page.component);   
   }
 
@@ -79,6 +81,21 @@ export class MyApp {
       console.log(user);
     })
     this.storage.remove('name').then((user) =>{
+      console.log(user);
+    })
+    this.storage.remove('cuid').then((user) =>{
+      console.log(user);
+    })
+    this.storage.remove('role').then((user) =>{
+      console.log(user);
+    })
+    this.storage.remove('tenant').then((user) =>{
+      console.log(user);
+    })
+    this.storage.remove('password').then((user) =>{
+      console.log(user);
+    })
+    this.storage.remove('userId').then((user) =>{
       console.log(user);
     })
     this.menuctrl.close();
