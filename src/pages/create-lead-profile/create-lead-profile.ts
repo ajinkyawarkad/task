@@ -61,7 +61,7 @@ export class CreateLeadProfilePage {
     "Select",
     "None",
     "Custome",
-    "Action",
+  
     "Address",
     "Apartment",
     "City",
@@ -78,7 +78,7 @@ export class CreateLeadProfilePage {
     "Follow_up",
     "Full_Name",
     "Gender",
-    "Handler",
+
     "Home",
     "Home_Phone",
     "Id",
@@ -196,7 +196,19 @@ export class CreateLeadProfilePage {
                 // console.log("False Anarray", this.anArray);
                 break;
               case true:
-                alert("Duplicate Fields not allowed");
+                let alert = this.alertCtrl.create({
+                  title: "Warning!",
+                  subTitle: "Check Assigned Fields",
+                  buttons: [
+                    {
+                      text: "OK",
+                      handler: (data) => {
+                        // this.navCtrl.push(HomePage);
+                      },
+                    },
+                  ],
+                });
+                alert.present();
                 console.log(valuee, att);
 
                 console.log("indessss", a);
@@ -262,7 +274,19 @@ export class CreateLeadProfilePage {
                 // console.log("False Anarray", this.anArray);
                 break;
               case true:
-                alert("Duplicate Fields not allowed");
+                let alert = this.alertCtrl.create({
+                  title: "Warning!",
+                  subTitle: "Check Assigned Fields",
+                  buttons: [
+                    {
+                      text: "OK",
+                      handler: (data) => {
+                        // this.navCtrl.push(HomePage);
+                      },
+                    },
+                  ],
+                });
+                alert.present();
                 console.log(index, field);
 
                 console.log("indessss", a);
@@ -434,55 +458,55 @@ export class CreateLeadProfilePage {
         .doc("records")
         .set(
           {
-          Action: false,
-          Address: false,
-          Apartment: false,
-          City: false,
-          Company_Name: false,
-          Corporate_Website: false,
-          Country: false,
-          Currency: false,
-          Date_of_Birth: false,
-          Email: false,
-          Facebook: false,
-          Facebook_Page: false,
-          Fax: false,
-          first_name: false,
-          Follow_up: false,
-          Full_Name: false,
-          Gender: false,
-          Handler: false,
-          Home: false,
-          Home_Phone: false,
-          Id: false,
-          last_name: false,
-          Live_Chat: false,
-          LiveJournal: false,
-          middle_name: false,
-          Mobile: false,
-          Newsletter_Email: false,
-          Opportunity: false,
-          Other_Contact: false,
-          Personal_Page: false,
-          Phone: false,
-          Position: false,
-          Price: false,
-          Profile_URL: false,
-          Quality: false,
-          Responsible_Person: false,
-          Salutation: false,
-          Skype: false,
-          Source: false,
-          Stage: false,
-          State: false,
-          Telegram_Account: false,
-          Twitter: false,
-          Vibe_Contact: false,
-          VK_Page: false,
-          Website: false,
-          Work_Email: false,
-          Work_Phone: false,
-          Zip: false,
+            Action: false,
+            Address: false,
+            Apartment: false,
+            City: false,
+            Company_Name: false,
+            Corporate_Website: false,
+            Country: false,
+            Currency: false,
+            Date_of_Birth: false,
+            Email: false,
+            Facebook: false,
+            Facebook_Page: false,
+            Fax: false,
+            first_name: false,
+            Follow_up: false,
+            Full_Name: false,
+            Gender: false,
+            Handler: false,
+            Home: false,
+            Home_Phone: false,
+            Id: false,
+            last_name: false,
+            Live_Chat: false,
+            LiveJournal: false,
+            middle_name: false,
+            Mobile: false,
+            Newsletter_Email: false,
+            Opportunity: false,
+            Other_Contact: false,
+            Personal_Page: false,
+            Phone: false,
+            Position: false,
+            Price: false,
+            Profile_URL: false,
+            Quality: false,
+            Responsible_Person: false,
+            Salutation: false,
+            Skype: false,
+            Source: false,
+            Stage: false,
+            State: false,
+            Telegram_Account: false,
+            Twitter: false,
+            Vibe_Contact: false,
+            VK_Page: false,
+            Website: false,
+            Work_Email: false,
+            Work_Phone: false,
+            Zip: false,
           },
           { merge: true }
         )

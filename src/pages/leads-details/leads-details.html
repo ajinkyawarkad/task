@@ -154,6 +154,28 @@
 			<th *ngIf="Stage">Stage</th>
 			<th *ngIf="Quality">Quality</th>
 			<th *ngIf="Currency">Currency</th>
+			<th *ngIf="Corporate_Website">Corporate Website</th>
+			<th *ngIf="Facebook">Facebook</th>
+			<th *ngIf="Facebook_Page">Facebook Page</th>
+			<th *ngIf="Home">Home</th>
+			<th *ngIf="Home_Phone">Home Phone</th>
+			<th *ngIf="Live_Chat">Live Chat</th>
+			<th *ngIf="LiveJournal">LiveJournal</th>
+			<th *ngIf="Mobile">Mobile</th>
+			<th *ngIf="Newsletter_Email">Newsletter Email</th>
+			<th *ngIf="Opportunity">Opportunity</th>
+			<th *ngIf="Personal_Page">Personal Page</th>
+			<th *ngIf="Responsible_Person">Responsible Person</th>
+			<th *ngIf="Skype">Skype</th>
+			<th *ngIf="Source">Source</th>
+			<th *ngIf="Telegram_Account">Telegram Account</th>
+			<th *ngIf="Twitter">Twitter</th>
+			<th *ngIf="Vibe_Contact">Vibe Contact</th>
+			<th *ngIf="VK_Page">VK Page</th>
+			<th *ngIf="Website">Website</th>
+			<th *ngIf="Work_Email">Work Email</th>
+			<th *ngIf="Work_Phone">Work Phone</th>
+
 			<th>Handler</th>
 			<th>Activity</th>
 			<th>Status</th>
@@ -210,6 +232,28 @@
 				<td *ngIf="Stage">{{product.Stage}}</td>
 				<td *ngIf="Quality">{{product.Quality}}</td>
 				<td *ngIf="Currency">{{product.Currency}}</td>
+				<td *ngIf="Corporate_Website">{{product.Corporate_Website}}</td>
+				<td *ngIf="Facebook">{{product.Facebook}}</td>
+				<td *ngIf="Facebook_Page">{{product.Facebook_Page}}</td>
+				<td *ngIf="Home">{{product.Home}}</td>
+				<td *ngIf="Home_Phone">{{product.Home_Phone}}</td>
+				<td *ngIf="Live_Chat">{{product.Live_Chat}}</td>
+				<td *ngIf="LiveJournal">{{product.LiveJournal}}</td>
+				<td *ngIf="Mobile">{{product.Mobile}}</td>
+				<td *ngIf="Newsletter_Email">{{product.Newsletter_Email}}</td>
+				<td *ngIf="Opportunity">{{product.Opportunity}}</td>
+				<td *ngIf="Personal_Page">{{product.Personal_Page}}</td>
+				<td *ngIf="Responsible_Person">{{product.Responsible_Person}}</td>
+				<td *ngIf="Skype">{{product.Skype}}</td>
+				<td *ngIf="Source">{{product.Source}}</td>
+				<td *ngIf="Telegram_Account">{{product.Telegram_Account}}</td>
+				<td *ngIf="Twitter">{{product.Twitter}}</td>
+				<td *ngIf="Vibe_Contact">{{product.Vibe_Contact}}</td>
+				<td *ngIf="VK_Page">{{product.VK_Page}}</td>
+				<td *ngIf="Website">{{product.Website}}</td>
+				<td *ngIf="Work_Email">{{product.Work_Email}}</td>
+				<td *ngIf="Work_Phone">{{product.Work_Phone}}</td>
+
 				<td>{{product.SR_name}}</td>
 				
 				<td *ngIf="product.pending" style="color: red;" (click)="gotocall(product)" >
@@ -234,6 +278,11 @@
 				</td>
 				</tr>
 		 </tbody>
+
+
+
+
+		 <!-- Second Table /////////////////////////////////////////////////////////////////-->
 
 		 <tbody *ngIf="terms">
 			<tr *ngFor="let product of productsss;let idx = index; ">
@@ -283,6 +332,31 @@
 				<td *ngIf="Stage">{{product.Stage}}</td>
 				<td *ngIf="Quality">{{product.Quality}}</td>
 				<td *ngIf="Currency">{{product.Currency}}</td>
+				<td *ngIf="Currency">{{product.Currency}}</td>
+				<td *ngIf="Corporate_Website">{{product.Corporate_Website}}</td>
+				<td *ngIf="Facebook">{{product.Facebook}}</td>
+				<td *ngIf="Facebook_Page">{{product.Facebook_Page}}</td>
+				<td *ngIf="Home">{{product.Home}}</td>
+				<td *ngIf="Home_Phone">{{product.Home_Phone}}</td>
+				<td *ngIf="Live_Chat">{{product.Live_Chat}}</td>
+				<td *ngIf="LiveJournal">{{product.LiveJournal}}</td>
+				<td *ngIf="Mobile">{{product.Mobile}}</td>
+				<td *ngIf="Newsletter_Email">{{product.Newsletter_Email}}</td>
+				<td *ngIf="Opportunity">{{product.Opportunity}}</td>
+				<td *ngIf="Personal_Page">{{product.Personal_Page}}</td>
+				<td *ngIf="Responsible_Person">{{product.Responsible_Person}}</td>
+				<td *ngIf="Skype">{{product.Skype}}</td>
+				<td *ngIf="Source">{{product.Source}}</td>
+				<td *ngIf="Telegram_Account">{{product.Telegram_Account}}</td>
+				<td *ngIf="Twitter">{{product.Twitter}}</td>
+				<td *ngIf="Vibe_Contact">{{product.Vibe_Contact}}</td>
+				<td *ngIf="VK_Page">{{product.VK_Page}}</td>
+				<td *ngIf="Website">{{product.Website}}</td>
+				<td *ngIf="Work_Email">{{product.Work_Email}}</td>
+				<td *ngIf="Work_Phone">{{product.Work_Phone}}</td>
+				
+
+
 				<td>{{product.SR_name}}</td>
 				
 				<td *ngIf="product.pending" style="color: red;" (click)="gotocall(product)" >

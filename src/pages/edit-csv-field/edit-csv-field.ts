@@ -18,7 +18,7 @@ export class EditCsvFieldPage {
     "Select",
     "None",
     "Custome",
-    "Action",
+  
     "Address",
     "Apartment",
     "City",
@@ -35,7 +35,7 @@ export class EditCsvFieldPage {
     "Follow_up",
     "Full_Name",
     "Gender",
-    "Handler",
+
     "Home",
     "Home_Phone",
     "Id",
@@ -67,7 +67,6 @@ export class EditCsvFieldPage {
     "Work_Email",
     "Work_Phone",
     "Zip",
-    "E-mail",
   ];
   newFields=[]
 
@@ -166,7 +165,19 @@ export class EditCsvFieldPage {
                 // console.log("False Anarray", this.anArray);
                 break;
               case true:
-                alert("Duplicate Fields not allowed");
+                let alert = this.alertCtrl.create({
+                  title: "Warning!",
+                  subTitle: "Check Assigned Fields",
+                  buttons: [
+                    {
+                      text: "OK",
+                      handler: (data) => {
+                        // this.navCtrl.push(HomePage);
+                      },
+                    },
+                  ],
+                });
+                alert.present();
                 console.log(valuee, att);
 
                 console.log("indessss", a);
@@ -212,7 +223,20 @@ export class EditCsvFieldPage {
     }
 
     if (check) {
-      console.log("Alert")
+      let alert = this.alertCtrl.create({
+        title: "Warning!",
+        subTitle: "Check Assigned Fields",
+        buttons: [
+          {
+            text: "OK",
+            handler: (data) => {
+              // this.navCtrl.push(HomePage);
+            },
+          },
+        ],
+      });
+      alert.present();
+      
       
       
     } else {
