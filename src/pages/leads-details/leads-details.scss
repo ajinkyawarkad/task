@@ -1,6 +1,6 @@
 page-leads-details {
-
-
+	
+	
 	html {
 		box-sizing: border-box;
 	  }
@@ -19,7 +19,8 @@ page-leads-details {
 		z-index: 1;
 		margin: auto;
 		overflow: auto;
-		height: 490px;
+		//overflow-x: scroll;
+		height: 425px;
 	  }
 	  .table-scroll table {
 		width: 100%;
@@ -42,8 +43,9 @@ page-leads-details {
 		
 	  }
 	  .table-scroll thead th {
-		background: #ccc;
+		//background: #ccc;
 		//color: #ff;
+		background: #f4f4f4;
 		position: -webkit-sticky;
 		position: sticky;
 		top: 0;	
@@ -59,7 +61,7 @@ page-leads-details {
 		position: sticky;
 		left: 0;
 		z-index: 2;
-		background: #ccc;
+		background: #f4f4f4;
 	  }
 	  thead th:first-child,
 	  tfoot th:first-child {
@@ -605,6 +607,8 @@ margin-right: -17px
 
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (min-width: 992px) {
+
+	
 	.form-popup-bg {
 		position:absolute;
 		top: 0;
