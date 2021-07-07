@@ -6,7 +6,6 @@ page-track-campaign {
 		font-size: 14px;	
 	}
 	
-	
 	/* Extra small devices (phones, 600px and down) */
 	@media only screen and (max-width: 600px) {
 	
@@ -35,9 +34,7 @@ page-track-campaign {
 	  th, td {
 		   padding: 8px 4px;
 		   border: 1px solid #ddd;
-		   text-align: center;
-		   
-		   
+		   text-align: center;	   
 	 }
 	  th 
 	  { background:#eee; }
@@ -194,10 +191,12 @@ page-track-campaign {
 			width: 100%;
 		}
 		.tableFixHead  { 
-			overflow-x: scroll;
-			 height: 50%; 
-			 width: 100%;
-			//margin-top :20px
+			position: relative;
+		width:100%;
+		z-index: 1;
+		margin: auto;
+		overflow: auto;
+		height: 490px;
 		  }
   
 	  .tableFixHead thead th { 
@@ -208,8 +207,12 @@ page-track-campaign {
 		  //width: 100%;
 	  }
   
-	  table  { border-collapse: collapse; 
-		width: 100%; 
+	  table  { 
+		width: 100%;
+		//min-width: 1280px;
+		//margin: auto;
+		//border-collapse: separate;
+		border-spacing: 0;
 	}
 	  th, td {
 		   padding: 8px 4px;
@@ -237,7 +240,7 @@ page-track-campaign {
 
 	.seg{
 		float: left;
-		width: 100%;
+		width: 50%;
 		margin-top: 2px;
 	}
 	.Sbar{

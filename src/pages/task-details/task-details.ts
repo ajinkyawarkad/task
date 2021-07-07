@@ -17,6 +17,8 @@ import { uuid } from "uuidv4";
 import { Observable } from "rxjs";
 import * as $ from "jquery";
 import { Slides } from "ionic-angular";
+import { LeadsDetailsPage } from "../leads-details/leads-details";
+import { TrackCampaignPage } from "../track-campaign/track-campaign";
 
 interface Lead {
   status: string;
@@ -174,7 +176,42 @@ export class TaskDetailsPage {
     this.act = action;
     console.log("TEMO", this.act);
     if (this.act === "Remove client from profile") {
-      alert("this will remove this lead profile permently");
+      let currentuser = firebase.auth().currentUser
+      firebase
+      .firestore()
+      .collection("Company")
+      .doc(
+        currentuser.photoURL +
+          "/" +
+          "Campaigns" +
+          "/" +
+          this.cid +
+          "/" +
+          "leads" +
+          "/" +
+          this.data.uid
+      )
+      .delete().then(res => {
+        
+        let alert = this.alertCtrl.create({
+          title: "Success",
+          subTitle: "Lead Deleted",
+          //scope: id,
+          buttons: [
+            {
+              text: "OK",
+              handler: (data) => {
+                this.navCtrl.push(TrackCampaignPage)
+              },
+            },
+          ],
+        });
+        alert.present();
+       
+      });
+    console.log("DELETED", this.data.uid);
+    
+      
     }
   }
 
@@ -424,8 +461,43 @@ export class TaskDetailsPage {
     }
   }
 
-  hide() {
-    this.hideMe = true;
+  hide(action) {
+    let currentuser = firebase.auth().currentUser;
+    
+   
+    if(action == "None"){
+      firebase
+      .firestore()
+      .collection("Company")
+      .doc(
+        currentuser.photoURL +
+          "/" +
+          "Campaigns" +
+          "/" +
+          this.cid +
+          "/" +
+          "leads" +
+          "/" +
+          this.data.uid
+      )
+      .update(
+        Object.assign(
+          {
+            //id: uid,
+            action: this.task.action,
+            datetime: "",
+            status:  this.task.status,
+            remark: "",
+          },
+          { merge: true }
+        )
+      );
+      this.navCtrl.push(TrackCampaignPage)
+    }else{
+      this.hideMe = true;
+      
+    }
+
   }
   hide1() {
     this.hideMe1 = !this.hideMe1;

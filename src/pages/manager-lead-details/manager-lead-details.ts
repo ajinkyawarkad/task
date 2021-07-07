@@ -543,7 +543,7 @@ export class ManagerLeadDetailsPage {
       .firestore()
       .collection("Company")
       .doc(currentuser.photoURL)
-      .collection("Campaigns")
+      .collection("Users").doc(currentuser.uid).collection("CampsAsso")
       .doc(this.value.cid)
       .collection("Fields")
       .doc("records")
@@ -584,7 +584,7 @@ export class ManagerLeadDetailsPage {
       .firestore()
       .collection("Company")
       .doc(currentuser.photoURL)
-      .collection("Campaigns")
+      .collection("Users").doc(currentuser.uid).collection("CampsAsso")
       .doc(this.value.cid)
       .collection("Fields")
       .doc("records")
@@ -644,25 +644,38 @@ export class ManagerLeadDetailsPage {
         //==========
       });
 
-    this.userInfo = this.afs
+      firebase
+      .firestore()
+      .collection("Company")
+      .doc(currentuser.photoURL).get().then(doc => {
+        let admin = doc.data().adminId
+        this.userInfo = this.afs
       .collection("Company")
       .doc(currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid);
+      .doc(admin);
     this.productss = this.userInfo.valueChanges().Users;
 
+    
     firebase
       .firestore()
       .collection("Company")
       .doc(currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid)
+      .doc(admin)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         // console.log(source, " data: ");
         this.productss = doc.data().Users;
         // console.log(this.productss);
       });
+
+      })
+
+
+
+    
+
 
     //let currentuser=firebase.auth().currentUser;
     firebase
@@ -835,7 +848,7 @@ export class ManagerLeadDetailsPage {
       .firestore()
       .collection("Company")
       .doc(currentUser.photoURL)
-      .collection("Campaigns")
+      .collection("Users").doc(currentUser.uid).collection("CampsAsso")
       .doc(this.campid)
       .collection("Fields")
       .doc("records")

@@ -37,6 +37,7 @@ export class ManagerCreateCampaignPage {
   uuid1 = uuid();
   products: Observable<Camps[]>;
   productss: Observable<Camps[]>;
+  admin;
 
   userInfo: any;
   public anArray: any = [];
@@ -79,6 +80,8 @@ export class ManagerCreateCampaignPage {
   remove(idx) {
     this.anArray.splice(idx, 1);
   }
+
+
   ionViewDidLoad() {
     this.sts.sts1 = "Interested";
     this.sts.sts2 = "Not-Interested";
@@ -86,13 +89,18 @@ export class ManagerCreateCampaignPage {
     this.sts.action2 ="None"
     console.log("ionViewDidLoad CreateCampaignPage");
     let currentuser = firebase.auth().currentUser;
-
+    
     firebase
+    .firestore()
+    .collection("Company").doc(currentuser.photoURL).get().then(doc => {
+      this.admin = doc.data().adminId
+      console.log("Admin",this.admin)
+      firebase
       .firestore()
       .collection("Company")
       .doc(currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid)
+      .doc(this.admin)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: ");
@@ -100,18 +108,27 @@ export class ManagerCreateCampaignPage {
         console.log(this.products);
       });
 
-    firebase
+      firebase
       .firestore()
       .collection("Company")
       .doc(currentuser.photoURL)
       .collection("Admin")
-      .doc(currentuser.uid)
+      .doc(this.admin)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         console.log(source, " data: ");
         this.productss = doc.data().Users;
         console.log(this.productss);
       });
+
+
+
+    })
+
+
+    
+
+   
   }
 
   insertUser(camp: Camp, data, data2) {
@@ -196,6 +213,28 @@ export class ManagerCreateCampaignPage {
               )
             );
         }
+
+        firebase
+        .firestore()
+        .collection("Company")
+        .doc(val)
+        .collection("Users")
+        .doc(data2.id)
+        .collection("CampsAsso")
+        .doc(this.uuid1)
+        .set(
+          Object.assign(
+            {
+              cid: this.uuid1,
+              name: camp.name,
+              goals: camp.goals,
+              manager: data2.name,
+              active: true,
+            },
+            { merge: true }
+          )
+        );
+
 
         let alert = this.alertCtrl.create({
           title: "Success",

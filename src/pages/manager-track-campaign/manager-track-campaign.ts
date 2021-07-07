@@ -71,7 +71,7 @@ export class ManagerTrackCampaignPage {
       .firestore()
       .collection("Company")
       .doc(currentuser.photoURL)
-      .collection("Admin")
+      .collection("Users")
       .doc(cu)
       .get()
       .then((doc) => {
@@ -82,7 +82,7 @@ export class ManagerTrackCampaignPage {
       .firestore()
       .collection("Company")
       .doc(currentuser.photoURL)
-      .collection("Admin")
+      .collection("Users")
       .doc(cu)
       .get()
       .then((doc) => {
@@ -91,7 +91,7 @@ export class ManagerTrackCampaignPage {
           .firestore()
           .collection("Company")
           .doc(currentuser.photoURL)
-          .collection("Campaigns")
+          .collection("Users").doc(currentuser.uid).collection("CampsAsso")
           .get()
           .then((doc) => {
             doc.docs.forEach((snap) => {
@@ -187,7 +187,7 @@ export class ManagerTrackCampaignPage {
                           .firestore()
                           .collection("Company")
                           .doc(currentuser.photoURL)
-                          .collection("Campaigns")
+                          .collection("Users").doc(currentuser.uid).collection("CampsAsso")
                           .doc(snap.data().cid) //===================MAin CampId return from docsForEach on camps collection
                           .update({
                             pendingCalls: call.length,
@@ -199,13 +199,13 @@ export class ManagerTrackCampaignPage {
                   // console.log("Inserted",snap.data().cid,meet,call);
 
                   // console.log("Toal lead counts", snap.data().cid, data.size);
-                  firebase
-                    .firestore()
-                    .collection("Company")
-                    .doc(currentuser.photoURL)
-                    .collection("Campaigns")
-                    .doc(snap.data().cid)
-                    .update({
+                  firebase //===============Writing Counts back to DB================
+                          .firestore()
+                          .collection("Company")
+                          .doc(currentuser.photoURL)
+                          .collection("Users").doc(currentuser.uid).collection("CampsAsso")
+                          .doc(snap.data().cid) //===================MAin CampId return from docsForEach on camps collection
+                          .update({
                       totalLeads: data.size,
                     });
                 });
@@ -227,7 +227,7 @@ export class ManagerTrackCampaignPage {
     this.userInfo = this.afs
       .collection("Company")
       .doc(currentuser.photoURL)
-      .collection("Campaigns");
+      .collection("Users").doc(currentuser.uid).collection("CampsAsso");
     this.products = this.userInfo.valueChanges();
     this.pc = this.products;
     console.log("PC", this.products);

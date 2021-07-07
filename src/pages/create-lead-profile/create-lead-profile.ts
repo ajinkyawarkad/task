@@ -35,6 +35,8 @@ export class CreateLeadProfilePage {
   csvContent: any;
   csvData: any;
   campid: any;
+  manId;
+  srIds = [];
   public anArray: any = [];
   public anArray1: any = [];
   products: Observable<Camps[]>;
@@ -130,6 +132,8 @@ export class CreateLeadProfilePage {
     this.Segments = "1";
 
     this.campid = this.navParams.get("item");
+    this.manId = this.navParams.get("manId");
+    this.srIds = this.navParams.get("Srs");
     console.log("Camp idd", this.campid);
   }
 
@@ -458,7 +462,6 @@ export class CreateLeadProfilePage {
         .doc("records")
         .set(
           {
-            Action: false,
             Address: false,
             Apartment: false,
             City: false,
@@ -475,7 +478,6 @@ export class CreateLeadProfilePage {
             Follow_up: false,
             Full_Name: false,
             Gender: false,
-            Handler: false,
             Home: false,
             Home_Phone: false,
             Id: false,
@@ -527,6 +529,205 @@ export class CreateLeadProfilePage {
               });
           }
         });
+
+         //MANAGER<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+         firebase
+         .firestore()
+         .collection("Company")
+         .doc(currentUser.photoURL)
+         .collection("Users").doc(this.manId).collection("CampsAsso")
+         .doc(this.campid)
+         .collection("Fields")
+         .doc("records")
+         .set(
+          {
+            Address: false,
+            Apartment: false,
+            City: false,
+            Company_Name: false,
+            Corporate_Website: false,
+            Country: false,
+            Currency: false,
+            Date_of_Birth: false,
+            Email: false,
+            Facebook: false,
+            Facebook_Page: false,
+            Fax: false,
+            first_name: false,
+            Follow_up: false,
+            Full_Name: false,
+            Gender: false,
+            Home: false,
+            Home_Phone: false,
+            Id: false,
+            last_name: false,
+            Live_Chat: false,
+            LiveJournal: false,
+            middle_name: false,
+            Mobile: false,
+            Newsletter_Email: false,
+            Opportunity: false,
+            Other_Contact: false,
+            Personal_Page: false,
+            Phone: false,
+            Position: false,
+            Price: false,
+            Profile_URL: false,
+            Quality: false,
+            Responsible_Person: false,
+            Salutation: false,
+            Skype: false,
+            Source: false,
+            Stage: false,
+            State: false,
+            Telegram_Account: false,
+            Twitter: false,
+            Vibe_Contact: false,
+            VK_Page: false,
+            Website: false,
+            Work_Email: false,
+            Work_Phone: false,
+            Zip: false,
+          },
+           { merge: true }
+         )
+         .then((res) => {
+           let i;
+           if(Mainheader.length >= 4){
+             
+           for (i = 0; i <= 4; i++) {
+             firebase
+               .firestore()
+               .collection("Company")
+               .doc(currentUser.photoURL)
+               .collection("Users").doc(this.manId).collection("CampsAsso")
+               .doc(this.campid)
+               .collection("Fields")
+               .doc("records")
+               .update({
+                 [Mainheader[i].indicator]: true,
+               });
+           }
+ 
+           }else{
+             for (i = 0; i < Mainheader.length; i++) {
+               firebase
+                 .firestore()
+                 .collection("Company")
+                 .doc(currentUser.photoURL)
+                 .collection("Users").doc(this.manId).collection("CampsAsso")
+                 .doc(this.campid)
+                 .collection("Fields")
+                 .doc("records")
+                 .update({
+                   [Mainheader[i].indicator]: true,
+                 });
+             }
+ 
+           }
+         });
+          //MANAGER<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+ 
+          for(var a in this.srIds){
+           firebase
+           .firestore()
+           .collection("Company")
+           .doc(currentUser.photoURL)
+           .collection("Users").doc(this.srIds[a]).collection("CampsAsso")
+           .doc(this.campid)
+           .collection("Fields")
+           .doc("records")
+           .set(
+            {
+              Address: false,
+              Apartment: false,
+              City: false,
+              Company_Name: false,
+              Corporate_Website: false,
+              Country: false,
+              Currency: false,
+              Date_of_Birth: false,
+              Email: false,
+              Facebook: false,
+              Facebook_Page: false,
+              Fax: false,
+              first_name: false,
+              Follow_up: false,
+              Full_Name: false,
+              Gender: false,
+              Home: false,
+              Home_Phone: false,
+              Id: false,
+              last_name: false,
+              Live_Chat: false,
+              LiveJournal: false,
+              middle_name: false,
+              Mobile: false,
+              Newsletter_Email: false,
+              Opportunity: false,
+              Other_Contact: false,
+              Personal_Page: false,
+              Phone: false,
+              Position: false,
+              Price: false,
+              Profile_URL: false,
+              Quality: false,
+              Responsible_Person: false,
+              Salutation: false,
+              Skype: false,
+              Source: false,
+              Stage: false,
+              State: false,
+              Telegram_Account: false,
+              Twitter: false,
+              Vibe_Contact: false,
+              VK_Page: false,
+              Website: false,
+              Work_Email: false,
+              Work_Phone: false,
+              Zip: false,
+            },
+             { merge: true }
+           )
+           .then((res) => {
+             let i;
+             if(Mainheader.length >= 4){
+               
+             for (i = 0; i <= 4; i++) {
+               firebase
+                 .firestore()
+                 .collection("Company")
+                 .doc(currentUser.photoURL)
+                 .collection("Users").doc(this.srIds[a]).collection("CampsAsso")
+                 .doc(this.campid)
+                 .collection("Fields")
+                 .doc("records")
+                 .update({
+                   [Mainheader[i].indicator]: true,
+                 });
+             }
+   
+             }else{
+               for (i = 0; i < Mainheader.length; i++) {
+                 firebase
+                   .firestore()
+                   .collection("Company")
+                   .doc(currentUser.photoURL)
+                   .collection("Users").doc().collection("CampsAsso")
+                   .doc(this.campid)
+                   .collection("Fields")
+                   .doc("records")
+                   .update({
+                     [Mainheader[i].indicator]: true,
+                   });
+               }
+   
+             }
+           });
+ 
+ 
+          }
     }
     
   }
@@ -736,7 +937,8 @@ export class CreateLeadProfilePage {
         )
         .then((res) => {
           let i;
-
+          if(Mainheader.length > 4){
+            
           for (i = 0; i < 4; i++) {
             firebase
               .firestore()
@@ -750,7 +952,228 @@ export class CreateLeadProfilePage {
                 [Mainheader[i].indicator]: true,
               });
           }
+
+          }else{
+            for (i = 0; i < Mainheader.length; i++) {
+              firebase
+                .firestore()
+                .collection("Company")
+                .doc(currentUser.photoURL)
+                .collection("Campaigns")
+                .doc(this.campid)
+                .collection("Fields")
+                .doc("records")
+                .update({
+                  [Mainheader[i].indicator]: true,
+                });
+            }
+
+          }
+
         });
+
+        //MANAGER<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+        firebase
+        .firestore()
+        .collection("Company")
+        .doc(currentUser.photoURL)
+        .collection("Users").doc(this.manId).collection("CampsAsso")
+        .doc(this.campid)
+        .collection("Fields")
+        .doc("records")
+        .set(
+          {
+          Action: false,
+          Address: false,
+          Apartment: false,
+          City: false,
+          Company_Name: false,
+          Corporate_Website: false,
+          Country: false,
+          Currency: false,
+          Date_of_Birth: false,
+          Email: false,
+          Facebook: false,
+          Facebook_Page: false,
+          Fax: false,
+          first_name: false,
+          Follow_up: false,
+          Full_Name: false,
+          Gender: false,
+          Handler: false,
+          Home: false,
+          Home_Phone: false,
+          Id: false,
+          last_name: false,
+          Live_Chat: false,
+          LiveJournal: false,
+          middle_name: false,
+          Mobile: false,
+          Newsletter_Email: false,
+          Opportunity: false,
+          Other_Contact: false,
+          Personal_Page: false,
+          Phone: false,
+          Position: false,
+          Price: false,
+          Profile_URL: false,
+          Quality: false,
+          Responsible_Person: false,
+          Salutation: false,
+          Skype: false,
+          Source: false,
+          Stage: false,
+          State: false,
+          Telegram_Account: false,
+          Twitter: false,
+          Vibe_Contact: false,
+          VK_Page: false,
+          Website: false,
+          Work_Email: false,
+          Work_Phone: false,
+          Zip: false,
+          },
+          { merge: true }
+        )
+        .then((res) => {
+          let i;
+          if(Mainheader.length >= 4){
+            
+          for (i = 0; i <= 4; i++) {
+            firebase
+              .firestore()
+              .collection("Company")
+              .doc(currentUser.photoURL)
+              .collection("Users").doc(this.manId).collection("CampsAsso")
+              .doc(this.campid)
+              .collection("Fields")
+              .doc("records")
+              .update({
+                [Mainheader[i].indicator]: true,
+              });
+          }
+
+          }else{
+            for (i = 0; i < Mainheader.length; i++) {
+              firebase
+                .firestore()
+                .collection("Company")
+                .doc(currentUser.photoURL)
+                .collection("Users").doc(this.manId).collection("CampsAsso")
+                .doc(this.campid)
+                .collection("Fields")
+                .doc("records")
+                .update({
+                  [Mainheader[i].indicator]: true,
+                });
+            }
+
+          }
+        });
+         //MANAGER<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+         for(var a in this.srIds){
+          firebase
+          .firestore()
+          .collection("Company")
+          .doc(currentUser.photoURL)
+          .collection("Users").doc(this.srIds[a]).collection("CampsAsso")
+          .doc(this.campid)
+          .collection("Fields")
+          .doc("records")
+          .set(
+            {
+            Action: false,
+            Address: false,
+            Apartment: false,
+            City: false,
+            Company_Name: false,
+            Corporate_Website: false,
+            Country: false,
+            Currency: false,
+            Date_of_Birth: false,
+            Email: false,
+            Facebook: false,
+            Facebook_Page: false,
+            Fax: false,
+            first_name: false,
+            Follow_up: false,
+            Full_Name: false,
+            Gender: false,
+            Handler: false,
+            Home: false,
+            Home_Phone: false,
+            Id: false,
+            last_name: false,
+            Live_Chat: false,
+            LiveJournal: false,
+            middle_name: false,
+            Mobile: false,
+            Newsletter_Email: false,
+            Opportunity: false,
+            Other_Contact: false,
+            Personal_Page: false,
+            Phone: false,
+            Position: false,
+            Price: false,
+            Profile_URL: false,
+            Quality: false,
+            Responsible_Person: false,
+            Salutation: false,
+            Skype: false,
+            Source: false,
+            Stage: false,
+            State: false,
+            Telegram_Account: false,
+            Twitter: false,
+            Vibe_Contact: false,
+            VK_Page: false,
+            Website: false,
+            Work_Email: false,
+            Work_Phone: false,
+            Zip: false,
+            },
+            { merge: true }
+          )
+          .then((res) => {
+            let i;
+            if(Mainheader.length >= 4){
+              
+            for (i = 0; i <= 4; i++) {
+              firebase
+                .firestore()
+                .collection("Company")
+                .doc(currentUser.photoURL)
+                .collection("Users").doc(this.srIds[a]).collection("CampsAsso")
+                .doc(this.campid)
+                .collection("Fields")
+                .doc("records")
+                .update({
+                  [Mainheader[i].indicator]: true,
+                });
+            }
+  
+            }else{
+              for (i = 0; i < Mainheader.length; i++) {
+                firebase
+                  .firestore()
+                  .collection("Company")
+                  .doc(currentUser.photoURL)
+                  .collection("Users").doc().collection("CampsAsso")
+                  .doc(this.campid)
+                  .collection("Fields")
+                  .doc("records")
+                  .update({
+                    [Mainheader[i].indicator]: true,
+                  });
+              }
+  
+            }
+          });
+
+
+         }
     }
   }
 
