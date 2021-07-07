@@ -161,7 +161,7 @@ export class TaskDetailsPage {
     //   )
   }
 
-  Getselected(selected_value) {
+  Getselected(selected_value) { 
     let temp = [];
 
     console.log("SELECT", selected_value);
@@ -488,10 +488,35 @@ export class TaskDetailsPage {
             datetime: "",
             status:  this.task.status,
             remark: "",
+           
           },
           { merge: true }
         )
       );
+      firebase
+          .firestore()
+          .collection("Company")
+          .doc(currentuser.photoURL)
+          .collection("Campaigns")
+          .doc(this.cid)
+          .collection("leads")
+          .doc(this.data.uid)
+          .collection("History")
+          .doc("Activity1")
+          .set(
+            {
+              data: firebase.firestore.FieldValue.arrayUnion({
+                Time: new Date(),
+                Action:"None",
+                FollowUp: "NA",
+                Remark: "NA",
+                name: this.data.uid,
+                Handler: this.data.SR_name,
+                Completed: true,
+              }),
+            },
+            { merge: true }
+          );
       this.navCtrl.push(TrackCampaignPage)
     }else{
       this.hideMe = true;
