@@ -36,8 +36,8 @@
     <div [ngSwitch]="Segments">
       <div *ngSwitchCase="1">
       
-        <div id="table-scroll" class="table-scroll">
-          <table id="main-table" class="main-table">
+        <div class="tableFixHead">
+          <table >
             <thead>
               <tr>
                 <th scope="col" (click)="sort()">Compaigns Name <ion-icon mode="ios" name="arrow-down"></ion-icon>
@@ -75,8 +75,8 @@
       <div *ngSwitchCase="2">
         <br>
 
-        <div id="table-scroll" class="table-scroll">
-          <table id="main-table" class="main-table">
+        <div class="tableFixHead">
+          <table >
             <thead>
               <tr>
                 <th scope="col" (click)="sort()">Compaigns Name <ion-icon mode="ios" name="arrow-down"></ion-icon>

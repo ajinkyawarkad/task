@@ -1,5 +1,4 @@
 page-track-campaign {
-
 	ion-content
 	{
 		font-family: 'roboto';
@@ -142,6 +141,7 @@ page-track-campaign {
 		  position: sticky; 
 		  top: 0; 
 		  z-index: 1; 
+		  background: #f4f4f4;
 		 // overflow-x: scroll;
 		 // width: 100%;
 	  }
@@ -203,15 +203,11 @@ page-track-campaign {
 		  position: sticky; 
 		  top: 0; 
 		  z-index: 1; 
-		  //overflow-x: scroll;
-		  //width: 100%;
+		 
 	  }
   
 	  table  { 
 		width: 100%;
-		//min-width: 1280px;
-		//margin: auto;
-		//border-collapse: separate;
 		border-spacing: 0;
 	}
 	  th, td {
@@ -221,8 +217,7 @@ page-track-campaign {
 		   
 		   
 	 }
-	  th 
-	  { background:#eee; }
+	 
 	
 	 p{
 		display: inline-block;
@@ -234,8 +229,9 @@ page-track-campaign {
 
 	  th 
 	  { 
-		border-bottom: 3px solid #ddd;
-		border-top: 3px solid #ddd;
+		background: #f4f4f4;
+		border-bottom: 1px solid #ddd;
+		border-top: 1px solid #ddd;
 	}
 
 	.seg{
@@ -261,5 +257,6 @@ page-track-campaign {
 	}
 	
 	
+
 
 	}
