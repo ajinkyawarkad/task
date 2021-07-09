@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component, Input } from "@angular/core";
 import firebase from "firebase";
 import { AlertController, NavController, NavParams } from "ionic-angular";
 import { CallDetailsPage } from "../call-details/call-details";
@@ -49,7 +49,7 @@ export class LeadsDetailsPage {
   value: any;
   userInfo: any;
   products: Observable<Users[]>;
-  productss: Observable<Users[]>;
+  productss :any=[];
   productsss: any;
   prod = [];
   public anArray: any = [];
@@ -121,6 +121,8 @@ export class LeadsDetailsPage {
   Follow_Up;
   Status;
   Remark;
+  showAssign;
+  srIds=[];
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -140,8 +142,12 @@ export class LeadsDetailsPage {
     public loadingCtrl: LoadingController
   ) {
     this.value = navParams.get("product");
-    console.log(this.value);
+    // this.srIds =this.value.SR_id
+    
     this.campid = this.value.cid;
+    for(var i in this.value.SR_id){
+      this.srIds.push({"id":this.value.SR_id[i],"name":this.value.SR_name[i]})
+    }
   }
 
   hide() {
@@ -382,39 +388,34 @@ export class LeadsDetailsPage {
 
   checkMaster() {
     setTimeout(() => {
-      this.hide();
       this.productsss.forEach((obj) => {
         obj.isChecked = this.masterCheck;
         // console.log(obj.isChecked);
 
         if (obj.isChecked == true && this.array.includes(obj.uid) === false) {
           this.array.push(obj.uid);
-          // console.log(this.array);
+          console.log(this.array);
           this.checkedCount = this.array.length;
-          // console.log("count", this.checkedCount);
-          // if(this.checkedCount == 0){
-          //   this.hideMe = false
-
-          // }else{
-          //   this.hideMe = true
-          // }
-          console.log("HideMe", this.hideMe);
+          console.log("count", this.checkedCount);
+          if (this.checkedCount == 0) {
+            this.showAssign = false;
+          } else {
+            this.showAssign = true;
+          }
         }
         if (obj.isChecked == false) {
           var index = this.array.indexOf(obj.uid);
           if (index !== -1) {
             this.array.splice(index, 1);
           }
-          // console.log(this.array);
-          // console.log(this.array.length);
-          // console.log("count", this.checkedCount);
-          // if(this.checkedCount == 0){
-          //   this.hideMe = false
-
-          // }else{
-          //   this.hideMe = true
-          // }
-          console.log("HideMe", this.hideMe);
+          console.log(this.array);
+          console.log(this.array.length);
+          console.log("count", this.checkedCount);
+          if (this.checkedCount == 0) {
+            this.showAssign = false;
+          } else {
+            this.showAssign = true;
+          }
         }
       });
     });
@@ -423,6 +424,7 @@ export class LeadsDetailsPage {
   checkEvent(lead: Lead) {
     this.hide();
     let checked = 0;
+    
 
     this.productsss.map((obj) => {
       // console.log(obj.isChecked);
@@ -431,14 +433,26 @@ export class LeadsDetailsPage {
         this.array.push(obj.uid);
         // console.log(this.array);
         this.checkedCount = this.array.length;
+        if (this.checkedCount == 0) {
+          this.showAssign = false;
+        } else {
+          this.showAssign = true;
+        }
+       
       }
       if (obj.isChecked == false) {
         var index = this.array.indexOf(obj.uid);
         if (index !== -1) {
           this.array.splice(index, 1);
         }
+       
         // console.log(this.array);
         this.checkedCount = this.array.length;
+        if (this.checkedCount == 0) {
+          this.showAssign = false;
+        } else {
+          this.showAssign = true;
+        }
         // console.log("count", this.checkedCount);
       }
     });
@@ -492,12 +506,10 @@ export class LeadsDetailsPage {
   }
 
   ionViewDidLoad() {
-    
-
     function closeForm() {
       $(".form-popup-bg").removeClass("is-visible");
     }
-    
+
     $(document).ready(function ($) {
       /* Contact Form Interactions */
       $("#btnOpenForm").on("click", function (event) {
@@ -518,8 +530,7 @@ export class LeadsDetailsPage {
       });
     });
 
-
-     $(document).ready(function ($) {
+    $(document).ready(function ($) {
       /* Contact Form Interactions */
       $("#btnOpenForm").on("click", function (event) {
         event.preventDefault();
@@ -538,7 +549,6 @@ export class LeadsDetailsPage {
         }
       });
     });
-
 
     $("#fixed-form-container .body").hide();
     $("#fixed-form-container .button").click(function () {
@@ -687,12 +697,16 @@ export class LeadsDetailsPage {
         //==========
       });
 
-    this.userInfo = this.afs
-      .collection("Company")
-      .doc(currentuser.photoURL)
-      .collection("Admin")
-      .doc(currentuser.uid);
-    this.productss = this.userInfo.valueChanges().Users;
+    // this.userInfo = this.afs
+    //   .collection("Company")
+    //   .doc(currentuser.photoURL)
+    //   .collection("Admin")
+    //   .doc(currentuser.uid);
+    // this.productss = this.userInfo.valueChanges().Users;
+    this.productss=this.srIds
+    console.log("value",this.productss);
+
+    //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<?????????????????????????????????????????????????????????????????????????????
 
     firebase
       .firestore()
