@@ -13,7 +13,7 @@
 	
 		<div>
 
-			<div style="float: right;margin-top: 1px; width: 20%;">
+			<div class="Sbar">
 
 				<ion-searchbar (ionInput)="getItems($event)" placeholder="Search" [(ngModel)]="terms"
 					showCancelButton="always"></ion-searchbar>
@@ -53,12 +53,12 @@
 			</div>
 
 			&nbsp;
-			<div style="float: left;margin-left: 10px;margin-top: 7px;">
+			<div class="addbutton" >
 				<button ion-button color="success" (click)="add()"> Add</button>
 			</div>
 
 			<div>
-				<div style="float: left;margin-left: 10px;margin-top: -10px;">
+				<div class="Filter" >
 					<button ion-button color="success" (click)="hide3()">Filter</button>
 				</div>
 
@@ -68,7 +68,7 @@
 						
 						<ion-row>
 							<ion-col>
-								<label>Select Filter </label>
+								<label>Select Field </label>
 								<select class="form-element" [(ngModel)]="field" (change)="setField(field)">
 									<option value="Status" selected>Status</option>
 									<option value="Action">Action</option>
@@ -76,7 +76,7 @@
 								</select>
 							</ion-col>
 							<ion-col>
-								<label>Select Choice </label>
+								<label>Select Value</label>
 								<select class="form-element" [(ngModel)]="ss" (change)="showOptions(ss)">
 									<option selected>All</option>
 									<option *ngFor="let pr of pro ">{{pr}}</option>
@@ -91,10 +91,10 @@
 				</div>
 
 
-				<div style="    float: right;margin-right: 36%;margin-top: -70px;">
+				<!-- <div style="    float: right;margin-right: 36%;margin-top: -70px;">
 					<ion-icon style="font-size: 1.8em;" ios="ios-download" md="md-download" *ngIf="csvShow"
 						(click)="downloadCsv()"></ion-icon>
-				</div>
+				</div> -->
 
 			</div>
 		</div>
@@ -102,22 +102,22 @@
 		<div>
 
 			<div class="scrollbar">
-				<div *ngIf="showAssign" style="float: left;margin-left: -16%;margin-top: 36px;">
+				<div *ngIf="showAssign" class="Selected" >
 					<p style="margin-left: 10px;" >Selected : {{checkedCount}} </p>
 				</div>
 
-				<div *ngIf="showAssign" style="float: left;margin-left: 14%;margin-top: -5px;">
-					<button ion-button color="secondary" (click)="hide1()"> Assign Handler</button>
+				<div *ngIf="showAssign" class="AssHan" >
+					<!-- <button ion-button color="secondary" (click)="hide1()"> Assign Handler</button> -->
+					<ion-label >Assign Handler</ion-label>
 				</div>
 
 				<div *ngIf="showAssign">
 
-					<!-- <ion-item style="width: 30%;border: none;"> -->
-						<!-- <ion-label>Sale Representative</ion-label> -->
-						<ion-select style="width: 20%;" placeholder="Sales Representative" [(ngModel)]="prod" (ionChange)="insertsr(prod)">
+					
+						<ion-select class="SR" style="width: 20%;" placeholder="Sales Representative" [(ngModel)]="prod" (ionChange)="insertsr(prod)">
 							<ion-option *ngFor="let prod of productss" [value]="prod">{{prod.name}}</ion-option>
 						</ion-select>
-					<!-- </ion-item> -->
+					
 				</div>
 
 				<br>
@@ -225,8 +225,7 @@
 								<td *ngIf="State">{{product.State}}</td>
 								<td *ngIf="Country">{{product.Country}}</td>
 								<td *ngIf="Gender">{{product.Gender}}</td>
-								<td style="color: cornflowerblue;text-decoration: underline;"
-									(click)="remaining(product)" *ngIf="Company_Name">{{product.Company_Name}}</td>
+								<td *ngIf="Company_Name">{{product.Company_Name}}</td>
 								<td *ngIf="Position">{{product.Position}}</td>
 								<td *ngIf="Profile_URL">{{product.Profile_URL}}</td>
 								<td *ngIf="Date_of_Birth">{{product.Date_of_Birth}}</td>
@@ -300,8 +299,7 @@
 								<td *ngIf="Full_Name">{{product.Full_Name}}</td>
 								<td *ngIf="middle_name">{{product.middle_name}}</td>
 								<td *ngIf="last_name">{{product.last_name}}</td>
-								<!-- <td style="color: cornflowerblue;" >
-				{{product.Email}}</td> -->
+							
 								<td *ngIf="Phone">{{product.Phone}}
 									<div *ngIf="product.Phone"
 										style="color: cornflowerblue;display: inline-block;margin-left: 2px;">
@@ -321,8 +319,7 @@
 								<td *ngIf="State">{{product.State}}</td>
 								<td *ngIf="Country">{{product.Country}}</td>
 								<td *ngIf="Gender">{{product.Gender}}</td>
-								<td style="color: cornflowerblue;text-decoration: underline;"
-									(click)="remaining(product)" *ngIf="Company_Name">{{product.Company_Name}}</td>
+								<td *ngIf="Company_Name">{{product.Company_Name}}</td>
 								<td *ngIf="Position">{{product.Position}}</td>
 								<td *ngIf="Profile_URL">{{product.Profile_URL}}</td>
 								<td *ngIf="Date_of_Birth">{{product.Date_of_Birth}}</td>
@@ -390,7 +387,7 @@
 			</div>
 		</div>
 
-		<!-- <pagination-controls style="float:right" (pageChange)="p = $event"></pagination-controls> -->
+		
 		<br>
 		<div style="float:left;">
 

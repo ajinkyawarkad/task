@@ -9,80 +9,53 @@ page-task-details {
 		font-size: 14px;	
 	}
 
+	.container {
+		border-radius: 5px;
+		background-color:#fafafa;
+		height: 100%; 
+        position: fixed;
+        z-index: 1;	
+	}
+	.left {
+        left: 10px;
+        width:40%;
+      }
 
-	/* Extra small devices (phones, 600px and down) */
+    .right {
+        right: 10px;
+        width:57%;
+		border: 7px solid #fafafa;
+		background-color: white;
+	
+      }
+      
+     .in{
+        height: 35px;
+        margin-top: -9px;
+     }
+    .divider{
+        background-color:#fafafa;
+    }
+    table{
+        width:90%;
+        margin-top: 3%;
+        margin-left:5%;
+        background-color: white;
+        border: 1px solid #ddd !important;
+    }
+    tr:hover {
+        background-color:#f5f5f5;
+    }
+    td { 
+        padding: 8px;  
+        text-align: left; 
+        border-bottom: 1px solid rgb(221, 220, 220); 
+        
+        
+    }
+	// Extra small devices (phones, 600px and down) //
 	@media only screen and (max-width: 600px) {
-		.progress-bar {
-			width: 100%;
-			margin-left: -9px;
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
-			}
-	
-			.progress-step {
-			text-align: center;
-			position: relative;
-	
-			&:before,
-			&:after {
-				background-color: $primary-color;
-				content: "";
-				height: 2px;
-				position: absolute;
-				z-index: -1;
-				top: 20px;
-			}
-	
-			&:after {
-				left: 50%;
-				width: 100%;
-			}
-			
-			&:last-of-type.is-active:after {
-				background-color: $primary-color;
-				}
-	
-	
-			&:last-of-type:after {
-				left: 50%;
-				width: 50%;
-			}
-				
-			.step-count {
-				background-color: $primary-color;
-				height: 30px;
-				width: 30px;
-				margin: 4px auto;
-				border-radius: 50%;
-				color: white;
-				line-height: 14px;
-				z-index: 100;
-				border: 7px solid white;
-				font-size: 0.8rem;
-				font-weight: 500;
-			}
-	
-			&.is-active {
-				.step-description {
-				font-weight: 500;
-				}
-				&:after {
-				background-color: $light-gray-color;
-				}
-				
-				~ .progress-step .step-count {
-				background-color: $light-gray-color;
-				}
-	
-				~ .progress-step:after {
-				background-color: $light-gray-color;
-				}
-			}
-			}
-	
-			.step-description {
-			font-size: 12px;
-			}
+		
 
 			.datetime{
 				width: 104%;
@@ -110,12 +83,7 @@ page-task-details {
 				}
 	
 			}
-			.mainslide{
-				width: 200%;
-				margin-top: -11%;
-				margin-left: -57%;
-			}
-	
+		
 			ion-select
 			{
 				width: 95%; 
@@ -126,7 +94,7 @@ page-task-details {
 				margin-top: 6px; 
 				margin-bottom: 16px; 
 				resize: vertical ;
-				//margin-left: 2px;
+				////margin-left: 2px;
 				font-size: 15px;
 	
 				&:focus {
@@ -153,17 +121,7 @@ page-task-details {
 				box-sizing: border-box;
 			}
 			
-				  #prevBtn {
-			background-color: #bbbbbb;
-		  }
-	
-			.container {
-				border-radius: 5px;
-				//background-color: rgb(241, 238, 238);
-				border: 1px solid #ccc; 
-				padding: 7% 26% 9% 31%;
-				
-			}
+		
 	
 			.status{
 			width: 98%;
@@ -171,7 +129,7 @@ page-task-details {
 			-webkit-box-sizing: border-box;
 			box-sizing: border-box;
 			margin-top: 0px;
-			//margin-bottom: 4px;
+			////margin-bottom: 4px;
 			resize: vertical;
 			margin-left: 0px;
 			font-size: 15px;
@@ -195,11 +153,7 @@ page-task-details {
 	
 			}
 		
-		  ion-icon {
-			display: inline-block;
-			font-size: 1.0em;
-			margin-left: 4px;
-		}
+		
 		.nameLabel{
 			color:cornflowerblue;
 			margin-top: 8px; 
@@ -213,80 +167,9 @@ page-task-details {
 	}
 
 
-	/* Extra small devices (phones, 600px and down) */
+	// Extra small devices (phones, 600px and down) //
 	@media only screen and (min-width: 600px) {
-		.progress-bar {
-			width: 100%;
-			margin-left: -9px;
-			display: grid;
-			grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
-			}
-	
-			.progress-step {
-			text-align: center;
-			position: relative;
-	
-			&:before,
-			&:after {
-				background-color: $primary-color;
-				content: "";
-				height: 2px;
-				position: absolute;
-				z-index: -1;
-				top: 20px;
-			}
-	
-			&:after {
-				left: 50%;
-				width: 100%;
-			}
-			
-			&:last-of-type.is-active:after {
-				background-color: $primary-color;
-				}
-	
-	
-			&:last-of-type:after {
-				left: 50%;
-				width: 50%;
-			}
-				
-			.step-count {
-				background-color: $primary-color;
-				height: 30px;
-				width: 30px;
-				margin: 4px auto;
-				border-radius: 50%;
-				color: white;
-				line-height: 14px;
-				z-index: 100;
-				border: 7px solid white;
-				font-size: 0.8rem;
-				font-weight: 500;
-			}
-	
-			&.is-active {
-				.step-description {
-				font-weight: 500;
-				}
-				&:after {
-				background-color: $light-gray-color;
-				}
-				
-				~ .progress-step .step-count {
-				background-color: $light-gray-color;
-				}
-	
-				~ .progress-step:after {
-				background-color: $light-gray-color;
-				}
-			}
-			}
-	
-			.step-description {
-			font-size: 12px;
-			}
-
+		
 			.datetime{
 				width: 104%;
     			margin-top: 0px;
@@ -313,12 +196,7 @@ page-task-details {
 				}
 	
 			}
-			.mainslide{
-				width: 200%;
-				margin-top: -11%;
-				margin-left: -57%;
-			}
-	
+		
 			ion-select
 			{
 				width: 95%; 
@@ -329,7 +207,7 @@ page-task-details {
 				margin-top: 6px; 
 				margin-bottom: 16px; 
 				resize: vertical ;
-				//margin-left: 2px;
+				////margin-left: 2px;
 				font-size: 15px;
 	
 				&:focus {
@@ -356,25 +234,14 @@ page-task-details {
 				box-sizing: border-box;
 			}
 			
-				  #prevBtn {
-			background-color: #bbbbbb;
-		  }
-	
-			.container {
-				border-radius: 5px;
-				//background-color: rgb(241, 238, 238);
-				border: 1px solid #ccc; 
-				padding: 7% 26% 9% 31%;
-				
-			}
-	
+			
 			.status{
 			width: 98%;
 			border-radius: 4px;
 			-webkit-box-sizing: border-box;
 			box-sizing: border-box;
 			margin-top: 0px;
-			//margin-bottom: 4px;
+			////margin-bottom: 4px;
 			resize: vertical;
 			margin-left: 0px;
 			font-size: 15px;
@@ -398,20 +265,16 @@ page-task-details {
 	
 			}
 		
-		  ion-icon {
-			display: inline-block;
-			font-size: 1.0em;
-			margin-left: 4px;
-		}
 		.nameLabel{
 			color:cornflowerblue;
-			margin-top: 8px; 
+			margin-top: 28px; 
 			border-bottom: 1px solid #ccc;
 		}
 		.itemselect{
 			width: 209%;
     		margin-left: 0px;
 		}
+	
 
 	}
 
@@ -419,7 +282,7 @@ page-task-details {
 
 		.nameLabel{
 			color:cornflowerblue;
-			margin-top: -16px; 
+			margin-top: 1px; 
 			border-bottom: 1px solid #ccc;
 		}
 		.itemselect{
@@ -427,85 +290,17 @@ page-task-details {
 			margin-left: 8px;
 		}
 
-		.progress-bar {
-		width: 100%;
-		display: grid;
-		grid-template-columns: repeat(auto-fit, minmax(20px, 1fr));
-		}
-
-		.progress-step {
-		text-align: center;
-		position: relative;
-
-		&:before,
-		&:after {
-			background-color: $primary-color;
-			content: "";
-			height: 2px;
-			position: absolute;
-			z-index: -1;
-			top: 20px;
-		}
-
-		&:after {
-			left: 50%;
-			width: 100%;
+		.wrap {
+			text-align: center;
 		}
 		
-		&:last-of-type.is-active:after {
-			background-color: $primary-color;
-			}
-
-
-		&:last-of-type:after {
-			left: 50%;
-			width: 50%;
+		.button {
+			position: absolute;
+			top: 65%;
 		}
-			
-		.step-count {
-			background-color: $primary-color;
-			height: 30px;
-			width: 30px;
-			margin: 4px auto;
-			border-radius: 50%;
-			color: white;
-			line-height: 14px;
-			z-index: 100;
-			border: 7px solid white;
-			font-size: 0.8rem;
-			font-weight: 500;
-		}
-
-		&.is-active {
-			.step-description {
-			font-weight: 500;
-			}
-			&:after {
-			background-color: $light-gray-color;
-			}
-			
-			~ .progress-step .step-count {
-			background-color: $light-gray-color;
-			}
-
-			~ .progress-step:after {
-			background-color: $light-gray-color;
-			}
-		}
-		}
-
-		.step-description {
-		font-size: 12px;
-		}
-		.mainslide{
-			width:100%;
-			margin-top: -11%;
-			margin-left: 10px;
-		}
-
-		input[type=text],input[type=email],input[type=date] select 
+		input[type=text],input[type=email],input[type=date] ,select
 		{
-			width: 95%; 
+			width: 94%; 
 			padding: 10px; 
 			border: 1px solid #ccc; 
 			border-radius: 4px; 
@@ -513,7 +308,7 @@ page-task-details {
 			margin-top: 6px; 
 			margin-bottom: 16px; 
 			resize: vertical ;
-			//margin-left: 2px;
+			////margin-left: 2px;
 			font-size: 15px;
 			margin-left: 10px;
 
@@ -524,26 +319,7 @@ page-task-details {
 
 		}
 
-		ion-select
-		{
-			width: 95%; 
-			padding: 10px; 
-			border: 1px solid #ccc; 
-			border-radius: 4px; 
-			box-sizing: border-box; 
-			margin-top: 6px; 
-			margin-bottom: 16px; 
-			resize: vertical ;
-			//margin-left: 2px;
-			font-size: 15px;
-
-			&:focus {
-				outline: none;
-				border-color: #2d8cf0;
-			}
-
-		}
-
+		
 		.datetime{
 			width: 102%;
 			margin-left: 1px;
@@ -556,63 +332,12 @@ page-task-details {
 			font-family: inherit;
 			line-height: normal;
 			float: left;
-			margin-left: 8%;
+			margin-left: 5%;
 			margin-bottom: 1px;
 			font-size: 15px;
 		}
-		
-
-		* {
-			box-sizing: border-box;
-		}
-		
-		      #prevBtn {
-        background-color: #bbbbbb;
-      }
-
-		.container {
-			border-radius: 5px;
-			//background-color: rgb(241, 238, 238);
-			border: 1px solid #ccc; 
-			padding: 7% 26% 9% 31%;
-			
-		}
-
-		.status{
-		width: 98%;
-		border-radius: 4px;
-		-webkit-box-sizing: border-box;
-		box-sizing: border-box;
-		margin-top: 0px;
-		//margin-bottom: 4px;
-		resize: vertical;
-		margin-left: 0px;
-		font-size: 15px;
-		}
-
-		.selectoptionn
-		{
-			width: 100%;	
-			padding: 8px;
-			border-radius: 4px;
-			box-sizing: border-box;
-			margin-top: 6px;
-			resize: vertical;
-			margin-left: 0px;
-			font-size: 15px;
-
-			&:focus {
-				outline: none;
-				border-color: #2d8cf0;
-			}
-
-		}
 	
-	  ion-icon {
-		display: inline-block;
-		font-size: 1.2em;
-		margin-left: 5px;
-	}
+	 
 	}
 
 	.item-md.item-block .item-inner,
