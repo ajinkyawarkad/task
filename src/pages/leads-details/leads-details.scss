@@ -157,6 +157,14 @@ page-leads-details {
 	// 	margin-right: -7px;
 	// }
 
+	th:first-child {
+		position: sticky;
+		width: 0%;
+		left: 0px;
+		z-index: 2;
+		background: rgb(244, 244, 244);
+	}
+
 	.form-popup-bg {
 		position:absolute;
 		top: 0;
