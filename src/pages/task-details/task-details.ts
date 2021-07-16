@@ -444,6 +444,34 @@ export class TaskDetailsPage {
                 { merge: true }
               )
             );
+
+            firebase
+            .firestore()
+            .collection("Company")
+            .doc(currentuser.photoURL)
+            .collection("Campaigns")
+            .doc(this.cid)
+            .collection("leads")
+            .doc(this.data.uid)
+            .collection("History")
+            .doc("Activity1")
+            .set(
+              {
+                data: firebase.firestore.FieldValue.arrayUnion({
+                  Time: new Date(),
+                  Action: task.action,
+                  FollowUp: task.datetime,
+                  Remark: task.remark,
+                  Status: task.status,
+                  Handler: this.data.SR_name,
+                  Completed: true,
+                  id: id,
+                }),
+              },
+              { merge: true }
+            );
+
+
         } else {
           firebase
           .firestore()
@@ -471,6 +499,32 @@ export class TaskDetailsPage {
               },
               { merge: true }
             )
+          );
+
+          firebase
+          .firestore()
+          .collection("Company")
+          .doc(currentuser.photoURL)
+          .collection("Campaigns")
+          .doc(this.cid)
+          .collection("leads")
+          .doc(this.data.uid)
+          .collection("History")
+          .doc("Activity1")
+          .set(
+            {
+              data: firebase.firestore.FieldValue.arrayUnion({
+                Time: new Date(),
+                Action: task.action,
+                FollowUp: task.datetime,
+                Remark: task.remark,
+                Status: task.status,
+                Handler: this.data.SR_name,
+                Completed: false,
+                id: id,
+              }),
+            },
+            { merge: true }
           );
 
         }
@@ -556,31 +610,7 @@ export class TaskDetailsPage {
             break;
         }
 
-        firebase
-          .firestore()
-          .collection("Company")
-          .doc(currentuser.photoURL)
-          .collection("Campaigns")
-          .doc(this.cid)
-          .collection("leads")
-          .doc(this.data.uid)
-          .collection("History")
-          .doc("Activity1")
-          .set(
-            {
-              data: firebase.firestore.FieldValue.arrayUnion({
-                Time: new Date(),
-                Action: task.action,
-                FollowUp: task.datetime,
-                Remark: task.remark,
-                Status: task.status,
-                Handler: this.data.SR_name,
-                Completed: false,
-                id: id,
-              }),
-            },
-            { merge: true }
-          );
+       
         var b = new Date().getMonth() + 1;
 
         var c = new Date().getFullYear();
