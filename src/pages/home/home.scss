@@ -14,30 +14,69 @@ page-home {
         height:auto;
         
     }
+
+    .tableFixHead  { 
+        position: relative;
+    width:100%;
+    z-index: 1;
+    margin: auto;
+    overflow: auto;
+    height: 240px;
+      }
+
+  .tableFixHead thead th { 
+      position: sticky; 
+      top: 0; 
+      z-index: 1; 
+     
+  }
+
+  table  { 
+    width: 100%;
+    border-spacing: 0;
+    overflow: auto;
+}
+  th, td {
+       padding: 8px 4px;
+       border-bottom: 1px solid #ddd;
+       text-align: center;
+       
+       
+ }
+ hr{
+    border-bottom: 2px solid #ddd;
+ }
           ion-icon {
             display: inline-block;
             font-size: 3.2em;
             color: white;
+            margin-right: 10px;
+           
+            
+            vertical-align: middle;
         }
         .p{
             text-align: right;
             margin-right: 2%;
             margin-top: 2%;
+           
         }
       
         .card {
             margin: 0 0px;
             width: 100%;
-            padding: 14px;
+            padding: 10px;
          
            // border-radius: 4px;
-            ion-card-subtitle {
+            .text {
                 font-weight: 42%;
                 font-size: 1.6rem;
-               display: inline-block;
+               
                font-family: 'Roboto';
                 color: white;
                // margin-left: 3%;
+               display: inline-block;
+               vertical-align: middle;
             }
         }
        

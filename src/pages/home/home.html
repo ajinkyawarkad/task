@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon style="color:black" name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
   </ion-navbar>
@@ -11,7 +11,7 @@
 
 <div class="container">
 
-   <!-- <ion-icon name="people" color="primary"></ion-icon> -->
+   <!-- <ion-icon name="contact" ></ion-icon> -->
   <p class="p">{{name}}</p>
 
 
@@ -24,7 +24,7 @@
         <ion-card (click)="report()" style="background-color: #f53d3d;">
           <ion-card-header>
             <ion-icon name="document" ></ion-icon>
-            <ion-card-subtitle>Report</ion-card-subtitle>
+            <span class="text">Report</span>
           </ion-card-header>
           </ion-card>
       </ion-col>
@@ -33,7 +33,8 @@
         <ion-card (click)="user()" style="background-color: #488aff;">
           <ion-card-header>
             <ion-icon name="people" ></ion-icon>
-            <ion-card-subtitle>Users</ion-card-subtitle>
+            <!-- <ion-card-subtitle>Users</ion-card-subtitle> -->
+            <span class="text">Users</span>
           </ion-card-header>
           </ion-card>
       </ion-col>
@@ -42,7 +43,8 @@
         <ion-card (click)="createCampaigns()" style="background-color: #32db64;">
           <ion-card-header>
             <ion-icon name="person-add" ></ion-icon>
-            <ion-card-subtitle>Create Campaigns</ion-card-subtitle>
+            <!-- <ion-card-subtitle>Create Campaigns</ion-card-subtitle> -->
+            <span class="text">Create Campaigns</span>
           </ion-card-header>
           </ion-card>
       </ion-col>
@@ -50,7 +52,8 @@
         <ion-card (click)="trackCampaigns()" style="background-color: rebeccapurple;">
           <ion-card-header >
             <ion-icon name="copy" ></ion-icon>
-            <ion-card-subtitle>Track Campaigns</ion-card-subtitle>     
+          
+            <span class="text">Track Campaigns</span>   
           </ion-card-header>
           </ion-card>
       </ion-col>
@@ -62,34 +65,62 @@
 
   <ion-row>
     <ion-col size="12" size-md>
-      <ion-card class="graphCard">   
-        <ion-card-content class="canvas">
-          <canvas  #barCanvas></canvas>
+      <ion-card class="graphCard">  
+        <ion-card-header>
+          Line Chart
+        </ion-card-header> 
+        <ion-card-content>
+          <canvas #lineCanvas></canvas>
         </ion-card-content>
       </ion-card>
     </ion-col>
 
     <ion-col size="12" size-md>
-      <ion-card >   
-        <ion-card-content class="canvas">
-          <canvas  #barCanvas></canvas>
+      <ion-card class="graphCard">   
+        <ion-card-header>
+          Doughnut Chart
+        </ion-card-header>
+        <ion-card-content >
+          <canvas #doughnutCanvas></canvas>
         </ion-card-content>
       </ion-card>
     </ion-col>
+
+   
     </ion-row>
  
 
     <ion-row>
       <ion-col size="12" size-md>
-        <ion-card class="graphCard">   
-          <ion-card-content class="canvas">
-            <canvas  #barCanvas></canvas>
-          </ion-card-content>
+        <ion-card >   
+          <p class="p">Users Details</p>
+            <hr>
+                    <div class="tableFixHead">
+                      <table >
+                        <thead>
+                        <tr>
+                          <th>First Name</th>
+                          <th>Role</th>
+                          <th>Email</th>  
+                        </tr>
+                        </thead>
+                        <tbody>
+                          <tr *ngFor="let product of productss">
+                            <td >{{product.name}}</td>
+                            <td>{{product.role}}</td>
+                            <td>{{product.email}}</td>
+                          </tr>
+                        </tbody>
+                        </table>
+                        </div>
         </ion-card>
       </ion-col>
   
       <ion-col size="12" size-md>
         <ion-card >   
+          <ion-card-header>
+            Bar Chart
+          </ion-card-header>
           <ion-card-content class="canvas">
             <canvas  #barCanvas></canvas>
           </ion-card-content>
