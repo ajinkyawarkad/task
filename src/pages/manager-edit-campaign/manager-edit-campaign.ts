@@ -11,60 +11,57 @@ import { EditCsvFieldPage } from "../edit-csv-field/edit-csv-field";
   templateUrl: 'manager-edit-campaign.html',
 })
 export class ManagerEditCampaignPage {
-
   @ViewChild(Slides) slides: Slides;
   slideOpts;
-  
   createSuccess = false;
   public productsss: any[];
   public prod: any;
   userInfo: any;
   products: Observable<any[]>;
-  productss: any;
+  productss= [];
   pro: any;
   proo: any;
   sts: any = [];
   anArray: any = [];
   anArray2: any = [];
   idArr = [];
-  currentuser = firebase.auth().currentUser;
 
   product: { cid: ""; name: ""; goals: ""; manager: ""; sr: "" };
   value: any;
   public statuss: any;
+ currentuser = firebase.auth().currentUser;
 
   constructor(
+   
     public navCtrl: NavController,
     public navParams: NavParams,
     private alertCtrl: AlertController,
     public afs: AngularFirestore
   ) {
     this.value = navParams.get("product");
-
+    
   }
 
   ionViewDidLoad() {
-  
-  
+   
+    firebase
+      .firestore()
+      .collection("Company")
+      .doc(this.currentuser.photoURL)
+      .collection("Users")
+      .where('role' ,'==', 'Manager')
+      .get().then((data)=>{
+        data.docs.forEach((snap) => {
+          this.productss.push(snap.data());
+        });
+      })
 
     firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + this.currentuser.uid)
-      .collection("Admin")
-      .doc(this.currentuser.uid)
+      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        this.productss = doc.data().Managers;
-       
-      });
-    firebase
-      .firestore()
-      .collection("Company")
-      .doc("COM#" + this.currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid)
-      .onSnapshot((doc) => {
-        var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-       
         this.products = doc.data().status;
         this.sts = this.products;
       });
@@ -72,10 +69,9 @@ export class ManagerEditCampaignPage {
     firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + this.currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid)
+      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-     
         this.prod = doc.data().SR_name;
 
         for (var c in this.prod) {
@@ -84,28 +80,25 @@ export class ManagerEditCampaignPage {
         }
       });
 
-    firebase
-      .firestore()
-      .collection("Company")
-      .doc("COM#" + this.currentuser.uid)
-      .collection("Admin")
-      .doc(this.currentuser.uid)
-      .onSnapshot((doc) => {
-        var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-      
-        this.productsss = doc.data().Users;
-        for (var i in this.productsss) {
-          let n = this.productsss[i].name;
-          for (var x in this.anArray) {
-            if (this.anArray.includes(n) === false) {
-              this.anArray2.push(n)
-;
-            }
-          }
-        }
+    // firebase
+    //   .firestore()
+    //   .collection("Company")
+    //   .doc(this.currentuser.photoURL)
+    //   .collection("Admin")
+    //   .doc(this.currentuser.uid)
+    //   .onSnapshot((doc) => {
+    //     var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+    //    this.productsss = doc.data().Users;
+    //     for (var i in this.productsss) {
+    //       let n = this.productsss[i].name;
+    //       for (var x in this.anArray) {
+    //         if (this.anArray.includes(n) === false) {
+    //           this.anArray2.push(n);
+    //         }
+    //       }
+    //     }
 
-        
-      });
+    //   });
   }
 
   ionViewDidEnter() {
@@ -114,13 +107,17 @@ export class ManagerEditCampaignPage {
     this.slides.lockSwipeToPrev(true);
   }
   Add() {
-   
+    //this.sts.push({ status: "", action: "" });
     if (this.sts.length < 8) {
       this.sts.push({ status: "", action: "" });
     } else {
       alert("you reached to limit.. ");
     }
   }
+
+  remove(idx) {
+    this.sts.splice(idx, 1);
+    }
 
   temp() {
     let campid = this.value.cid;
@@ -147,15 +144,14 @@ export class ManagerEditCampaignPage {
 
   update(data) {
     let uiArr = [];
-     uiArr=data
+    uiArr=data
   
     //========================== IDS For selected SRs ================
 
     for (var a in uiArr) {
       let x,y = [];
       x = uiArr[a].split(" ")[0];
-      y = uiArr[a].split(" ")[1];
-     
+   
 
       firebase
         .firestore()
@@ -167,28 +163,48 @@ export class ManagerEditCampaignPage {
         .get()
         .then((dat) => {
           dat.docs.forEach((snap) => {
-         
             this.idArr.push(snap.data().id)
-           
           });
         }).then(()=>{
 
            firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + this.currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid)
+      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-    
+        
         this.pro = doc.data().status[0].status;
         this.proo = doc.data().status[0].action;
-        
+      
       });
+
+      
+
+
+
+
 
     firebase
       .firestore()
       .collection("Company")
-      .doc("COM#" + this.currentuser.uid + "/" + "Campaigns" + "/" + this.value.cid)
+      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid)
+      .update(
+        Object.assign({
+          name: this.value.name,
+          goals: this.value.goals,
+          manager: this.value.manager,
+          SR_name: data,
+          SR_id:this.idArr,
+          status: this.sts,
+        })
+      )
+
+      firebase
+      
+      this.afs
+      .collection("Company")
+      .doc(this.currentuser.photoURL).collection("Users").doc(this.currentuser.uid).collection("CampsAsso").doc(this.value.cid)
       .update(
         Object.assign({
           name: this.value.name,
@@ -200,7 +216,7 @@ export class ManagerEditCampaignPage {
         })
       )
       .then(() => {
-      
+     
         let alert = this.alertCtrl.create({
           title: "Sucess",
           subTitle: "Campaign Updated Sucessfully ..Now you can update fields",
@@ -217,7 +233,7 @@ export class ManagerEditCampaignPage {
         alert.present();
       })
       .catch((err) => {
-      
+       
         let alert = this.alertCtrl.create({
           title: "Error",
           subTitle: err,
@@ -234,9 +250,6 @@ export class ManagerEditCampaignPage {
 
         })
     }
-   
-
-   
+ 
   }
-
 }
