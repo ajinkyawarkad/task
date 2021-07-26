@@ -75,14 +75,12 @@ export class TaskDetailsPage {
     private auth: AngularFireAuth,
     public alertCtrl: AlertController
   ) {
-    // this.value = navParams.get('cid');
-    // console.log(this.value);
+    
 
     this.cid = navParams.get("cid");
-    console.log(this.cid);
-    7;
+   
     this.data = navParams.get("data");
-    console.log("Data", this.data);
+  
     this.leadId = this.data.uid;
 
     this.slideOpts = {
@@ -96,10 +94,10 @@ export class TaskDetailsPage {
       .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + this.cid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
+    
         this.products = doc.data().status;
         this.arr = this.products;
-        console.log(this.products);
+      
       });
   }
 
@@ -121,11 +119,10 @@ export class TaskDetailsPage {
         this.allTasksCount = doc.data().allTasks;
         let taskTemp = [];
         taskTemp = doc.data().taskIds;
-        console.log("ji", doc.data().taskIds);
+     
         for (var i in taskTemp) {
           this.tFromDb.push(taskTemp[i]);
-          // this.dFromDb.push(taskTemp[i].date)
-          console.log("ji", this.tFromDb, this.dFromDb);
+         
         }
       });
 
@@ -148,9 +145,7 @@ export class TaskDetailsPage {
             if (allTasks[i].Completed == true) {
               if (allTasks[i].Action !== "None") {
                 t.push(allTasks[i].id);
-              } else {
-                console.log("None");
-              }
+              } 
             } else {
               f.push(allTasks[i]);
             }
@@ -166,7 +161,7 @@ export class TaskDetailsPage {
                 break;
             }
           }
-          console.log("ALL", this.pendings);
+        
         } else {
           this.showTasks = false;
         }
@@ -191,12 +186,11 @@ export class TaskDetailsPage {
   }
 
   completeTask(val) {
-    console.log("ff", this.tFromDb);
-    console.log("Val", val.id);
+
 
     if (this.tFromDb.length) {
       let f = this.tFromDb.includes(val.id);
-      console.log("F", f);
+    
       switch (f) {
         case true:
           firebase
@@ -240,11 +234,9 @@ export class TaskDetailsPage {
                       if (allTasks2[i].Completed == true) {
                         if (allTasks2[i].Action !== "None") {
                           tru.push(allTasks2[i].id);
-                        } else {
-                          console.log("None");
-                        }
+                        } 
                       } else {
-                        console.log("fal", allTasks2[i].id);
+                      
                         fal.push(allTasks2[i].id);
                       }
                     }
@@ -264,11 +256,11 @@ export class TaskDetailsPage {
                           break;
                       }
                     }
-                    console.log("Pends", pends);
+                  
                     let len = pends.length;
 
                     if (pends.length == 0) {
-                      console.log("Going if");
+                    
                       firebase
                         .firestore()
                         .collection("Company")
@@ -297,7 +289,7 @@ export class TaskDetailsPage {
                             });
                         });
                     } else {
-                      console.log("Going else");
+                    
                       firebase
                         .firestore()
                         .collection("Company")
@@ -360,8 +352,7 @@ export class TaskDetailsPage {
     let date = a + "-" + b + "-" + c;
     let dat = "";
     dat = date;
-    console.log("Dateee", date);
-
+ 
     firebase
       .firestore()
       .collection("Company")
@@ -388,7 +379,6 @@ export class TaskDetailsPage {
   Getselected(selected_value) {
     let temp = [];
 
-    console.log("SELECT", selected_value);
     this.select = selected_value;
     let action;
     for (var s in this.arr) {
@@ -398,24 +388,38 @@ export class TaskDetailsPage {
       }
     }
     this.act = action;
-    console.log("TEMO", this.act);
+  
     if (this.act === "Remove client from profile") {
       alert("this will remove this lead profile permently");
     }
   }
 
   Task(task: Task) {
-    console.log("SR name", this.data.SR_name);
+  
     let s = uuid();
     let u = s.split("-");
     let id = u[0];
     if (task.action && task.remark != null) {
       this.storage.get("cuid").then((val) => {
-        console.log("id is", val);
+     
         let uid = uuid();
-        console.log(uid);
+      
         let currentuser = firebase.auth().currentUser;
+        let count ;
+        firebase
+        .firestore()
+        .collection("Company")
+        .doc(currentuser.photoURL)
+        .collection("Campaigns")
+        .doc(this.cid).get().then(camp => {
+          count= camp.data().totalActivity
+          camp.ref.update({
+            totalActivity:count+1
+          })
 
+        })
+
+         
         if (task.action == "None") {
           firebase
             .firestore()
@@ -529,8 +533,6 @@ export class TaskDetailsPage {
 
         }
 
-        console.log("ACT IS ", this.act);
-        console.log("SELECT", this.select);
 
         firebase
           .firestore()
@@ -556,9 +558,7 @@ export class TaskDetailsPage {
                 .update({
                   pendings: this.count - 1,
                 });
-            } else {
-              console.log("not false");
-            }
+            } 
           });
 
         switch (this.act) {
@@ -606,7 +606,7 @@ export class TaskDetailsPage {
                   this.data.uid
               )
               .delete();
-            console.log("DELETED", this.data.uid);
+          
             break;
         }
 
@@ -619,8 +619,7 @@ export class TaskDetailsPage {
         let date = a + "-" + b + "-" + c;
         let dat = "";
         dat = date;
-        console.log("Dateee", date);
-
+     
         firebase
           .firestore()
           .collection("Company")
@@ -675,21 +674,31 @@ export class TaskDetailsPage {
       alert.present();
     }
   }
+  Reference()
+  {
+    let uid = uuid();
+    
+    let alert = this.alertCtrl.create({
+      title: "Add Reference",
+      inputs: [{ name: "first_name", placeholder: "First Name" },
+               { name: "last_name", placeholder: "Last Name" },
+               { name: "email", placeholder: "Email" },
+               { name: "phone", placeholder: "Phone" }],
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+          handler: (data) => {
 
-  Save(leadref: Leadref) {
-    if (
-      leadref.email &&
-      leadref.first_name &&
-      leadref.last_name &&
-      leadref.phone != null
-    ) {
-      this.storage.get("cuid").then((val) => {
-        console.log("id is", val);
-        let uid = uuid();
-        console.log(uid);
-        let currentuser = firebase.auth().currentUser;
-
-        firebase
+          },
+        },
+        {
+          text: "Save",
+          handler: (reff) => {
+            if (reff.first_name) {
+              
+              let currentuser = firebase.auth().currentUser;
+              const result =  firebase
           .firestore()
           .collection("Company")
           .doc(
@@ -706,46 +715,39 @@ export class TaskDetailsPage {
           .set(
             Object.assign({
               id: uid,
-              first_name: leadref.first_name,
-              last_name: leadref.last_name,
-              email: leadref.email,
-              phone: leadref.phone,
+              first_name: reff.first_name,
+              last_name: reff.last_name,
+              email: reff.email,
+              phone: reff.phone,
               refId: this.data.uid,
             })
           );
 
-        let alert = this.alertCtrl.create({
-          title: "Success",
-          subTitle: "Saved Successfully",
-          //scope: id,
-          buttons: [
-            {
-              text: "OK",
-              handler: (data) => {
-                //this.navCtrl.push(UserDetailsPage);
-              },
-            },
-          ],
-        });
-        alert.present();
-      });
-    } else {
-      let alert = this.alertCtrl.create({
-        title: "Warning",
-        subTitle: "Please Insert Data",
-        //scope: id,
-        buttons: [
-          {
-            text: "OK",
-            handler: (data) => {
-              //this.navCtrl.push(LoginPage);
-            },
+              if (result) {
+                let alert = this.alertCtrl.create({
+                  title: "Success",
+                  subTitle: "Reference Added",
+                  buttons: [
+                    {
+                      text: "OK",
+                      handler: (data) => {
+                        //this.navCtrl.setRoot(HomePage);
+                      },
+                    },
+                  ],
+                });
+                alert.present();
+              }
+            } else {
+              return false;
+            }
           },
-        ],
-      });
-      alert.present();
-    }
+        },
+      ],
+    });
+    alert.present();
   }
+  
 
   hide(action) {
     if (action == "None") {
@@ -761,8 +763,7 @@ export class TaskDetailsPage {
     this.navCtrl.pop();
   }
   change(datePicker) {
-    console.log("date", this.myDate);
-    console.log("datePicker", datePicker);
+  
     datePicker.open();
   }
  

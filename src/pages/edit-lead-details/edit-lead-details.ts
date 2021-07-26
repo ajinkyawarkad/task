@@ -111,13 +111,17 @@ export class EditLeadDetailsPage {
             r !== "SR_name" &&
             r !== "uid" &&
             r !== "leads" &&
-            r !== "merge"
+            r !== "merge" &&
+            r !=="complete" &&
+            r!=="pending" && r!=="allTasks" && r!=="id" &&
+            r!=="taskId" && r!=="taskIds" &&
+             r!=="createdAt"
           ) {
             if (
-              r !== "action" &&
-              r !== "datetime" &&
+              r !== "action" && 
               r !== "status" &&
-              r !== "remark"
+              r !== "remark" &&
+              r !== "datetime" 
             ) {
               this.field.push({ action: r, value: val });
             }

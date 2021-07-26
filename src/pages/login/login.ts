@@ -59,17 +59,16 @@ export class LoginPage {
     });
     loading.present();
     this.storage.get("email").then(val => {
-      console.log("email",val)
+    
 
       if(val != null){
 
-        console.log("Not Null")
         this.storage.get("tenant").then(tenantId =>{
           this.storage.get("userId").then(uid => {
             firebase.firestore().collection("Company").doc(tenantId).collection("Users").doc(uid).get().then(doc =>{
               if(!doc.exists){
                 this.role = "Admin"
-                console.log("role","Admin")
+              
                 this.storage.get("tenant").then(ten => {
                   this.storage.get("email").then(ema => {
                     this.storage.get("password").then(pass =>{
@@ -88,8 +87,7 @@ export class LoginPage {
                             this.navCtrl.setRoot(HomePage)
                             loading.dismiss();
                           } else { //=============================
-                            console.log("Email is not verified ");
-                            // this.navCtrl.setRoot(LoginPage);
+                            
                             let alert = this.alertCtrl.create({
                               title: "Error",
                               subTitle: "Email not verified please check your inbox",
@@ -108,7 +106,7 @@ export class LoginPage {
                         });
                       })
                       .catch((err) => {
-                        console.log(err);
+                      
                         let alert = this.alertCtrl.create({
                           //title: 'Error',
                           subTitle: err,
@@ -122,7 +120,7 @@ export class LoginPage {
 
               }else{
                 this.role = doc.data().role
-                console.log("role",this.role)
+             
                 switch (this.role){
                   case "Manager":
                     this.storage.get("tenant").then(ten => {
@@ -144,7 +142,7 @@ export class LoginPage {
                                 loading.dismiss();
                                
                               } else { //=============================
-                                console.log("Email is not verified ");
+                              
                                 loading.dismiss();
                                 // this.navCtrl.setRoot(LoginPage);
                                 let alert = this.alertCtrl.create({
@@ -165,8 +163,7 @@ export class LoginPage {
                           })
                           .catch((err) => {
                             loading.dismiss();
-                            console.log(err);
-                            let alert = this.alertCtrl.create({
+                              let alert = this.alertCtrl.create({
                               //title: 'Error',
                               subTitle: err,
                               buttons: [{ text: "OK", handler: (data) => {} }],
@@ -198,7 +195,7 @@ export class LoginPage {
                                 this.navCtrl.setRoot(HomeUserPage)
                                 loading.dismiss();
                               } else { //=============================
-                                console.log("Email is not verified ");
+                             
                                 loading.dismiss();
                                 // this.navCtrl.setRoot(LoginPage);
                                 let alert = this.alertCtrl.create({
@@ -218,7 +215,7 @@ export class LoginPage {
                             });
                           })
                           .catch((err) => {
-                            console.log(err);
+                        
                             loading.dismiss();
                             let alert = this.alertCtrl.create({
                               //title: 'Error',
@@ -263,8 +260,7 @@ export class LoginPage {
                     ) {
                       this.navCtrl.setRoot(HomeManagerPage)
                     } else { //=============================
-                      console.log("Email is not verified ");
-                      // this.navCtrl.setRoot(LoginPage);
+                    
                       let alert = this.alertCtrl.create({
                         title: "Error",
                         subTitle: "Email not verified please check your inbox",
@@ -282,7 +278,7 @@ export class LoginPage {
                   });
                 })
                 .catch((err) => {
-                  console.log(err);
+                
                   let alert = this.alertCtrl.create({
                     //title: 'Error',
                     subTitle: err,
@@ -314,8 +310,7 @@ export class LoginPage {
                     ) {
                       this.navCtrl.setRoot(HomeUserPage)
                     } else { //=============================
-                      console.log("Email is not verified ");
-                      // this.navCtrl.setRoot(LoginPage);
+                     
                       let alert = this.alertCtrl.create({
                         title: "Error",
                         subTitle: "Email not verified please check your inbox",
@@ -333,7 +328,7 @@ export class LoginPage {
                   });
                 })
                 .catch((err) => {
-                  console.log(err);
+                
                   let alert = this.alertCtrl.create({
                     //title: 'Error',
                     subTitle: err,
@@ -362,8 +357,7 @@ export class LoginPage {
 
       
     })
-    console.log("ionViewDidLoad LoginPage");
-    
+  
   }
 
   login(user: User) {
@@ -390,7 +384,7 @@ export class LoginPage {
                 .get()
                 .then((doc) => {
                   if (!doc.exists) {
-                    console.log("Admin");
+              
                     this.storage.set("name", currentuser.displayName);
                     this.storage.set("email", currentuser.email);
                     this.storage.set("cuid", currentuser.photoURL);
@@ -398,7 +392,7 @@ export class LoginPage {
                     this.storage.set("role","Admin")
                     this.storage.set("tenant",currentuser.photoURL)
                     this.storage.set("password",this.user.password)
-                    console.log("Email is verified");
+
 
 
                     
@@ -411,7 +405,7 @@ export class LoginPage {
                     let role = doc.data().role;
                     switch (role) {
                       case "Manager":
-                        console.log("Manager ");
+                      
                         this.storage.set("name", currentuser.displayName);
                         this.storage.set("email", currentuser.email);
                         this.storage.set("userId", currentuser.uid);
@@ -424,8 +418,7 @@ export class LoginPage {
                         break;
 
                       case "Sale Representative":
-                        console.log("USER ");
-
+                 
                         this.storage.set("name", currentuser.displayName);
                         this.storage.set("email", currentuser.email);
                         this.storage.set("cuid", currentuser.photoURL);
@@ -443,8 +436,7 @@ export class LoginPage {
 
              
             } else {
-              console.log("Email is not verified ");
-              // this.navCtrl.setRoot(LoginPage);
+            
               let alert = this.alertCtrl.create({
                 title: "Error",
                 subTitle: "Email not verified please check your inbox",
@@ -462,7 +454,7 @@ export class LoginPage {
           });
         })
         .catch((err) => {
-          console.log(err);
+
           let alert = this.alertCtrl.create({
             //title: 'Error',
             subTitle: err,
@@ -496,18 +488,16 @@ export class LoginPage {
         {
           text: "Cancel",
           role: "cancel",
-          handler: (data) => {
-            console.log("Cancel clicked");
-          },
+         
         },
         {
           text: "Reset Password",
           handler: (data) => {
             if (data.email) {
-              console.log(data.email);
+            
               const result = this.auth.auth.sendPasswordResetEmail(data.email);
               if (result) {
-                console.log("Check Your Email For Reset Link");
+               
                 let alert = this.alertCtrl.create({
                   title: "Success",
                   subTitle:
@@ -523,7 +513,7 @@ export class LoginPage {
                 });
                 alert.present();
               } else {
-                console.log("Error  in Sending Reset Link");
+              
                 let alert = this.alertCtrl.create({
                   title: "Error",
                   subTitle:
@@ -555,7 +545,7 @@ export class LoginPage {
 
   setTenant(id) {
     this.tenantId = id;
-    console.log("Tenant Selected", this.tenantId);
+    
   }
 
   getCom() {
@@ -567,7 +557,6 @@ export class LoginPage {
       .then((snap) => {
         if (snap.exists) {
           this.coms = snap.data().details;
-          console.log("Comanies are", this.coms);
         } else {
           alert("Create Account");
         }

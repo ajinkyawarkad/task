@@ -40,10 +40,10 @@
           <table>
             <thead>
               <tr>
-                <th (click)="sort()">Compaigns Name <ion-icon mode="ios" name="arrow-down"></ion-icon>
+                <th (click)="sort()">Campaigns Name <ion-icon mode="ios" name="arrow-down"></ion-icon>
                 </th>
                 <th>Manager</th>
-                <th>Pendings Tasks</th>
+                <th>Pendings Leads</th>
                 <th>Total Lead</th>
                 <th>Action</th>
               </tr>
@@ -92,7 +92,7 @@
               <tr *ngIf="product.active == false ">
                 <td style="text-decoration: underline;color:blue" (click)="leads(product)">{{product.name}}</td>
                 <td>{{product.manager}}</td>
-                <td>{{product.pendings}}</td>
+                <td>{{product.pendingLeads}}</td>
                 <td>{{product.totalLeads}}</td>
                 <td>
                   <!-- <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.cid)"></ion-icon> -->

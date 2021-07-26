@@ -1,39 +1,110 @@
 <ion-header>
   <ion-navbar>
     <button ion-button menuToggle>
-      <ion-icon name="menu"></ion-icon>
+      <ion-icon style="color:black" name="menu"></ion-icon>
     </button>
     <ion-title>Home</ion-title>
   </ion-navbar>
 </ion-header>
 
-<ion-content padding >
-  <h1 style="text-align: center;">Welcome </h1>
-  <p style="text-align: center; text-indent: 35px;">Lorem ipsum dolor sit amet, consectetur adipiscing elit. 
-    Aenean elementum porta lacus, eu maximus mauris laoreet eu. Nullam laoreet tristique tincidunt.
-    Suspendisse placerat hendrerit luctus.</p>
-  <div class="center">
-  <div cards>
-    <div class="grid-full">
-      <ion-row>
-      
-        <ion-col>
-          <ion-card (click)="trackCampaigns()">
-            <!-- <img src="/assets/imgs/track-campanigs.png" width="30px" height="40px" > -->
-            <ion-icon name="copy" color="vibrant"></ion-icon>
-            <p>Track Campaigns</p>
-          </ion-card>
-        </ion-col>
-      </ion-row>
+<ion-content padding>
+
+  <div class="container">
+
+    <div>
+      <div class="seg" >
+        <ion-segment [(ngModel)]="Segments" value="1" mode="ios" style="width: 100%;">
+          <ion-segment-button value="1">
+            Active
+          </ion-segment-button>
+          <ion-segment-button (ionSelect)="Segments = 2" value="2">
+            Archived
+          </ion-segment-button>
+        </ion-segment>
+      </div>
+
+      <div class="Sbar">
+        <ion-searchbar placeholder="Search" [(ngModel)]="term"></ion-searchbar>
+       
+      </div>
+
     </div>
 
+    <div [ngSwitch]="Segments">
+      <div *ngSwitchCase="1">
+      
+        <div class="tableFixHead">
+          <table>
+            <thead>
+              <tr>
+                <th >Compaigns Name <ion-icon mode="ios" name="arrow-down"></ion-icon>
+                </th>
+                <th>Manager</th>
+                <th>Pendings Leads</th>
+                <th>Total Lead</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody
+          *ngFor="let product of products | async  | search2 : term  ">
+          <tr *ngIf="product.active == true ">
+            <td style="text-decoration: underline;color:blue" (click)="leads(product)">{{product.name}}</td>
+            <td>{{product.manager}}</td>
+
+            <td style="text-decoration: underline;color:blue" (click)="pendigDetails(product.cid)">
+              {{product.pendings}}</td>
+
+
+            <td>{{product.totalLeads}}</td>
+            <td>
+              <!-- <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.cid)"></ion-icon> -->
+              <p style="color:blue" (click)="gotoActive(product)">Edit</p>
+              <p (click)="archive(product)">Archive</p>
+            </td>
+          </tr>
+        </tbody>
+          </table>
+        </div>
+        
+        
+      </div>
+
+
+      <div *ngSwitchCase="2">
+        <br>
+
+        <div class="tableFixHead">
+          <table>
+            <thead>
+              <tr>
+                <th >Compaigns Name <ion-icon mode="ios" name="arrow-down"></ion-icon>
+                </th>
+                <th>Manager</th>
+                <th>Pendings Tasks</th>
+                <th>Total Lead</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody *ngFor="let product of products | async  | search2 : term">
+              <tr *ngIf="product.active == false ">
+                <td style="text-decoration: underline;color:blue" (click)="leads(product)">{{product.name}}</td>
+                <td>{{product.manager}}</td>
+                <td>{{product.pendings}}</td>
+                <td>{{product.totalLeads}}</td>
+                <td>
+                  <!-- <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.cid)"></ion-icon> -->
+                  <p style="color:blue" (click)="showPopup(product.cid,product.SR_id)">Delete</p>
+                  <p (click)="active(product)">Active</p>
+                </td>
+              </tr>
+
+            </tbody>
+          </table>
+        </div>
+        
+
+      </div>
+    </div>
   </div>
-</div>
-  
+
 </ion-content>
-
-
-
-
-
-

@@ -62,7 +62,7 @@ export class TrackCampaignPage {
     let fd = y + "-" + m + "-" + d;
     // let a = new Date(fd);
     var d1 = Date.parse(fd);
-
+  
    
 
     //==================Total Leads Vs ADMIN================================
@@ -86,9 +86,8 @@ export class TrackCampaignPage {
             .get()
             .then((camps) => {
 
-              camps.docs.forEach((campDoc) => {             //Camp Ids
-              
-               
+              camps.docs.forEach((campDoc) => { 
+                let call = [];
                 campDoc.ref
                   .collection("leads")
                   .get()
@@ -100,16 +99,19 @@ export class TrackCampaignPage {
                       leadDoc.ref.get().then((inlead) => {
                         let pendings = [];
                         let onlyIds=[];
-                        let call = [];
+                       
                         let meet = [];
                         let allTask = [];
                         let tru = [];
                         let f = [];
                         let flag =  inlead.data().pending
                         if(flag == true){
-                          call.push(inlead.data().action)
-
+                          call.push(inlead.data().id)
+                          
                         }
+                        campDoc.ref.update({
+                          pendings:call.length
+                        })
                         let action = inlead.data().action;
                         let t = Date.parse(inlead.data().datetime);
                         leadDoc.ref
@@ -123,8 +125,6 @@ export class TrackCampaignPage {
                                 if (allTask[i].Completed == true) {
                                   if(allTask[i].Action !== "None"){
                                     tru.push(allTask[i].id);
-                                  }else{
-                                    console.log("None")
                                   }
                                  
                                 } else {
@@ -135,7 +135,7 @@ export class TrackCampaignPage {
                                 let xnp =[]
                                 for (var i in f) {
                                   let is = tru.includes(f[i].id);
-                                  console.log("is",is)
+                               
                                  
                                   switch (is) {
                                     case true:
@@ -153,12 +153,10 @@ export class TrackCampaignPage {
                                       break;
                                   }
                                 }
-                                console.log("Xp",xp)
-                                console.log("Xnp",xnp)
-                                
+                           
                                 if(xp.length){
                                   let b = xp.length-1
-                                  leadDoc.ref.set({
+                                  inlead.ref.set({
                                     action:xp[b].Action,
                                     remark:xp[b].Remark,
                                     datetime:xp[b].FollowUp,
@@ -170,7 +168,7 @@ export class TrackCampaignPage {
                                 }else{
                                   if(xnp.length){
                                     let l = xnp.length-1
-                                    leadDoc.ref.set({
+                                    inlead.ref.set({
                                       action:xnp[l].Action,
                                       remark:xnp[l].Remark,
                                       datetime:xnp[l].FollowUp,
@@ -180,7 +178,7 @@ export class TrackCampaignPage {
                                     },{merge:true})
 
                                   }else{
-                                    leadDoc.ref.set({
+                                    inlead.ref.set({
                                       action:"",
                                       remark:"",
                                       datetime:"",
@@ -201,11 +199,7 @@ export class TrackCampaignPage {
                                 allTasks:onlyIds.length,
                                 taskIds:onlyIds
                               },{merge:true})
-                              campDoc.ref.update({
-                                pendings:call.length
-                              })
-                            }else{
-                             console.log("doc activity not exists")
+                            
                             }
                           });
                          
@@ -213,10 +207,6 @@ export class TrackCampaignPage {
                       });
                     });
                   });
-                 
-                  
-
-
               });
             });
 

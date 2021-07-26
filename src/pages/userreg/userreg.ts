@@ -29,9 +29,7 @@ export class UserregPage {
   ) {}
 
   ionViewDidLoad() {
-    console.log("ionViewDidLoad RegisterPage");
-    //M#COM#eXUJoAewydMVqCkVins46bMelIJ3
-    //Google-gx816   rushikeshmaske666@gmail.com          Facebook-9brvr
+  
   }
 
   signup(user: User) {
@@ -57,8 +55,7 @@ export class UserregPage {
             //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
             this.compName = doc.data().compName;
             this.adminId = doc.data().adminId;
-            console.log("Company Name", this.compName);
-
+       
             firebase
               .firestore()
               .collection("Tenants")
@@ -82,10 +79,11 @@ export class UserregPage {
                   displayName: user.name,
                   photoURL: this.tenantId,
                 });
-                console.log("PhotoUrl", currentuser.photoURL);
+             
                 if (currentuser && data.user.emailVerified === false) {
-                  let name = [];
-                  name = user.name.split(" ");
+               
+                    let name = user.name;
+
 
                   if (this.role == "M") {
                     currentuser.sendEmailVerification().then;
@@ -164,7 +162,7 @@ export class UserregPage {
                         .update({
                           Users: firebase.firestore.FieldValue.arrayUnion({
                             id: currentuser.uid,
-                            name: name[0],
+                            name: name,
                             // last: name[1],
                             role: "Sale Representative",
                           }),
@@ -178,7 +176,7 @@ export class UserregPage {
                         .set({
                           email: currentuser.email,
                           id: currentuser.uid,
-                          name: name[0],
+                          name: name,
                           // last: name[1],
                           role: "Sale Representative",
                           function: true,
@@ -220,7 +218,7 @@ export class UserregPage {
                 }
               })
               .catch((err) => {
-                console.log(err);
+          
                 let alert = this.alertCtrl.create({
                   title: "Error",
                   subTitle: "Error in Creating Account " + err,

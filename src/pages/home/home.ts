@@ -1,7 +1,7 @@
 import { Component, ElementRef, ViewChild, } from '@angular/core';
 import { MenuController, NavController, ToastController } from 'ionic-angular';
 import { CreateCampaignPage } from '../create-campaign/create-campaign';
-import { User } from '../../models/user';
+import { Camp, User } from '../../models/user';
 
 import { ReportPage } from '../report/report';
 import { TrackCampaignPage } from '../track-campaign/track-campaign';
@@ -25,6 +25,10 @@ export class HomePage {
   private lineChart: Chart;
   private barChart: Chart;
   private doughnutChart: Chart;
+  campNames=[]
+  activityCount =[]
+  totalLeads=[]
+
   
   @ViewChild("lineCanvas") lineCanvas: ElementRef;
   @ViewChild("barCanvas") barCanvas: ElementRef;
@@ -47,14 +51,17 @@ export class HomePage {
 
   ngOnInit(){
 
+ 
+  }
+  showGraph(){
     this.barChart = new Chart(this.barCanvas.nativeElement, {
       type: "bar",
       data: {
-        labels: ["Red", "Blue", "Yellow", "Green", "Purple", "Orange"],
+        labels:this.campNames,
         datasets: [
           {
-            label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3],
+            label: "Total Activities on Campaigns",
+            data: this.activityCount,
             backgroundColor: [
               "rgba(255, 99, 132, 0.2)",
               "rgba(54, 162, 235, 0.2)",
@@ -90,41 +97,14 @@ export class HomePage {
 
 
 
-
-      this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
-      type: "doughnut",
-      data: {
-       
-        datasets: [
-          {
-            label: "# of Votes",
-            data: [12, 19, 3, 5, 2, 3],
-            backgroundColor: [
-              "rgba(255, 99, 132, 0.2)",
-              "rgba(54, 162, 235, 0.2)",
-              "rgba(255, 206, 86, 0.2)",
-              "rgba(75, 192, 192, 0.2)",
-              "rgba(153, 102, 255, 0.2)",
-              "rgba(255, 159, 64, 0.2)"
-            ],
-            hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#FF6384", "#36A2EB", "#FFCE56"]
-          }
-        ],
-        labels: ["Interested", "CallBack", "Not Reachable", "Paid User", "Invalid Contacts", "Not Interested"]
-      }
-    });
-
-
-
-
-
-     this.lineChart = new Chart(this.lineCanvas.nativeElement, {
+          
+    this.lineChart = new Chart(this.lineCanvas.nativeElement, {
       type: "line",
       data: {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels:this.campNames,
         datasets: [
           {
-            label: "My First dataset",
+            label:"Total Activities on Campaign",
             fill: false,
             lineTension: 0.1,
             backgroundColor: "rgba(75,192,192,0.4)",
@@ -142,16 +122,42 @@ export class HomePage {
             pointHoverBorderWidth: 2,
             pointRadius: 1,
             pointHitRadius: 10,
-            data: [65, 59, 80, 81, 56, 55, 40],
+            data:[20,20,43,12,4],
             spanGaps: false
           }
         ]
       }
     });
+
+
+    this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
+      type: "doughnut",
+      data: {
+       
+        datasets: [
+          {
+            label: "Total Leads in Campaign",
+            data:this.totalLeads,
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(255, 159, 64, 0.2)"
+            ],
+            hoverBackgroundColor: ["#FF6384", "#36A2EB", ]
+          }
+        ],
+        labels: this.campNames
+      }
+    });
+
   }
 
   ionViewWillLoad() 
     {
+
 
       firebase
       .firestore()
@@ -183,6 +189,18 @@ export class HomePage {
         }).present();
       }
       });
+
+      firebase.firestore().collection("Company").doc(this.currentUser.photoURL).collection("Campaigns").get().then(camp => {
+        camp.docs.forEach(campDoc => {
+          this.campNames.push(campDoc.data().name)
+          this.activityCount.push(campDoc.data().totalActivity)
+          campDoc.ref.collection("leads").get().then(leads => {
+            this.totalLeads.push(leads.size)
+          })
+
+        })
+      }).then(res => {this.showGraph()})
+
 
     }
 

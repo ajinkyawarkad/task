@@ -57,11 +57,8 @@ export class ManagerEditLeadPage {
     private alertCtrl: AlertController
   ) {
     this.value = navParams.get("cid");
-    console.log(this.value);
-
     this.data = navParams.get("data");
-    console.log("Data", this.data);
-
+  
     let currentuser = firebase.auth().currentUser;
     firebase
       .firestore()
@@ -69,10 +66,9 @@ export class ManagerEditLeadPage {
       .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + this.value)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
         this.productss = doc.data().status;
         this.arr = this.productss;
-        console.log(this.productss);
+       
       });
 
     firebase
@@ -83,10 +79,9 @@ export class ManagerEditLeadPage {
       .doc(this.value)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
+      
         this.products = doc.data().CSVfield;
 
-        console.log("csv ", this.products);
         let test: any = [];
         test = this.products;
         for (var a in test) {
@@ -101,7 +96,7 @@ export class ManagerEditLeadPage {
 
   Getselected(selected_value) {
     let temp = [];
-    console.log("SELECT", selected_value);
+  
     this.select = selected_value;
     let action;
     for (var s in this.arr) {
@@ -112,13 +107,13 @@ export class ManagerEditLeadPage {
     }
 
     this.act = action;
-    console.log("TEMO", this.act);
+   
   }
   hide() {
     this.hideMe = !this.hideMe;
   }
   ionViewDidLoad() {
-    console.log("ionViewDidLoad EditLeadDetailsPage");
+  
 
     let currentuser = firebase.auth().currentUser;
     firebase
@@ -142,7 +137,7 @@ export class ManagerEditLeadPage {
         let v = Object.values(a);
         this.non = b;
 
-        console.log("TEMO", this.non);
+     
 
         for (var i in k) {
           let r = k[i];
@@ -152,7 +147,10 @@ export class ManagerEditLeadPage {
             r !== "SR_name" &&
             r !== "uid" &&
             r !== "leads" &&
-            r !== "merge"
+            r !== "merge" &&
+            r !=="complete" &&
+            r!=="pending" && r!=="allTasks" && r!=="id" &&
+            r!=="taskId" && r!=="taskIds" && r!=="createdAt"
           ) {
             if (
               r !== "action" &&
@@ -162,21 +160,15 @@ export class ManagerEditLeadPage {
             ) {
               this.field.push({ action: r, value: val });
             }
-          } else {
-            console.log("fiegggggggggggld", k[i]);
-          } //"SR_id" || "SR_name" || "uid" || "leads"
+          } 
         }
-        console.log("field", this.field);
+       
       });
   }
 
   update() {
-    console.log(this.value);
-
-    for (var a in this.field) {
-      console.log({ [this.field[a].action]: this.field[a].value });
-    }
-
+  
+   
     let currentuser = firebase.auth().currentUser;
     //===================================Basic details update ==========================================
     for (var a in this.field) {
@@ -208,25 +200,8 @@ export class ManagerEditLeadPage {
         { merge: true }
       )
 
-      // firebase
-      // .firestore()
-      // .collection("Company")
-      // .doc(currentuser.photoURL)
-      // .collection("Campaigns")
-      // .doc(this.value.cid)
-      // .collection("leads")
-      // .doc(this.data.uid)
-
-      // .update(
-      // Object.assign({
-      // action: this.data.action,
-      // remark: this.data.remark,
-      // status: this.data.status,
-      // datetime: this.data.datetime,
-      // })
-      // )
       .then(() => {
-        console.log("updated..");
+      
         let alert = this.alertCtrl.create({
           title: "Sucess",
           subTitle: "Updated Sucessfully",
@@ -242,7 +217,7 @@ export class ManagerEditLeadPage {
         alert.present();
       })
       .catch((err) => {
-        console.log(err);
+      
         let alert = this.alertCtrl.create({
           title: "Error",
           subTitle: err,

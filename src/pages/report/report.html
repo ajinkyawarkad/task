@@ -11,13 +11,6 @@
 
 <ion-content padding>
 
-  
-  <!-- <div class="navbar" >
-    <a  (click)="hide1()" >Campaigns Report</a>
-   
-    <a (click)="hide2()" >Users Report</a>
-  </div> -->
-
   <ion-segment [(ngModel)]="Segments" value="1" mode="ios" >
     <ion-segment-button (ionSelect)="Segments = 1" value="1">
       Campaigns Report
@@ -35,18 +28,18 @@
         <ion-col>
           <ion-card >
             <ion-card-header>
-              <ion-card-subtitle>New Lead</ion-card-subtitle>
+              <ion-card-subtitle>Total Leads</ion-card-subtitle>
               <hr>
-              <ion-card-subtitle>8</ion-card-subtitle>
+              <ion-card-subtitle>{{totalLeads}}</ion-card-subtitle>
             </ion-card-header>
             </ion-card>
         </ion-col>
         <ion-col>
           <ion-card>
             <ion-card-header>
-              <ion-card-subtitle>New Lead Attempted</ion-card-subtitle>
+              <ion-card-subtitle>Pending Leads</ion-card-subtitle>
               <hr>
-              <ion-card-subtitle>18</ion-card-subtitle>
+              <ion-card-subtitle>{{pendingLeads}}</ion-card-subtitle>
             </ion-card-header>
             </ion-card>
         </ion-col>
@@ -77,40 +70,31 @@
         <div *ngSwitchCase="1" >
 
           <ion-item style="width: 45%;float:left">
-            <ion-label>Compaigns</ion-label>
-            <ion-select [(ngModel)]="product" (ionChange)="status(product)">  
+            <ion-label style="font-size: 14px;">Campaigns</ion-label>
+            <ion-select [(ngModel)]="product" (ionChange)="camp(product)"> 
+           
               <ion-option *ngFor="let product of products | async " [value]="product">{{product.name}}</ion-option>
             </ion-select>
           </ion-item>
         
           <ion-item style="width: 45%;float:right">
-            <ion-label>Status</ion-label>
-            <ion-select  [(ngModel)]="ss" (ionChange)="selectedstatus(ss)">
-              <ion-option >All</ion-option>
-              <ion-option *ngFor="let pr of pro ">{{pr}}</ion-option>
+            <ion-label style="font-size: 14px;">Options</ion-label>
+            <ion-select  [(ngModel)]="ss"  (ionChange)="camp1(ss)">
+              
+              <ion-option value="Activity" >Activity</ion-option>
+              <ion-option value="Status" >Status</ion-option>
+              <ion-option value="Tasks">Tasks</ion-option>
+              
+              <!-- <ion-option *ngFor="let pr of pro ">{{pr}}</ion-option> -->
             </ion-select>
           </ion-item>
           </div>
 
           <div *ngSwitchCase="2" >
 
-            <!-- <ion-item style="width: 45%;float:left">
-            <label for="dino-select">Users :</label>
-            <select class="Selectuser" [(ngModel)]="product" (change)="selecteduser(product)">
-                <optgroup label="Manager">
-                    <option *ngFor="let product of manager " [value]="product"> {{product.name}}</option>
-                </optgroup>
-                <optgroup label="SR">
-                    <option *ngFor="let product of SR " [value]="product">{{product.name}}</option>
-                   
-                </optgroup>
-            </select>
-            </ion-item> -->
-
-
-
+          
             <ion-item style="width: 45%;float:left">
-              <ion-label>Users</ion-label>
+              <ion-label style="font-size: 14px;">Users</ion-label>
               <ion-select [(ngModel)]="product" (ionChange)="selecteduser(product)">  
                 <optgroup label="Manager">
                 <ion-option *ngFor="let product of manager " [value]="product">{{product.name}} (Manager)</ion-option>
@@ -123,7 +107,7 @@
             </ion-item>
           
             <ion-item style="width: 45%;float:right">
-              <ion-label>Campaigns</ion-label>
+              <ion-label style="font-size: 14px;">Campaigns</ion-label>
               <ion-select  [(ngModel)]="pr" (ionChange)="selectedCamp(pr)">
                 <ion-option >All</ion-option>
                 <ion-option *ngFor="let pr of campName" [value]="pr">{{pr.name}}</ion-option>

@@ -174,12 +174,13 @@ export class RemainingLeadDeatilsPage {
       let rr = v[i];
       if (
         r !== "SR_id" &&
-        r !== "SR_name" &&
-        r !== "complete" &&
-        r !== "uid" &&
-        r !== "leads" &&
-        r !== "merge" &&
-        r !=="pending"
+            r !== "SR_name" &&
+            r !== "uid" &&
+            r !== "leads" &&
+            r !== "merge" &&
+            r !=="complete" &&
+            r!=="pending" && r!=="allTasks" && r!=="id" &&
+            r!=="taskId" && r!=="taskIds"
       ) {
         if (
           r !== "action" &&

@@ -165,7 +165,7 @@ export class CreateCampaignPage {
             {
               cid: this.uuid1,
               name: camp.name,
-              goals: camp.goals,
+                goals: camp.goals,
               manager: data2.name,
               active: true,
             },

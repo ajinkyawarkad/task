@@ -88,7 +88,7 @@ export class EditCsvFieldPage {
     this.dummy.push({indicator: "None" });
     this.newFields.push({field:"none"})
 
-    console.log(this.anArray,"dummy",this.dummy)
+    
   }
 
   remove(idx) {
@@ -96,7 +96,7 @@ export class EditCsvFieldPage {
   }
 
   ionViewDidLoad() {
-    console.log("ionViewDidLoad EditCsvFieldPage");
+  
    
     firebase
       .firestore()
@@ -106,15 +106,15 @@ export class EditCsvFieldPage {
       .doc(this.campid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
+      
         this.products = doc.data().CSVfield;
-        console.log("csv ", this.products);
+     
         this.anArray = this.products;
 
         for (var r in this.anArray) {
           this.dummy.push({ indicator: this.anArray[r].indicator });
         }
-        console.log("for dummy", this.anArray)
+       
       });
 
     
@@ -122,8 +122,7 @@ export class EditCsvFieldPage {
 
 
   removeField(valuee, att) {
-    console.log("fa", this.anArray);
-    console.log("fa", this.dummy);
+ 
     if (att == "None" || att =="Custome") {
       this.anArray[valuee].indicator = att;
       this.dummy[valuee].indicator = att;
@@ -151,14 +150,12 @@ export class EditCsvFieldPage {
 
             //a = match found index
             //value
-            console.log("fa", f);
+         
             switch (f) {
               case false:
                 // this.dummy.push(att)
-                console.log(valuee, att);
                 this.dummy[valuee].indicator = att;
-                // console.log("false Dummy", this.dummy);
-                // console.log("False Anarray", this.anArray);
+               
                 break;
               case true:
                 let alert = this.alertCtrl.create({
@@ -174,18 +171,14 @@ export class EditCsvFieldPage {
                   ],
                 });
                 alert.present();
-                console.log(valuee, att);
-
-                console.log("indessss", a);
-
+              
                 this.anArray[valuee].indicator = "Select";
                 this.dummy[valuee].indicator = "Select";
 
                 this.anArray[a].indicator = att;
                 this.dummy[a].indicator = att;
 
-                console.log("true Dummy", this.dummy);
-                console.log("true anArray", this.anArray);
+             
 
               // let a = this.dummy.indexOf(att);
             }
@@ -193,9 +186,7 @@ export class EditCsvFieldPage {
         
 
     
-      } else {
-        console.log("Bllank");
-      }
+      } 
      
     }
   }
@@ -213,9 +204,7 @@ export class EditCsvFieldPage {
       ) {
         this.anArray[i].indicator = "Select";
         check = true;
-      } else {
-        console.log("pass");
-      }
+      } 
     }
 
     if (check) {
@@ -238,8 +227,6 @@ export class EditCsvFieldPage {
     } else {
 
       let Mainheader =this.anArray;
-
-    console.log("EDITED/Added",this.arr);
 
     for (var x in this.anArray) {
       firebase

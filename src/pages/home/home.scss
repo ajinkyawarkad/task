@@ -6,73 +6,82 @@ page-home {
         overflow: auto;
 	}
 
+    // .canvas{
+    //     display: block;
+    //     height: 220px;
+    //     width: 450px;
+    //   }
+
     .container {
         border-radius: 5px;
         background-color: rgb(241, 238, 238);
         border: 1px solid #ccc; 
-       // padding: 7% 26% 9% 31%;
         height:auto;
-        
-    }
+        font-size: 14px;	
+    }   
 
     .tableFixHead  { 
         position: relative;
-    width:100%;
-    z-index: 1;
-    margin: auto;
-    overflow: auto;
-    height: 240px;
+        width:100%;
+        z-index: 1;
+        margin: auto;
+        overflow: auto;
+        font-size: 14px;
+        height: 240px;
       }
 
   .tableFixHead thead th { 
       position: sticky; 
       top: 0; 
       z-index: 1; 
-     
+      background: #f4f4f4;
+      font-size: 14px;
   }
+ 
+ 
 
   table  { 
     width: 100%;
     border-spacing: 0;
     overflow: auto;
+    font-size: 14px;
 }
   th, td {
        padding: 8px 4px;
        border-bottom: 1px solid #ddd;
        text-align: center;
-       
-       
- }
- hr{
-    border-bottom: 2px solid #ddd;
- }
+       font-size: 14px;
+     }
+    hr{
+        border-bottom: 2px solid #ddd;
+    }
           ion-icon {
             display: inline-block;
             font-size: 3.2em;
             color: white;
             margin-right: 10px;
-           
-            
             vertical-align: middle;
         }
         .p{
             text-align: right;
             margin-right: 2%;
-            margin-top: 2%;
-           
+            margin-top: 2%;      
         }
-      
+        .card-header-md {
+            font-size: 14px;
+            color: #222;
+            padding: 9px;
+        }
         .card {
             margin: 0 0px;
             width: 100%;
-            padding: 10px;
+            padding: 0px;
          
            // border-radius: 4px;
             .text {
-                font-weight: 42%;
-                font-size: 1.6rem;
-               
-               font-family: 'Roboto';
+             //   font-weight: 42%;
+                font-size: 14px;
+                font-family: 'Roboto';
                 color: white;
                // margin-left: 3%;
                display: inline-block;

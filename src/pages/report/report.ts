@@ -4,6 +4,7 @@ import { Chart } from "chart.js";
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
 import firebase from "firebase";
+import { options } from "sw-toolbox";
 
 @Component({
   selector: "page-report",
@@ -25,13 +26,20 @@ export class ReportPage {
   SR: any;
   pro = [];
 
+  campNames=[]
+  activityCount =[]
+  totalleads=[]
+  sts=[]
   statuss: any = [];
   campId;
   userId;
   campName = [];
   count = 0;
   public labell: any;
-
+  totalLeads = 0;
+  pendingLeads = 0;
+  currentuser = firebase.auth().currentUser;
+  campcid
   Segments: string;
 
   constructor(
@@ -51,11 +59,34 @@ export class ReportPage {
   }
 
   ionViewDidLoad() {
-    console.log("ionViewDidLoad ReportPage");
+   
+    
+    firebase
+      .firestore()
+      .collection("Company")
+      .doc(this.currentuser.photoURL)
+      .collection("Campaigns")
+      .get()
+      .then((camps) => {
+        camps.docs.forEach((campDoc) => {
+          let p = campDoc.data().pendings;
+          this.pendingLeads = this.pendingLeads + parseInt(p);
+          campDoc.ref
+            .collection("leads")
+            .get()
+            .then((leads) => {
+              let c = leads.size;
+              this.totalLeads = this.totalLeads + c;
+            
+            });
+        });
+      });
+
+    
   }
 
   selecteduser(user) {
-    console.log("selcted user", user);
+ 
     this.userId = user.id;
 
     let currentuser = firebase.auth().currentUser;
@@ -71,17 +102,15 @@ export class ReportPage {
         doc.docs.forEach((snap) => {
           this.campName.push(snap.data());
         });
-        console.log(this.campName);
+      
 
         this.count = doc.size;
-        console.log(this.count);
-        console.log(doc);
-
+  
         this.chartUser(this.count);
       });
   }
   selectedCamp(data) {
-    console.log("cccccc", data.cid);
+ 
 
     let currentuser = firebase.auth().currentUser;
     firebase
@@ -94,25 +123,113 @@ export class ReportPage {
       .get()
       .then((doc) => {
         this.count = doc.size;
-        console.log(this.count);
+     
         this.chartCamp(this.count);
       });
   }
 
-  status(selectedcamp) {
-    console.log(selectedcamp.cid);
-    this.productss = selectedcamp.status;
-    this.campId = selectedcamp.cid;
+  camp(selectedcamp) {
+   
+    this.campcid = selectedcamp.cid;
 
-    console.log(this.productss);
-    this.pro = [];
-    for (let i = 0; i < this.productss.length; i++) {
-      this.pro.push(this.productss[i].status);
-      console.log(this.pro);
+  }
+  camp1(value){
+ 
+    switch (value) {
+
+      case "Activity":
+
+        firebase.firestore().collection("Company").doc(this.currentuser.photoURL).collection("Campaigns").doc(this.campcid)
+        .get().then(camp => {  
+            this.campNames.push(camp.data().name)
+            this.activityCount.push(camp.data().totalActivity)
+            camp.ref.collection("leads").get().then(leads => {
+              this.totalleads.push(leads.size)
+            })
+        })
+        .then(res => {this.showGraph()})
+      
+        break;
+
+        case "Status":
+        firebase.firestore().collection("Company").doc(this.currentuser.photoURL)
+        .collection("Campaigns").doc(this.campcid)
+        .onSnapshot((doc) => {
+          var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
+          this.sts = doc.data().status;   
+       
+        })
+        this.chartCamp(this.sts)
+       
+        break;
+
+      case "Tasks":
+        firebase
+          .firestore()
+          .collection("Company")
+          .doc(this.currentuser.photoURL)
+          .collection("Campaigns")
+          .doc(this.campId)
+          .get()
+          .then((camp) => {
+           let totalActivity = camp.data().totalActivity;
+          });
+        break;
     }
+   
+    
   }
 
+  showGraph(){
+
+    
+    this.barChart = new Chart(this.barCanvas.nativeElement, {
+      type: "bar",
+      data: {
+        labels:this.campNames,
+        datasets: [
+          {
+            label: "Total Activities on Campaigns",
+            data: this.activityCount,
+            backgroundColor: [
+              "rgba(255, 99, 132, 0.2)",
+              "rgba(54, 162, 235, 0.2)",
+              "rgba(255, 206, 86, 0.2)",
+              "rgba(75, 192, 192, 0.2)",
+              "rgba(153, 102, 255, 0.2)",
+              "rgba(255, 159, 64, 0.2)"
+            ],
+            borderColor: [
+              "rgba(255,99,132,1)",
+              "rgba(54, 162, 235, 1)",
+              "rgba(255, 206, 86, 1)",
+              "rgba(75, 192, 192, 1)",
+              "rgba(153, 102, 255, 1)",
+              "rgba(255, 159, 64, 1)"
+            ],
+            borderWidth: 1
+          }
+        ]
+      },
+      options: {
+        scales: {
+          yAxes: [
+            {
+              ticks: {
+                beginAtZero: true
+              }
+            }
+          ]
+        }
+      }
+    });
+
+  }
+
+          
+
   selectedstatus(data) {
+    let totalActivity;
     this.labell = data;
     let currentuser = firebase.auth().currentUser;
     firebase
@@ -126,22 +243,68 @@ export class ReportPage {
       .get()
       .then((doc) => {
         this.count = doc.size;
-        console.log(this.count);
+     
 
         this.chartStatus(this.count);
       });
-    console.log(data);
+  
+
+    switch (data) {
+      case "Activity":
+        firebase
+          .firestore()
+          .collection("Company")
+          .doc(currentuser.photoURL)
+          .collection("Campaigns")
+          .doc(this.campId)
+          .get()
+          .then((camp) => {
+            totalActivity = camp.data().totalActivity;
+          });
+        break;
+      case "Status":
+       
+        firebase
+        .firestore()
+        .collection("Company")
+        .doc(currentuser.photoURL)
+        .collection("Campaigns")
+        .doc(this.campId)
+        .collection("leads")
+        // .where("status", "==", data)
+        .get()
+        .then((doc) => {
+          this.count = doc.size;
+       
+  
+          this.chartStatus(this.count);
+        });
+        break;
+      case "Tasks":
+        firebase
+          .firestore()
+          .collection("Company")
+          .doc(currentuser.photoURL)
+          .collection("Campaigns")
+          .doc(this.campId)
+          .collection("leads")
+          // .doc(this.data.uid)
+          //.collection("History")
+          //.doc("Activity1")
+          
+        break;
+    }
   }
 
-  chartCamp(count) {
+  chartCamp(status) {
     this.barChart = new Chart(this.barCanvas.nativeElement, {
       type: "bar",
       data: {
-        labels: ["Leads"],
+        labels:status,
         datasets: [
           {
             label: "Leads",
-            data: [count],
+            data: [10,10],
             backgroundColor: ["rgba(255, 99, 132, 0.2)"],
             borderColor: ["rgba(255,99,132,1)"],
             borderWidth: 1,
@@ -235,9 +398,9 @@ export class ReportPage {
       .doc(currentuser.uid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
+     
         this.manager = doc.data().Managers;
-        console.log(this.manager);
+       
       });
 
     firebase
@@ -248,32 +411,11 @@ export class ReportPage {
       .doc(currentuser.uid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
+     
         this.SR = doc.data().Users;
-        console.log(this.SR);
+     
       });
 
-    // this.doughnutChart = new Chart(this.doughnutCanvas.nativeElement, {
-    // type: "doughnut",
-    // data: {
-
-    // datasets: [
-    // {
-    // label: "# of Votes",
-    // data: [12, 19, 3, 5, 2, 3],
-    // backgroundColor: [
-    // "rgba(255, 99, 132, 0.2)",
-    // "rgba(54, 162, 235, 0.2)",
-    // "rgba(255, 206, 86, 0.2)",
-    // "rgba(75, 192, 192, 0.2)",
-    // "rgba(153, 102, 255, 0.2)",
-    // "rgba(255, 159, 64, 0.2)"
-    // ],
-    // hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56", "#FF6384", "#36A2EB", "#FFCE56"]
-    // }
-    // ],
-    // labels: ["Interested", "CallBack", "Not Reachable", "Paid User", "Invalid Contacts", "Not Interested"]
-    // }
-    // });
+   
   }
 }

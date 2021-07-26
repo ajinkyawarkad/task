@@ -1,21 +1,14 @@
 import { Component } from '@angular/core';
  import { AlertController, LoadingController, MenuController } from 'ionic-angular';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-
-import { EditCampaignsDetailsPage } from '../edit-campaigns-details/edit-campaigns-details';
-import { LeadsDetailsPage } from '../leads-details/leads-details';
-
-
-import { LoginPage } from '../login/login';
+import {  NavController, NavParams } from 'ionic-angular';
 import { AngularFirestore} from '@angular/fire/firestore';
-
-import { Observable } from 'rxjs';
 import firebase from 'firebase';
 import { Counts } from '../../models/user';
 import { ToastController } from 'ionic-angular';
-import { PendingLeadsPage } from '../pending-leads/pending-leads';
+
 import { ManagerLeadDetailsPage } from '../manager-lead-details/manager-lead-details';
 import { ManagerEditCampaignPage } from '../manager-edit-campaign/manager-edit-campaign';
+import { ManagerPendingLeadsPage } from '../manager-pending-leads/manager-pending-leads';
 
 @Component({
   selector: 'page-manager-track-campaign',
@@ -35,6 +28,7 @@ export class ManagerTrackCampaignPage {
   userInfo: any;
   products: any;
   pc = [];
+  currentuser =firebase.auth().currentUser
 
   constructor(
     public navCtrl: NavController,
@@ -66,184 +60,69 @@ export class ManagerTrackCampaignPage {
     // let a = new Date(fd);
     var d1 = Date.parse(fd);
 
-    //==================Total Leads Vs ADMIN=================================
-    firebase
-      .firestore()
-      .collection("Company")
-      .doc(currentuser.photoURL)
-      .collection("Users")
-      .doc(cu)
-      .get()
-      .then((doc) => {
-        this.a = doc.data().function; //==============Getting FLAG================
-      });
-
-    firebase
-      .firestore()
-      .collection("Company")
-      .doc(currentuser.photoURL)
-      .collection("Users")
-      .doc(cu)
-      .get()
-      .then((doc) => {
-        this.a = doc.data().function;
-        firebase
-          .firestore()
-          .collection("Company")
-          .doc(currentuser.photoURL)
-          .collection("Users").doc(currentuser.uid).collection("CampsAsso")
-          .get()
-          .then((doc) => {
-            doc.docs.forEach((snap) => {
-              let call = [];
-              let meet = [];
-              this.arr.push(snap.data().cid); //All Campaigns IDs
-
-              firebase
-                .firestore()
-                .collection("Company")
-                .doc(currentuser.photoURL)
-                .collection("Campaigns")
-                .doc(snap.data().cid)
-                .collection("leads")
-                .get()
-                .then((data) => {
-                  if (this.a) {
-                    firebase
-                      .firestore()
-                      .collection("Company")
-                      .doc(currentuser.photoURL)
-                      .collection("Campaigns")
-                      .doc(snap.data().cid)
-                      .collection("leads")
-                      .get()
-                      .then((docu) => {
-                        console.log(docu.docs.length); // ==========ALL LEAD COUNT IN CAMP
-                        data.docs.forEach((snap2) => {
-                          let action = snap2.data().action;
-                          let t = Date.parse(snap2.data().datetime);
-                          switch (
-                            action //Switching Action For Specific counts
-                          ) {
-                            case "Callback":
-                              if (t < d1) {
-                                call.push(t);
-                               
-                                firebase
-                                .firestore()
-                                .collection("Company")
-                                .doc(currentuser.photoURL)
-                                .collection("Campaigns")
-                                .doc(snap.data().cid)
-                                .collection("leads").doc(snap2.data().uid).set({
-                                  pending:true
-                                },{merge:true})
-                                // this.AllPendings.push(snap2.data());
-                              } else {
-                                break;
-                              }
-                              break;
-                            case "Schedule Meet":
-                              if (t < d1) {
-                                meet.push(t);
-                                
-                                firebase
-                                .firestore()
-                                .collection("Company")
-                                .doc(currentuser.photoURL)
-                                .collection("Campaigns")
-                                .doc(snap.data().cid)
-                                .collection("leads").doc(snap2.data().uid).set({
-                                  pending:true
-                                },{merge:true})
-                                // this.AllPendings.push(snap2.data());
-                              } else {
-                                break;
-                              }
-                              break;
-
-                              case "Send Mail":
-                              if (t < d1) {
-                                meet.push(t);
-                                
-                                firebase
-                                .firestore()
-                                .collection("Company")
-                                .doc(currentuser.photoURL)
-                                .collection("Campaigns")
-                                .doc(snap.data().cid)
-                                .collection("leads").doc(snap2.data().uid).set({
-                                  pending:true
-                                },{merge:true})
-                                // this.AllPendings.push(snap2.data());
-                              } else {
-                                break;
-                              }
-                              break;
-                          }
-                        });
-
-                        firebase //===============Writing Counts back to DB================
-                          .firestore()
-                          .collection("Company")
-                          .doc(currentuser.photoURL)
-                          .collection("Users").doc(currentuser.uid).collection("CampsAsso")
-                          .doc(snap.data().cid) //===================MAin CampId return from docsForEach on camps collection
-                          .update({
-                            pendingCalls: call.length,
-                            pendingMeets: meet.length,
-                            pendings: call.length + meet.length,
-                          });
-                      });
-                  }
-                  // console.log("Inserted",snap.data().cid,meet,call);
-
-                  // console.log("Toal lead counts", snap.data().cid, data.size);
-                  firebase //===============Writing Counts back to DB================
-                          .firestore()
-                          .collection("Company")
-                          .doc(currentuser.photoURL)
-                          .collection("Users").doc(currentuser.uid).collection("CampsAsso")
-                          .doc(snap.data().cid) //===================MAin CampId return from docsForEach on camps collection
-                          .update({
-                      totalLeads: data.size,
-                    });
-                });
-            });
-          });
-      });
+   
+      let count = [];
+      let  pending =[];
+       firebase
+         .firestore()
+         .collection("Company")
+         .doc(this.currentuser.photoURL)
+         .collection("Users")
+         .doc(this.currentuser.uid)
+         .collection("CampsAsso")
+         .get()
+         .then((camp) => {
+           camp.docs.forEach((campDoc) => {
+             let id = campDoc.data().cid;
+             firebase
+               .firestore()
+               .collection("Company")
+               .doc(this.currentuser.photoURL)
+               .collection("Campaigns")
+               .doc(id)
+               .collection("leads")
+               .get()
+               .then((leads) => {
+                 leads.docs.forEach((leadsDoc) => {
+                   if(leadsDoc.data().pending == true){
+                     pending.push(leadsDoc.data().id)
+                   }
+                   count.push(leadsDoc.data().id);
+                 });
+               });
+               campDoc.ref.set({
+                 totalLeads:count.length,
+                 pendingLeads:pending.length,
+                 
+               },{merge:true})
+           });
+         });
+   
 
     //================================================================
-    // let i;
-    // let n = this.arr.length;
-    // for(i=0;i<n;i++){
-
-    // }
+    
     let loading = this.loadingCtrl.create({
       spinner: "bubbles",
       content: "Loading...",
     });
     loading.present();
-    this.userInfo = this.afs
+    this.userInfo = 
+    this.afs
       .collection("Company")
       .doc(currentuser.photoURL)
       .collection("Users").doc(currentuser.uid).collection("CampsAsso");
-    this.products = this.userInfo.valueChanges();
-    this.pc = this.products;
-    console.log("PC", this.products);
-
-    for (var z in this.pc) {
-      // console.log("PC", this.pc[z]);
-    }
+      this.products = this.userInfo.valueChanges();
+      this.pc = this.products;
+     
+ 
     loading.dismiss();
 
-    console.log("ionViewDidLoad TrackCampaignPage");
   }
 
   //==================
 
   pendigDetails(id) {
-    this.navCtrl.push(PendingLeadsPage, {
+    this.navCtrl.push(ManagerPendingLeadsPage, {
       cid: id,
     });
   }
@@ -268,7 +147,7 @@ export class ManagerTrackCampaignPage {
           text: "OK",
 
           handler: (data) => {
-            console.log(value);
+          
             this.deleteItem1(value, Sr_id);
           },
         },
@@ -278,11 +157,9 @@ export class ManagerTrackCampaignPage {
   }
 
   archive(value) {
-    console.log(value);
-    let currentuser = firebase.auth().currentUser;
     this.afs
       .collection("Company")
-      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + value.cid)
+      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + value.cid)
       .update(
         Object.assign({
           active: false,
@@ -298,7 +175,6 @@ export class ManagerTrackCampaignPage {
           .present();
       })
       .catch((err) => {
-        console.log(err);
         let alert = this.alertCtrl.create({
           title: "Error",
           subTitle: err,
@@ -315,7 +191,7 @@ export class ManagerTrackCampaignPage {
   }
 
   active(value) {
-    console.log(value);
+   
     let currentuser = firebase.auth().currentUser;
     this.afs
       .collection("Company")
@@ -334,19 +210,9 @@ export class ManagerTrackCampaignPage {
           })
           .present();
 
-        // let alert = this.alertCtrl.create({
-        //   title: 'Sucess',
-        //   subTitle: value.name + ' ' + 'is back to Active now',
-        //   buttons: [{text: 'OK',
-        //             handler: data => {
-        //            // this.navCtrl.setRoot(ProfilePage);
-        //             }
-        //           }]
-        //         });
-        // alert.present();
       })
       .catch((err) => {
-        console.log(err);
+       
         let alert = this.alertCtrl.create({
           title: "Error",
           subTitle: err,
@@ -381,7 +247,6 @@ export class ManagerTrackCampaignPage {
         .delete();
     }
 
-    console.log("dsfsdfs", value,"dsfs", Sr_id);
   }
 
   leads(product) {

@@ -54,6 +54,11 @@ import { ManagerReportPage } from '../pages/manager-report/manager-report';
 import { ManagerRemainingLeadDeatilsPage } from '../pages/manager-remaining-lead-deatils/manager-remaining-lead-deatils';
 import { ManagerEditLeadPage } from '../pages/manager-edit-lead/manager-edit-lead';
 import { ManagerLeadInTrackCampPage } from '../pages/manager-lead-in-track-camp/manager-lead-in-track-camp';
+import { ManagerProfilePage } from '../pages/manager-profile/manager-profile';
+import { ManagerPendingLeadsPage } from '../pages/manager-pending-leads/manager-pending-leads';
+import { UserProfilePage } from '../pages/user-profile/user-profile';
+import { UserLeadDetailsPage } from '../pages/user-lead-details/user-lead-details';
+import { UsertrackcampPage } from '../pages/usertrackcamp/usertrackcamp';
 
 @NgModule({
   declarations: [
@@ -63,6 +68,7 @@ import { ManagerLeadInTrackCampPage } from '../pages/manager-lead-in-track-camp/
     HomePage, 
     HomeManagerPage,
     HomeUserPage,
+    UserProfilePage,
     ManagerRemainingLeadDeatilsPage,
     ManagerEditLeadPage,
     ManagerLeadInTrackCampPage,
@@ -72,25 +78,26 @@ import { ManagerLeadInTrackCampPage } from '../pages/manager-lead-in-track-camp/
     ManagerEditCampaignPage,
     ManagerCreateLeadProfilePage,
     ManagerLeadDetailsPage,
+    ManagerProfilePage,
     UserregPage,
     ManagerTaskDetailsPage,
     ManagerTrackCampaignPage,
     TrackCampaignPage,
-
-   
+    ManagerPendingLeadsPage,
     CreateLeadProfilePage,
     PendingLeadsPage, 
     ExportPage,
     EditCampaignsDetailsPage,
     LeadsDetailsPage,
     TaskDetailsPage,
-
+    UserLeadDetailsPage,
     UserDetailsPage,
     UserlistPage,
     CreateNewCampleadPage,
     EditLeadDetailsPage,
     EditTeamDetailsPage,
     ProfilePage,
+    UsertrackcampPage,
  
     LeadInTrackCampPage,
     EditCsvFieldPage,
@@ -120,14 +127,20 @@ import { ManagerLeadInTrackCampPage } from '../pages/manager-lead-in-track-camp/
   entryComponents: [
     MyApp,
     LoginPage,
+    UserLeadDetailsPage,
     RegisterPage,
     HomePage,
+    UserLeadDetailsPage,
     HomeManagerPage,
+    UsertrackcampPage,
     ManagerRemainingLeadDeatilsPage,
     ManagerEditLeadPage,
     ManagerLeadInTrackCampPage,
+    ManagerPendingLeadsPage,
     HomeUserPage,
+    UserProfilePage,
     ManagerReportPage,
+    ManagerProfilePage,
     ReportPage,
     CreateCampaignPage,
     ManagerCreateCampaignPage,
@@ -154,7 +167,8 @@ import { ManagerLeadInTrackCampPage } from '../pages/manager-lead-in-track-camp/
     ProfilePage,
     LeadInTrackCampPage,
     EditCsvFieldPage,
-    ExportPage
+    ExportPage,
+   
     
   ],
   providers: [
@@ -164,6 +178,7 @@ import { ManagerLeadInTrackCampPage } from '../pages/manager-lead-in-track-camp/
     AngularFireAuth,
     AuthserviceProvider,
      AngularFireModule ,
+     AuthserviceProvider
     //FileChooserOriginal,FileOpenerOriginal,FilePathOriginal
    
   ],

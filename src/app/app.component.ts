@@ -21,6 +21,8 @@ import { ManagerCreateCampaignPage } from "../pages/manager-create-campaign/mana
 import { ManagerTrackCampaignPage } from "../pages/manager-track-campaign/manager-track-campaign";
 import { App } from "ionic-angular";
 import { ProfilePage } from "../pages/profile/profile";
+import { ManagerProfilePage } from "../pages/manager-profile/manager-profile";
+import { UserProfilePage } from "../pages/user-profile/user-profile";
 
 @Component({
   templateUrl: "app.html",
@@ -64,7 +66,7 @@ export class MyApp {
                 
                 if (!doc.exists) {
                   this.pages = [
-                    { title: "Your Profile", component: ProfilePage, icon: "home" },
+                    { title: "Your Profile", component: ProfilePage, icon: "contact" },
                     { title: "Home", component: HomePage, icon: "home" },
                     { title: "Reports", component: ReportPage, icon: "document" },
                     { title: "Users", component: UserDetailsPage, icon: "people" },
@@ -77,7 +79,7 @@ export class MyApp {
                   switch (role) {
                     case "Manager":
                       this.pages = [
-                        { title: "Your Profile", component: ProfilePage, icon: "home" },
+                        { title: "Your Profile", component: ManagerProfilePage, icon: "contact" },
                         { title: "Home", component: HomeManagerPage, icon: "home" },
                         { title: "Reports", component: ManagerReportPage, icon: "document" },
                         { title: "Create Campaigns", component: ManagerCreateCampaignPage,icon: "person-add",},
@@ -88,13 +90,11 @@ export class MyApp {
                     
                     case  "Sale Representative":
                       this.pages = [
-                        { title: "Your Profile", component: ProfilePage, icon: "home" },
+                        { title: "Your Profile", component: UserProfilePage, icon: "contact" },
                         { title: "Home", component: HomeUserPage, icon: "home" },
                         { title: "Reports", component: ManagerReportPage, icon: "document" },  
-                        // {title: "Create Campaigns",component: ManagerCreateCampaignPage,icon: "person-add"},
-                        { title: "Track Campaigns", component: ManagerTrackCampaignPage, icon: "copy" },
-                        
-                        
+                      
+  
                       ];
 
                     break;
@@ -126,6 +126,7 @@ export class MyApp {
   }
 
   logout() {
+   
     this.storage.remove("email").then((user) => {
       console.log(user);
     });
@@ -147,8 +148,11 @@ export class MyApp {
     this.storage.remove("userId").then((user) => {
       console.log(user);
     });
+    this.storage.clear();
+  
     this.menuctrl.close();
     this.nav.setRoot(LoginPage);
+  
     //this.appCtrl.getRootNav().setRoot(LoginPage);
   }
 }

@@ -52,7 +52,6 @@
         <ion-card (click)="trackCampaigns()" style="background-color: rebeccapurple;">
           <ion-card-header >
             <ion-icon name="copy" ></ion-icon>
-          
             <span class="text">Track Campaigns</span>   
           </ion-card-header>
           </ion-card>
@@ -65,23 +64,25 @@
 
   <ion-row>
     <ion-col size="12" size-md>
-      <ion-card class="graphCard">  
-        <ion-card-header>
-          Line Chart
-        </ion-card-header> 
-        <ion-card-content>
-          <canvas #lineCanvas></canvas>
-        </ion-card-content>
-      </ion-card>
+
+        <ion-card >   
+          <ion-card-header>
+           Activities on Campaigns
+          </ion-card-header>
+          <ion-card-content class="canvas">
+            <canvas class="canvas"  #barCanvas></canvas>
+          </ion-card-content>
+        </ion-card>
+     
     </ion-col>
 
     <ion-col size="12" size-md>
-      <ion-card class="graphCard">   
+      <ion-card >   
         <ion-card-header>
-          Doughnut Chart
+        Details of Leads Associate with Campaigns
         </ion-card-header>
-        <ion-card-content >
-          <canvas #doughnutCanvas></canvas>
+        <ion-card-content class="canvas">
+          <canvas class="canvas"  #doughnutCanvas></canvas>
         </ion-card-content>
       </ion-card>
     </ion-col>
@@ -101,15 +102,20 @@
                         <tr>
                           <th>First Name</th>
                           <th>Role</th>
-                          <th>Email</th>  
+                          <th>Total Leads</th> 
+                          <th>Overdue</th>
+                          <th>Total Tasks</th>
                         </tr>
                         </thead>
                         <tbody>
                           <tr *ngFor="let product of productss">
                             <td >{{product.name}}</td>
                             <td>{{product.role}}</td>
-                            <td>{{product.email}}</td>
+                            <td>45</td>
+                            <td>5</td>
+                            <td>20</td>
                           </tr>
+                         
                         </tbody>
                         </table>
                         </div>
@@ -117,15 +123,15 @@
       </ion-col>
   
       <ion-col size="12" size-md>
-        <ion-card >   
+        <ion-card class="graphCard">  
           <ion-card-header>
-            Bar Chart
-          </ion-card-header>
-          <ion-card-content class="canvas">
-            <canvas  #barCanvas></canvas>
+            Line Chart
+          </ion-card-header> 
+          <ion-card-content>
+            <canvas #lineCanvas></canvas>
           </ion-card-content>
         </ion-card>
-      </ion-col>
+      </ion-col> 
       </ion-row>
    
  

@@ -27,23 +27,23 @@ export class ManagerLeadInTrackCampPage {
   public hed:any=[];
   value:any;
   products: Observable<Camps[]>;
-  productss: Observable<Camps[]>;
+  productss =[];
   lead = {} as Lead;
+  currentuser=firebase.auth().currentUser;
 
   constructor(public navCtrl: NavController, public navParams: NavParams,private alertCtrl:AlertController,
     private storage: Storage) {
     this.value = navParams.get('product');
-    console.log("cid",this.value.cid);
+    
   }
 
   ionViewDidLoad() {
-    let currentuser=firebase.auth().currentUser;
-    firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.value.cid).onSnapshot((doc) => {
+   
+    firebase.firestore().collection('Company').doc(this.currentuser.photoURL).collection('Campaigns').doc(this.value.cid).onSnapshot((doc) => {
       var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-      console.log(source, " data: "); 
+    
       this.products =  doc.data().CSVfield ; 
-      
-      console.log("csv ",this.products) ;
+    
       let test:any=[];
       test = this.products ;
       for(var a in test){
@@ -58,27 +58,26 @@ export class ManagerLeadInTrackCampPage {
      
   });
 
-  firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Admin').doc(currentuser.uid)
-.onSnapshot((doc) => {
-var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-console.log(source, " data: ");
-this.productss = doc.data().Users ;
-console.log("SR",this.productss) ;
-});
+  firebase
+      .firestore()
+      .collection("Company")
+      .doc(this.currentuser.photoURL)
+      .collection("Users")
+      .where('role' ,'==', 'Sale Representative')
+      .get().then((data)=>{
+        data.docs.forEach((snap) => {
+          this.productss.push(snap.data());
+        });
+      })
  
-    console.log('ionViewDidLoad LeadInTrackCampPage');
   }
 
   insertLead(data){
   
    // if(camp.name && camp.goals && camp.manager && camp.sr != null){
      this.storage.get('cuid').then((val) => {
-       console.log('id is', val);
-       let uuid1 = uuid()
-       console.log("uuid",uuid);
-       console.log("camp id",this.value.cid);
-       console.log("data",data)
-
+          let uuid1 = uuid()
+    
       for (var a in this.anArray) {     
       firebase.firestore().collection('Company').doc(val).collection('Campaigns').doc(this.value.cid)
       .collection('leads').doc(uuid1)
@@ -114,8 +113,7 @@ console.log("SR",this.productss) ;
     
   
      }).catch((err) => {
-       console.log(err); 
-       let alert = this.alertCtrl.create({
+        let alert = this.alertCtrl.create({
          //title: 'Error',
          subTitle:  'Problem in adding Lead' ,
          buttons: [{text: 'OK',

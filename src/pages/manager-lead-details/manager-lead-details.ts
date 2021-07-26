@@ -1,17 +1,13 @@
 import { Component } from '@angular/core';
 import firebase from "firebase";
 import { AlertController, NavController, NavParams } from "ionic-angular";
-
-import { EditLeadDetailsPage } from "../edit-lead-details/edit-lead-details";
 import { ExportPage } from "../export/export";
-import { TaskDetailsPage } from "../task-details/task-details";
+
 import { AngularFirestore } from "@angular/fire/firestore";
 import { Observable } from "rxjs";
-import { LeadInTrackCampPage } from "../lead-in-track-camp/lead-in-track-camp";
 import { Lead } from "../../models/user";
 import * as $ from "jquery";
 import { LoadingController } from "ionic-angular";
-import { RemainingLeadDeatilsPage } from "../remaining-lead-deatils/remaining-lead-deatils";
 import * as XLSX from "xlsx";
 import { ManagerTaskDetailsPage } from '../manager-task-details/manager-task-details';
 import { ManagerLeadInTrackCampPage } from '../manager-lead-in-track-camp/manager-lead-in-track-camp';
@@ -33,6 +29,7 @@ export class ManagerLeadDetailsPage {
   public csvShow = false;
   public exelShow = false;
   mainField;
+  showAssign;
 
   fileName;
   show = false; //table flag ExelTable
@@ -45,7 +42,8 @@ export class ManagerLeadDetailsPage {
   public disable_prev: boolean = false;
   public itemnumberbypage = 0;
   selSts;
-
+  sersfield;
+  sorted;
   value: any;
   userInfo: any;
   products: Observable<any[]>;
@@ -57,6 +55,7 @@ export class ManagerLeadDetailsPage {
   public hed = [];
   public array = [];
   public filtered = [];
+  term;
 
   tru = [];
   fal = [];
@@ -121,6 +120,8 @@ export class ManagerLeadDetailsPage {
   Follow_Up;
   Status;
   Remark;
+  srIds = [];
+
 
   //<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
 
@@ -131,6 +132,7 @@ export class ManagerLeadDetailsPage {
   pro: any = [];
 
   selectedStatus;
+  currentuser = firebase.auth().currentUser;
 
   constructor(
     public navCtrl: NavController,
@@ -140,12 +142,19 @@ export class ManagerLeadDetailsPage {
     public loadingCtrl: LoadingController
   ) {
     this.value = navParams.get("product");
-    console.log(this.value);
+  
     this.campid = this.value.cid;
+    for (var i in this.value.SR_id) {
+      this.srIds.push({ id: this.value.SR_id[i], name: this.value.SR_name[i] });
+    }
   }
 
   hide() {
-    this.hideMe = true;
+    if (this.array.length == null) {
+      this.hideMe = false;
+    } else {
+      this.hideMe = true;
+    }
   }
   hide1() {
     this.hideMe1 = true;
@@ -181,7 +190,7 @@ export class ManagerLeadDetailsPage {
             for (var i in test1) {
               this.pro.push(test1[i].status);
             }
-            console.log(this.pro);
+           
           });
         break;
 
@@ -202,7 +211,7 @@ export class ManagerLeadDetailsPage {
               let name = nam;
               this.pro.push(name);
             }
-            console.log(this.pro);
+           
           });
         break;
 
@@ -236,7 +245,7 @@ export class ManagerLeadDetailsPage {
         .limit(this.pageSize)
         .onSnapshot((snaps) => {
           if (!snaps.docs.length) {
-            // console.log("No Data Available");
+         
             alert("No Data Available");
             return false;
           }
@@ -329,7 +338,7 @@ export class ManagerLeadDetailsPage {
               this.filtered.push(snap.data());
             });
           });
-        console.log("filtered00", this.filtered);
+     
       } else {
         firebase
           .firestore()
@@ -345,11 +354,9 @@ export class ManagerLeadDetailsPage {
               this.filtered.push(snap.data());
             });
           });
-        console.log("filtered00", this.filtered);
+       
       }
-    } else {
-      console.log("blanks0");
-    }
+    } 
 
     this.fileName = this.value.name + ".csv";
 
@@ -361,7 +368,7 @@ export class ManagerLeadDetailsPage {
 
     XLSX.writeFile(wb, this.fileName);
 
-    console.log("filtered", this.filtered);
+   
   }
 
   //==================================>Table v/s Export<============================
@@ -376,22 +383,28 @@ export class ManagerLeadDetailsPage {
       this.hide();
       this.productsss.forEach((obj) => {
         obj.isChecked = this.masterCheck;
-        // console.log(obj.isChecked);
+     
 
         if (obj.isChecked == true && this.array.includes(obj.uid) === false) {
           this.array.push(obj.uid);
-          // console.log(this.array);
+       
           this.checkedCount = this.array.length;
-          // console.log("count", this.checkedCount);
+          if (this.checkedCount == 0) {
+            this.showAssign = false;
+          } else {
+            this.showAssign = true;
+          }
         }
         if (obj.isChecked == false) {
           var index = this.array.indexOf(obj.uid);
           if (index !== -1) {
             this.array.splice(index, 1);
           }
-          // console.log(this.array);
-          // console.log(this.array.length);
-          // console.log("count", this.checkedCount);
+          if (this.checkedCount == 0) {
+            this.showAssign = false;
+          } else {
+            this.showAssign = true;
+          }
         }
       });
     });
@@ -402,30 +415,38 @@ export class ManagerLeadDetailsPage {
     let checked = 0;
 
     this.productsss.map((obj) => {
-      // console.log(obj.isChecked);
+    
       checked++;
       if (obj.isChecked == true && this.array.includes(obj.uid) === false) {
         this.array.push(obj.uid);
-        // console.log(this.array);
+     
         this.checkedCount = this.array.length;
+        if (this.checkedCount == 0) {
+          this.showAssign = false;
+        } else {
+          this.showAssign = true;
+        }
       }
       if (obj.isChecked == false) {
         var index = this.array.indexOf(obj.uid);
         if (index !== -1) {
           this.array.splice(index, 1);
         }
-        // console.log(this.array);
+      
         this.checkedCount = this.array.length;
-        // console.log("count", this.checkedCount);
+        if (this.checkedCount == 0) {
+          this.showAssign = false;
+        } else {
+          this.showAssign = true;
+        }
       }
     });
   }
 
   insertsr(dataa) {
-    console.log("iasa", dataa);
    
     let currentuser = firebase.auth().currentUser;
-    console.log("AAAAA", this.array);
+ 
     let i, j;
     for (i = 0; i < this.array.length; i++) {
       firebase
@@ -456,14 +477,13 @@ export class ManagerLeadDetailsPage {
     var val = ev.target.value;
     if (val && val.trim() != "") {
       this.prod = this.prod.filter((item) => {
-        console.log("searchh", item);
+    
         return (
           item.first_name.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
           item.last_name.toLowerCase().indexOf(val.toLowerCase()) > -1 ||
           item.Phone.toLowerCase().indexOf(val.toLowerCase()) > -1
         );
-        // item.SR_name.toLowerCase().indexOf(val.toLowerCase()) > -1
-        // item.status.toLowerCase().indexOf(val.toLowerCase()) > -1
+        
       });
     }
   }
@@ -499,11 +519,9 @@ export class ManagerLeadDetailsPage {
       $(this).toggleClass("expanded");
     });
 
-    //this.filter.status = "Select"
     $(document).on("change", "table thead input", function () {
       var checked = $(this).is(":checked");
-      //var checkedValue = $('.messageCheckbox:checked').eq(index);
-      // console.log("checkedValue", checked);
+     
       var index = $(this).parent().index();
       $("table tr").each(function () {
         if (checked) {
@@ -515,8 +533,6 @@ export class ManagerLeadDetailsPage {
         }
       });
     });
-
-    console.log("ionViewDidLoad LeadsDetailsPage");
 
     let currentuser = firebase.auth().currentUser;
 
@@ -536,7 +552,6 @@ export class ManagerLeadDetailsPage {
           }
         }
 
-        // console.log("active headers",this.active)
       });
 
     firebase
@@ -570,14 +585,7 @@ export class ManagerLeadDetailsPage {
           }
         }
 
-        // this.tru.push("Handler")
-        // this.tru.push("Action")
-        // this.tru.push("Follow_Up")
-        // this.tru.push("Status")
-        // this.tru.push("Remark")
-
-        console.log("True at : ", this.tru);
-        console.log("false at : ", this.fal);
+      
       });
 
     firebase
@@ -665,19 +673,13 @@ export class ManagerLeadDetailsPage {
       .doc(admin)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        // console.log(source, " data: ");
         this.productss = doc.data().Users;
-        // console.log(this.productss);
+      
       });
 
       })
 
 
-
-    
-
-
-    //let currentuser=firebase.auth().currentUser;
     firebase
       .firestore()
       .collection("Company")
@@ -687,8 +689,7 @@ export class ManagerLeadDetailsPage {
       .collection("leads")
       .onSnapshot((snaps) => {
         if (!snaps.docs.length) {
-          // console.log("No Data Available");
-          alert("No Data Available");
+         alert("No Data Available");
           return false;
         }
 
@@ -735,16 +736,14 @@ export class ManagerLeadDetailsPage {
                 this.hed.push(doc.data());
 
                 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-                // console.log(source, " data: ", doc.data());
+              
                 this.productsss = this.hed;
-                // console.log("HHHHHHH", this.productsss);
-
                 this.last = doc;
                 this.first = doc;
-                // console.log("last", this.last);
+               
               });
             });
-          // console.log("No Data Available");
+      
 
           return false;
         }
@@ -755,13 +754,12 @@ export class ManagerLeadDetailsPage {
           this.hed.push(doc.data());
 
           var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-          // console.log(source, " data: ", doc.data());
+        
           this.productsss = this.hed;
-          // console.log("HHHHHHH", this.productsss);
-
+       
           this.last = doc;
           this.first = doc;
-          // console.log("last", this.last);
+         
         });
       });
     this.prev_strt_at = [];
@@ -769,11 +767,6 @@ export class ManagerLeadDetailsPage {
     this.disable_next = false;
     this.disable_prev = false;
     this.itemnumberbypage = 1;
-
-    // Push first item to use for Previous action
-    // this.push_prev_startAt(this.first);
-
-    console.log("ionViewDidLoad TrackCampaignPage");
 
     firebase
       .firestore()
@@ -801,33 +794,31 @@ export class ManagerLeadDetailsPage {
                 this.hed.push(doc.data());
 
                 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-                // console.log(source, " data: ", doc.data());
+              
                 this.productsss = this.hed;
-                // console.log("HHHHHHH", this.productsss);
-
+               
                 this.last = doc;
                 this.first = doc;
-                // console.log("last", this.last);
+               
               });
             });
-          // console.log("No Data Available");
+         
 
           return false;
         }
-        // loading.dismiss();
+       
         this.hed = [];
         this.productsss = [];
         snaps.docs.forEach((doc) => {
           this.hed.push(doc.data());
 
           var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-          // console.log(source, " data: ", doc.data());
+      
           this.productsss = this.hed;
-          // console.log("HHHHHHH", this.productsss);
-
+       
           this.last = doc;
           this.first = doc;
-          // console.log("last", this.last);
+         
         });
       });
     this.prev_strt_at = [];
@@ -836,10 +827,6 @@ export class ManagerLeadDetailsPage {
     this.disable_prev = false;
     this.itemnumberbypage = 1;
 
-    // Push first item to use for Previous action
-    // this.push_prev_startAt(this.first);
-
-    console.log("ionViewDidLoad TrackCampaignPage");
   }
 
   showhide(name, ev) {
@@ -888,16 +875,15 @@ export class ManagerLeadDetailsPage {
                 this.hed.push(doc.data());
 
                 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-                // console.log(source, " data: ", doc.data());
+           
                 this.productsss = this.hed;
-                // console.log("HHHHHHH", this.productsss);
-
+              
                 this.last = doc;
                 this.first = doc;
-                // console.log("last", this.last);
+                
               });
             });
-          // console.log("No Data Available");
+          
 
           return false;
         }
@@ -908,13 +894,12 @@ export class ManagerLeadDetailsPage {
           this.hed.push(doc.data());
 
           var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-          // console.log(source, " data: ", doc.data());
+       
           this.productsss = this.hed;
-          // console.log("HHHHHHH", this.productsss);
-
+        
           this.last = doc;
           this.first = doc;
-          // console.log("last", this.last);
+          
         });
       });
     this.prev_strt_at = [];
@@ -947,7 +932,7 @@ export class ManagerLeadDetailsPage {
       .limit(this.page)
       .onSnapshot((snaps) => {
         if (!snaps.docs.length) {
-          // console.log("No Data Available");
+       
           alert("No More Data");
           return false;
         }
@@ -958,15 +943,13 @@ export class ManagerLeadDetailsPage {
           (doc) => {
             this.hed.push(doc.data());
             var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-            // console.log(source, " data: ");
+        
 
             this.productsss = this.hed;
-            // console.log("nxt", this.productsss);
-
+         
             this.last = doc;
             this.first = doc;
 
-            //console.log("first",this.push_prev_startAt)
             this.disable_next = false;
           },
           (error) => {
@@ -999,7 +982,7 @@ export class ManagerLeadDetailsPage {
       .limit(this.page)
       .onSnapshot((snaps) => {
         if (!snaps.docs.length) {
-          // console.log("No Data Available");
+         
           alert("No More Data");
           return false;
         }
@@ -1011,14 +994,13 @@ export class ManagerLeadDetailsPage {
             this.hed.push(doc.data());
 
             var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-            // console.log(source, " data: ");
+     
 
             this.productsss = this.hed;
-            // console.log("prev", this.productsss);
+          
             this.last = doc;
             this.first = doc;
 
-            //Enable buttons again
             this.disable_prev = false;
             this.disable_next = false;
           },
@@ -1029,6 +1011,15 @@ export class ManagerLeadDetailsPage {
         this.pagination_clicked_count--;
         this.itemnumberbypage / this.pagination_clicked_count;
       });
+  }
+
+  checkBlank(){
+    if(this.term == null)
+    {
+      this.productsss = this.filled
+  
+    }
+
   }
 
   edit(data) {
@@ -1072,7 +1063,7 @@ export class ManagerLeadDetailsPage {
           text: "OK",
 
           handler: (data) => {
-            // console.log(value);
+         
             this.deleteItem1(value);
           },
         },
@@ -1097,6 +1088,45 @@ export class ManagerLeadDetailsPage {
           value1
       )
       .delete();
+  }
+  setSearchField(field){
+    this.sersfield = field
+  }
+
+  getLeads(){
+    this.productsss =[]
+    let test =[]
+   
+    firebase
+    .firestore()
+    .collection("Company")
+    .doc(this.currentuser.photoURL)
+    .collection("Campaigns")
+    .doc(this.value.cid)
+    .collection("leads").where(this.sersfield ,"==",this.term).get().then(leads => {
+      leads.docs.forEach(leadDoc => {
+       
+        if(leadDoc.exists){
+        
+          test.push(leadDoc.data())
+          this.productsss = test
+          
+        }else{
+          alert("No data")
+        }
+        
+      
+      })
+    })
+
+    this.csvShow = true
+
+   
+    
+
+
+
+
   }
 
 }

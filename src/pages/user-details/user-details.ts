@@ -130,6 +130,7 @@ export class UserDetailsPage {
       .collection("Company")
       .doc(this.currentuser.photoURL + "/" + "Users" + "/" + value)
       .delete();
+      
     switch (role) {
       case "Sale Representative":
      

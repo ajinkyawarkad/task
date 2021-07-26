@@ -44,15 +44,27 @@ export class ManagerTaskDetailsPage {
   cid: any;
   data: any;
   data1: any;
+  allTasksCount;
   arr: any = [];
+  leadId;
+  tFromDb = [];
+  dFromDb = [];
   act;
   select;
+  count;
   //refid:any;
+  pendings: any = [];
   leadref = {} as Leadref;
   task = {} as Task;
   leadd = {} as Leadd;
+  showTasks;
   showSlide = false;
   public products: Observable<Lead[]>;
+  currentuser = firebase.auth().currentUser;
+
+  d = new Date().getDate();
+  m = new Date().getMonth() + 1;
+  y = new Date().getFullYear();
 
   constructor(
     public navCtrl: NavController,
@@ -62,14 +74,13 @@ export class ManagerTaskDetailsPage {
     private auth: AngularFireAuth,
     public alertCtrl: AlertController
   ) {
-    // this.value = navParams.get('cid');
-    // console.log(this.value);
+   
 
     this.cid = navParams.get("cid");
-    console.log(this.cid);
-
+   
     this.data = navParams.get("data");
-    console.log("Data", this.data);
+   
+    this.leadId = this.data.uid;
 
     this.slideOpts = {
       effect: "flip",
@@ -82,22 +93,77 @@ export class ManagerTaskDetailsPage {
       .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + this.cid)
       .onSnapshot((doc) => {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-        console.log(source, " data: ");
-        this.products = doc.data().status;
+         this.products = doc.data().status;
         this.arr = this.products;
-        console.log(this.products);
+        
       });
   }
 
   ionViewDidLoad() {
-    if (this.data.action == null) {
-      console.log("action=Null");
-      this.showSlide = false;
-    } else {
-      console.log("action= ", this.data.action);
-      this.showSlide = true;
-    }
-    this.slides.onlyExternal = true;
+    let allTasks = [];
+    let t = [];
+    let f = [];
+    firebase
+      .firestore()
+      .collection("Company")
+      .doc(this.currentuser.photoURL)
+      .collection("Campaigns")
+      .doc(this.cid)
+      .collection("leads")
+      .doc(this.leadId)
+      .get()
+      .then((doc) => {
+        this.count = doc.data().pendings;
+        this.allTasksCount = doc.data().allTasks;
+        let taskTemp = [];
+        taskTemp = doc.data().taskIds;
+    
+        for (var i in taskTemp) {
+          this.tFromDb.push(taskTemp[i]);
+        
+        }
+      });
+
+    firebase
+      .firestore()
+      .collection("Company")
+      .doc(this.currentuser.photoURL)
+      .collection("Campaigns")
+      .doc(this.cid)
+      .collection("leads")
+      .doc(this.data.uid)
+      .collection("History")
+      .doc("Activity1")
+      .get()
+      .then((doc) => {
+        if (doc.exists) {
+          this.showTasks = true;
+          allTasks = doc.data().data;
+          for (var i in allTasks) {
+            if (allTasks[i].Completed == true) {
+              if (allTasks[i].Action !== "None") {
+                t.push(allTasks[i].id);
+              } 
+            } else {
+              f.push(allTasks[i]);
+            }
+          }
+          for (var c in f) {
+            let is = t.includes(f[c].id);
+            switch (is) {
+              case true:
+                break;
+              case false:
+                this.pendings.push(f[c]);
+
+                break;
+            }
+          }
+         
+        } else {
+          this.showTasks = false;
+        }
+      });
   }
   slideToSlide() {
     if (this.slides.getActiveIndex() + 1 === this.slides.length()) {
@@ -118,64 +184,135 @@ export class ManagerTaskDetailsPage {
   }
 
   completeTask(val) {
-    console.log("Val", val);
-    let currentuser = firebase.auth().currentUser;
-    firebase
-      .firestore()
-      .collection("Company")
-      .doc(
-        currentuser.photoURL+
-          "/" +
-          "Campaigns" +
-          "/" +
-          this.cid +
-          "/" +
-          "leads" +
-          "/" +
-          val.uid
-      )
-      .collection("History")
-      .doc("Activity1")
-      .update({
-        data: firestore.FieldValue.arrayUnion({
-          Time: new Date(),
-          Action: this.data.action,
-          FollowUp: this.data.datetime,
-          Remark: this.data.remark,
-          name: val.uid,
-          Handler: this.data.SR_name,
-          Completed: true,
-        }),
-      });
+ 
+    if (this.tFromDb.length) {
+      let f = this.tFromDb.includes(val.id);
+   
+      switch (f) {
+        case true:
+          firebase
+            .firestore()
+            .collection("Company")
+            .doc(this.currentuser.photoURL)
+            .collection("Campaigns")
+            .doc(this.cid)
+            .collection("leads")
+            .doc(this.leadId)
+            .update({
+              allTasks: this.allTasksCount - 1,
+              taskIds: firestore.FieldValue.arrayRemove(val.id),
+            })
+            .then((res) => {
+              let fd = this.y + "-" + this.m + "-" + this.d;
+              // let a = new Date(fd);
+              let d1 = Date.parse(fd);
 
-    // firebase.firestore().collection('Company').doc(currentuser.photoURL).collection('Campaigns').doc(this.cid).collection('leads')
-    //   .doc(this.data.uid).collection('History')
-    //   .doc('Activity1')
-    //   .set({
-    //    data:firebase.firestore.FieldValue.arrayUnion({
-    //     complete:true
-    //    })
-    //   },{merge:true}
-    //   )
-  }
+              let allTasks2 = [];
+              let tru = [];
+              let fal = [];
+              let pends = [];
+              let nonPends = [];
 
-  Getselected(selected_value) {
-    let temp = [];
+              firebase
+                .firestore()
+                .collection("Company")
+                .doc(this.currentuser.photoURL)
+                .collection("Campaigns")
+                .doc(this.cid)
+                .collection("leads")
+                .doc(this.leadId)
+                .collection("History")
+                .doc("Activity1")
+                .get()
+                .then((doc) => {
+                  if (doc.exists) {
+                    allTasks2 = doc.data().data;
+                    for (var i in allTasks2) {
+                      if (allTasks2[i].Completed == true) {
+                        if (allTasks2[i].Action !== "None") {
+                          tru.push(allTasks2[i].id);
+                        } 
+                      } else {
+                      
+                        fal.push(allTasks2[i].id);
+                      }
+                    }
+                    for (var c in fal) {
+                      let is = tru.includes(fal[c].id);
+                      switch (is) {
+                        case true:
+                          break;
+                        case false:
+                          let da = Date.parse(fal[c].FollowUp);
+                          if (da <= d1) {
+                            pends.push(f[c]);
+                          } else {
+                            nonPends.push(f[c]);
+                          }
 
-    console.log("SELECT", selected_value);
-    this.select = selected_value;
-    let action;
-    for (var s in this.arr) {
-      if (this.arr[s].status == selected_value) {
-        temp.push(this.arr[s]);
-        action = this.arr[s].action;
+                          break;
+                      }
+                    }
+                  
+                    let len = pends.length;
+
+                    if (pends.length == 0) {
+                    
+                      firebase
+                        .firestore()
+                        .collection("Company")
+                        .doc(this.currentuser.photoURL)
+                        .collection("Campaigns")
+                        .doc(this.cid)
+                        .collection("leads")
+                        .doc(this.leadId)
+                        .update({
+                          pending: false,
+                        })
+                        .then((res) => {
+                          let count;
+                          firebase
+                            .firestore()
+                            .collection("Company")
+                            .doc(this.currentuser.photoURL)
+                            .collection("Campaigns")
+                            .doc(this.cid)
+                            .get()
+                            .then((campDoc) => {
+                              count = campDoc.data().pendings;
+                              campDoc.ref.update({
+                                pendings: count - 1,
+                              });
+                            });
+                        });
+                    } else {
+                     
+                      firebase
+                        .firestore()
+                        .collection("Company")
+                        .doc(this.currentuser.photoURL)
+                        .collection("Campaigns")
+                        .doc(this.cid)
+                        .collection("leads")
+                        .doc(this.leadId)
+                        .update({
+                          pending: true,
+                        });
+                    }
+                  } else {
+                    this.showTasks = false;
+                  }
+                });
+            });
+
+          break;
+        case false:
+          break;
       }
     }
-    this.act = action;
-    console.log("TEMO", this.act);
-    if (this.act === "Remove client from profile") {
-      let currentuser = firebase.auth().currentUser
-      firebase
+
+    let currentuser = firebase.auth().currentUser;
+    firebase
       .firestore()
       .collection("Company")
       .doc(
@@ -187,14 +324,23 @@ export class ManagerTaskDetailsPage {
           "/" +
           "leads" +
           "/" +
-          this.data.uid
+          this.leadId
       )
-      .delete();
-    console.log("DELETED", this.data.uid);
-    }
-  }
+      .collection("History")
+      .doc("Activity1")
+      .update({
+        data: firestore.FieldValue.arrayUnion({
+          Time: new Date(),
+          Action: val.Action,
+          FollowUp: val.FollowUp,
+          Remark: val.Remark,
+          Status: val.Status,
+          Handler: val.Handler,
+          id: val.id,
+          Completed: true,
+        }),
+      });
 
-  Task(task: Task) {
     var b = new Date().getMonth() + 1;
 
     var c = new Date().getFullYear();
@@ -203,114 +349,118 @@ export class ManagerTaskDetailsPage {
     let date = a + "-" + b + "-" + c;
     let dat = "";
     dat = date;
-    console.log("Dateee", date);
-   if(task.action == "None"){
-     
-     let currentuser =firebase.auth().currentUser
+ 
     firebase
-    .firestore()
-    .collection("Company")
-    .doc(
-      currentuser.photoURL +
-        "/" +
-        "Campaigns" +
-        "/" +
-        this.cid +
-        "/" +
-        "leads" +
-        "/" +
-        this.data.uid
-    )
-    .update(
-      Object.assign(
+      .firestore()
+      .collection("Company")
+      .doc(currentuser.photoURL)
+      .collection("Admin")
+      .doc(currentuser.uid)
+      .collection("Report")
+      .doc(dat)
+      .set(
         {
-          //id: uid,
-          action: this.task.action,
-          datetime: "",
-          status:  this.task.status,
-          remark: this.task.remark,
-         
+          data: firebase.firestore.FieldValue.arrayUnion({
+            Time: new Date(),
+            Action: val.Action,
+            FollowUp: val.FollowUp,
+            Remark: val.Remark,
+            name: this.leadId,
+            id: val.id,
+          }),
         },
         { merge: true }
-      )
-    );
-    firebase
-        .firestore()
-        .collection("Company")
-        .doc(currentuser.photoURL)
-        .collection("Campaigns")
-        .doc(this.cid)
-        .collection("leads")
-        .doc(this.data.uid)
-        .collection("History")
-        .doc("Activity1")
-        .set(
-          {
-            data: firebase.firestore.FieldValue.arrayUnion({
-              Time: new Date(),
-              Action:"None",
-              FollowUp: "NA",
-              Remark: "NA",
-              name: this.data.uid,
-              Handler: this.data.SR_name,
-              Completed: true,
-              pending:false
-            }),
-          },
-          { merge: true }
+      );
+  }
 
-        );
+  Getselected(selected_value) {
+    let temp = [];
 
-        firebase
-        .firestore()
-        .collection("Company")
-        .doc(currentuser.photoURL)
-        .collection("Users")
-        .doc(currentuser.uid)
-        .collection("Report")
-        .doc(dat)
-        .set(
-          {
-            data: firebase.firestore.FieldValue.arrayUnion({
-              Time: new Date(),
-              Action: task.action,
-              FollowUp: task.datetime,
-              Remark: task.remark,
-              name: this.data.uid,
-            }),
-          },
-          { merge: true }
-        );
+    this.select = selected_value;
+    let action;
+    for (var s in this.arr) {
+      if (this.arr[s].status == selected_value) {
+        temp.push(this.arr[s]);
+        action = this.arr[s].action;
+      }
+    }
+    this.act = action;
+  
+    if (this.act === "Remove client from profile") {
+      alert("this will remove this lead profile permently");
+    }
+  }
 
-
-        let alert = this.alertCtrl.create({
-          title: "Success",
-          subTitle: "Saved Successfully",
-          //scope: id,
-          buttons: [
-            {
-              text: "OK",
-              handler: (data) => {
-                this.navCtrl.pop();
-              },
-            },
-          ],
-        });
-        alert.present();
-    
-
-
-   }else{
-
-    console.log("SR name", this.data.SR_name);
+  Task(task: Task) {
+  
+    let s = uuid();
+    let u = s.split("-");
+    let id = u[0];
     if (task.action && task.remark != null) {
       this.storage.get("cuid").then((val) => {
-        console.log("id is", val);
+     
         let uid = uuid();
-        console.log(uid);
+     
         let currentuser = firebase.auth().currentUser;
 
-        firebase
+        if (task.action == "None") {
+          firebase
+            .firestore()
+            .collection("Company")
+            .doc(
+              currentuser.photoURL +
+                "/" +
+                "Campaigns" +
+                "/" +
+                this.cid +
+                "/" +
+                "leads" +
+                "/" +
+                this.data.uid
+            )
+            .update(
+              Object.assign(
+                {
+                  id: uid,
+                  action: task.action,
+                  datetime: "",
+                  status: task.status,
+                  remark: task.remark,
+                  taskId: id,
+                },
+                { merge: true }
+              )
+            );
+
+            firebase
+            .firestore()
+            .collection("Company")
+            .doc(currentuser.photoURL)
+            .collection("Campaigns")
+            .doc(this.cid)
+            .collection("leads")
+            .doc(this.data.uid)
+            .collection("History")
+            .doc("Activity1")
+            .set(
+              {
+                data: firebase.firestore.FieldValue.arrayUnion({
+                  Time: new Date(),
+                  Action: task.action,
+                  FollowUp: task.datetime,
+                  Remark: task.remark,
+                  Status: task.status,
+                  Handler: this.data.SR_name,
+                  Completed: true,
+                  id: id,
+                }),
+              },
+              { merge: true }
+            );
+
+
+        } else {
+          firebase
           .firestore()
           .collection("Company")
           .doc(
@@ -327,17 +477,71 @@ export class ManagerTaskDetailsPage {
           .update(
             Object.assign(
               {
-                //id: uid,
+                id: uid,
                 action: task.action,
                 datetime: task.datetime,
                 status: task.status,
                 remark: task.remark,
+                taskId: id,
               },
               { merge: true }
             )
           );
-        console.log("ACT IS ", this.act);
-        console.log("SELECT", this.select);
+
+          firebase
+          .firestore()
+          .collection("Company")
+          .doc(currentuser.photoURL)
+          .collection("Campaigns")
+          .doc(this.cid)
+          .collection("leads")
+          .doc(this.data.uid)
+          .collection("History")
+          .doc("Activity1")
+          .set(
+            {
+              data: firebase.firestore.FieldValue.arrayUnion({
+                Time: new Date(),
+                Action: task.action,
+                FollowUp: task.datetime,
+                Remark: task.remark,
+                Status: task.status,
+                Handler: this.data.SR_name,
+                Completed: false,
+                id: id,
+              }),
+            },
+            { merge: true }
+          );
+
+        }
+
+        firebase
+          .firestore()
+          .collection("Company")
+          .doc(currentuser.photoURL)
+          .collection("Campaigns")
+          .doc(this.cid)
+          .collection("leads")
+          .doc(this.leadId)
+          .get()
+          .then((doc) => {
+            if ((doc.data().pending = true)) {
+              doc.ref.update({
+                pending: false,
+              });
+
+              firebase
+                .firestore()
+                .collection("Company")
+                .doc(currentuser.photoURL)
+                .collection("Campaigns")
+                .doc(this.cid)
+                .update({
+                  pendings: this.count - 1,
+                });
+            } 
+          });
 
         switch (this.act) {
           case "Inform Manager":
@@ -384,41 +588,26 @@ export class ManagerTaskDetailsPage {
                   this.data.uid
               )
               .delete();
-            console.log("DELETED", this.data.uid);
+         
             break;
         }
 
-        firebase
-          .firestore()
-          .collection("Company")
-          .doc(currentuser.photoURL)
-          .collection("Campaigns")
-          .doc(this.cid)
-          .collection("leads")
-          .doc(this.data.uid)
-          .collection("History")
-          .doc("Activity1")
-          .set(
-            {
-              data: firebase.firestore.FieldValue.arrayUnion({
-                Time: new Date(),
-                Action: task.action,
-                FollowUp: task.datetime,
-                Remark: task.remark,
-                name: this.data.uid,
-                Handler: this.data.SR_name,
-                Completed: false,
-              }),
-            },
-            { merge: true }
-          );
        
+        var b = new Date().getMonth() + 1;
+
+        var c = new Date().getFullYear();
+        var a = new Date().getDate();
+
+        let date = a + "-" + b + "-" + c;
+        let dat = "";
+        dat = date;
+    
 
         firebase
           .firestore()
           .collection("Company")
           .doc(currentuser.photoURL)
-          .collection("Users")
+          .collection("Admin")
           .doc(currentuser.uid)
           .collection("Report")
           .doc(dat)
@@ -429,7 +618,8 @@ export class ManagerTaskDetailsPage {
                 Action: task.action,
                 FollowUp: task.datetime,
                 Remark: task.remark,
-                name: this.data.uid,
+                name: this.leadId,
+                id: id,
               }),
             },
             { merge: true }
@@ -466,25 +656,31 @@ export class ManagerTaskDetailsPage {
       });
       alert.present();
     }
-
-   }
-   
   }
 
-  Save(leadref: Leadref) {
-    if (
-      leadref.email &&
-      leadref.first_name &&
-      leadref.last_name &&
-      leadref.phone != null
-    ) {
-      this.storage.get("cuid").then((val) => {
-        console.log("id is", val);
-        let uid = uuid();
-        console.log(uid);
-        let currentuser = firebase.auth().currentUser;
-
-        firebase
+  Reference()
+  {
+    let uid = uuid();
+  
+    let alert = this.alertCtrl.create({
+      title: "Add Reference",
+      inputs: [{ name: "first_name", placeholder: "First Name" },
+               { name: "last_name", placeholder: "Last Name" },
+               { name: "email", placeholder: "Email" },
+               { name: "phone", placeholder: "Phone" }],
+      buttons: [
+        {
+          text: "Cancel",
+          role: "cancel",
+        
+        },
+        {
+          text: "Save",
+          handler: (reff) => {
+            if (reff.first_name) {
+              
+              let currentuser = firebase.auth().currentUser;
+              const result =  firebase
           .firestore()
           .collection("Company")
           .doc(
@@ -501,56 +697,44 @@ export class ManagerTaskDetailsPage {
           .set(
             Object.assign({
               id: uid,
-              first_name: leadref.first_name,
-              last_name: leadref.last_name,
-              email: leadref.email,
-              phone: leadref.phone,
+              first_name: reff.first_name,
+              last_name: reff.last_name,
+              email: reff.email,
+              phone: reff.phone,
               refId: this.data.uid,
             })
           );
 
-        let alert = this.alertCtrl.create({
-          title: "Success",
-          subTitle: "Saved Successfully",
-          //scope: id,
-          buttons: [
-            {
-              text: "OK",
-              handler: (data) => {
-                //this.navCtrl.push(UserDetailsPage);
-              },
-            },
-          ],
-        });
-        alert.present();
-      });
-    } else {
-      let alert = this.alertCtrl.create({
-        title: "Warning",
-        subTitle: "Please Insert Data",
-        //scope: id,
-        buttons: [
-          {
-            text: "OK",
-            handler: (data) => {
-              //this.navCtrl.push(LoginPage);
-            },
+              if (result) {
+                let alert = this.alertCtrl.create({
+                  title: "Success",
+                  subTitle: "Reference Added",
+                  buttons: [
+                    {
+                      text: "OK",
+                      handler: (data) => {
+                        //this.navCtrl.setRoot(HomePage);
+                      },
+                    },
+                  ],
+                });
+                alert.present();
+              }
+            } else {
+              return false;
+            }
           },
-        ],
-      });
-      alert.present();
-    }
+        },
+      ],
+    });
+    alert.present();
   }
-
-  hide(value) {
- 
-    if(value == 'None'){
+  hide(action) {
+    if (action == "None") {
       this.hideMe = false;
-    }else{
-      this.hideMe = true
+    } else {
+      this.hideMe = true;
     }
-    
-   
   }
   hide1() {
     this.hideMe1 = !this.hideMe1;
@@ -559,12 +743,7 @@ export class ManagerTaskDetailsPage {
     this.navCtrl.pop();
   }
   change(datePicker) {
-    console.log("date", this.myDate);
-    console.log("datePicker", datePicker);
+   
     datePicker.open();
   }
-  ab() {
-    console.log("date");
-  }
-
 }

@@ -13,7 +13,7 @@ export class User{
 export class Employee{
     name:string;
     email:string;
-    last:string;
+  //  last:string;
     role:string;
 }
 

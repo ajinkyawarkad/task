@@ -55,9 +55,8 @@ export class LeadInTrackCampPage {
   firebase.firestore().collection('Company').doc(this.currentuser.photoURL).collection('Admin').doc(this.currentuser.uid)
 .onSnapshot((doc) => {
 var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
-console.log(source, " data: ");
 this.productss = doc.data().Users ;
-console.log("SR",this.productss) ;
+
 });
  
   }
