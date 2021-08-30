@@ -37,8 +37,8 @@
         
          <label>Manager</label>
          <ion-item style="width: 218%;margin-left: -6px;">
-          <ion-select  [(ngModel)]="value.manager">
-            <ion-option *ngFor="let product of productss">{{product.name}}</ion-option>
+          <ion-select  [(ngModel)]="value.manager" (ionChange)="chekMan(value.manager)">
+            <ion-option *ngFor="let product of productss" >{{product.name}}</ion-option>
             </ion-select> 
         </ion-item>
       

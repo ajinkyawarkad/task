@@ -46,8 +46,8 @@ export class MyApp {
     private menuctrl: MenuController,
     private appCtrl:App
   ) {
-    this.initializeApp();
-
+  
+  
     this.storage.get("email").then((val) => {
       console.log("email", val);
 
@@ -111,7 +111,7 @@ export class MyApp {
     });
 
     // used for an example of ngFor and navigation
-   
+    this.initializeApp();
   }
 
   initializeApp() {

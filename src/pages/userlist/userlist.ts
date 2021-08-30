@@ -8,6 +8,7 @@ import { Storage } from '@ionic/storage';
 import { AngularFirestore} from '@angular/fire/firestore';
 
 import { uuid } from 'uuidv4';
+import { UserDetailsPage } from '../user-details/user-details';
 
 
 
@@ -86,7 +87,7 @@ export class UserlistPage {
             {
               text: "OK",
               handler: (data) => {
-           //    this.navCtrl.push(HomePage);
+               this.navCtrl.push(UserDetailsPage);
               },
             },
           ],

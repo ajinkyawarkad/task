@@ -87,13 +87,13 @@
             </thead>
             <tbody *ngFor="let product of products | async  | search2 : term">
               <tr *ngIf="product.active == false ">
-                <td style="text-decoration: underline;color:blue" (click)="leads(product)">{{product.name}}</td>
+                <td  >{{product.name}}</td>
                 <td>{{product.manager}}</td>
                 <td>{{product.pendings}}</td>
                 <td>{{product.totalLeads}}</td>
                 <td>
                   <!-- <ion-icon name="trash" class="deleteicon" (click)="showPopup(product.cid)"></ion-icon> -->
-                  <p style="color:blue" (click)="showPopup(product.cid,product.SR_id)">Delete</p>
+                  <!-- <p style="color:blue" (click)="showPopup(product.cid,product.SR_id,product.manId)">Delete</p> -->
                   <p (click)="active(product)">Active</p>
                 </td>
               </tr>

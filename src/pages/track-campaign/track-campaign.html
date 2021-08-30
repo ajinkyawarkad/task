@@ -40,7 +40,7 @@
           <table >
             <thead>
               <tr>
-                <th scope="col" (click)="sort()">Compaigns Name <ion-icon mode="ios" name="arrow-down"></ion-icon>
+                <th scope="col" (click)="sort()">Campaigns Name <ion-icon mode="ios" name="arrow-down"></ion-icon>
                 </th>
                 <th scope="col">Manager</th>
                 <th scope="col">Pendings Leads</th>
@@ -89,7 +89,7 @@
             </thead>
             <tbody *ngFor="let product of products | async | search2 : term">
               <tr  *ngIf="product.active == false ">
-                <th style="text-decoration: underline;color:blue" (click)="leads(product)">{{product.name}}</th>
+                <th >{{product.name}}</th>
                 <td>{{product.manager}}</td>
                 <td>{{product.pendings}}</td>
                 <td>{{product.totalLeads}}</td>

@@ -632,7 +632,7 @@ export class ManagerCreateLeadProfilePage {
     }
 
     if (check) {
-      alert("Select Filelds ");
+      alert("Select Fields ");
     } else {
       let Mainheader = this.anArray;
      

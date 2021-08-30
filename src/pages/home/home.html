@@ -94,6 +94,7 @@
     <ion-row>
       <ion-col size="12" size-md>
         <ion-card >   
+       
           <p class="p">Users Details</p>
             <hr>
                     <div class="tableFixHead">
@@ -108,12 +109,12 @@
                         </tr>
                         </thead>
                         <tbody>
-                          <tr *ngFor="let product of productss">
+                          <tr *ngFor="let product of userTable">
                             <td >{{product.name}}</td>
                             <td>{{product.role}}</td>
-                            <td>45</td>
-                            <td>5</td>
-                            <td>20</td>
+                            <td>{{product.total}}</td>
+                            <td>{{product.Overdue}}</td>
+                            <td>{{product.tasks}}</td>
                           </tr>
                          
                         </tbody>

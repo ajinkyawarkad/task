@@ -20,6 +20,7 @@ currentuser=firebase.auth().currentUser;
   constructor(public navCtrl: NavController, public navParams: NavParams,public afs: AngularFirestore,
     private alertCtrl:AlertController) {
     this.value = navParams.get('product');      
+    
   }
 
   ionViewDidLoad() {
@@ -137,6 +138,7 @@ currentuser=firebase.auth().currentUser;
                 buttons: [{text: 'OK',
                           handler: data => {
                          // this.navCtrl.setRoot(ProfilePage);
+                    
                           } 
                         }]
                       });

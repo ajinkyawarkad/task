@@ -63,8 +63,6 @@ export class TrackCampaignPage {
     // let a = new Date(fd);
     var d1 = Date.parse(fd);
   
-   
-
     //==================Total Leads Vs ADMIN================================
 
     firebase
@@ -189,9 +187,7 @@ export class TrackCampaignPage {
 
 
                                   }
-                                 
-                                 
-                                
+                             
                                 }
 
                               
@@ -361,27 +357,18 @@ export class TrackCampaignPage {
       .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + value)
       .delete();
 
-    for (var i in Sr_id) {
-      firebase
-        .firestore()
-        .collection("Company")
-        .doc(this.currentuser.photoURL)
-        .collection("Users")
-        .doc(Sr_id[i])
-        .collection("CampsAsso")
-        .doc(value)
-        .delete();
+    for (var i in Sr_id) { 
+        this.afs
+      .collection("Company")
+      .doc(this.currentuser.photoURL + "/" + "Users" + "/" + Sr_id[i] + "/" + "CampsAsso" +"/" + value )
+      .delete();
     }
 
-    firebase
-      .firestore()
-      .collection("Company")
-      .doc(this.currentuser.photoURL)
-      .collection("Users")
-      .doc(manager)
-      .collection("CampsAsso")
-      .doc(value)
-      .delete();
+    this.afs
+    .collection("Company")
+    .doc(this.currentuser.photoURL + "/" + "Users" + "/" + manager + "/" + "CampsAsso" +"/" + value )
+    .delete();
+  
   }
 
   leads(product) {

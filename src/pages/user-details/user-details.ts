@@ -45,6 +45,12 @@ export class UserDetailsPage {
     public alertCtrl: AlertController
   ) {
     this.Segments = "1";
+    this.doRefresh(0);
+  }
+  doRefresh(refresher)
+  {
+   if(refresher != 0) 
+      refresher.complete() 
   }
 
   ionViewWillLoad() {
@@ -171,6 +177,7 @@ export class UserDetailsPage {
     this.navCtrl.push(EditTeamDetailsPage, {
       product: product,
     });
+    
   }
 
   async showActive(user: User) {

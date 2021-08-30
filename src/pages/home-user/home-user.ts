@@ -247,7 +247,7 @@ export class HomeUserPage {
     });
   }
 
-  showPopup(value, Sr_id) {
+  showPopup(value, Sr_id,manager) {
     let alert = this.alertCtrl.create({
       title: "Confirm Delete",
       subTitle: "Do you really want to delete?",
@@ -262,7 +262,7 @@ export class HomeUserPage {
 
           handler: (data) => {
           
-            this.deleteItem1(value, Sr_id);
+            this.deleteItem1(value, Sr_id,manager);
           },
         },
       ],
@@ -345,30 +345,24 @@ export class HomeUserPage {
       });
   }
 
-  deleteItem1(value, Sr_id) {
+  deleteItem1(value, Sr_id,manager) {
     let currentuser = firebase.auth().currentUser;
     this.afs
-      .collection("Company")
-      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + value)
-      .delete();
+    .collection("Company")
+    .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + value)
+    .delete();
 
+  for (var i in Sr_id) { 
       this.afs
-      .collection("Company")
-      .doc(currentuser.photoURL).collection("Users").doc(currentuser.uid).collection("CampsAsso").doc(value)
-      .delete();
+    .collection("Company")
+    .doc(currentuser.photoURL + "/" + "Users" + "/" + Sr_id[i] + "/" + "CampsAsso" +"/" + value )
+    .delete();
+  }
 
-    for (var i in Sr_id) {
-      firebase
-        .firestore()
-        .collection("Company")
-        .doc(currentuser.photoURL)
-        .collection("Users")
-        .doc(Sr_id[i])
-        .collection("CampsAsso")
-        .doc(value)
-        .delete();
-    }
-
+  this.afs
+  .collection("Company")
+  .doc(currentuser.photoURL + "/" + "Users" + "/" + manager + "/" + "CampsAsso" +"/" + value )
+  .delete();
    
   }
 

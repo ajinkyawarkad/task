@@ -133,7 +133,7 @@ export class ManagerTrackCampaignPage {
     });
   }
 
-  showPopup(value, Sr_id) {
+  showPopup(value, Sr_id,manager) {
     let alert = this.alertCtrl.create({
       title: "Confirm Delete",
       subTitle: "Do you really want to delete?",
@@ -148,7 +148,7 @@ export class ManagerTrackCampaignPage {
 
           handler: (data) => {
           
-            this.deleteItem1(value, Sr_id);
+            this.deleteItem1(value, Sr_id,manager);
           },
         },
       ],
@@ -157,14 +157,16 @@ export class ManagerTrackCampaignPage {
   }
 
   archive(value) {
+  
+   
     this.afs
-      .collection("Company")
-      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + value.cid)
-      .update(
-        Object.assign({
-          active: false,
-        })
-      )
+    .collection("Company")
+    .doc(this.currentuser.photoURL).collection("Users").doc(this.currentuser.uid).collection("CampsAsso").doc(value.cid)
+    .update(
+      Object.assign({
+        active: false,
+      })
+    )
       .then(() => {
         this.toast
           .create({
@@ -194,8 +196,8 @@ export class ManagerTrackCampaignPage {
    
     let currentuser = firebase.auth().currentUser;
     this.afs
-      .collection("Company")
-      .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + value.cid)
+    .collection("Company")
+    .doc(currentuser.photoURL).collection("Users").doc(currentuser.uid).collection("CampsAsso").doc(value.cid)
       .update(
         Object.assign({
           active: true,
@@ -228,24 +230,26 @@ export class ManagerTrackCampaignPage {
       });
   }
 
-  deleteItem1(value, Sr_id) {
+  deleteItem1(value, Sr_id,manager) {
+    console.log("SR if00" ,Sr_id)
     let currentuser = firebase.auth().currentUser;
+  
     this.afs
       .collection("Company")
       .doc(currentuser.photoURL + "/" + "Campaigns" + "/" + value)
       .delete();
 
     for (var i in Sr_id) {
-      firebase
-        .firestore()
-        .collection("Company")
-        .doc(currentuser.photoURL)
-        .collection("Users")
-        .doc(Sr_id[i])
-        .collection("CampsAsso")
-        .doc(value)
-        .delete();
+      this.afs
+      .collection("Company")
+      .doc(this.currentuser.photoURL + "/" + "Users" + "/" + Sr_id[i] + "/" + "CampsAsso" +"/" + value )
+      .delete();
     }
+
+    this.afs
+    .collection("Company")
+    .doc(this.currentuser.photoURL + "/" + "Users" + "/" + manager + "/" + "CampsAsso" +"/" + value )
+    .delete();
 
   }
 

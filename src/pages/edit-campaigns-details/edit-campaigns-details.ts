@@ -38,6 +38,14 @@ export class EditCampaignsDetailsPage {
   anArray: any = [];
   anArray2: any = [];
   idArr = [];
+  manIdr;
+  manNam;
+  manChanged ;
+  newManId;
+  newManName;
+  fieldRecord = {
+
+  }
 
   product: { cid: ""; name: ""; goals: ""; manager: ""; sr: "" };
   value: any;
@@ -73,6 +81,8 @@ export class EditCampaignsDetailsPage {
         var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
         this.products = doc.data().status;
         this.sts = this.products;
+        this.manIdr = doc.data().manId
+        this.manNam = doc.data().manager
       });
 
     firebase
@@ -88,6 +98,15 @@ export class EditCampaignsDetailsPage {
           this.anArray2.push(this.prod[c]);
         }
       });
+
+      firebase.firestore()
+      .collection("Company")
+      .doc(this.currentuser.photoURL + "/" + "Campaigns" + "/" + this.value.cid).collection("Fields").doc("records").get().then(recDoc => {
+        this.fieldRecord = recDoc.data()
+        console.log("fields",this.fieldRecord)
+
+
+      })
 
     firebase
       .firestore()
@@ -107,6 +126,39 @@ export class EditCampaignsDetailsPage {
           }
         }
       });
+
+
+  }
+
+  chekMan( name){
+    console.log("sadsa",name)
+
+
+    if(name == this.manNam){
+      this.manChanged =false
+      this.newManId = this.manIdr
+
+      console.log("Manager not changed = false", this.manChanged)
+    }else{
+
+
+      this.manChanged = true
+      // this.newManId = manId
+      this.newManName = name
+
+      for(var i in this.productss){
+        if(name == this.productss[i].name){
+          this.newManId =  this.productss[i].id
+        }else{
+          console.log("elses")
+        }
+      }
+
+     
+
+      console.log("Manager changed = true", this.manChanged , "new manager id is:- ", this.newManId)
+
+    }
   }
 
   ionViewDidEnter() {
@@ -153,28 +205,32 @@ export class EditCampaignsDetailsPage {
   update(data) {
     let uiArr = [];
     uiArr = data;
-
+    console.log("uiArr",uiArr)
     //========================== IDS For selected SRs ================
 
     for (var a in uiArr) {
-      let x,
-        y = [];
+      let x;
+      let xx;
+      let xxx;
+      //  y = [];
       x = uiArr[a].split(" ")[0];
-
+      xx = uiArr[a].split(" ")[1];
+      xxx =x+" "+xx
       firebase
         .firestore()
         .collection("Company")
         .doc(this.currentuser.photoURL)
         .collection("Users")
-        .where("name", "==", x)
-        // .where("last", "==", y)
+        .where("name", "==", xxx )
         .get()
         .then((dat) => {
           dat.docs.forEach((snap) => {
             this.idArr.push(snap.data().id);
           });
+          console.log("id",this.idArr)
         })
         .then(() => {
+          console.log(this.currentuser.uid,this.value.cid)
           firebase
             .firestore()
             .collection("Company")
@@ -185,6 +241,14 @@ export class EditCampaignsDetailsPage {
                 "/" +
                 this.value.cid
             )
+          firebase
+          .firestore()
+          .collection("Company")
+          .doc(this.currentuser.photoURL)
+          .collection("Users")
+          .doc(this.currentuser.uid)
+          .collection("CampsAsso")
+          .doc( this.value.cid)
             .onSnapshot((doc) => {
               var source = doc.metadata.hasPendingWrites ? "Local" : "Server";
 
@@ -192,6 +256,57 @@ export class EditCampaignsDetailsPage {
               this.proo = doc.data().status[0].action;
             });
 
+
+            if(this.manChanged){
+              firebase
+              .firestore()
+              .collection("Company")
+              .doc(this.currentuser.photoURL)
+              .collection("Users")
+              .doc(this.manIdr)
+              .collection("CampsAsso")
+              .doc( this.value.cid).delete().then(res => {
+                firebase
+                .firestore()
+                .collection("Company")
+                .doc(this.currentuser.photoURL)
+                .collection("Users")
+                .doc(this.newManId)
+                .collection("CampsAsso").doc(this.value.cid).set({
+                  name: this.value.name,
+                  goals: this.value.goals,
+                  manager: this.newManName,
+                  active:true,
+                  cid:this.value.cid
+                })
+                firebase
+                .firestore()
+                .collection("Company")
+                .doc(this.currentuser.photoURL)
+                .collection("Users")
+                .doc(this.newManId).collection("CampsAsso").doc(this.value.cid).collection("Fields").doc("record").set(
+                  this.fieldRecord
+                )
+              })
+            }else{
+              firebase
+              .firestore()
+              .collection("Company")
+              .doc(this.currentuser.photoURL)
+              .collection("Users")
+              .doc(this.manIdr)
+              .collection("CampsAsso").doc(this.value.cid).update({
+                name: this.value.name,
+                goals: this.value.goals,
+                manager: this.value.manager,
+                active:true,
+                cid:this.value.cid
+              })
+
+            }
+
+            
+     
           firebase
             .firestore()
             .collection("Company")
@@ -207,6 +322,7 @@ export class EditCampaignsDetailsPage {
                 name: this.value.name,
                 goals: this.value.goals,
                 manager: this.value.manager,
+                manId:this.newManId,
                 SR_name: data,
                 SR_id: this.idArr,
                 status: this.sts,

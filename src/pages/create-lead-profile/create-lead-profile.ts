@@ -10,6 +10,7 @@ import { Observable } from "rxjs";
 import { CreateNewCampleadPage } from "../create-new-camplead/create-new-camplead";
 import firebase from "firebase";
 import { v4 as uuid } from "uuid";
+import { LoadingController } from "ionic-angular";
 
 @Component({
   selector: "page-create-lead-profile",
@@ -112,7 +113,7 @@ export class CreateLeadProfilePage {
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
-   
+   private loadingCtrl:LoadingController,
     private http: Http,
     private alertCtrl: AlertController,
     public navParam: NavParams
@@ -344,7 +345,7 @@ export class CreateLeadProfilePage {
     } else {
       let Mainheader = this.anArray1;
   
-
+     
     
       firebase
         .firestore()
@@ -463,7 +464,7 @@ export class CreateLeadProfilePage {
         .then((res) => {
           let i;
 
-          for (i = 0; i < 4; i++) {
+          for (i = 0; i < 3; i++) {
             firebase
               .firestore()
               .collection("Company")
@@ -542,9 +543,9 @@ export class CreateLeadProfilePage {
          )
          .then((res) => {
            let i;
-           if(Mainheader.length >= 4){
+           if(Mainheader.length >= 3){
              
-           for (i = 0; i <= 4; i++) {
+           for (i = 0; i <= 3; i++) {
              firebase
                .firestore()
                .collection("Company")
@@ -640,9 +641,9 @@ export class CreateLeadProfilePage {
            )
            .then((res) => {
              let i;
-             if(Mainheader.length >= 4){
+             if(Mainheader.length >= 3){
                
-             for (i = 0; i <= 4; i++) {
+             for (i = 0; i <= 3; i++) {
                firebase
                  .firestore()
                  .collection("Company")
@@ -785,11 +786,15 @@ export class CreateLeadProfilePage {
     }
 
     if (check) {
-      alert("Select Filelds ");
+      alert("Select Fields ");
     } else {
       let Mainheader = this.anArray;
      
-
+      let loading = this.loadingCtrl.create({
+        spinner: "bubbles",
+        content: "Please wait...",
+      });
+      loading.present();
       let currentUser = firebase.auth().currentUser;
       firebase
         .firestore()
@@ -817,6 +822,7 @@ export class CreateLeadProfilePage {
               this.uploadFlag = true;
             });
         });
+        loading.dismiss()
 
       let arrz = [];
 
@@ -884,9 +890,9 @@ export class CreateLeadProfilePage {
         )
         .then((res) => {
           let i;
-          if(Mainheader.length > 4){
+          if(Mainheader.length > 3){
             
-          for (i = 0; i < 4; i++) {
+          for (i = 0; i <= 3; i++) {
             firebase
               .firestore()
               .collection("Company")
@@ -985,9 +991,9 @@ export class CreateLeadProfilePage {
         )
         .then((res) => {
           let i;
-          if(Mainheader.length >= 4){
+          if(Mainheader.length >= 3){
             
-          for (i = 0; i <= 4; i++) {
+          for (i = 0; i <= 3; i++) {
             firebase
               .firestore()
               .collection("Company")
@@ -1085,9 +1091,9 @@ export class CreateLeadProfilePage {
           )
           .then((res) => {
             let i;
-            if(Mainheader.length >= 4){
+            if(Mainheader.length >= 3){
               
-            for (i = 0; i <= 4; i++) {
+            for (i = 0; i <= 3; i++) {
               firebase
                 .firestore()
                 .collection("Company")

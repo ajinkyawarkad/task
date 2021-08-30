@@ -41,6 +41,7 @@ export class CreateCampaignPage {
     this.slideOpts = {
       effect: "flip",
     };
+    window.location.reload();
   }
   temp() {
     this.navCtrl.push(CreateLeadProfilePage);
@@ -53,7 +54,6 @@ export class CreateCampaignPage {
     }
   }
  
-
   Add() {
     if (this.anArray.length < 8) {
       this.anArray.push({ status: "", action: "None" });
@@ -69,10 +69,8 @@ export class CreateCampaignPage {
     this.sts.sts1 = "Interested";
     this.sts.sts2 = "Not-Interested";
     this.sts.action1 = "None"
-    this.sts.action2 ="None"
-   
-   
-
+    this.sts.action2 ="None" 
+  
     firebase
       .firestore()
       .collection("Company")
@@ -165,7 +163,7 @@ export class CreateCampaignPage {
             {
               cid: this.uuid1,
               name: camp.name,
-                goals: camp.goals,
+              goals: camp.goals,
               manager: data2.name,
               active: true,
             },
